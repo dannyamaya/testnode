@@ -1,0 +1,263 @@
+#%RAML 1.0
+title: Livinn
+version: v1
+baseUri: https://api.livinn.com/{version}
+securedBy: [ oauth_2_0, oauth_1_0 ]
+securitySchemes:
+  oauth_2_0:
+    description: |
+      Livinn supports OAuth 2.0 for authenticating all API requests.
+    type: OAuth 2.0
+    describedBy:
+      headers:
+        Authorization:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use
+             with the "access_token" query string parameter.
+          type: string
+      queryParameters:
+        access_token:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use with
+             the "Authorization" header.
+          type: string
+      responses:
+        401:
+          description: |
+              Bad or expired token. This can happen if the user or Livinn
+              revoked or expired an access token. To fix, re-authenticate
+              the user.
+        403:
+          description: |
+              Bad OAuth request (wrong consumer key, bad nonce, expired
+              timestamp...). Unfortunately, re-authenticating the user won't help here.
+    settings:
+      authorizationUri: https://api.livinn.com/1/oauth2/authorize
+      accessTokenUri: https://api.dropbox.com/1/oauth2/token
+      authorizationGrants: [ authorization_code, implicit, 'urn:ietf:params:oauth:grant-type:saml2-bearer' ]
+  oauth_1_0:
+    description: |
+      OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred.
+    type: OAuth 1.0
+    settings:
+      requestTokenUri: https://api.livinn.com/1/oauth/request_token
+      authorizationUri: https://api.livinn.com/1/oauth/authorize
+      tokenCredentialsUri: https://api.livinn.com/1/oauth/access_token
+      signatures: [ 'HMAC-SHA1', 'PLAINTEXT' ]
+mediaType: [ application/json ]
+
+types:
+  User:
+    properties:
+      email:
+        required: true
+      firstName:
+        required: true
+      lastName:
+        required: true
+      doctype:
+        required: true
+      doc:
+        required: true
+      cellphone:
+        required: true
+      rol:
+        required: true
+      city:
+        required: true
+  Ticket:
+    properties:
+      priority:
+      filed_by:
+        required: true
+      created_by:
+        required: true
+      asigned_to:
+      status:
+      grade:
+      message:
+        required: true
+      replies:
+      category:
+        required: true
+/users:
+  description: Collection of users
+  get:
+    securedBy: [oauth_2_0, oauth_1_0]
+    description: Get a list of users.
+    queryParameters:
+      search:
+        description: "Can query users by their firstname, lastname, email, cellphone, rol or city"
+        required: false
+        minLength: 3
+        type: string
+        example: "Get F"
+      page:
+        description: "handles pagination, each response returns a set of 10 users"
+        required: false
+        minLength: 3
+        type: string
+        example: "Get L"
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              "users": [
+                  {
+                    "_id": "550e8400e29b41d4a716446655440000",
+                    "email": "email@email.com",
+                    "firstName": "Juan",
+                    "lastName": "Florez",
+                    "doctype": "cc",
+                    "doc": "23545345",
+                    "cellphone": "312345678",
+                    "rol": "resident",
+                    "city": "bogotá"
+                  },
+                  {
+                    "_id": "550e8400e29b41d4a716446655440000",
+                    "email": "email2@email.com",
+                    "firstName": "Sergio",
+                    "lastName": "Rodriguez",
+                    "doctype": "cc",
+                    "doc": "23545345",
+                    "cellphone": "345678978",
+                    "rol": "resident",
+                    "city": "bogotá"
+                  },
+                  {
+                    "_id": "550e8400e29b41d4a716446655440000",
+                    "email": "email3@email.com",
+                    "firstName": "Julián",
+                    "lastName": "Martinez",
+                    "doctype": "cc",
+                    "doc": "23545345",
+                    "cellphone": "765864",
+                    "rol": "resident",
+                    "city": "bogotá"
+                  }
+              ]
+  post:
+    securedBy: [oauth_2_0, oauth_1_0]
+    description: Creates a new User
+    body:
+      application/json:
+        type: User
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              "user":
+                  {
+                    "_id": "550e8400e29b41d4a716446655440000",
+                    "email": "email3@email.com",
+                    "firstName": "Julián",
+                    "lastName": "Martinez",
+                    "doctype": "cc",
+                    "doc": "23545345",
+                    "cellphone": "312456576",
+                    "rol": "resident",
+                    "city": "bogotá"
+                  }
+  /{userId}:
+    get:
+      securedBy: [oauth_2_0, oauth_1_0]
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                "user":
+                    {
+                      "_id": "550e8400e29b41d4a716446655440000",
+                      "email": "email3@email.com",
+                      "firstName": "Julián",
+                      "lastName": "Martinez",
+                      "doctype": "cc",
+                      "doc": "23545345",
+                      "cellphone": "312456576",
+                      "rol": "resident",
+                      "city": "bogotá"
+                    }
+
+    put:
+      securedBy: [oauth_2_0, oauth_1_0]
+    delete:
+      securedBy: [oauth_2_0, oauth_1_0]
+
+/tickets:
+  description: Collection of tickets
+  get:
+    securedBy: [oauth_2_0, oauth_1_0]
+    description: Get a list of tickets.
+    queryParameters:
+      search:
+        description: "Can query users by their firstname, lastname, email, cellphone, rol or city"
+        required: false
+        minLength: 3
+        type: string
+        example: "Get F"
+      page:
+        description: "handles pagination, each response returns a set of 10 users"
+        required: false
+        minLength: 3
+        type: string
+        example: "Get L"
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              "tickets": [
+                  {
+                    "_id": "550e8400e29b41d4a716446655440000",
+                    "priority": "1",
+                    "filed_by": "Sergio Rodriguez",
+                    "created_by": "Juan Florez",
+                    "assigned_to": "Julian Martinez",
+                    "status": "open",
+                    "grade": "1",
+                    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "replies": "[]",
+                    "category": "servicio al cliente"
+                  },
+                  {
+                    "_id": "550e8400e29b41d4a716446655440001",
+                    "priority": "2",
+                    "filed_by": "Sergio Rodriguez",
+                    "created_by": "Juan Florez",
+                    "assigned_to": "Julian Martinez",
+                    "status": "closed",
+                    "grade": "1",
+                    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "replies": "[]",
+                    "category": "servicio al cliente"
+                  },
+                  {
+                    "_id": "550e8400e29b41d4a716446655440002",
+                    "priority": "5",
+                    "filed_by": "Sergio Rodriguez",
+                    "created_by": "Juan Florez",
+                    "assigned_to": "Julian Martinez",
+                    "status": "open",
+                    "grade": "1",
+                    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "replies": "[
+                      {
+                        "_id": "550e8400e29b41d4a716446655440001",
+                        "priority": "2",
+                        "filed_by": "Sergio Rodriguez",
+                        "created_by": "Juan Florez",
+                        "assigned_to": "Julian Martinez",
+                        "status": "closed",
+                        "grade": "1",
+                        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                        "replies": "[]",
+                        "category": "servicio al cliente"
+                      }
+                    ]",
+                    "category": "servicio al cliente"
+                  }
+              ]

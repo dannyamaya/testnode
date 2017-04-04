@@ -1,0 +1,15 @@
+{
+	"url":"https://livinnchile.herokuapp.com",
+	"encrypt": "8_fTteZXj*",
+	"cookie_secret":"vsdcnue123cm",
+	"mailUser":"contact@cannedhead.com",
+	"mailPassword":"E479d036b6!",
+	"development": {
+		"url" : "http://localhost:3000",
+		"db"  : "mongodb://localhost/livinn-api"
+	},
+	"production":{
+		"url" : "mongodb://localhost/livinn-api"
+	} 
+
+}

@@ -1,6 +1,9 @@
 var LocalStrategy  = require('passport-local').Strategy;
 var User = require('../models/user');
 var config = require('./config');
+var oauth2orize = require('oauth2orize');
+var server = oauth2orize.createServer();
+
 
 module.exports = function(passport) {
 

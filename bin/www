@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('livinn-api:server');
 var http = require('http');
+var mongoose = require('mongoose');
+var config = require('../config/config.json');
 
 /**
  * Get port from environment and store in Express.
@@ -88,3 +90,11 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+mongoose.connect(config.production.url, function(err, res) {
+    if(err) {
+        console.log('ERROR: connecting to Database. ' + err);
+    } else {
+        console.log('Connected to Mongo Database');
+    }
+});

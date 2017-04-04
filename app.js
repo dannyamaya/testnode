@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var passport = require('passport');
+var config = require('./config/config.json');
 require(__dirname + '/config/passport.js')(passport, config);
 
 var index = require('./routes/index');

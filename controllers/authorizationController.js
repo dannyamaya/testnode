@@ -2,12 +2,12 @@ var oauth2orize = require('oauth2orize');
 var server = oauth2orize.createServer();
 var url = require('url');
 
-var Application = require('../models/application.js'):
+var Application = require('../models/application.js');
 
 module.exports = {
-    start: function(req, res, next){
-        server.authorize(function(applicationID, redirectURI, done) {
-            Application.findOne({ oauth_id: applicationID }, function(error, application) {
+    start: function (req, res, next) {
+        server.authorize(function (applicationID, redirectURI, done) {
+            Application.findOne({oauth_id: applicationID}, function (error, application) {
                 if (application) {
                     var match = false, uri = url.parse(redirectURI || '');
                     for (var i = 0; i < application.domains.length; i++) {
@@ -28,7 +28,7 @@ module.exports = {
                     done(error);
                 }
             });
-        }), function(req, res) {
+        }), function (req, res) {
 
             var scopeMap = {
                 view_account: 'view your account',
@@ -46,5 +46,45 @@ module.exports = {
                 map: scopeMap
             });
         }
+    },
+    finish: function (req, res, next) {
+        if (req.user) {
+            next();
+        } else {
+            passport.authenticate('local', {
+                session: false
+            }, function (error, user, info) {
+                if (user) {
+                    next();
+                } else if (!error) {
+                    req.flash('error', 'Your email or password was incorrect. Try again.');
+                    res.redirect(req.body['auth_url'])
+                }
+            })(req, res, next);
+        }
+        server.decision(function (req, done) {
+            done(null, {scope: req.oauth2.req.scope});
+        })
+    },
+
+    exchange: function (req, res, next) {
+        var appID = req.body['client_id'];
+        var appSecret = req.body['client_secret'];
+
+        Application.findOne({ oauth_id: appID, oauth_secret: appSecret }, function(error, application) {
+            if (application) {
+                req.app = application;
+                next();
+            } else if (!error) {
+                error = new Error("There was no application with the Application ID and Secret you provided.");
+                next(error);
+            } else {
+                next(error);
+            }
+        });
+        server.token(), server.errorHandler();
     }
+
 }
+
+

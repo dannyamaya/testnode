@@ -66,4 +66,4 @@ exports.welcome= function(user){
         }
 
       });
-},
+}

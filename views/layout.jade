@@ -1,7 +1,56 @@
-doctype html
-html
-  head
-    title Livinn API
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+doctype
+html.no-js(lang="es")
+    head
+        meta(charset="utf-8")
+        meta(content="width=device-width, initial-scale=1" name="viewport")
+        meta(name ="description" content="Livinn | API")
+        title Livinn API | #{title}
+
+
+        <!-- CSS -->
+        link(href="/css/bootstrap.css", rel="stylesheet")
+        link(rel="stylesheet" href="/css/jquery-ui.min.css")
+        link(href="/css/font-awesome.min.css" rel="stylesheet" type="text/css")
+        link(href="/css/animate.min.css", rel="stylesheet")
+        link(rel="stylesheet", href="/css/ionicons.min.css")
+        link(href="/css/style.css", rel="stylesheet")
+
+        block header
+    body
+        block content
+        .alert.alert-warning.animated.col-xs-12.col-sm-6.col-sm-offset-3#warning
+            p.text-center
+        .alert.alert-success.animated.col-xs-12.col-sm-6.col-sm-offset-3#success
+            p.text-center
+
+        script(src="/js/jquery-1.12.1.min.js")
+        script(src="/js/jquery-ui.min.js")
+        script(type="text/javascript" src="/js/moment.min.js")
+        script(type="text/javascript" src="/js/es.js")
+        script(src="/js/bootstrap.min.js")
+
+        script.
+            //-------------------------------------------------------------------------
+            //            ALERTS
+            //-------------------------------------------------------------------------
+
+            function warningAlert(message) {
+                $('#warning p').html(message);
+                $('#warning').addClass("slideInDown");
+                $('#warning').fadeIn('slow');
+                setTimeout(function () {
+                    $('#warning').fadeOut('slow');
+                    $('#warning').removeClass("slideInDown");
+                }, 2600);
+            }
+
+            function successAlert(message) {
+                $('#success p').html(message);
+                $('#success').addClass("slideInDown");
+                $('#success').fadeIn('slow');
+                setTimeout(function () {
+                    $('#success').fadeOut('slow');
+                    $('#success').removeClass("slideInDown");
+                }, 2600);
+            }
+        block scripts

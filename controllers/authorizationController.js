@@ -71,7 +71,7 @@ module.exports = {
         var appID = req.body['client_id'];
         var appSecret = req.body['client_secret'];
 
-        Application.findOne({ oauth_id: appID, oauth_secret: appSecret }, function(error, application) {
+        Application.findOne({oauth_id: appID, oauth_secret: appSecret}, function (error, application) {
             if (application) {
                 req.app = application;
                 next();
@@ -83,6 +83,13 @@ module.exports = {
             }
         });
         server.token(), server.errorHandler();
+    },
+
+    login: function(req, res, next){
+        res.render('login', {
+            title: 'Login',
+            logged: req.isAuthenticated()
+        });
     }
 
 }

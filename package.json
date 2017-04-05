@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "body-parser": "~1.15.2",
+    "connect-mongo": "^1.3.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
+    "express-session": "^1.15.2",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "nodemailer": "0.7.1",
@@ -25,7 +27,7 @@
     "should": "^11.2.1",
     "supertest": "^3.0.0"
   },
-   "config": {
+  "config": {
     "mocha-sonar-reporter": {
       "classname": "Test",
       "testdir": "test",

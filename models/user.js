@@ -24,6 +24,11 @@ var UserSchema = new Schema({
         show: {type: Boolean, default: false}
     },
 
+    document: {
+        typedoc:{type:String, default:'DNI'},
+        number:{type:String, required:true, trim:true}
+    },
+
     banned: {type: Boolean, default: false, required: true},
     hash: {type: String, default: ''},
     salt: {type: String, default: ''},
@@ -40,8 +45,9 @@ var UserSchema = new Schema({
     lastlogin: {type: Date, default: Date.now},
     created: {type: Date, default: Date.now},
     updated: {type: Date, default: Date.now},
-    rol: {type: String, required: true, default: 'user'},
-    active: {type: String, default: true}
+    role: {type: String, required: true, default: 'resident'},
+    active: {type: String, default: true},
+    location:{type:String, required:true}
 
 }, {
     toObject: {
@@ -87,20 +93,10 @@ UserSchema.methods.verifyPassword = function (password, fn) {
     bcrypt.compare(password, this.hash, fn);
 };
 
-UserSchema.methods.hasRole = function (role, fn) {
-    var hasRole = false;
-
-    if (this.rol === role) {
-        hasRole = true;
-    }
-
-    fn(null, hasRole);
-};
-
 UserSchema.methods.hasRole = function (role) {
     var hasRole = false;
 
-    if (this.rol === role) {
+    if (this.role === role) {
         hasRole = true;
     }
 

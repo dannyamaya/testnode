@@ -1,5 +1,6 @@
 var mailer = require('../mailer/mailer');
 var User = require('../models/user.js');
+var async = require('async');
 
 module.exports = {
 
@@ -11,31 +12,44 @@ module.exports = {
      * @param {string} passwordconf - The user's password confirmation, verification purposes.
      */
     createUser: function (req, res, next) {
-        if (req.body.name.first === undefined) {
-            return res.status(404).json({message: 'name not found'});
+        if (req.body.first === undefined) {
+            return res.status(404).json({message: 'FirstName not found'});
         }
-        if (req.body.name.last === undefined) {
-            return res.status(404).json({message: 'name not found'});
+        if (req.body.last === undefined) {
+            return res.status(404).json({message: 'Lastname not found'});
         }
         if (req.body.email === undefined) {
-            return res.status(404).json({message: 'email not found'});
+            return res.status(404).json({message: 'Email not found'});
         }
-        if (req.body.password === undefined) {
-           return res.status(404).json({message: 'password not found'});
+        if (req.body.document === undefined) {
+            return res.status(404).json({message: 'Document not found'});
         }
-        if (req.body.passwordconf === undefined) {
-           return res.status(404).json({message: 'passwordconf not found'});
+        if (req.body.location === undefined) {
+            return res.status(404).json({message: 'Location not found'});
         }
 
-        var pswd = req.body.password;
-        var pswd_conf = req.body.passwordconf;
+        var pswd = req.body.document;
+        var pswd_conf = req.body.document;
 
         if (pswd == pswd_conf) {
 
             var user = new User({
-                name: req.body.name,
+                name: {
+                    first: req.body.first,
+                    last: req.body.last
+                },
+                phone: {
+                    number: req.body.phone
+                },
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.document,
+                location: req.body.location,
+                document: {
+                    doctype: req.body.doctype,
+                    number: req.body.document
+                },
+                role: req.body.role
+
             });
 
             user.save(function (err) {
@@ -43,13 +57,7 @@ module.exports = {
                     console.log('New user has been created');
                     req.user = user;
                     mailer.welcome(user);
-                    req.login(user, function (err) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.status(200).json({message: "User has been created"});
-                    });
-
+                    return res.status(200).json({message: "User has been created"});
                 } else {
                     console.log('ERROR: ' + err);
                     res.status(201).json({message: "User already exists"});
@@ -67,27 +75,74 @@ module.exports = {
      */
     readUsers: function (req, res, next) {
 
+        var search = '';
+        console.log(req.query.page);
         var page = req.query.page || 1;
-        var search = req.query.search || '';
-        User.find({roles: {$nin: ["admin"]}}).or([
-            {
-                'name.first': new RegExp(search, 'i')
-            },
-            {
-                'name.last': new RegExp(search, 'i')
-            },
-            {
-                email: new RegExp(search, 'i')
+        console.log(page);
+        if (req.query.search) {
+            search = req.query.search;
+        }
+
+        async.parallel([
+
+            function (callback) {
+
+                User.find({roles: {$nin: ["admin"]}, active: true}).or([
+                    {
+                        'name.first': new RegExp(search, 'i')
+                    },
+                    {
+                        'name.last': new RegExp(search, 'i')
+                    },
+                    {
+                        email: new RegExp(search, 'i')
+                    },
+                    {
+                        doc: new RegExp(search, 'i')
+                    }
+                ])
+                    .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, users) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        callback(err, null);
+                    } else {
+                        callback(null, users);
+                    }
+                });
+
+            }, function (callback) {
+
+                User.count({
+                    $or: [{
+                        'name.first': new RegExp(search, 'i')
+                    },
+                        {
+                            'name.last': new RegExp(search, 'i')
+                        },
+                        {
+                            email: new RegExp(search, 'i')
+                        },
+                        {
+                            doc: new RegExp(search, 'i')
+                        }]
+                }).exec(function (err, count) {
+                    if (err) {
+                        callback(err, null);
+                    } else {
+                        callback(null, count);
+                    }
+                });
+
             }
-        ])
-            .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, users) {
+
+        ], function (err, results) {
             if (err) {
-                console.log('ERROR: ' + err);
-                res.status(500).json({err: err, message: "Internal Server Error"});
+                return res.status(500).json({error: true, message: 'Server connection error. Please try later'});
             } else {
-                res.status(200).json({users: users, page: page});
+                return res.status(200).json({error: false, users: results[0], count: results[1], page: parseInt(page)});
             }
         });
+
     },
 
     /**

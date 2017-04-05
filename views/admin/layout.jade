@@ -1,0 +1,78 @@
+doctype
+html.no-js(lang="es")
+  head
+    meta(charset="utf-8")
+    meta(content="width=device-width, initial-scale=1" name="viewport")
+    meta(name ="description" content="Livinn")
+    title Livinn | #{title}
+
+    <!-- FAVICON -->
+    link(href="#")
+
+    <!-- CSS -->
+    link(href="/css/bootstrap.min.css", rel="stylesheet")
+    link(rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
+    link(href="/css/font-awesome.min.css" rel="stylesheet" type="text/css")
+    link(href="/css/animate.min.css", rel="stylesheet")
+    link(rel="stylesheet", href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
+    link(href="/css/style.css", rel="stylesheet")
+    block header
+  body
+    .col-xs-12.col-sm-2.dashboard-menu
+        .col-xs-12.logo-dashboard
+            img.img-responsive(src="/img/logolivinn-blanco.svg", alt="union andina")
+        ul.list-unstyled
+            li.inactive DASHBOARD
+            if user.role == 'admin'
+                li
+                    a(href="/users") Usuarios
+
+
+    .col-xs-12.col-sm-10.col-sm-offset-2.no-padding.dashcontainer
+        .col-xs-12.no-padding.heading
+            h1.col-xs-6 #{title}
+            .col-xs-6
+                ul.nav.navbar-nav.navbar-right
+                    li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                            |    #{user.name.first} #{user.name.last}
+                            i.icon.ion-ios-arrow-down
+                        ul.dropdown-menu
+                            li
+                                a(href='/admin/settings/personal-information') Configuración
+                            li
+                                a(href='/logout') Salir
+        block content
+    .alert.alert-warning.animated.col-xs-12.col-sm-6.col-sm-offset-3#warning
+        p.text-center
+    .alert.alert-success.animated.col-xs-12.col-sm-6.col-sm-offset-3#success
+        p.text-center
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js")
+    script(src="/js/bootstrap.min.js")
+    script(src="/js/moment.min.js")
+    script.
+        //-------------------------------------------------------------------------
+        //            ALERTS
+        //-------------------------------------------------------------------------
+
+        function warningAlert(message){
+            $('#warning p').html(message);
+            $('#warning').addClass("slideInDown");
+            $('#warning').fadeIn('slow');
+            setTimeout(function(){
+                $('#warning').fadeOut('slow');
+                $('#warning').removeClass("slideInDown");
+            }, 2600);
+        }
+
+        function successAlert(message){
+            $('#success p').html(message);
+            $('#success').addClass("slideInDown");
+            $('#success').fadeIn('slow');
+            setTimeout(function(){
+                $('#success').fadeOut('slow');
+                $('#success').removeClass("slideInDown");
+            }, 2600);
+        }
+    block scripts

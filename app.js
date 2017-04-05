@@ -12,6 +12,10 @@ require(__dirname + '/config/passport.js')(passport, config);
 var index = require('./routes/index');
 var users = require('./routes/users');
 var tickets = require('./routes/tickets');
+var session  = require('express-session');
+var mongoStore = require('connect-mongo')(session);
+
+
 
 var app = express();
 
@@ -26,6 +30,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    secret: config.cookie_secret,
+    proxy: true,
+    resave: true,
+    saveUninitialized: true,
+    store: new mongoStore({
+        url: config.production.url,
+        collection : 'sessions'
+    })
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', index);
 app.use('/api/users', users);

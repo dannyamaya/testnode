@@ -1,0 +1,395 @@
+extend ../layout
+block content   
+    .col-xs-12
+        .panel.panel-default.col-xs-12
+            form.form.col-xs-12.col-sm-4.no-padding#searchform(method="post" action="users")
+                .input-group.search
+                    input.form-control#search(type="text" aria-label="Buscar")
+                    span.input-group-addon
+                        i.fa.fa-search
+
+            button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Eliminar" onclick='deleteUserModal()')
+                i.fa.fa-trash
+            button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Editar" onclick='updateUserModal()')
+                i.fa.fa-pencil-square-o
+            a.btn.btn-default.btn-adduser(href="/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Descargar")
+                i.fa.fa-download
+            .pull-right
+                button.btn.btn-livinn.btn-adduser(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
+                    span.hidden-xs Add Users
+                    i.visible-xs.fa.fa-plus
+            .clearfix
+            .table-responsive.panel-user
+                table.table.table-striped.hidden#userstable
+                    thead
+                        tr
+                            th
+                            th Email
+                            th First Name
+                            th Last Name
+                            th Document Type
+                            th Document
+                            th Cellphone
+                            th Role
+                            th City
+                            th Created
+                            th Updated
+                            th Last Login
+                    tbody
+                #loader
+                .col-xs-12
+                    p.text-center#pages 1-10 de # Users
+                nav#page-nav
+                    .text-center#page-selection
+
+    <!-- User Registration Modal -->
+    .modal.fade#registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;     
+                    h3.modal-title.text-center Register User
+                .modal-body
+                    .row
+                        .col-xs-12.col-sm-8.col-sm-offset-2
+                            form#registrationForm(action="/api/users", method="post", role="form")
+                                .form-group.emailregistrationerror
+                                    label(for='email') Email
+                                    input#email.form-control(type='text' placeholder='Email' name="email" required autofocus='')
+                                .form-group
+                                    label(for='first') Nombres
+                                    input#first.form-control(type='text' name='first' placeholder='Nombres' required='' autofocus='')
+                                .form-group
+                                    label(for='last') Apellidos
+                                    input#last.form-control(type='text' name='last' placeholder='Apellidos' required='' autofocus='')
+                                .form-group
+                                    label Type of Document
+                                    .select
+                                        select(name="doctype")
+                                            option(value="DNI") DNI
+                                            option(value="Passport") Passport
+                                .form-group
+                                    label(for='document') Document
+                                    input#document.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
+                                .form-group
+                                    label(for='phone') Phone
+                                    input#phone.form-control(type='text' name='phone' placeholder='Phone' required='' autofocus='')
+                                .form-group
+                                    label Role
+                                    .select
+                                        select(name="role")
+                                            option(value="resident") Resident
+                                            option(value="marketing") Marketing
+                                            option(value="operation-manager") Operation Manager
+                                            option(value="maintenance") Maintenance
+                                            option(value="client-service") Client Service
+                                            option(value="resident-assistant") Resident Assistant
+                                            option(value="admin") Super Admin
+                                .form-group
+                                    label Location
+                                    .select
+                                        select(name="location")
+                                            option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
+                                            option(value="Viña Del Mar") Viña Del Mar
+                                            option(value="Calle 18 Bogotá") Calle 18 Bogotá
+                                            option(value="Calle 21 Bogotá")  Calle 21 Bogotá
+                                            option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
+                                button.btn.btn-lg.btn-livinn.btn-block(type='submit') Registrar
+
+    <!-- Update User Modal -->
+    .modal.fade#updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;     
+                    h3.modal-sm-title.text-center#updateModal_h ¿Desea modificar a este usuario?
+                .modal-body
+                    .row
+                        .col-xs-12.col-sm-8.col-sm-offset-2
+                            form#updateForm(action="/user",method="post", role="form")
+
+                                .form-group
+                                    label(for='inputUpdateDni') No. de Documento
+                                    input#inputUpdateDoc.form-control.text-capitalize(type='text' name='document' placeholder='Documento' required='' autofocus='')
+                                .form-group
+                                    label(for='inputUpdateFirstname') Nombres
+                                    input#inputUpdateFirstname.form-control.text-capitalize(type='text' name='first' placeholder='Nombres' required='' autofocus='')
+                                .form-group
+                                    label(for='inputUpdateLastname') Apellidos
+                                    input#inputUpdateLastname.form-control.text-capitalize(type='text' name='last' placeholder='Apellidos' required='' autofocus='')
+                                .form-group.emailregistrationerror
+                                    label(for='inputUpdateEmail') Email
+                                    input#inputUpdateEmail.form-control(type='email' name='email' placeholder='Email' disabled)
+                                .form-group.emailregistrationerror
+                                    label(for='inputUpdateCelular') Celular
+                                    input#inputUpdateCelular.form-control(type='text' name='cellphone' placeholder='Celular')
+                                .form-group
+                                    label Rol
+                                    .select
+                                        select#inputUpdateRol(name="rol")
+                                            option(value="enrutador") Enrutador
+                                            option(value="admin") Administrador
+
+
+                .modal-footer
+                    button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancelar
+                    button.btn.btn-livinn(onclick='updateUser()')  Modificar
+
+    <!-- Delete User Modal -->
+    .modal.fade#deleteUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;  
+                    .row
+                        .col-xs-4.col-xs-offset-4.no-padding
+                            img.img-responsive(src="img/icon_eliminar.svg", alt="eliminar")
+                        h3.col-xs-12.modal-title.text-center#deleteModal_h ¿Desea eliminar este usuario?                    
+                .modal-body
+                    h4.modal-title.text-danger.danger-modal.text-center.hidden#deleteError
+                    form
+                        p.text-center#deleteModal_p Toda la información de este usuario será eliminada del sistema. 
+                        br
+                .modal-footer
+                    a.btn.btn-danger.deleteBtn.btn-livinn(onclick='deleteUser()')  Eliminar
+                    button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancelar
+
+
+block scripts
+    script(src="/js/jquery.bootpag.min.js")
+    script.
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        $(document).ready(function () {
+
+            $('#page-selection').bootpag({
+                total: 10,
+                maxVisible: 5,
+            }).on("page", function (event, num) {
+                console.log("numero:" + num);
+                filterUsers(num);
+            });
+
+            filterUsers(1);
+        });
+
+
+        /*=== Create user ===*/
+        $('#registrationForm').submit(function (evt) {
+            console.log("Registro");
+            evt.preventDefault();
+
+            var url = $(this).attr("action");
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                success: function (response) {
+                    if (response.message == '11000') {
+                        $('#inputEmail').focus();
+                        $('.emailregistrationerror').addClass('has-error');
+                        warningAlert('Ya existe una cuenta registrada con este Email o número de Documento');
+                    } else {
+                        $('#registrationModal').modal('hide');
+                        document.getElementById("registrationForm").reset();
+
+                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].document.doctype + "</td><td>" + response.users[key].document.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+
+                        successAlert("Usuario ha sido registrado satisfactoriamente.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+        });
+
+        /* Read users */
+        function readUsers(page, search) {
+
+            var p = page || 1;
+            var s = search || '';
+
+            var url = "/api/users?page=" + p + "&search=" + s;
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (response) {
+                    var total = parseInt(response.count / 10);
+                    if (response.count % 10 != 0) {
+                        total += 1;
+                    }
+
+                    var m = ((response.count % 10 != 0 && response.page == total) ? response.count % 10 : 10);
+
+                    var a = 1 + (response.page - 1) * 10;
+                    var b = m + (response.page - 1) * 10;
+                    $('#pages').html(a + '-' + b + ' of ' + response.count + ' Users');
+                    $('#page-selection').bootpag({total: total, maxVisible: 5});
+
+                    var banned;
+                    $("#userstable tbody tr").remove();
+                    for (key = 0; key < response.users.length; key++) {
+
+                        if (response.users[key].banned) {
+                            banned = '<i class="fa fa-ban warning-color" aria-hidden="true"></i>';
+                        } else {
+                            banned = "";
+                        }
+                        var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
+                        var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
+
+                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].document.typedoc + "</td><td>" + response.users[key].document.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                    }
+
+                    $('#loader').fadeOut("slow", function () {
+                        $('#userstable').removeClass("hidden").fadeIn("slow");
+                    });
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+        }
+
+        /*=== Update user ==m=*/
+        function updateUserModal() {
+            len = $('#userstable input:checkbox:checked').length;
+            if (len == 0) {
+                warningAlert('No has seleccionado ningun elemento para modificar.');
+            } else if (len == 1) {
+                var currentRow = $('input:checkbox:checked')[0].parentNode.parentNode;
+                var document = currentRow.getElementsByTagName("td")[1].textContent;
+                var first = currentRow.getElementsByTagName("td")[2].textContent;
+                var last = currentRow.getElementsByTagName("td")[3].textContent;
+                var email = currentRow.getElementsByTagName("td")[4].textContent;
+                var cellphone = currentRow.getElementsByTagName("td")[5].textContent;
+                var rol = currentRow.getElementsByTagName("td")[6].textContent;
+
+                $('#updateModal_h').html('¿Desea modificar al usuario <span class="text-capitalize">' + first + ' ' + last + '</span>?');
+
+                $("#inputUpdateDoc").val(document);
+                $('#inputUpdateFirstname').val(first);
+                $('#inputUpdateLastname').val(last);
+                $('#inputUpdateEmail').val(email);
+                $('#inputUpdateRol').val(rol);
+                $('#inputUpdateCelular').val(cellphone);
+                $('#updateUserModal').modal('show');
+            }
+            else {
+                warningAlert('Solo es posible modificar un usuario a la vez.');
+            }
+        }
+
+        function updateUser() {
+
+            var users = [];
+            $('#userstable input:checkbox:checked').each(function () {
+                users.push($(this).val());
+            });
+
+            var updatedata = $("#updateForm").serialize();
+            $.ajax({
+                type: "PUT",
+                data: updatedata,
+                url: '/user/' + users[0],
+                success: function (response) {
+                    console.log(response);
+                    var userr;
+                    $('input:checkbox:checked').each(function () {
+                        userr = $(this).parents("tr");
+                        $(this).attr('checked', false);
+                    });
+
+                    var tdDoc = userr.children("td:nth-child(2)");
+                    var tdFirst = userr.children("td:nth-child(3)");
+                    var tdLast = userr.children("td:nth-child(4)");
+                    var tdCellphone = userr.children("td:nth-child(6)");
+                    var tdRol = userr.children("td:nth-child(7)");
+                    var tdUpdated = userr.children("td:nth-child(12)");
+
+                    tdDoc.text(response.user.document);
+                    tdFirst.text(response.user.name.first);
+                    tdLast.text(response.user.name.last);
+                    tdCellphone.text(response.user.cellphone);
+                    tdRol.text(response.user.rol);
+                    tdUpdated.text(moment(response.user.updated).format('YYYY-DD-MM-h:mm a'));
+
+                    $('#updateUserModal').modal('hide');
+                    successAlert('Usuario ha sido modificado');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+        }
+
+        /* Delete user */
+
+        function deleteUserModal() {
+            len = $('input:checkbox:checked').length;
+            if (len == 0) {
+                warningAlert('No has seleccionado ningun elemento para eliminar.');
+            } else if (len == 1) {
+                $('#deleteModal_h').html('').html('¿Desea eliminar este usuario?')
+                $('#deleteModal_p').html('').html('Toda la información de este usuario será eliminada del sistema.');
+                $('#deleteUserModal').modal('show');
+            }
+            else {
+                $('#deleteModal_h').html('').html('¿Desea eliminar estos usuarios?')
+                $('#deleteModal_p').html('').html('Toda la información de los usuarios seleccionados será eliminada del sistema.');
+                $('#deleteUserModal').modal('show');
+            }
+        }
+
+        function deleteUser() {
+
+            var users = [];
+            $('input:checkbox:checked').each(function () {
+                users.push($(this).val());
+            });
+
+            $.ajax({
+                type: "DELETE",
+                data: {users: users},
+                url: '/user',
+                success: function (response) {
+                    $('input:checkbox:checked').each(function () {
+                        $(this).parents("tr").remove();
+                    });
+                    $('#deleteUserModal').modal('hide');
+                    successAlert(message);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+
+        }
+
+        function filterUsers(page) {
+            var search = $('#search').val().trim();
+            readUsers(page, search);
+        }
+
+        /*Search user*/
+
+        $('#searchform').submit(function (event) {
+
+            event.preventDefault();
+
+            $('#userstable').fadeOut("fast", function () {
+                $('#loader').fadeIn("fast");
+                readUsers(1, $("#search").val());
+            });
+        });

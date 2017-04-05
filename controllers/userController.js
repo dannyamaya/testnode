@@ -1,5 +1,6 @@
 var mailer = require('../mailer/mailer');
 var User = require('../models/user.js');
+var Resident = require('../models/resident.js');
 var async = require('async');
 
 module.exports = {
@@ -21,11 +22,35 @@ module.exports = {
         if (req.body.email === undefined) {
             return res.status(404).json({message: 'Email not found'});
         }
-        if (req.body.document === undefined) {
+        if (req.body.doc === undefined) {
             return res.status(404).json({message: 'Document not found'});
         }
         if (req.body.location === undefined) {
             return res.status(404).json({message: 'Location not found'});
+        }
+
+        if (req.body.role === 'resident') {
+
+            if (req.body.numcontract === undefined) {
+                return res.status(404).json({message: 'Contract Number not found'});
+            }if (req.body.apartment === undefined) {
+                return res.status(404).json({message: 'Apartment not found'});
+            }if (req.body.rate === undefined) {
+                return res.status(404).json({message: 'Rate not found'});
+            }if (req.body.currency === undefined) {
+                return res.status(404).json({message: 'Currency not found'});
+            }if (req.body.rateusd === undefined) {
+                return res.status(404).json({message: 'Rate USD not found'});
+            }if (req.body.agent === undefined) {
+                return res.status(404).json({message: 'Agent not found'});
+            }if (req.body.finish === undefined) {
+                return res.status(404).json({message: 'Finish not found'});
+            }if (req.body.start === undefined) {
+                return res.status(404).json({message: 'Start not found'});
+            }if (req.body.duration === undefined) {
+                return res.status(404).json({message: 'Duration not found'});
+            }
+
         }
 
         var pswd = req.body.document;
@@ -52,12 +77,34 @@ module.exports = {
 
             });
 
-            user.save(function (err) {
+            user.save(function (err,u) {
                 if (!err) {
-                    console.log('New user has been created');
+                    if(u.role === 'resident'){
+                        var resident = new Resident({
+                            user_id: u._id,
+                            contract_number: req.body.numcontract,
+                            birth_date: req.body.birth_date,
+                            apartment: req.body.apartment,
+                            bed: req.body.bed,
+                            bedtype: req.body.bedtype,
+                            rate: req.body.rate,
+                            currency: req.body.currency,
+                            rateusd: req.body.rateusd,
+                            agent: req.body.agent,
+                            finish: req.body.finish,
+                            start: req.body.start,
+                            duration: req.body.duration
+                        });
+
+                        resident.save(function(err){
+                           if(!err){
+                               console.log('New resident has benn created')
+                           }
+                        });
+                    }
                     req.user = user;
                     mailer.welcome(user);
-                    return res.status(200).json({message: "User has been created"});
+                    res.status(200).json({error: false, users: user, message: "User has been created"});
                 } else {
                     console.log('ERROR: ' + err);
                     res.status(201).json({message: "User already exists"});

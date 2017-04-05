@@ -45,7 +45,7 @@ var UserSchema = new Schema({
     lastlogin: {type: Date, default: Date.now},
     created: {type: Date, default: Date.now},
     updated: {type: Date, default: Date.now},
-    role: {type: String, required: true, default: 'resident'},
+    role: {type: String, required: true},
     active: {type: String, default: true},
     location:{type:String, required:true}
 

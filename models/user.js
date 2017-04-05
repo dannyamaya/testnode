@@ -41,11 +41,14 @@ var UserSchema = new Schema({
         required: true, index: {unique: true}
     },
     reset_password_sent_at: {type: Date, default: Date.now},
+    time_zone: {type:String},
+    occupation: {type:String},
+    skype: {type:String},
 
     lastlogin: {type: Date, default: Date.now},
     created: {type: Date, default: Date.now},
     updated: {type: Date, default: Date.now},
-    role: {type: String, required: true, default: 'resident'},
+    role: {type: String, required: true},
     active: {type: String, default: true},
     location:{type:String, required:true}
 

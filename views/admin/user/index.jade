@@ -27,7 +27,6 @@ block content
                             th Email
                             th First Name
                             th Last Name
-                            th Document Type
                             th Document
                             th Cellphone
                             th Role
@@ -80,7 +79,7 @@ block content
                                     .form-group.col-sm-4
                                         label Role
                                         .select
-                                            select#roleSelect(name="role")
+                                            select.roleSelect(name="role")
                                                 option(value="resident") Resident
                                                 option(value="marketing") Marketing
                                                 option(value="operation-manager") Operation Manager
@@ -116,78 +115,178 @@ block content
                                     br
                                     h3.modal-title.text-center Resident Aditional Fields
                                     br
-                                    .form-group.col-sm-4
-                                        label(for='numcontract') Contract Number
-                                        input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='birthdate') Birth Date
-                                        input#birthdate.form-control(type='date' name='birthdate' placeholder='Birth Date'  autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='apartment') Apartment
-                                        input#apartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='bed') Bed
-                                        input#bed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='bedtype') Type
-                                        input#type.form-control(type='text' name='bedtype' placeholder='Type'  autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='rate') Rate
-                                        input#rate.form-control(type='text' name='rate' placeholder='Rate' autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='currency') Currency
-                                        input#currency.form-control(type='text' name='currency' placeholder='Currency' autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='rateusd') Rate USD
-                                        input#rateusd.form-control(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='rate') Agent
-                                        input#agent.form-control(type='text' name='agent' placeholder='Agent'  autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='finish') Finish
-                                        input#finish.form-control(type='date' name='finish' placeholder='Finish'  autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='start') Start
-                                        input#start.form-control(type='date' name='start' placeholder='Start' autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='duration') Duration
-                                        input#duration.form-control(type='string' name='duration' placeholder='Duration'  autofocus='')
-                                .form-group.col-sm-12
+                                    .col-sm-12
+
+                                        .form-group.col-sm-4
+                                            label(for='numcontract') Contract Number
+                                            input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='birthdate') Birth Date
+                                            input#birthdate.form-control(type='date' name='birthdate' placeholder='Birth Date'  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='apartment') Apartment
+                                            input#apartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='type') Apartment Type
+                                            input#type.form-control(type='text' name='apartmentType' placeholder='Type'  autofocus='')
+                                        .form-group.col-sm-4
+                                            label Bathroom
+                                            .select
+                                                select(name="bathroom")
+                                                    option(value="single") Single
+                                                    option(value="shared") Shared
+                                        .form-group.col-sm-4
+                                            label(for='bed') Bed
+                                            input#bed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='rate') Rate
+                                            input#rate.form-control(type='text' name='rate' placeholder='Rate' autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='currency') Currency
+                                            input#currency.form-control(type='text' name='currency' placeholder='Currency' autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='rateusd') Rate USD
+                                            input#rateusd.form-control(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='rate') Agent
+                                            input#agent.form-control(type='text' name='agent' placeholder='Agent'  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='finish') Finish
+                                            input#finish.form-control(type='date' name='finish' placeholder='Finish'  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='start') Start
+                                            input#start.form-control(type='date' name='start' placeholder='Start' autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='duration') Duration
+                                            input#duration.form-control(type='string' name='duration' placeholder='Duration'  autofocus='')
+                                        .form-group.col-sm-4
+                                            label Status
+                                            .select
+                                                select(name="status")
+                                                    option(value="Booked") Booked
+                                                    option(value="In-house") In-house
+
+                                    .form-group.col-sm-12
                                     button.btn.btn-lg.btn-livinn.btn-block(type='submit') Register
 
     <!-- Update User Modal -->
     .modal.fade#updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
-        .modal-dialog
+        .modal-dialog.modal-lg
             .modal-content
                 .modal-header
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;     
-                    h3.modal-sm-title.text-center#updateModal_h ¿Desea modificar a este usuario?
+                    h3.modal-sm-title.text-center#updateModal_h ¿Do you want to update this user?
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-8.col-sm-offset-2
+                        .col-xs-12.col-sm-10.col-sm-offset-1
                             form#updateForm(action="/user",method="post", role="form")
 
-                                .form-group
-                                    label(for='inputUpdateDoc') No. de Documento
-                                    input#inputUpdateDoc.form-control.text-capitalize(type='text' name='document' placeholder='Documento' required='' autofocus='')
-                                .form-group
-                                    label(for='inputUpdateFirstname') Nombres
-                                    input#inputUpdateFirstname.form-control.text-capitalize(type='text' name='first' placeholder='Nombres' required='' autofocus='')
-                                .form-group
-                                    label(for='inputUpdateLastname') Apellidos
-                                    input#inputUpdateLastname.form-control.text-capitalize(type='text' name='last' placeholder='Apellidos' required='' autofocus='')
-                                .form-group.emailregistrationerror
-                                    label(for='inputUpdateEmail') Email
-                                    input#inputUpdateEmail.form-control(type='email' name='email' placeholder='Email' disabled)
-                                .form-group.emailregistrationerror
-                                    label(for='inputUpdateCelular') Celular
-                                    input#inputUpdateCelular.form-control(type='text' name='cellphone' placeholder='Celular')
+                                .col-sm-12
+                                    .form-group.emailregistrationerror.col-sm-4
+                                        label(for='inputUpdateEmail') Email
+                                        input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateFirstname') First Name
+                                        input#inputUpdateFirstname.form-control(type='text' name='first' placeholder='First Name' required='' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateLastname') Last Name
+                                        input#inputUpdateLastname.form-control(type='text' name='last' placeholder='Last Name' required='' autofocus='')
+                                .col-sm-12
+                                    .form-group.col-sm-4
+                                        label Type of Document
+                                        .select
+                                            select#inputUpdateDocType(name="doctype")
+                                                option(value="DNI") DNI
+                                                option(value="Passport") Passport
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateDoc') Document
+                                        input#inputUpdateDoc.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdatePhone') Phone
+                                        input#inputUpdatePhone.form-control(type='text' name='phone' placeholder='Phone' required='' autofocus='')
+                                .col-sm-12
+                                    .form-group.col-sm-4
+                                        label Role
+                                        .select
+                                            select#inputUpdateRole.roleSelect(name="role")
+                                                option(value="resident") Resident
+                                                option(value="marketing") Marketing
+                                                option(value="operation-manager") Operation Manager
+                                                option(value="maintenance") Maintenance
+                                                option(value="client-service") Client Service
+                                                option(value="resident-assistant") Resident Assistant
+                                                option(value="admin") Super Admin
+                                    .form-group.col-sm-4
+                                        label Location
+                                        .select
+                                            select#inputUpdateLocation(name="location")
+                                                option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
+                                                option(value="Viña Del Mar") Viña Del Mar
+                                                option(value="Calle 18 Bogotá") Calle 18 Bogotá
+                                                option(value="Calle 21 Bogotá")  Calle 21 Bogotá
+                                                option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
+                                    .form-group.col-sm-4
+                                        label Time Zone
+                                        .select
+                                            select#inputUpdateTimeZone(name="timezone")
+                                                option(value="América/Santiago") América/Santiago
+                                                option(value="América/Bogotá") América/Bogotá
+                                    .differentResident
+                                        .form-group.col-sm-4
+                                            label(for='inputUpdateOccupation') Ocuppation
+                                            input#inputUpdateOccupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='inputUpdateSkype') Skype
+                                            input#inputUpdateSkype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
 
 
-
+                                .col-sm-12.residentFields
+                                    br
+                                    h3.modal-title.text-center Resident Aditional Fields
+                                    br
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateContract') Contract Number
+                                        input#inputUpdateContract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateBirthdate') Birth Date
+                                        input#inputUpdateBirthdate.form-control(type='date' name='birthdate' placeholder='Birth Date'  autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateApartment') Apartment
+                                        input#inputUpdateApartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateApartmentType') Type
+                                        input#inputUpdateApartmentType.form-control(type='text' name='bedtype' placeholder='Type'  autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateBed') Bed
+                                        input#inputUpdateBed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateRate') Rate
+                                        input#inputUpdateRate.form-control(type='text' name='rate' placeholder='Rate' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateCurrency') Currency
+                                        input#inputUpdateCurrency.form-control(type='text' name='currency' placeholder='Currency' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateRateusd') Rate USD
+                                        input#inputUpdateRateusd.form-control(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateAgent') Agent
+                                        input#inputUpdateAgent.form-control(type='text' name='agent' placeholder='Agent'  autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateFinish') Finish
+                                        input#inputUpdateFinish.form-control(type='date' name='finish' placeholder='Finish'  autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateStart') Start
+                                        input#inputUpdateStart.form-control(type='date' name='start' placeholder='Start' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='inputUpdateDuration') Duration
+                                        input#inputUpdateDuration.form-control(type='string' name='duration' placeholder='Duration'  autofocus='')
                 .modal-footer
-                    button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancelar
-                    button.btn.btn-livinn(onclick='updateUser()')  Modificar
+                    button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
+                    button.btn.btn-livinn(onclick='updateUser()')  Update
 
     <!-- Delete User Modal -->
     .modal.fade#deleteUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -252,7 +351,7 @@ block scripts
                         console.log(response);
                         $('.residentFields').show();
                         document.getElementById("registrationForm").reset();
-                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>" + response.users.document.doctype + "</td><td>" + response.users.document.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>" + response.users.document.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
                         successAlert("User created");
                     }
                 },
@@ -299,7 +398,7 @@ block scripts
                         var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
                         var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
 
-                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].document.typedoc + "</td><td>" + response.users[key].document.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].document.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
                     }
 
                     $('#loader').fadeOut("slow", function () {
@@ -318,28 +417,59 @@ block scripts
         function updateUserModal() {
             len = $('#userstable input:checkbox:checked').length;
             if (len == 0) {
-                warningAlert('No has seleccionado ningun elemento para modificar.');
+                warningAlert('Please select one element for the update.');
             } else if (len == 1) {
-                var currentRow = $('input:checkbox:checked')[0].parentNode.parentNode;
-                var document = currentRow.getElementsByTagName("td")[1].textContent;
-                var first = currentRow.getElementsByTagName("td")[2].textContent;
-                var last = currentRow.getElementsByTagName("td")[3].textContent;
-                var email = currentRow.getElementsByTagName("td")[4].textContent;
-                var cellphone = currentRow.getElementsByTagName("td")[5].textContent;
-                var rol = currentRow.getElementsByTagName("td")[6].textContent;
+                var id = $('input:checkbox:checked')[0].value;
 
-                $('#updateModal_h').html('¿Desea modificar al usuario <span class="text-capitalize">' + first + ' ' + last + '</span>?');
 
-                $("#inputUpdateDoc").val(document);
-                $('#inputUpdateFirstname').val(first);
-                $('#inputUpdateLastname').val(last);
-                $('#inputUpdateEmail').val(email);
-                $('#inputUpdateRol').val(rol);
-                $('#inputUpdateCelular').val(cellphone);
-                $('#updateUserModal').modal('show');
+                $.ajax({
+                    type: "GET",
+                    url: 'api/users/'+id,
+                    success: function (response) {
+                        $("#inputUpdateEmail").val(response.user.email);
+                        $("#inputUpdateFirstname").val(response.user.name.first);
+                        $("#inputUpdateLastname").val(response.user.name.last);
+                        $("#inputUpdateDocType").val(response.user.document.typedoc);
+                        $("#inputUpdateDoc").val(response.user.document.number);
+                        $("#inputUpdatePhone").val(response.user.phone.number);
+                        $("#inputUpdateRole").val(response.user.role);
+                        $("#inputUpdateLocation").val(response.user.location);
+                        $("#inputUpdateTimeZone").val(response.user.time_zone);
+                        $("#inputUpdateOcuppation").val(response.user.occupation);
+                        $("#inputUpdateSkype").val(response.user.skype);
+                        $("#inputUpdateContract").val(response.user.skype);
+                        $("#inputUpdateBirthdate").val(response.user.skype);
+                        $("#inputUpdateApartment").val(response.user.skype);
+                        $("#inputUpdateBed").val(response.user.skype);
+                        $("#inputUpdateApartmentType").val(response.user.skype);
+                        $("#inputUpdateRate").val(response.user.skype);
+                        $("#inputUpdateRate").val(response.user.skype);
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var message = XMLHttpRequest.responseJSON.message;
+                        warningAlert(message);
+                    }
+                });
+
+                if ($("#inputUpdateRole").val() == 'resident') {
+                    $.ajax({
+                        type: "GET",
+                        url: 'api/residents' + id,
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            var message = XMLHttpRequest.responseJSON.message;
+                            warningAlert(message);
+                        }
+
+                    });
+                    $('#updateModal_h').html('¿Do you want to update the user <span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>?');
+                    $('#updateUserModal').modal('show');
             }
             else {
-                warningAlert('Solo es posible modificar un usuario a la vez.');
+                warningAlert('Only can update one user at time.');
             }
         }
 
@@ -450,7 +580,7 @@ block scripts
 
         $('.differentResident').hide();
 
-        $('#roleSelect').on('change', function () {
+        $('.roleSelect').on('change', function () {
             if (this.value != 'resident') {
                 $('.differentResident').show();
                 $('.residentFields').hide();

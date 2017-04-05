@@ -37,6 +37,9 @@ module.exports = {
             if (req.body.apartment === '') {
                 return res.status(404).json({message: 'Apartment not found'});
             }
+            if (req.body.apartmentType === '') {
+                return res.status(404).json({message: 'Apartment type not found'});
+            }
             if (req.body.rate === '') {
                 return res.status(404).json({message: 'Rate not found'});
             }
@@ -101,8 +104,10 @@ module.exports = {
                             contract_number: req.body.numcontract,
                             birth_date: req.body.birth_date,
                             apartment: req.body.apartment,
+                            apartment_type: req.body.apartmentType,
+                            bathroom: req.body.bathroom,
+                            status: req.body.status,
                             bed: req.body.bed,
-                            bedtype: req.body.bedtype,
                             rate: req.body.rate,
                             currency: req.body.currency,
                             rateusd: req.body.rateusd,
@@ -211,6 +216,19 @@ module.exports = {
         });
 
     },
+
+    readUser: function (req, res, next) {
+
+        User.findById(req.params.id, function (err, user) {
+            if (err) return next(err);
+            if (!user) {
+                return res.status(404).json({message: 'User not found'});
+            } else {
+                return res.status(200).json({message: 'User Founded', user:user});
+            }
+        });
+    },
+
 
     /**
      * Updates user.

@@ -41,6 +41,9 @@ var UserSchema = new Schema({
         required: true, index: {unique: true}
     },
     reset_password_sent_at: {type: Date, default: Date.now},
+    time_zone: {type:String},
+    occupation: {type:String},
+    skype: {type:String},
 
     lastlogin: {type: Date, default: Date.now},
     created: {type: Date, default: Date.now},

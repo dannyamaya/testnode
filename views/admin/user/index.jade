@@ -97,6 +97,21 @@ block content
                                                 option(value="Calle 18 Bogotá") Calle 18 Bogotá
                                                 option(value="Calle 21 Bogotá")  Calle 21 Bogotá
                                                 option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
+                                    .form-group.col-sm-4
+                                        label Time Zone
+                                        .select
+                                            select(name="timezone")
+                                                option(value="América/Santiago") América/Santiago
+                                                option(value="América/Bogotá") América/Bogotá
+                                    .differentResident
+                                        .form-group.col-sm-4
+                                            label(for='occupation') Ocuppation
+                                            input#occupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='skype') Skype
+                                            input#skype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
+
+
                                 .col-sm-12.residentFields
                                     br
                                     h3.modal-title.text-center Resident Aditional Fields
@@ -228,7 +243,7 @@ block scripts
                 url: url,
                 data: formData,
                 success: function (response) {
-                    if (response.message == '11000') {
+                    if (response.status == '409') {
                         $('#inputEmail').focus();
                         $('.emailregistrationerror').addClass('has-error');
                         warningAlert('Ya existe una cuenta registrada con este Email o número de Documento');
@@ -433,12 +448,15 @@ block scripts
             });
         });
 
+        $('.differentResident').hide();
 
         $('#roleSelect').on('change', function () {
             if (this.value != 'resident') {
+                $('.differentResident').show();
                 $('.residentFields').hide();
             }
-            else
+            else {
+                $('.differentResident').hide();
                 $('.residentFields').show();
-
+            }
         })

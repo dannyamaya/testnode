@@ -22,7 +22,7 @@ module.exports = {
         if (req.body.email === undefined) {
             return res.status(404).json({message: 'Email not found'});
         }
-        if (req.body.doc === undefined) {
+        if (req.body.document === undefined) {
             return res.status(404).json({message: 'Document not found'});
         }
         if (req.body.location === undefined) {
@@ -31,26 +31,39 @@ module.exports = {
 
         if (req.body.role === 'resident') {
 
-            if (req.body.numcontract === undefined) {
+            if (req.body.numcontract === '') {
                 return res.status(404).json({message: 'Contract Number not found'});
-            }if (req.body.apartment === undefined) {
+            }
+            if (req.body.apartment === '') {
                 return res.status(404).json({message: 'Apartment not found'});
-            }if (req.body.rate === undefined) {
+            }
+            if (req.body.rate === '') {
                 return res.status(404).json({message: 'Rate not found'});
-            }if (req.body.currency === undefined) {
+            }
+            if (req.body.currency === '') {
                 return res.status(404).json({message: 'Currency not found'});
-            }if (req.body.rateusd === undefined) {
+            }
+            if (req.body.rateusd === '') {
                 return res.status(404).json({message: 'Rate USD not found'});
-            }if (req.body.agent === undefined) {
+            }
+            if (req.body.agent === '') {
                 return res.status(404).json({message: 'Agent not found'});
-            }if (req.body.finish === undefined) {
+            }
+            if (req.body.finish === '') {
                 return res.status(404).json({message: 'Finish not found'});
-            }if (req.body.start === undefined) {
+            }
+            if (req.body.start === '') {
                 return res.status(404).json({message: 'Start not found'});
-            }if (req.body.duration === undefined) {
+            }
+            if (req.body.duration === '') {
                 return res.status(404).json({message: 'Duration not found'});
             }
+        }
 
+        if (req.body.role !== 'resident') {
+            if (req.body.occupation === '') {
+                return res.status(404).json({message: 'Ocuppation not found'});
+            }
         }
 
         var pswd = req.body.document;
@@ -73,13 +86,16 @@ module.exports = {
                     doctype: req.body.doctype,
                     number: req.body.document
                 },
-                role: req.body.role
+                role: req.body.role,
+                occupation: req.body.occupation,
+                time_zone: req.body.timezone,
+                skype: req.body.skype
 
             });
 
-            user.save(function (err,u) {
+            user.save(function (err, u) {
                 if (!err) {
-                    if(u.role === 'resident'){
+                    if (u.role === 'resident') {
                         var resident = new Resident({
                             user_id: u._id,
                             contract_number: req.body.numcontract,
@@ -96,22 +112,26 @@ module.exports = {
                             duration: req.body.duration
                         });
 
-                        resident.save(function(err){
-                           if(!err){
-                               console.log('New resident has benn created')
-                           }
+                        resident.save(function (err) {
+                            if (!err) {
+                                console.log('New resident has benn created')
+                            }
+                            else {
+                                return res.status(201).json({message: "Error, check your details."});
+
+                            }
                         });
                     }
                     req.user = user;
                     mailer.welcome(user);
-                    res.status(200).json({error: false, users: user, message: "User has been created"});
+                    return res.status(200).json({error: false, users: user, message: "User has been created"});
                 } else {
-                    console.log('ERROR: ' + err);
-                    res.status(201).json({message: "User already exists"});
+                    console.log('ERROR: ' + err.errmsg);
+                    return res.status(409).json({message: "Email already exists"});
                 }
             });
         } else {
-            res.status(400).json({message: 'password and password confirmation mismatch'});
+            return res.status(400).json({message: 'password and password confirmation mismatch'});
         }
     },
 

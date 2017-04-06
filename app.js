@@ -26,6 +26,7 @@ var mongoStore = require('connect-mongo')(session);
 // -----------------------------------------------------------------
 // Database
 // -----------------------------------------------------------------
+mongoose.Promise = global.Promise;
 
 mongoose.connect(config.development.db, function(err, res) {
   if(err) {

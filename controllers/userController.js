@@ -119,10 +119,11 @@ module.exports = {
 
                         resident.save(function (err) {
                             if (!err) {
-                                console.log('New resident has benn created')
+                                console.log('New resident has been created')
                             }
                             else {
-                                return res.status(201).json({message: "Error, check your details."});
+                                console.log(err);
+                                return res.status(409).json({message: "Error, check your details."});
 
                             }
                         });

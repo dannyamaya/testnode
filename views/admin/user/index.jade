@@ -122,7 +122,7 @@ block content
                                             input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
                                         .form-group.col-sm-4
                                             label(for='birthdate') Birth Date
-                                            input#birthdate.form-control(type='date' name='birthdate' placeholder='Birth Date'  autofocus='')
+                                            input#birthdate.form-control(type='date' name='birth_date' placeholder='Birth Date'  autofocus='')
                                         .form-group.col-sm-4
                                             label(for='apartment') Apartment
                                             input#apartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
@@ -170,8 +170,8 @@ block content
                                                     option(value="Booked") Booked
                                                     option(value="In-house") In-house
 
-                                    .form-group.col-sm-12
-                                    button.btn.btn-lg.btn-livinn.btn-block(type='submit') Register
+                                .form-group.col-sm-12
+                                button.btn.btn-lg.btn-livinn.btn-block(type='submit') Register
 
     <!-- Update User Modal -->
     .modal.fade#updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -351,7 +351,7 @@ block scripts
                         console.log(response);
                         $('.residentFields').show();
                         document.getElementById("registrationForm").reset();
-                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>" + response.users.document.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
                         successAlert("User created");
                     }
                 },
@@ -398,7 +398,7 @@ block scripts
                         var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
                         var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
 
-                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
                     }
 
                     $('#loader').fadeOut("slow", function () {
@@ -415,6 +415,7 @@ block scripts
 
         /*=== Update user ==m=*/
         function updateUserModal() {
+
             len = $('#userstable input:checkbox:checked').length;
             if (len == 0) {
                 warningAlert('Please select one element for the update.');
@@ -426,25 +427,52 @@ block scripts
                     type: "GET",
                     url: 'api/users/' + id,
                     success: function (response) {
+                        $('#updateModal_h').html('¿Do you want to update the user <span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>?');
                         $("#inputUpdateEmail").val(response.user.email);
                         $("#inputUpdateFirstname").val(response.user.name.first);
                         $("#inputUpdateLastname").val(response.user.name.last);
-                        $("#inputUpdateDocType").val(response.user.document.typedoc);
-                        $("#inputUpdateDoc").val(response.user.document.number);
+                        $("#inputUpdateDocType").val(response.user.doc.typedoc);
+                        $("#inputUpdateDoc").val(response.user.doc.number);
                         $("#inputUpdatePhone").val(response.user.phone.number);
                         $("#inputUpdateRole").val(response.user.role);
                         $("#inputUpdateLocation").val(response.user.location);
                         $("#inputUpdateTimeZone").val(response.user.time_zone);
-                        $("#inputUpdateOcuppation").val(response.user.occupation);
+                        $("#inputUpdateOccupation").val(response.user.occupation);
                         $("#inputUpdateSkype").val(response.user.skype);
-                        $("#inputUpdateContract").val(response.user.skype);
-                        $("#inputUpdateBirthdate").val(response.user.skype);
-                        $("#inputUpdateApartment").val(response.user.skype);
-                        $("#inputUpdateBed").val(response.user.skype);
-                        $("#inputUpdateApartmentType").val(response.user.skype);
-                        $("#inputUpdateRate").val(response.user.skype);
-                        $("#inputUpdateRate").val(response.user.skype);
 
+                        if ($("#inputUpdateRole").val() === 'resident') {
+                            $('.residentFields').show();
+                            $('.differentResident').hide();
+
+
+                            $.ajax({
+                                type: "GET",
+                                url: 'api/residents/' + id,
+                                success: function (response) {
+                                    console.log(response.resident.finish.substr(0,10));
+                                    $("#inputUpdateContract").val(response.resident.contract_number);
+                                    $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
+                                    $("#inputUpdateApartment").val(response.resident.apartment);
+                                    $("#inputUpdateApartmentType").val(response.resident.apartment_type);
+                                    $("#inputUpdateRate").val(response.resident.rate);
+                                    $("#inputUpdateBed").val(response.resident.bed);
+                                    $("#inputUpdateCurrency").val(response.resident.currency);
+                                    $("#inputUpdateRateusd").val(response.resident.rateusd);
+                                    $("#inputUpdateAgent").val(response.resident.agent);
+                                    $("#inputUpdateFinish").val(response.resident.finish.substr(0,10));
+                                    $("#inputUpdateStart").val(response.resident.start.substr(0,10));
+                                    $("#inputUpdateDuration").val(response.resident.duration);
+
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    var message = XMLHttpRequest.responseJSON.message;
+                                    warningAlert(message);
+                                }
+                            });
+                        }else{
+                            $('.residentFields').hide();
+                            $('.differentResident').show();
+                        }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         var message = XMLHttpRequest.responseJSON.message;
@@ -452,21 +480,8 @@ block scripts
                     }
                 });
 
-                if ($("#inputUpdateRole").val() == 'resident') {
-                    $.ajax({
-                        type: "GET",
-                        url: 'api/residents' + id,
-                        success: function (response) {
-                            console.log(response);
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            var message = XMLHttpRequest.responseJSON.message;
-                            warningAlert(message);
-                        }
 
-                    });
-                }
-                $('#updateModal_h').html('¿Do you want to update the user <span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>?');
+
                 $('#updateUserModal').modal('show');
             }
             else {
@@ -590,4 +605,13 @@ block scripts
                 $('.differentResident').hide();
                 $('.residentFields').show();
             }
-        })
+        });
+
+        function convertDate(inputFormat) {
+            function pad(s) {
+                return (s < 10) ? '0' + s : s;
+            }
+
+            var d = new Date(inputFormat);
+            return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+        }

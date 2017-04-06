@@ -6,6 +6,16 @@ var passport = require('passport');
 var Application = require('../models/application.js');
 
 module.exports = {
+
+    token: function(req, res ,next){
+        passport.authenticate('bearer', { session: false }),
+        function(req, res, next) {
+            // ... Here we can do all sorts of cool things ...
+
+            res.json(req.user);
+        }
+    },
+
     start: function (req, res, next) {
         server.authorize(function (applicationID, redirectURI, done) {
             Application.findOne({oauth_id: applicationID}, function (error, application) {

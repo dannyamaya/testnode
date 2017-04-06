@@ -24,7 +24,7 @@ var UserSchema = new Schema({
         show: {type: Boolean, default: false}
     },
 
-    document: {
+    doc: {
         typedoc:{type:String, default:'DNI'},
         number:{type:String, required:true, trim:true}
     },
@@ -61,6 +61,7 @@ var UserSchema = new Schema({
     }
 });
 
+
 /**
  * Virtuals
  */
@@ -86,7 +87,6 @@ UserSchema.virtual('gravatar')
 /**
  * Methods
  */
-
 UserSchema.statics.hashPassword = function (passwordRaw, fn) {
     var salt = this.salt = bcrypt.genSaltSync(10);
     bcrypt.hash(passwordRaw, salt, fn);
@@ -109,6 +109,15 @@ UserSchema.methods.hasRole = function (role) {
 /**
  * Validation
  */
+UserSchema.path('email').validate(function (email) {
+   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+   return emailRegex.test(email.text); // Assuming email has a text attribute
+}, 'The e-mail field cannot be empty.');
+
+UserSchema.path('phone.number').validate(function (phone) {
+   var phoneRegex = /^[0-9]*$/;
+   return phoneRegex.test(phone.text); // Assuming email has a text attribute
+}, 'The phone field is not a number.');
 
 
 // User authentication method

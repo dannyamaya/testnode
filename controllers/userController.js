@@ -85,8 +85,8 @@ module.exports = {
                 email: req.body.email,
                 password: req.body.document,
                 location: req.body.location,
-                document: {
-                    doctype: req.body.doctype,
+                doc: {
+                    typedoc: req.body.doctype,
                     number: req.body.document
                 },
                 role: req.body.role,
@@ -131,8 +131,8 @@ module.exports = {
                     mailer.welcome(user);
                     return res.status(200).json({error: false, users: user, message: "User has been created"});
                 } else {
-                    console.log('ERROR: ' + err.errmsg);
-                    return res.status(409).json({message: "Email already exists"});
+                    console.log('ERROR: ' + err);
+                    return res.status(409).json({message: 'E-mail already exist'});
                 }
             });
         } else {

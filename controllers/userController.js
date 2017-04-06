@@ -2,6 +2,8 @@ var mailer = require('../mailer/mailer');
 var User = require('../models/user.js');
 var Resident = require('../models/resident.js');
 var async = require('async');
+var moment = require('moment');
+
 
 module.exports = {
 
@@ -225,7 +227,7 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({message: 'User not found'});
             } else {
-                return res.status(200).json({message: 'User Founded', user:user});
+                return res.status(200).json({message: 'User Founded', user: user});
             }
         });
     },
@@ -238,40 +240,106 @@ module.exports = {
     updateUser: function (req, res, next) {
         User.findById(req.params.id, function (err, user) {
             if (err) {
-                res.status(500).json({message: 'Internal Server Error'});
+                return res.status(500).json({message: 'Internal Server Error'});
             }
             if (!user) {
-                res.status(404).json({message: 'User not found'});
+                return res.status(404).json({message: 'User not found'});
             } else {
-                user.name = req.body.name || user.name;
-                user.company = req.body.company || user.company;
-                user.phone = req.body.phone || user.phone;
-                user.address1 = req.body.address1 || user.address1;
-                user.address2 = req.body.address2 || user.address2;
                 user.email = req.body.email || user.email;
+                user.name.first = req.body.first || user.name.first;
+                user.name.last = req.body.last || user.name.last;
+                user.doc.number = req.body.document || user.doc.number;
+                user.doc.typedoc = req.body.doctype || user.doc.typedoc;
+                user.phone.number = req.body.phone || user.phone.number;
+                user.role = req.body.role || user.role;
+                user.occupation = req.body.occupation || user.occupation;
+                user.location = req.body.location || user.location;
+                user.skype = req.body.skype || user.skype;
+                user.time_zone = req.body.timezone || user.time_zone;
+
                 if (user.email != req.body.email) {
-                    verified_email = false;
+                    user.email_verified = false;
                 }
                 user.updated = Date.now();
 
-                if (user.email != req.body.email) {
-                    user.email = req.body.email || user.email;
+
+                if (req.body.role === 'resident') {
+                    Resident.findOne({user_id: user._id}, function (err, resident) {
+                        if (err) {
+                            return res.status(500).json({message: 'Internal Server Error'});
+                        }
+                        if (!user) {
+                            return res.status(404).json({message: 'Resident not found'});
+                        }
+
+                        if (req.body.numcontract === '') {
+                            return res.status(404).json({message: 'Contract Number not found'});
+                        }
+                        if (req.body.apartment === '') {
+                            return res.status(404).json({message: 'Apartment not found'});
+                        }
+                        if (req.body.apartmentType === '') {
+                            return res.status(404).json({message: 'Apartment type not found'});
+                        }
+                        if (req.body.rate === '') {
+                            return res.status(404).json({message: 'Rate not found'});
+                        }
+                        if (req.body.currency === '') {
+                            return res.status(404).json({message: 'Currency not found'});
+                        }
+                        if (req.body.rateusd === '') {
+                            return res.status(404).json({message: 'Rate USD not found'});
+                        }
+                        if (req.body.agent === '') {
+                            return res.status(404).json({message: 'Agent not found'});
+                        }
+                        if (req.body.finish === '') {
+                            return res.status(404).json({message: 'Finish not found'});
+                        }
+                        if (req.body.start === '') {
+                            return res.status(404).json({message: 'Start not found'});
+                        }
+                        if (req.body.duration === '') {
+                            return res.status(404).json({message: 'Duration not found'});
+                        }
+
+                        resident.contract_number = req.body.numcontract || resident.contract_number;
+                        resident.birth_date = moment(req.body.birthdate).format() || resident.birth_date;
+                        resident.apartment = req.body.apartment || resident.apartment;
+                        resident.apartment_type = req.body.apartmentType || resident.apartment_type;
+                        resident.bathroom = req.body.bathroom || resident.bathroom;
+                        resident.status = req.body.status || resident.status;
+                        resident.bed = req.body.bed || resident.bed;
+                        resident.rate = req.body.rate || resident.rate;
+                        resident.currency = req.body.currency || resident.currency;
+                        resident.rateusd = req.body.rateusd || resident.rateusd;
+                        resident.agent = req.body.agent || resident.agent;
+                        resident.finish = moment(req.body.finish).format() || resident.finish;
+                        resident.start = moment(req.body.start).format() || resident.start;
+                        resident.duration = req.body.duration || resident.duration;
+                        resident.updated = Date.now();
+
+
+                        resident.save(function (err) {
+                            if (!err) {
+                                console.log('Resident Updated')
+                            }
+                            else {
+                                console.log(err);
+                                return res.status(409).json({message: "Error, check your details."});
+
+                            }
+                        });
+
+                    });
                 }
 
                 user.save(function (err, u) {
                     if (err) {
-                        res.status(500).json({message: 'Internal Server Error'});
+                       return res.status(500).json({message: 'Internal Server Error'});
                     } else {
-                        res.status(200).json({
-                            user: {
-                                name: u.name,
-                                company: u.company,
-                                phone: u.phone,
-                                address1: u.address1,
-                                address2: u.address2,
-                                email: u.email,
-                                verified_email: u.verified_email
-                            }
+                       return res.status(200).json({
+                            user: user
                         });
                     }
                 });

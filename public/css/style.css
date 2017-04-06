@@ -550,6 +550,19 @@ button:focus{
   }
 }
 
-#paypalBtn{
-  display: none;
+.hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    cursor: pointer;
 }
+
+select:disabled{
+   background: #EEEEEE !important;
+    color: #9B9999 !important;
+}
+
+input:disabled{
+    color: #9B9999 !important;
+}
+

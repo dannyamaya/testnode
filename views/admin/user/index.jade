@@ -41,6 +41,134 @@ block content
                 nav#page-nav
                     .text-center#page-selection
 
+    <!-- User Read Modal -->
+    .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                    h3.modal-title.text-center.readModalTitle
+                .modal-body
+                    .row
+                        .col-xs-12.col-sm-10.col-sm-offset-1
+                                .col-sm-12
+                                    .form-group.emailregistrationerror.col-sm-4
+                                        label(for='email') Email
+                                        input#emailRead.form-control(type='text' placeholder='Email' name="email"  autofocus='' disabled)
+                                    .form-group.col-sm-4
+                                        label(for='first') First Name
+                                        input#firstRead.form-control(type='text' name='first' placeholder='First Name' disabled autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='last') Last Name
+                                        input#lastRead.form-control(type='text' name='last' placeholder='Last Name' disabled autofocus='')
+                                .col-sm-12
+                                    .form-group.col-sm-4
+                                        label Type of Document
+                                        .select
+                                            select#doctypeRead(name="doctype" disabled)
+                                                option(value="DNI") DNI
+                                                option(value="Passport") Passport
+                                    .form-group.col-sm-4
+                                        label(for='document') Document
+                                        input#documentRead.form-control(type='text' name='document' placeholder='Document' disabled autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='phone') Phone
+                                        input#phoneRead.form-control(type='text' name='phone' placeholder='Phone' disabled autofocus='')
+                                .col-sm-12
+                                    .form-group.col-sm-4
+                                        label Role
+                                        .select
+                                            select#roleRead(name="role" disabled)
+                                                option(value="resident") Resident
+                                                option(value="marketing") Marketing
+                                                option(value="operation-manager") Operation Manager
+                                                option(value="maintenance") Maintenance
+                                                option(value="client-service") Client Service
+                                                option(value="resident-assistant") Resident Assistant
+                                                option(value="admin") Super Admin
+                                    .form-group.col-sm-4
+                                        label Location
+                                        .select
+                                            select#locationRead(name="location" disabled)
+                                                option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
+                                                option(value="Viña Del Mar") Viña Del Mar
+                                                option(value="Calle 18 Bogotá") Calle 18 Bogotá
+                                                option(value="Calle 21 Bogotá")  Calle 21 Bogotá
+                                                option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
+                                    .form-group.col-sm-4
+                                        label Time Zone
+                                        .select
+                                            select#timezoneRead(name="timezone" disabled)
+                                                option(value="América/Santiago") América/Santiago
+                                                option(value="América/Bogotá") América/Bogotá
+                                    .differentResident
+                                        .form-group.col-sm-4
+                                            label(for='occupation') Ocuppation
+                                            input#occupationRead.form-control(type='text' name='occupation' placeholder='Occupation' disabled  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='skype') Skype
+                                            input#skypeRead.form-control(type='text' name='skype' placeholder='Skype' disabled autofocus='')
+
+
+                                .col-sm-12.residentFields
+                                    br
+                                    h3.modal-title.text-center Resident Aditional Fields
+                                    br
+                                    .col-sm-12
+
+                                        .form-group.col-sm-4
+                                            label(for='numcontract') Contract Number
+                                            input#numcontractRead.form-control(type='text' placeholder='Contract Number' name="numcontract" disabled autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='birthdate') Birth Date
+                                            input#birthdateRead.form-control(type='date' name='birth_date' placeholder='Birth Date' disabled  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='apartment') Apartment
+                                            input#apartmentRead.form-control(type='text' name='apartment' placeholder='Apartment' disabled  autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='type') Apartment Type
+                                            input#typeRead.form-control(type='text' name='apartmentType' placeholder='Type' disabled  autofocus='')
+                                        .form-group.col-sm-4
+                                            label Bathroom
+                                            .select
+                                                select#bathroomRead(name="bathroom" disabled)
+                                                    option(value="single") Single
+                                                    option(value="shared") Shared
+                                        .form-group.col-sm-4
+                                            label(for='bed') Bed
+                                            input#bedRead.form-control(type='text' name='bed' placeholder='Bed' disabled autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='rate') Rate
+                                            input#rateRead.form-control(type='text' name='rate' placeholder='Rate' disabled autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='currency') Currency
+                                            input#currencyRead.form-control(type='text' name='currency' placeholder='Currency' disabled autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='rateusd') Rate USD
+                                            input#rateusdRead.form-control(type='text' name='rateusd' placeholder='Rate USD' disabled autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='rate') Agent
+                                            input#agentRead.form-control(type='text' name='agent' placeholder='Agent' disabled  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='finish') Finish
+                                            input#finishRead.form-control(type='date' name='finish' placeholder='Finish' disabled  autofocus='')
+                                        .form-group.col-sm-4
+                                            label(for='start') Start
+                                            input#startRead.form-control(type='date' name='start' placeholder='Start' disabled autofocus='')
+                                    .col-sm-12
+                                        .form-group.col-sm-4
+                                            label(for='duration') Duration
+                                            input#durationRead.form-control(type='string' name='duration' placeholder='Duration' disabled autofocus='')
+                                        .form-group.col-sm-4
+                                            label Status
+                                            .select
+                                                select#statusRead(name="status" disabled)
+                                                    option(value="Booked") Booked
+                                                    option(value="In-house") In-house
+
     <!-- User Registration Modal -->
     .modal.fade#registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
@@ -183,7 +311,7 @@ block content
                 .modal-body
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1
-                            form#updateForm(action="/user",method="post", role="form")
+                            form#updateForm(action="" method="" role="form")
 
                                 .col-sm-12
                                     .form-group.emailregistrationerror.col-sm-4
@@ -351,7 +479,7 @@ block scripts
                         console.log(response);
                         $('.residentFields').show();
                         document.getElementById("registrationForm").reset();
-                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
                         successAlert("User created");
                     }
                 },
@@ -398,7 +526,7 @@ block scripts
                         var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
                         var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
 
-                        $("#userstable tbody").prepend("<tr><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
                     }
 
                     $('#loader').fadeOut("slow", function () {
@@ -415,6 +543,7 @@ block scripts
 
         /*=== Update user ==m=*/
         function updateUserModal() {
+            document.getElementById("updateForm").reset();
 
             len = $('#userstable input:checkbox:checked').length;
             if (len == 0) {
@@ -449,7 +578,6 @@ block scripts
                                 type: "GET",
                                 url: 'api/residents/' + id,
                                 success: function (response) {
-                                    console.log(response.resident.finish.substr(0,10));
                                     $("#inputUpdateContract").val(response.resident.contract_number);
                                     $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
                                     $("#inputUpdateApartment").val(response.resident.apartment);
@@ -480,8 +608,6 @@ block scripts
                     }
                 });
 
-
-
                 $('#updateUserModal').modal('show');
             }
             else {
@@ -500,7 +626,7 @@ block scripts
             $.ajax({
                 type: "PUT",
                 data: updatedata,
-                url: '/user/' + users[0],
+                url: '/api/users/' + users[0],
                 success: function (response) {
                     console.log(response);
                     var userr;
@@ -524,6 +650,7 @@ block scripts
                     tdUpdated.text(moment(response.user.updated).format('YYYY-DD-MM-h:mm a'));
 
                     $('#updateUserModal').modal('hide');
+
                     successAlert('Usuario ha sido modificado');
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -531,6 +658,7 @@ block scripts
                     warningAlert(message);
                 }
             });
+
         }
 
         /* Delete user */
@@ -607,11 +735,69 @@ block scripts
             }
         });
 
-        function convertDate(inputFormat) {
-            function pad(s) {
-                return (s < 10) ? '0' + s : s;
-            }
+        $('table').on('dblclick','tr',function(){
+            var id = $(this).children().children().val();
 
-            var d = new Date(inputFormat);
-            return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
-        }
+            $.ajax({
+                type: "GET",
+                url: 'api/users/' + id,
+                success: function (response) {
+                    $('.readModalTitle').html('<span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>');
+                    $("#emailRead").val(response.user.email);
+                    $("#firstRead").val(response.user.name.first);
+                    $("#lastRead").val(response.user.name.last);
+                    $("#doctypeRead").val(response.user.doc.typedoc);
+                    $("#documentRead").val(response.user.doc.number);
+                    $("#phoneRead").val(response.user.phone.number);
+                    $("#roleRead").val(response.user.role);
+                    $("#locationRead").val(response.user.location);
+                    $("#timezoneRead").val(response.user.time_zone);
+                    $("#occupationRead").val(response.user.occupation);
+                    $("#skypeRead").val(response.user.skype);
+
+                    if ($("#roleRead").val() === 'resident') {
+                        $('.residentFields').show();
+                        $('.differentResident').hide();
+
+
+                        $.ajax({
+                            type: "GET",
+                            url: 'api/residents/' + id,
+                            success: function (response) {
+                                $("#numcontractRead").val(response.resident.contract_number);
+                                $("#birthdateRead").val(response.resident.birth_date.substr(0, 10));
+                                $("#apartmentRead").val(response.resident.apartment);
+                                $("#typeRead").val(response.resident.apartment_type);
+                                $("#rateRead").val(response.resident.rate);
+                                $("#bathroomRead").val(response.resident.bathroom);
+                                $("#bedRead").val(response.resident.bed);
+                                $("#currencyRead").val(response.resident.currency);
+                                $("#rateusdRead").val(response.resident.rateusd);
+                                $("#agentRead").val(response.resident.agent);
+                                $("#finishRead").val(response.resident.finish.substr(0, 10));
+                                $("#startRead").val(response.resident.start.substr(0, 10));
+                                $("#durationRead").val(response.resident.duration);
+
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                var message = XMLHttpRequest.responseJSON.message;
+                                warningAlert(message);
+                            }
+                        });
+                    } else {
+                        $('.residentFields').hide();
+                        $('.differentResident').show();
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+
+            $('#readModal').modal('show');
+
+        });
+
+
+

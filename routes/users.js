@@ -6,6 +6,7 @@ var userController = require('../controllers/userController');
 router.route('/')
     .get(userController.readUsers)
     .post(userController.createUser)
+    .put(userController.updateUser)
     .delete(userController.deleteUsers);
 
 router.route('/:id')

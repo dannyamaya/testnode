@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ddcd6815-0bde-4dec-985c-8a09e099d4f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/userController.js" afterPath="$PROJECT_DIR$/controllers/userController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/user/index.jade" afterPath="$PROJECT_DIR$/views/admin/user/index.jade" />
-    </list>
+    <list default="true" id="ddcd6815-0bde-4dec-985c-8a09e099d4f5" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,8 +94,8 @@
       <file leaf-file-name="userController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/userController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="355" column="51" lean-forward="false" selection-start-line="355" selection-start-column="51" selection-end-line="355" selection-end-column="51" />
+            <state relative-caret-position="-414">
+              <caret line="236" column="13" lean-forward="false" selection-start-line="236" selection-start-column="7" selection-end-line="236" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -154,8 +150,8 @@
       <find>bedRead</find>
       <find>rateusdRead</find>
       <find>update user</find>
-      <find>update</find>
       <find>delete</find>
+      <find>update</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -544,18 +540,18 @@
       <updated>1491321248063</updated>
       <workItem from="1491321250690" duration="45616000" />
       <workItem from="1491493726877" duration="18801000" />
-      <workItem from="1492542588688" duration="718000" />
+      <workItem from="1492542588688" duration="957000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65135000" />
+    <option name="totallyTimeSpent" value="65374000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="734" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2265625" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1796875" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -960,8 +956,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/userController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="355" column="51" lean-forward="false" selection-start-line="355" selection-start-column="51" selection-end-line="355" selection-end-column="51" />
+        <state relative-caret-position="-414">
+          <caret line="236" column="13" lean-forward="false" selection-start-line="236" selection-start-column="7" selection-end-line="236" selection-end-column="13" />
           <folding />
         </state>
       </provider>

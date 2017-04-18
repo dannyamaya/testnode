@@ -4,7 +4,7 @@ var oauthController = require('../controllers/authorizationController');
 var authenticationController = require('../controllers/authenticationController');
 var adminController = require('../controllers/adminController');
 var ensureHelper = require('../helpers/ensureHelper');
-
+var userController = require('../controllers/userController');
 
 /* GET home page. */
 router.get('/', ensureHelper.ensureRedirect, authenticationController.login);
@@ -28,5 +28,31 @@ router.post('/auth/exchange', oauthController.exchange);
 
 router.get('/logout',authenticationController.logout);
 
+//router.get('/reset-password', userController.showResetPassword)
+router.post('/reset-password', userController.resetPassword);
+
+
+/*=== SETTINGS ===*/
+router.get('/settings/personal-information', function(req, res) {
+  res.render('admin/user/personalinformation', {
+      title:'Personal Information',
+      user: req.user
+  });
+});
+
+router.get('/settings/update-password', function(req, res) {
+  res.render('admin/user/updatepassword', {
+      title:'Update password',
+      user: req.user
+  });
+});
+
+/*=== SUPPORT ===*/
+router.get('/support', function(req, res) {
+  res.render('support', {
+      title:'Support',
+      user: req.user
+  });
+});
 
 module.exports = router;

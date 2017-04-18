@@ -3,6 +3,7 @@ var User = require('../models/user.js');
 var Resident = require('../models/resident.js');
 var async = require('async');
 var moment = require('moment');
+var crypto = require('crypto');
 
 
 module.exports = {
@@ -380,6 +381,7 @@ module.exports = {
                         mailer.resetPassword(user);
                         res.status(200).json({message: 'Instructions has been sent to your email'});
                     } else {
+                      console.log(err);
                         res.status(500).json({message: 'Internal Server Error'});
                     }
                 });

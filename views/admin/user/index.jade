@@ -1,5 +1,5 @@
 extend ../layout
-block content   
+block content
     .col-xs-12
         .panel.panel-default.col-xs-12
             form.form.col-xs-12.col-sm-4.no-padding#searchform(method="post" action="users")
@@ -16,7 +16,7 @@ block content
                 i.fa.fa-download
             .pull-right
                 button.btn.btn-livinn.btn-adduser(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
-                    span.hidden-xs Add Users
+                    span.hidden-xs Add User
                     i.visible-xs.fa.fa-plus
             .clearfix
             .table-responsive.panel-user
@@ -174,7 +174,7 @@ block content
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;     
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                     h3.modal-title.text-center Register User
                 .modal-body
                     .row
@@ -306,7 +306,7 @@ block content
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;     
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                     h3.modal-sm-title.text-center#updateModal_h ¿Do you want to update this user?
                 .modal-body
                     .row
@@ -421,15 +421,15 @@ block content
         .modal-dialog
             .modal-content
                 .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;  
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                     .row
                         .col-xs-4.col-xs-offset-4.no-padding
                             img.img-responsive(src="img/icon_eliminar.svg", alt="eliminar")
-                        h3.col-xs-12.modal-title.text-center#deleteModal_h ¿Desea eliminar este usuario?                    
+                        h3.col-xs-12.modal-title.text-center#deleteModal_h ¿Desea eliminar este usuario?
                 .modal-body
                     h4.modal-title.text-danger.danger-modal.text-center.hidden#deleteError
                     form
-                        p.text-center#deleteModal_p Toda la información de este usuario será eliminada del sistema. 
+                        p.text-center#deleteModal_p Toda la información de este usuario será eliminada del sistema.
                         br
                 .modal-footer
                     a.btn.btn-danger.deleteBtn.btn-livinn(onclick='deleteUser()')  Eliminar

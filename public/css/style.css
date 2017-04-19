@@ -557,12 +557,18 @@ button:focus{
     cursor: pointer;
 }
 
-select:disabled{
-   background: #EEEEEE !important;
-    color: #9B9999 !important;
+
+.noinput{
+  border: none;
+  cursor: none;
+  color: black;
+  background-color: white !important;
+  padding-left: 0px !important;
 }
 
-input:disabled{
-    color: #9B9999 !important;
+
+.requiredLivinn{
+  color: #CE195F;
+  font-size: 18px;
 }
 

@@ -12,7 +12,7 @@ block content
                 i.fa.fa-trash
             button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
                 i.fa.fa-pencil-square-o
-            a.btn.btn-default.btn-adduser(href="/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+            a.btn.btn-default.btn-adduser(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
                 i.fa.fa-download
             .pull-right
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
@@ -27,6 +27,7 @@ block content
                             th Email
                             th First Name
                             th Last Name
+                            th Document type
                             th Document
                             th Cellphone
                             th Role
@@ -479,7 +480,7 @@ block scripts
                         console.log(response);
                         $('.residentFields').show();
                         document.getElementById("registrationForm").reset();
-                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
                         successAlert("User created");
                     }
                 },
@@ -526,7 +527,7 @@ block scripts
                         var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
                         var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
 
-                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM-h:mm a') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM-h:mm a') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM') + "</td></tr>");
                     }
 
                     $('#loader').fadeOut("slow", function () {
@@ -638,20 +639,22 @@ block scripts
                     var tdEmail = userr.children("td:nth-child(2)");
                     var tdFirst = userr.children("td:nth-child(3)");
                     var tdLast = userr.children("td:nth-child(4)");
-                    var tdDoc = userr.children("td:nth-child(5)");
-                    var tdCellphone = userr.children("td:nth-child(6)");
-                    var tdRol = userr.children("td:nth-child(7)");
-                    var tdCity = userr.children("td:nth-child(8)");
-                    var tdUpdated = userr.children("td:nth-child(10)");
+                    var tdTypeDoc = userr.children("td:nth-child(5)");
+                    var tdDoc = userr.children("td:nth-child(6)");
+                    var tdCellphone = userr.children("td:nth-child(7)");
+                    var tdRol = userr.children("td:nth-child(8)");
+                    var tdCity = userr.children("td:nth-child(9)");
+                    var tdUpdated = userr.children("td:nth-child(11)");
 
                     tdEmail.text(response.user.email);
+                    tdTypeDoc.text(response.user.doc.typedoc);
                     tdDoc.text(response.user.doc.number);
                     tdFirst.text(response.user.name.first);
                     tdLast.text(response.user.name.last);
                     tdCellphone.text(response.user.phone.number);
                     tdRol.text(response.user.rol);
                     tdCity.text(response.user.location);
-                    tdUpdated.text(moment(response.user.updated).format('YYYY-DD-MM-h:mm a'));
+                    tdUpdated.text(moment(response.user.updated).format('YYYY-DD-MM'));
 
                     $('#updateUserModal').modal('hide');
 

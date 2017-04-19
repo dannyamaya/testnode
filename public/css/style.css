@@ -347,9 +347,10 @@ button:focus{
   margin-bottom: 15px;
 }
 .heading h1{
-  font-size: 1.6em;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-size: 2em;
+  margin-top: 17px;
+  margin-bottom: 17px;
+  color: #E30056;
 }
 
 .search{
@@ -391,12 +392,9 @@ button:focus{
   background-color: #F9F9FC;
 }
 
-.table thead th{
-  background-color: #41BEBB;
-}
-
 .table tbody tr{
   background-color:#fff;
+  text-align: center;
 }
 
 .table-striped > tbody > tr:nth-of-type(2n+1) {
@@ -407,7 +405,7 @@ button:focus{
 }
 
 .table > thead > tr > th {
-  color: #fff;
+  color: #000;
   text-transform: uppercase;
   font-size: 0.8em;
   border-bottom: 1px solid #ddd;

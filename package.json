@@ -16,6 +16,7 @@
     "debug": "~2.2.0",
     "email-templates": "^2.5.4",
     "express": "~4.14.0",
+    "express-csv": "^0.6.0",
     "express-session": "^1.15.2",
     "jade": "~1.11.0",
     "moment": "^2.18.1",

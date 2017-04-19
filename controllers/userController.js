@@ -4,6 +4,7 @@ var Resident = require('../models/resident.js');
 var async = require('async');
 var moment = require('moment');
 var crypto = require('crypto');
+var csv = require('express-csv');
 
 
 module.exports = {
@@ -152,9 +153,7 @@ module.exports = {
     readUsers: function (req, res, next) {
 
         var search = '';
-        console.log(req.query.page);
         var page = req.query.page || 1;
-        console.log(page);
         if (req.query.search) {
             search = req.query.search;
         }
@@ -460,6 +459,62 @@ module.exports = {
         } else {
             res.status(400).json({message: 'password and password confirmation mismatch'});
         }
+    },
+
+    /**
+     * Export users to csv file.
+     * @param {string} page - The user's name.
+     * @param {string} search - The user's email.
+     */
+    exportUsers: function(req, res, next) {
+        User.find({ id_notaria:req.user.id_notaria, roles: { $nin: [ "admin" ] } })
+            .sort({created: -1}).exec(function(err,users) {
+                if (err){
+                    console.log('ERROR: ' + err);
+                    res.status(500).json({ err: err, message: "Internal Server Error"});
+                } else {
+
+                    var usuarios = [];
+
+                    usuarios.push({
+                        email: "Email",
+                        firstname: "First name",
+                        lastname: "Last name",
+                        doctype: "Document type",
+                        doc: "Document",
+                        cellphone: "Cellphone",
+                        occupation: "Occupation",
+                        skype: "Skype",
+                        location: "Location",
+                        role: "Role",
+                        created: "Created",
+                        updated: "Updated",
+                        lastlogin: "Last login"
+                    });
+
+                    users.forEach(function(user) {
+                      usuarios.push({
+                          email:user.email,
+                          firstname: user.name.first,
+                          lastname: user.name.last,
+                          doctype: user.doc.typedoc,
+                          doc: user.doc.number,
+                          cellphone: user.phone.number,
+                          occupation: user.occupation,
+                          skype: user.skype,
+                          location: user.location,
+                          role: user.role,
+                          created:moment(user.created).format('YYYY-DD-MM'),
+                          updated:moment(user.updated).format('YYYY-DD-MM'),
+                          lastlogin: moment(user.lastlogin).format('YYYY-DD-MM')
+                      });
+                    });
+
+                    res.setHeader('Content-disposition', 'attachment; filename=usuarios.csv')
+                    res.csv(usuarios);
+
+                }
+            });
     }
 
 };

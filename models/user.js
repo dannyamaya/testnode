@@ -130,7 +130,7 @@ UserSchema.static('authenticate', function (email, password, callback) {
 
         // Return false if no user found
         if (!user) {
-            return callback(null, false, {message: "Email o Contraseña incorrecta"});
+            return callback(null, false, {message: "Wrong Email or Password"});
         } else {
 
             if (user.banned) {
@@ -144,7 +144,7 @@ UserSchema.static('authenticate', function (email, password, callback) {
 
                     // Return false if incorrect password
                     if (!passwordCorrect) {
-                        return callback(null, false, {message: "Email o Contraseña incorrecta"});
+                        return callback(null, false, {message: "The password you entered is incorrect. Try again."});
                     }
 
                     // Return user if successful

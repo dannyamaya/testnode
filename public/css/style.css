@@ -66,7 +66,7 @@ button:focus{
 
 /*=== Configuration === */
 .config-menu{
-  background-color:#7FB9B9;;
+  background-color:#41BEBB;
   margin-top:15px;
 }
 
@@ -164,7 +164,7 @@ button:focus{
   box-shadow: none;
 }
 
-.form-control, .btn{
+.form-control, .btn, .panel{
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
@@ -358,11 +358,16 @@ button:focus{
 
 .search .form-control,
 .search .form-control:hover,
-.search .form-control:active,
-.search .form-control:focus{
+.search .form-control:active{
   border-right:0;
   box-shadow: none;
   border-color: #ccc;
+}
+
+.search .form-control:focus{
+  border-right:0;
+  box-shadow: none;
+  border-color: #41BEBB;
 }
 
 .search .input-group-addon {
@@ -370,6 +375,10 @@ button:focus{
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+}
+
+.search .form-control:focus + .search .input-group-addon  {
+  border-color: #41BEBB !important;
 }
 
 
@@ -428,6 +437,12 @@ button:focus{
   margin-top: 20px;
   padding: 10px 15px;
   margin-left: 5px;
+}
+
+.btn-adduser:hover{
+ border-color: #41BEBB;
+ color:#41BEBB;
+ background-color: #fff;
 }
 
 /* =========== LOADING ==============*/

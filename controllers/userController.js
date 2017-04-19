@@ -390,6 +390,34 @@ module.exports = {
     },
 
     /**
+     * Render password recovery view.
+     * @param {string} i - user's id.
+     * @param {string} t - user's reset password token.
+     */
+    showResetPassword: function(req,res,next){
+        User.findById(req.query.i, function(err, user){
+            if (err) return next(err);
+            if(!user){
+                res.render('404');
+            } else {
+                if (user.reset_password_token==req.query.t){
+                    //user.reset_password_token = crypto.randomBytes(127).toString('hex').toString();
+                    user.reset_password_sent_at = Date.now();
+                    user.save();
+                    res.render('reset-password', {
+                        title: 'Reset your password',
+                        logged: req.isAuthenticated(),
+                        user : user
+                    });
+                }
+                else{
+                    res.render('404');
+                }
+            }
+        });
+    },
+
+    /**
      * Update password.
      * @param {string} password - new password.
      * @param {string} passwordconfirmation - new password confirmation.

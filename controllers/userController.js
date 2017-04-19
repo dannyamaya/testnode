@@ -17,6 +17,9 @@ module.exports = {
      * @param {string} passwordconf - The user's password confirmation, verification purposes.
      */
     createUser: function (req, res, next) {
+
+        console.log(req.body);
+
         if (req.body.first === undefined) {
             return res.status(404).json({message: 'FirstName not found'});
         }
@@ -118,7 +121,7 @@ module.exports = {
                             agent: req.body.agent,
                             finish: req.body.finish,
                             start: req.body.start,
-                            duration: req.body.duration
+                            duration: req.body.duration,
                         });
 
                         resident.save(function (err) {
@@ -137,7 +140,7 @@ module.exports = {
                     return res.status(200).json({error: false, users: user, message: "User has been created"});
                 } else {
                     console.log('ERROR: ' + err);
-                    return res.status(409).json({message: 'E-mail already exist'});
+                    return res.status(409).json({message: 'Error, check your details'});
                 }
             });
         } else {

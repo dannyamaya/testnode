@@ -18,6 +18,7 @@ var ResidentSchema = new Schema({
     start: {type: Date, required:true},
     duration: {type: String, required:true},
 
+
     created: {type: Date, default: Date.now},
     updated: {type: Date, default: Date.now},
     active: {type: String, default: true},

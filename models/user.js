@@ -8,6 +8,7 @@ var UserSchema = new Schema({
         first: {type: String, lowercase: true, trim: true, required: true},
         last: {type: String, lowercase: true, trim: true, required: true}
     },
+    profile_picture: {type: String, lowercase: true, trim: true},
     email: {type: String, required: true, unique: true, lowercase: true, trim: true},
     email_verified: {type: Boolean, default: false},
     email_token: {

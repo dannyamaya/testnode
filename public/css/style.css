@@ -59,7 +59,9 @@ button:focus{
 
 .nav > li > a, .nav > li > a:active, .nav > li > a:focus, .nav > li > a:hover{
   background-color:transparent;
-  color: #CE195F;
+  color: #222;
+  padding-top: 18px;
+  padding-bottom: 17px;
 }
 
 /*=== Configuration === */
@@ -105,8 +107,8 @@ button:focus{
 /* Pagination */
 
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
-  background-color: #CE195F;
-  border-color: #CE195F;
+  background-color: #E30056;
+  border-color: #E30056;
 }
 
 /*--------- Alerts -------*/
@@ -156,8 +158,20 @@ button:focus{
 
 /*--------- Buttons -------*/
 
+.form-control:focus{
+  border-color: #484848;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.form-control, .btn{
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
 .btn-livinn, .btn-livinn:hover, .btn-livinn:active, .btn-livinn:focus{
-  background-color: #CE195F;
+  background-color: #E30056;
   color:#fff;
   border-color:#CE195F;
 }
@@ -168,12 +182,15 @@ button:focus{
 }
 
 .modal-content{
-  background: #fff url(../img/fondo.svg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
 }
+
+.modal-body {
+    padding: 15px 15px 35px;
+}
+
 /* ---- select ---*/
 
 .select{
@@ -277,6 +294,10 @@ button:focus{
   width:100px;
 }
 
+.nav, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    border-color: #fff;
+    background-color: #fff;
+}
 
 /* ----Dashboard -----*/
 
@@ -346,6 +367,9 @@ button:focus{
 
 .search .input-group-addon {
   background-color: #fff;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
 }
 
 
@@ -358,7 +382,7 @@ button:focus{
 }
 
 .table thead th{
-  background-color: #7FB9B9;
+  background-color: #41BEBB;
 }
 
 .table tbody tr{
@@ -453,8 +477,8 @@ button:focus{
 
   background-color: white;
 
-  border-left: 1.6em solid #CE195F;
-  border-right: 1.6em solid #CE195F;
+  border-left: 1.6em solid #E30056;
+  border-right: 1.6em solid #E30056;
   border-top: 1.6em solid transparent;
   border-bottom: 1.6em solid transparent;
 
@@ -479,11 +503,7 @@ button:focus{
 /* ============================================ LOGIN ======================================== */
 
 .login{
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background: url(../img/loginbg.jpg) no-repeat center center fixed;
+  background-color: #000;
   min-height:100%;
   height: 100%;
 }

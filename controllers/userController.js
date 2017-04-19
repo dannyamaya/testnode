@@ -18,8 +18,6 @@ module.exports = {
      */
     createUser: function (req, res, next) {
 
-        console.log(req.body);
-
         if (req.body.first === undefined) {
             return res.status(404).json({message: 'FirstName not found'});
         }
@@ -403,7 +401,7 @@ module.exports = {
                 res.render('404');
             } else {
                 if (user.reset_password_token==req.query.t){
-                    //user.reset_password_token = crypto.randomBytes(127).toString('hex').toString();
+                    user.reset_password_token = crypto.randomBytes(127).toString('hex').toString();
                     user.reset_password_sent_at = Date.now();
                     user.save();
                     res.render('reset-password', {
@@ -438,23 +436,36 @@ module.exports = {
 
             User.findById(req.body.id, function (err, user) {
                 if (err) {
-                    res.status(404).json({message: "User not found"});
+                    return res.status(404).json({message: "User not found"});
                 }
                 if (!user) {
-                    res.status(404).json({message: "User not found"});
+                    return res.status(404).json({message: "User not found"});
                 } else {
                     if (user.hash && user.salt) {
-                        if (user.reset_password_token == req.body.reset_password_token) {
-                            res.status(422).json({message: "Lo sentimos este link ya caduco. Intenta hacer una solicitud de nuevo"});
+                        if (!req.body.oldpassword && user.reset_password_token == req.body.reset_password_token) {
+                          console.log("old reset password link");
+                          return res.status(422).json({message: "Lo sentimos este link ya caduco. Intenta hacer una solicitud de nuevo"});
+                        } else if( req.body.oldpassword && !req.body.reset_password_token ){
+                          user.verifyPassword(req.body.oldpassword, function (err, passwordCorrect) {
+                            if(err){
+                              console.log("check old password case");
+                              return res.status(422).json({message:"Check your old password"});
+                            } else {
+                              user.password = req.body.password;
+                              user.save();
+                              return res.status(200).json({message: "Tu contraseña ha sido modificada exitosamente"});
+                            }
+                          });
                         } else {
                             user.password = req.body.password;
                             user.save();
-                            res.status(200).json({message: "Tu contraseña ha sido modificada exitosamente"});
+                            return res.status(200).json({message: "Tu contraseña ha sido modificada exitosamente"});
                         }
                     } else {
+                        console.log("password has never been set");
                         user.password = req.body.password;
                         user.save();
-                        res.status(200).json({message: "Password updated"});
+                        return res.status(200).json({message: "Password updated"});
                     }
                 }
             });
@@ -518,6 +529,42 @@ module.exports = {
 
                 }
             });
+    },
+
+    /**
+     * Welcome user.
+     * @param {string} i - The user's id.
+     * @param {string} t - The user's email token.
+     */
+    welcome: function(req, res, next){
+
+        if (req.query.i === undefined && req.query.t === undefined && req.query.i != '' && req.query.t != '') {
+            res.render('404');
+        } else {
+
+            User.findById(req.query.i, function(err, user){
+                if(err){
+                    res.render('500');
+                }
+                if(!user){
+                    res.render('404');
+                } else {
+                    if (user.email_token==req.query.t){
+                        user.verified_email = true;
+                        user.email_token = crypto.randomBytes(127).toString('hex').toString(); //resets token
+                        user.save();
+                        res.render('welcome',{
+                            title:'Welcome',
+                            user: user
+                        });
+                    }
+                    else{
+                        res.render('404');
+                    }
+                }
+            });
+
+        }
     }
 
 };

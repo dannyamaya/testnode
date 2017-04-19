@@ -19,8 +19,7 @@ var transport = nodemailer.createTransport("SMTP", {
 exports.welcome= function(user){
 
     var locals = {
-        //url: config.url.test,
-        url: config.url.production,
+        url: config.production.url,
         user: {
           id: user._id ,
           name:  user.name,
@@ -42,9 +41,9 @@ exports.welcome= function(user){
 
               var mailOptions = {
 
-                  from: 'Notaria'+' <contact@cannedhead.com>',
+                  from: 'Livinn'+' <contact@cannedhead.com>',
                   to: locals.user.email,
-                  subject: 'Bienvenido',
+                  subject: 'Welcome',
                   headers: {
                       'X-Laziness-level': 1000
                   },

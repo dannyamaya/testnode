@@ -146,7 +146,7 @@ block content
 
 
     <!-- User Registration Modal -->
-    .modal.fade#registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    .modal.fade#registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header
@@ -155,7 +155,7 @@ block content
                 .modal-body
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1
-                            form#registrationForm(action="/api/users", method="post", role="form" enctype="multipart/form-data")
+                            form#registrationForm(action="/api/users", method="post", role="form" enctype="multipart/form-data" data-parsley-validate)
                                 .col-sm-12
                                     .form-group.emailregistrationerror.col-sm-4
                                         label(for='email') Email
@@ -171,16 +171,17 @@ block content
                                         input#last.form-control(type='text' name='last' placeholder='Last Name' required='' autofocus='')
                                 .col-sm-12
                                     .form-group.col-sm-4
-                                        label Type of Document
+                                        label Document Type
                                         span.requiredLivinn *
                                         .select
-                                            select(name="doctype")
+                                            select(name="doctype" required)
+                                                option(value="") Choose a document type
                                                 option(value="DNI") DNI
                                                 option(value="Passport") Passport
                                     .form-group.col-sm-4
                                         label(for='image') Profile Picture
                                         span.requiredLivinn *
-                                        input#image.form-control(type='file' name='image' required='' autofocus='')
+                                        input#image(type='file' name='image' required='' autofocus='')
                                     .form-group.col-sm-4
                                         label(for='document') Document
                                         span.requiredLivinn *
@@ -192,27 +193,30 @@ block content
                                         span.requiredLivinn *
                                         .select
                                             select.roleSelect(name="role")
+                                                option(value="") Choose a role
                                                 option(value="resident") Resident
                                                 option(value="marketing") Marketing
                                                 option(value="operation-manager") Operation Manager
                                                 option(value="maintenance") Maintenance
                                                 option(value="client-service") Client Service
                                                 option(value="resident-assistant") Resident Assistant
-                                                option(value="admin") Super Admin
+                                                option(value="admin") SuperAdmin
                                     .form-group.col-sm-4
                                         label Location
                                         span.requiredLivinn *
                                         .select
                                             select(name="location")
-                                                option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
-                                                option(value="Viña Del Mar") Viña Del Mar
+                                                option(value="") Choose a location
                                                 option(value="Calle 18 Bogotá") Calle 18 Bogotá
                                                 option(value="Calle 21 Bogotá")  Calle 21 Bogotá
+                                                option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
                                                 option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
+                                                option(value="Viña Del Mar") Viña Del Mar
                                     .form-group.col-sm-4
                                         label Time Zone
                                         .select
                                             select(name="timezone")
+                                                option(value="") Choose a time zone
                                                 option(value="América/Santiago") América/Santiago
                                                 option(value="América/Bogotá") América/Bogotá
 
@@ -231,7 +235,7 @@ block content
 
                                 .col-sm-12.residentFields
                                     br
-                                    h3.modal-title.text-center Resident Aditional Fields
+                                    h3.modal-title.text-center Resident Additional Fields
                                     br
                                     .col-sm-12
 
@@ -255,6 +259,7 @@ block content
                                             label Bathroom
                                             .select
                                                 select(name="bathroom")
+                                                    option(value="") Choose a bathroom
                                                     option(value="single") Single
                                                     option(value="shared") Shared
                                         .form-group.col-sm-4
@@ -262,15 +267,19 @@ block content
                                             input#bed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
                                     .col-sm-12
                                         .form-group.col-sm-4
-                                            label(for='rate') Rate
+                                            label(for='rate') Amount
                                             span.requiredLivinn *
                                             input#rate.form-control(type='text' name='rate' placeholder='Rate' autofocus='')
                                         .form-group.col-sm-4
                                             label(for='currency') Currency
                                             span.requiredLivinn *
-                                            input#currency.form-control(type='text' name='currency' placeholder='Currency' autofocus='')
+                                            .select
+                                                select(name="currency")
+                                                  option(value="") Choose a currency
+                                                  option(value="CLP") CLP
+                                                  option(value="COP") COP
                                         .form-group.col-sm-4
-                                            label(for='rateusd') Rate USD
+                                            label(for='rateusd') Amount USD
                                             input#rateusd.form-control(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
                                     .col-sm-12
                                         .form-group.col-sm-4
@@ -293,6 +302,7 @@ block content
                                             label Status
                                             .select
                                                 select(name="status")
+                                                    option(value="") Choose a status
                                                     option(value="Booked") Booked
                                                     option(value="In-house") In-house
 
@@ -421,8 +431,6 @@ block content
                 .modal-header
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                     .row
-                        .col-xs-4.col-xs-offset-4.no-padding
-                            img.img-responsive(src="img/icon_eliminar.svg", alt="eliminar")
                         h3.col-xs-12.modal-title.text-center#deleteModal_h ¿Desea eliminar este usuario?
                 .modal-body
                     h4.modal-title.text-danger.danger-modal.text-center.hidden#deleteError
@@ -436,6 +444,7 @@ block content
 
 block scripts
     script(src="/js/jquery.bootpag.min.js")
+    script(src="/js/parsley.min.js")
     script.
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -452,6 +461,16 @@ block scripts
             });
 
             filterUsers(1);
+
+            $( "#datepickerone" ).datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1917:2000',
+                onClose: function () {
+                  $(this).parsley().validate();
+                }
+            });
         });
 
 
@@ -479,6 +498,7 @@ block scripts
                         $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
 
                         successAlert("User created");
+                        $('#registrationForm').parsley().reset();
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

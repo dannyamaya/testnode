@@ -28,7 +28,8 @@ router.post('/auth/exchange', oauthController.exchange);
 
 router.get('/logout',authenticationController.logout);
 
-//router.get('/reset-password', userController.showResetPassword)
+router.post('/update-password',userController.updatePassword);
+router.get('/reset-password', userController.showResetPassword)
 router.post('/reset-password', userController.resetPassword);
 
 

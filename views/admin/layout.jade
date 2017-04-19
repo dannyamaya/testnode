@@ -14,7 +14,7 @@ html.no-js(lang="es")
     link(rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
     link(href="/css/font-awesome.min.css" rel="stylesheet" type="text/css")
     link(href="/css/animate.min.css", rel="stylesheet")
-    link(rel="stylesheet", href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
+    link(href="/css/ionicons.min.css" rel="stylesheet")
     link(href="/css/style.css", rel="stylesheet")
     block header
   body
@@ -25,7 +25,7 @@ html.no-js(lang="es")
             li.inactive DASHBOARD
             if user.role == 'admin'
                 li
-                    a(href="/users") Usuarios
+                    a(href="/users") Users
 
 
     .col-xs-12.col-sm-10.col-sm-offset-2.no-padding.dashcontainer
@@ -34,14 +34,14 @@ html.no-js(lang="es")
             .col-xs-6
                 ul.nav.navbar-nav.navbar-right
                     li.dropdown
-                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false' style="text-transform:capitalize;")
                             |    #{user.name.first} #{user.name.last}
-                            i.icon.ion-ios-arrow-down
+                            img.img-circle(style="width:30px; height:30px; margin-left:7px;" src="#{user.gravatar}")
                         ul.dropdown-menu
                             li
                                 a(href='/settings/personal-information') Settings
                             li
-                                a(href='/logout') Logout
+                                a(href='/logout') Log Out
         block content
     .alert.alert-warning.animated.col-xs-12.col-sm-6.col-sm-offset-3#warning
         p.text-center

@@ -3,63 +3,58 @@ block content
     include settings-menu.jade
     .col-xs-12.col-sm-7
         .page-header
-            h2 
-                |   Información Personal
+            h2
+                |   Personal information
                 br
-                small Esta información es privada.
-        .col-xs-12.col-sm-4.col-sm-offset-1
+                small This information is private.
+        .col-xs-12.col-sm-4.col-sm-offset-1.form-group
             img.img-responsive.img-circle(src="#{user.gravatar}")
-        .col-xs-12.col-sm-11.col-sm-offset-1.form-group
-            p.helper 
-                |   Modifica tu avatar en 
-                a(href="https://gravatar.com" target="_blank" style="color:#CE195F;") Gravatar
-                | .
         form.col-xs-12.col-sm-10.col-sm-offset-1#updateinfoform(method="put" action="/user/#{user._id}")
             .form-group
-                label 
-                    span.text-capitalize #{user.doc_type} :
-                    span #{user.doc}
+                label
+                    span.text-capitalize #{user.doc.typedoc} :
+                    span #{user.doc.number}
             .form-group
-                label Nombre
+                label Firstname
                 input.form-control(type="text" value="#{user.name.first}" placeholder="Nombre" name="firstname")
             .form-group
-                label Apellido
+                label Lastname
                 input.form-control(type="text" value="#{user.name.last}" placeholder="Nombre" name="lastname")
             .form-group
-                label 
+                label
                     |   Email
                     if !user.verified_email
-                        i.fa.fa-check-circle.email-verified.hidden(aria-hidden="true")
-                        a.verified-link.hidden(href="#" onclick="verifyEmail") Verificar 
+                        i.fa.fa-check-circle.email-verified(aria-hidden="true")
+                        a.verified-link.hidden(href="#" onclick="verifyEmail") Verify
                     else
-                        i.fa.fa-check-circle.email-verified.active.hidden(aria-hidden="true" title="Verificado")    
+                        i.fa.fa-check-circle.email-verified.active(aria-hidden="true" title="Verified")
                 input.form-control(type="email" value="#{user.email}" placeholder="Email" name="email")
             .form-group
-                label Teléfono
+                label Cellphone
                 input.form-control(type="text" value="#{user.phone.number || '' }" placeholder="Teléfono" name="phone")
             .form-group-end
-                input.btn.btn-livinn(type="submit" value="Actualizar información" style="margin-bottom:30px;")  
-        
+                input.btn.btn-livinn(type="submit" value="Update information" style="margin-bottom:30px;")
+
 block scripts
     script.
         function verifyEmail(){
             console.log("verificar");
-        } 
+        }
 
         $('#updateinfoform').submit(function(evt){
             evt.preventDefault();
-            
+
             var url = $(this).attr("action");
             var formData = $(this).serialize();
-            
+
             console.log(formData);
 
             $.ajax({
                 type: "PUT",
                 url: url,
                 data: formData,
-                success : function(response){ 
-                    successAlert('La información ha sido actualizada'); 
+                success : function(response){
+                    successAlert('La información ha sido actualizada');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;
@@ -67,10 +62,10 @@ block scripts
                         $('#inputConfPasswordr').focus();
                         $('.emailregistrationerror').removeClass('has-error');
                         $('.passwordregistrationerror').addClass('has-error');
-                        warningAlert('Las contraseñas no coinciden');  
+                        warningAlert('Las contraseñas no coinciden');
                     } else {
-                        warningAlert(message); 
-                    }            
+                        warningAlert(message);
+                    }
                 }
             });
         });

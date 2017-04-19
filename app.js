@@ -54,7 +54,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     store: new mongoStore({
-        url: config.production.url,
+        url: config.development.db,
         collection : 'sessions'
     })
 }));

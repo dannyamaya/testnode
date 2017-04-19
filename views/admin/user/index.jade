@@ -4,18 +4,18 @@ block content
         .panel.panel-default.col-xs-12
             form.form.col-xs-12.col-sm-4.no-padding#searchform(method="post" action="users")
                 .input-group.search
-                    input.form-control#search(type="text" aria-label="Buscar")
+                    input.form-control#search(type="text" aria-label="Search users" placeholder="Search users")
                     span.input-group-addon
                         i.fa.fa-search
 
-            button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Eliminar" onclick='deleteUserModal()')
+            button.btn.btn-adduser(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
                 i.fa.fa-trash
-            button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Editar" onclick='updateUserModal()')
+            button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
                 i.fa.fa-pencil-square-o
-            a.btn.btn-default.btn-adduser(href="/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Descargar")
+            a.btn.btn-default.btn-adduser(href="/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
                 i.fa.fa-download
             .pull-right
-                button.btn.btn-livinn.btn-adduser(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
+                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
                     span.hidden-xs Add User
                     i.visible-xs.fa.fa-plus
             .clearfix
@@ -798,6 +798,16 @@ block scripts
 
             $('#readModal').modal('show');
 
+        });
+
+        $('#search').on({
+            focus: function () {
+                $("#searchform .input-group-addon").addClass('focused');
+            },
+
+            blur: function () {
+                $("#searchform .input-group-addon").removeClass('focused');
+            }
         });
 
 

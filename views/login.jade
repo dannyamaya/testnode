@@ -15,14 +15,14 @@ block content
                         form.form#loginForm(action="/login" method="post", role="form")
                             .form-group
                                 label.sr-only(for='inputEmail') Email
-                                input#inputEmail.form-control(type='email' name='email' placeholder='Correo electrónico',autofocus='' required disabled=logged)
+                                input#inputEmail.form-control(type='email' name='email' placeholder='Email',autofocus='' required disabled=logged)
                             .form-group
-                                label.sr-only(for='inputPassword') Contraseña
-                                input#inputPassword.form-control(type='password' name='password' placeholder='Contraseña' required disabled=logged)
+                                label.sr-only(for='inputPassword') Password
+                                input#inputPassword.form-control(type='password' name='password' placeholder='Password' required disabled=logged)
                             .loading#loading(style="display:none")
-                            button.btn.btn-lg.btn-livinn.btn-block#loginbtn(type='submit') Iniciar Sesión
-                            p.pull-right.forgot-btn
-                                a(data-toggle="modal", data-target="#forgotPswdModal", href="/#",data-dismiss="modal" disabled=logged) ¿Olvidaste tu contraseña?
+                            button.btn.btn-lg.btn-livinn.btn-block#loginbtn(type='submit') Sign In
+                            p.text-center.forgot-btn
+                                a(data-toggle="modal", data-target="#forgotPswdModal", href="/#",data-dismiss="modal" disabled=logged) Forgot password?
     <!-- Forgot Password Modal -->
     .modal.fade#forgotPswdModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog
@@ -30,19 +30,19 @@ block content
                 .modal-header
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                     .row
-                        .col-xs-4.col-xs-offset-4.no-padding
-                            img.img-responsive(src="img/icon_cambiodeclave.svg", alt="cambio de clave")
-                        h3.col-xs-12.modal-title.text-center ¿Olvidaste tu contraseña?
+                        h3.col-xs-12.modal-title.text-center Reset password
                 .modal-body
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
                             form#forgotForm(action="/reset-password",method="post", role="form")
-                                p Introduce tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+                                p Enter the email address associated with your account, and we’ll email you a link to reset your password.
                                 .form-group
-                                    label(for="email") Correo electrónico
-                                    input#email.form-control(type="email",name="email" ,placeholder="Correo electrónico")
+                                    label(for="email") Email
+                                    input#email.form-control(type="email",name="email" ,placeholder="Email")
+                                hr
                                 .form-group
-                                    input.btn.btn-livinn.btn-block.btn-lg(type="submit" value="Enviar" )
+                                  .col-xs-12.col-sm-5.no-padding
+                                    input.btn.btn-livinn.btn-block(type="submit" value="Send reset link" )
 block scripts
     script.
 

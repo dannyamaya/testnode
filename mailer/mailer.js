@@ -71,7 +71,7 @@ exports.welcome= function(user){
 exports.resetPassword= function(user){
 
     var locals = {
-        url: config.url.production,
+        url: config.production.url,
         user: {
           id: user._id ,
           name:  user.name,
@@ -95,9 +95,9 @@ exports.resetPassword= function(user){
 
               var mailOptions = {
 
-                  from: 'Notaria'+' <contact@cannedhead.com>',
+                  from: 'Livinn'+' <contact@cannedhead.com>',
                   to: locals.user.email,
-                  subject: 'Configurar contraseña',
+                  subject: 'Reset your password',
                   headers: {
                       'X-Laziness-level': 1000
                   },

@@ -377,8 +377,9 @@ button:focus{
   border-radius: 0px;
 }
 
-.search .form-control:focus + .search .input-group-addon  {
-  border-color: #41BEBB !important;
+.input-group-addon.focused  {
+  border-color: #41BEBB;
+  color: #41BEBB;
 }
 
 
@@ -410,6 +411,8 @@ button:focus{
   text-transform: uppercase;
   font-size: 0.8em;
   border-bottom: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .table input[type="checkbox"]{
@@ -437,12 +440,27 @@ button:focus{
   margin-top: 20px;
   padding: 10px 15px;
   margin-left: 5px;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
 }
 
-.btn-adduser:hover{
+.btn-adduser:focus,
+.btn-adduser:hover,
+.btn-adduser:active{
  border-color: #41BEBB;
  color:#41BEBB;
- background-color: #fff;
+ background-color: #fff !important;
+ box-shadow: none;
+}
+
+.btn-main,
+.btn-main_hover,
+.btn-main:focus,
+.btn-main:active{
+  margin-top: 20px;
+  padding: 10px 15px;
+  margin-left: 5px;
 }
 
 /* =========== LOADING ==============*/
@@ -586,9 +604,6 @@ button:focus{
 }
 
 .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {
-    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.5);
-    -webkit-transform: scale(1);
-    transform: scale(1);
     cursor: pointer;
 }
 

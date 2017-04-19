@@ -354,8 +354,7 @@ module.exports = {
      * @param {string} id - The user's id.
      */
     deleteUsers: function (req, res, next) {
-
-        User.remove({_id: {$in: req.body.users}}, function (err) {
+        User.remove({_id: {$in: req.body['users[]']}}, function (err) {
             if (err) {
                 console.log('ERROR: ' + err);
                 return res.status(500).json({error: true, message: 'Server connection error. Please try later'});

@@ -635,18 +635,22 @@ block scripts
                         $(this).attr('checked', false);
                     });
 
-                    var tdDoc = userr.children("td:nth-child(2)");
+                    var tdEmail = userr.children("td:nth-child(2)");
                     var tdFirst = userr.children("td:nth-child(3)");
                     var tdLast = userr.children("td:nth-child(4)");
+                    var tdDoc = userr.children("td:nth-child(5)");
                     var tdCellphone = userr.children("td:nth-child(6)");
                     var tdRol = userr.children("td:nth-child(7)");
-                    var tdUpdated = userr.children("td:nth-child(12)");
+                    var tdCity = userr.children("td:nth-child(8)");
+                    var tdUpdated = userr.children("td:nth-child(10)");
 
-                    tdDoc.text(response.user.document);
+                    tdEmail.text(response.user.email);
+                    tdDoc.text(response.user.doc.number);
                     tdFirst.text(response.user.name.first);
                     tdLast.text(response.user.name.last);
-                    tdCellphone.text(response.user.cellphone);
+                    tdCellphone.text(response.user.phone.number);
                     tdRol.text(response.user.rol);
+                    tdCity.text(response.user.location);
                     tdUpdated.text(moment(response.user.updated).format('YYYY-DD-MM-h:mm a'));
 
                     $('#updateUserModal').modal('hide');
@@ -689,7 +693,7 @@ block scripts
             $.ajax({
                 type: "DELETE",
                 data: {users: users},
-                url: '/user',
+                url: '/api/users',
                 success: function (response) {
                     $('input:checkbox:checked').each(function () {
                         $(this).parents("tr").remove();

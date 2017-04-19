@@ -31,6 +31,7 @@ router.get('/logout',authenticationController.logout);
 router.post('/update-password',userController.updatePassword);
 router.get('/reset-password', userController.showResetPassword)
 router.post('/reset-password', userController.resetPassword);
+router.route('/welcome').get(userController.welcome);
 
 
 /*=== SETTINGS ===*/

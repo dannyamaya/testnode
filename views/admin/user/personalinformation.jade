@@ -9,17 +9,18 @@ block content
                 small This information is private.
         .col-xs-12.col-sm-4.col-sm-offset-1.form-group
             img.img-responsive.img-circle(src="#{user.gravatar}")
-        form.col-xs-12.col-sm-10.col-sm-offset-1#updateinfoform(method="put" action="/user/#{user._id}")
+        form.col-xs-12.col-sm-10.col-sm-offset-1#updateinfoform(method="put" action="/api/users/#{user._id}")
             .form-group
-                label
-                    span.text-capitalize #{user.doc.typedoc} :
-                    span #{user.doc.number}
+                label Document
+                p.form-control-static
+                    span.text-capitalize #{user.doc.typedoc}
+                    |  #{user.doc.number}
             .form-group
                 label Firstname
-                input.form-control(type="text" value="#{user.name.first}" placeholder="Nombre" name="firstname")
+                input.form-control(type="text" value="#{user.name.first}" placeholder="Nombre" name="first")
             .form-group
                 label Lastname
-                input.form-control(type="text" value="#{user.name.last}" placeholder="Nombre" name="lastname")
+                input.form-control(type="text" value="#{user.name.last}" placeholder="Nombre" name="last")
             .form-group
                 label
                     |   Email
@@ -28,7 +29,7 @@ block content
                         a.verified-link.hidden(href="#" onclick="verifyEmail") Verify
                     else
                         i.fa.fa-check-circle.email-verified.active(aria-hidden="true" title="Verified")
-                input.form-control(type="email" value="#{user.email}" placeholder="Email" name="email")
+                p.form-control-static #{user.email}
             .form-group
                 label Cellphone
                 input.form-control(type="text" value="#{user.phone.number || '' }" placeholder="Teléfono" name="phone")
@@ -54,7 +55,7 @@ block scripts
                 url: url,
                 data: formData,
                 success : function(response){
-                    successAlert('La información ha sido actualizada');
+                    successAlert('Your personal information has been updated');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;

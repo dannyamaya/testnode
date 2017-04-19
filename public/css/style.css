@@ -620,3 +620,14 @@ button:focus{
   font-size: 18px;
 }
 
+.btn-dropdown{
+  border: none;
+}
+.btn-dropdown .fa-angle-down{
+  margin-left: 4px !important;
+}
+
+.cleanSearch{
+  cursor: pointer;
+}
+

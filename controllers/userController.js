@@ -176,6 +176,12 @@ module.exports = {
                         email: new RegExp(search, 'i')
                     },
                     {
+                        location: new RegExp(search, 'i')
+                    },
+                    {
+                        role: new RegExp(search, 'i')
+                    },
+                    {
                         doc: new RegExp(search, 'i')
                     }
                 ])

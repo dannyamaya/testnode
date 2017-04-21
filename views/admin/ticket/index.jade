@@ -1,0 +1,309 @@
+extend ../layout
+block header
+    link(href="/plugins/summernote/summernote.css" rel="stylesheet")
+block content
+    .col-xs-12
+      .panel.panel-default.col-xs-12
+        form.form.col-xs-12.col-sm-4.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
+          .input-group.search
+            input.form-control#search(type="text" name="name" placeholder="Search ticket")
+            span.input-group-addon
+              i.fa.fa-search
+        .pull-right
+            button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
+                span.hidden-xs Add Ticket
+                i.visible-xs.fa.fa-plus
+        .clearfix
+        .table-responsive.panel-tickets
+            table.table#table
+                thead
+                    tr
+                        th
+                        th Referencia
+                        th Creado
+                        th Modificado
+                tbody
+            #loader
+            .col-xs-12
+                p.text-center#pages 1-10 of # Tickets
+            nav#page-nav
+                .text-center#page-selection
+
+    <!-- New Ticket Modal -->
+    .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog.modal-lg
+            .modal-content
+                .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
+                        button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                .modal-header
+                    h2  Create ticket
+                .modal-body
+
+                    .row
+                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/ticket" method="post" enctype="multipart/form-data" role="form")
+                            .form-group
+                                label Filed by
+                                input.form-control(type="text")
+                            .form-group
+                                label Category
+                                .select
+                                    select.form-control
+                                        option(value="") Please choose a category
+                            .form-group
+                                label Subject
+                                input.form-control#subject(type="text" placeholder="Asunto" name="subject")
+                                input(id="user" type="hidden" name="user" value="#{user._id}")
+                            .form-group
+                                label Message
+                                #summernote
+                            .form-group
+                                label Attachment
+                                input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
+                            .pull-right.form-group-end
+                                button.btn.btn-danger.btn-lg(type="button" data-dismiss="modal" style="margin-right:7px;") Cerrar
+                                input.btn.btn-success.btn-lg(type="submit" value="Enviar")
+                .modal-footer
+
+    <!-- Open Ticket Modal -->
+    .modal.fade#openticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog.modal-lg.big
+            .modal-content
+                .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
+                        button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                .modal-header
+                    h2#tickettitle
+                        |   Ticket #456327
+                        span.ticketcreated creado por Juan David Florez
+                        span.ticketcreateddate 24/01/2017
+                .modal-body
+                    .row
+                        h2.col-xs-12
+                            |   Crear un nuevo tiquete
+                            br
+                            small Prometemos responder en el menor tiempo tu solicitud.
+
+                        form.col-xs-12(action="/ticket" method="post")
+                            .form-group
+                                label Asunto
+                                input.form-control#subject(type="text" placeholder="Asunto" name="subject")
+                                input(id="user" type="hidden" name="user" value="#{user._id}")
+                            .form-group
+                                label Mensaje
+                                #summernote
+                            .pull-right.form-group-end
+                                input.btn.btn-success.btn-lg(type="submit" value="Enviar")
+                .modal-footer
+
+block scripts
+    script(src="/plugins/summernote/summernote.min.js")
+    script(src="/plugins/summernote/lang/summernote-es-ES.js")
+    script(src="/js/jquery.bootpag.min.js")
+    script.
+        $( document ).ready(function() {
+
+            $('#summernote').summernote({
+              lang: 'es-ES',
+              height: 300,                 // set editor height
+              minHeight: null,             // set minimum height of editor
+              maxHeight: null,             // set maximum height of editor
+              focus: true                  // set focus to editable area after initializing summernote
+            });
+            $('.note-popover').css({'display': 'none'});
+
+            // pagination script
+            $('#page-selection').bootpag({
+                total: 10,
+                maxVisible: 5,
+            }).on("page", function(event, num){
+                console.log("numero:"+num);
+                filterTickets(num);
+            });
+
+            filterTickets(1);
+
+
+        });
+
+        $('#search').on({
+            focus: function () {
+                $("#searchform .input-group-addon").addClass('focused');
+            },
+
+            blur: function () {
+                $("#searchform .input-group-addon").removeClass('focused');
+            }
+        });
+
+        /* Get params from all filters */
+        function filterTickets(page){
+            var search = $('#search').val().trim();
+            getTickets(page,search);
+        }
+
+        $('#searchForm').submit(function(evt){
+            evt.preventDefault();
+            filterTickets(1);
+        });
+
+        function getTickets(page, search){
+            $('#tablecontainer').addClass("hidden")
+            $('#table tbody').html('');
+
+            $('#pages').hide();
+            $('#page-nav').hide( );
+            $('#loader').fadeIn( "slow");
+
+            $.ajax({
+                type: "GET",
+                url: '/api/users/#{user._id}/tickets?page='+page +'&search='+search,
+                success: function(data){
+
+
+                    // change count legends
+                    var total = parseInt(data.count/10);
+                    if(data.count%10 != 0){
+                        total += 1;
+                    }
+
+                     console.log(data);
+
+                    var m = ((data.count%10 != 0 && data.page == total)? data.count%10 : 10);
+
+                    var a = 1 + (data.page-1)*10;
+                    var b = m + (data.page-1)*10;
+                    $('#pages').html(a + '-' + b + ' de ' + data.count + ' Tickets');
+                    $('#page-selection').bootpag({total: total, maxVisible: 5});
+
+                    for(key=0; key<data.tickets.length ; key++ ){
+                        $('#table tbody').prepend("<tr><td class='text-center'>"+getStatus(data.tickets[key].status)+'</td><td><a href="#" onclick="openTicket(&quot;'+data.tickets[key]._id+'&quot;)">'+data.tickets[key]._id+'</a></td><td>'+moment(data.tickets[key].created).format('L h:mm:ss a')+'</td><td>'+moment(data.tickets[key].updated).format('L  h:mm:ss a')+'</td></tr>');
+                    }
+                }
+            }).done(function(data){
+                $('#loader').fadeOut( "fast", function() {
+                  $('#searchbar').removeClass("hidden").fadeIn("slow");
+                  $('#tablecontainer').removeClass("hidden").fadeIn("slow");
+                  $('#pages').removeClass("hidden").show();
+                  $('#page-nav').removeClass("hidden").show();
+                });
+            });
+        }
+
+        function getStatus(status){
+            var status = '0';
+            switch (status) {
+                case '0':
+                    source = "<span class='badge'>Enviado</span>";
+                    break;
+                case '1':
+                    source = "<span class='badge'>Recibido</span>";
+                    break;
+                case '2':
+                    source = "<span class='badge'>En proceso</span>";
+                    break;
+                case '3':
+                    source = "<span class='badge'>Terminado</span>";
+                    break;
+                case '4':
+                    source = "<span class='badge'>Aprobado</span>";
+                    break;
+            };
+            return source;
+        }
+
+
+        /*=== Ticket Form ===*/
+        $('#ticketForm').submit(function(evt){
+            evt.preventDefault();
+
+            var url = $(this).attr("action");
+
+            //opcion 1
+            var formData = new FormData($('#ticketForm')[0]);
+
+            //opcion 2
+            //var formData = $('#ticketForm').serialize();
+
+            //opcion 3
+            //- var fileSelect = document.getElementById('file-select');
+            //- var files = fileSelect.files;
+            //- var formData = new FormData();
+
+            //- // Loop through each of the selected files.
+            //- for (var i = 0; i < files.length; i++) {
+            //-   var file = files[i];
+
+            //-   //- // Check the file type.
+            //-   //- if (!file.type.match('image.*')) {
+            //-   //-   continue;
+            //-   //- }
+
+            //-   console.log(file);
+
+            //-   // Add the file to the request.
+            //-   formData.append('attachments[]', file, file.name);
+            //- }
+
+            //- var newForm = [{
+            //-     subject: $("#subject").val(),
+            //-     message:  $('#summernote').summernote('code')s
+            //- }];
+
+            //- //newForm.concat(formData);
+            //console.log(newForm);
+
+            var message = $('#summernote').code();
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                success : function(response){
+                    console.log(response);
+                    if(response.message == 'Ticket has been created'){
+                        $('#table tbody').prepend("<tr><td class='text-center'>"+getStatus(response.ticket.status)+"</td><td><a href='tickets/"+response.ticket._id+"'>"+response.ticket._id+'</a></td><td>'+moment(response.ticket.created).format('L h:mm:ss a')+'</td><td>'+moment(response.ticket.updated).format('L h:mm:ss a')+'</td></tr>');
+                        $('#newticketModal').modal('hide');
+                        $('#subject').val("");
+                        $('#summernote').summernote("reset");
+
+                        successAlert('Tiquete ha sido creado');
+                    } else {
+                        warningAlert('Error al crear la solicitud');
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    if(message == 'password and password confirmation mismatch'){
+                        $('#inputConfPasswordr').focus();
+                        $('.emailregistrationerror').removeClass('has-error');
+                        $('.passwordregistrationerror').addClass('has-error');
+                        warningAlert('Las contraseñas no coinciden');
+                    } else {
+                        warningAlert(message);
+                    }
+                }
+            });
+        });
+
+        function openTicket(ticketid){
+
+            $.ajax({
+                type: "GET",
+                url: '/ticket/'+ticketid,
+                success: function(data){
+                    console.log(data);
+                    $('#openticketModal').modal('show');
+
+                }
+            }).done(function(data){
+                $('#loader').fadeOut( "fast", function() {
+                  $('#searchbar').removeClass("hidden").fadeIn("slow");
+                  $('#tablecontainer').removeClass("hidden").fadeIn("slow");
+                  $('#pages').removeClass("hidden").show();
+                  $('#page-nav').removeClass("hidden").show();
+                });
+            });
+
+        }
+
+
+

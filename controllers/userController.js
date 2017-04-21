@@ -487,7 +487,7 @@ module.exports = {
      * @param {string} search - The user's email.
      */
     exportUsers: function(req, res, next) {
-        User.find({ id_notaria:req.user.id_notaria, roles: { $nin: [ "admin" ] } })
+        User.find({ roles: { $nin: [ "admin" ] } })
             .sort({created: -1}).exec(function(err,users) {
                 if (err){
                     console.log('ERROR: ' + err);

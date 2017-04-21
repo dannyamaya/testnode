@@ -463,7 +463,7 @@ textarea.parsley-error {
   width:21px;
 }
 
-.panel-user{
+.panel-user, .panel-tickets{
   margin-top: 20px;
   margin-bottom: 20px !important;
   border: 1px solid #E3E6EB !important;

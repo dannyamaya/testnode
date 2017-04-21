@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var userController = require('../controllers/userController');
+var ticketController = require('../controllers/ticketController');
 
 /* GET users listing. */
 router.route('/')
@@ -15,6 +16,9 @@ router.route('/export')
 router.route('/:id')
     .put(userController.updateUser)
     .get(userController.readUser);
+
+router.route('/:id/tickets')
+    .get(ticketController.readTicketsByUserId);
 
 module.exports = router;
 

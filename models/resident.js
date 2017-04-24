@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var moment = require('moment');
 
 var ResidentSchema = new Schema({
     user_id:{type:Schema.Types.ObjectId, ref: 'User', required:true},
@@ -16,8 +17,6 @@ var ResidentSchema = new Schema({
     agent: {type: String, required:true},
     finish: {type: Date, required:true},
     start: {type: Date, required:true},
-    duration: {type: String, required:true},
-
 
     created: {type: Date, default: Date.now},
     updated: {type: Date, default: Date.now},
@@ -31,6 +30,19 @@ var ResidentSchema = new Schema({
         virtuals: true
     }
 });
+
+ResidentSchema.virtual('duration')
+    .get(function () {
+
+      var date1  = this.start;
+      var date2 = this.finish;
+
+      var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+      return diffDays;
+
+    });
 
 
 module.exports = mongoose.model('Resident', ResidentSchema);

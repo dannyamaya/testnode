@@ -10,7 +10,7 @@
 	},
 	"production":{
 		"url" : "http://localhost:3000",
-    "db" : "mongodb://localhost/livinn-api"
+    "db" : "mongodb://heroku_xsf3z3qk:kktuvcha8n0sfj5g6a288adgjk@ds115071.mlab.com:15071/heroku_xsf3z3qk"
 	}
 
 }

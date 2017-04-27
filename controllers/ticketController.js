@@ -19,50 +19,53 @@ module.exports = {
      */
     createTicket: function(req, res, next) {
 
-        console.log(req.body);
-
-
         if (req.user === undefined) {
-          console.log("NO user");
-            res.status(404).json({ message: 'User not found'});
+          return res.status(404).json({ message: 'User not found'});
         }
-        else if (req.body.subject === undefined  ) {
-            console.log("NO subject");
-            res.status(404).json({ message: 'subject not found'});
+
+        if (req.body.subject === undefined  ) {
+          return res.status(404).json({ message: 'subject not found'});
         }
-        else if (req.body.message === undefined  ) {
-            console.log("NO message");
-            res.status(404).json({ message: 'message not found'});
+
+        if (req.body.message === undefined  ) {
+          return res.status(404).json({ message: 'message not found'});
+        }
+
+        var filedby = "";
+        if(req.user.role != resident){
+          filedby = req.body.filedby || req.user._id;
         } else {
-
-          var file = req.files.attachments;
-
-          if (file) {
-              var upload = true;
-              var fileName = slug(strftime('%Y-%H-%M-%S-') + req.user._id + '');
-                upload = s3deploy.uploadFiles(req.files.attachments.path, fileName);
-                // url stored in db
-                var imagenUrl = AWS_PREFIX + req.user-_id+'/attachments/' + fileName;
-          };
-
-          var ticket = new Ticket({
-              client_id:  req.user._id,
-              subject:    req.body.subject,
-              message: req.body.message,
-              attachments: imagenUrl || ''
-          });
-
-          ticket.save(function(err, t) {
-              if(!err) {
-                 //mailer.newTicket(req.user,ticket);
-                 res.status(200).json({ ticket:t,message: "Ticket has been created"});
-              } else {
-                  console.log('ERROR: ' + err);
-                  res.status(500).json({ err: err });
-              }
-          });
-
+          filedby = req.user._id;
         }
+
+        var file = req.files.attachments;
+
+        if (file) {
+            var upload = true;
+            var fileName = slug(strftime('%Y-%H-%M-%S-') + req.user._id + '');
+              upload = s3deploy.uploadFiles(req.files.attachments.path, fileName);
+              // url stored in db
+              var imagenUrl = AWS_PREFIX + req.user-_id+'/attachments/' + fileName;
+        };
+
+        var ticket = new Ticket({
+            client_id:  req.user._id,
+            subject:    req.body.subject,
+            message: req.body.message,
+            attachments: imagenUrl || ''
+        });
+
+        ticket.save(function(err, t) {
+            if(!err) {
+               //mailer.newTicket(req.user,ticket);
+               res.status(200).json({ ticket:t,message: "Ticket has been created"});
+            } else {
+                console.log('ERROR: ' + err);
+                res.status(500).json({ err: err });
+            }
+        });
+
+
     },
 
     readTickets: function(callback) {

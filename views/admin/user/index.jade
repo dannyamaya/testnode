@@ -624,6 +624,7 @@ block scripts
                         var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
                         var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
 
+
                         $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM') + "</td></tr>");
                     }
 

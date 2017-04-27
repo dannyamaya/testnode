@@ -29,7 +29,7 @@ var mongoStore = require('connect-mongo')(session);
 // -----------------------------------------------------------------
 mongoose.Promise = global.Promise;
 
-mongoose.connect(config.production.db, function(err, res) {
+mongoose.connect(config.development.db, function(err, res) {
   if(err) {
     console.log('ERROR: connecting to Database. ' + err);
   } else {
@@ -54,7 +54,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     store: new mongoStore({
-        url: config.production.db,
+        url: config.development.db,
         collection : 'sessions'
     })
 }));

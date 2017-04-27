@@ -191,6 +191,15 @@ button:focus{
     padding: 15px 15px 35px;
 }
 
+.label-livinn{
+  background-color: #E30056;
+  color:#fff;
+  margin-left: 8px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+}
+
 /* ---- select ---*/
 
 .select{
@@ -241,8 +250,14 @@ button:focus{
   width: 160% \9;
   height: 42px;
 }
-.select select:focus, .select select:active, .select select:hover {
+.select select:focus, .select select:active, .select select:hover,
+.select:focus:before, .select:active:before, .select:hover:before  {
   outline: 0 !important;
+  color:#41BEBB;
+}
+
+.select select:focus option, .select select:active option, .select select:hover option {
+  color:#000;
 }
 
 .select:before {
@@ -257,8 +272,36 @@ button:focus{
   -moz-osx-font-smoothing: grayscale;
 }
 
+.select:hover:before  {
+  animation: gearAnim 0.2s linear 0s 1 forwards;
+  -moz-animation: gearAnim 0.2s linear 0s 1 forwards;
+}
+
+@keyframes gearAnim {
+  from {-webkit-transform:rotate(0deg);}
+  to {-webkit-transform:rotate(180deg);}
+}
+
+@-webkit-keyframes gearAnim {
+  from {-webkit-transform:rotate(0deg);}
+  to {-webkit-transform:rotate(180deg);}
+}
+
 .icon--down:before, .select:before {
   content: "\e600";
+}
+
+.select.select-livinn {
+  width: auto;
+  margin: 19px 15px 0;
+  border: none;
+  text-shadow: none;
+}
+
+.select.select-livinn:hover {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 @font-face {
@@ -268,6 +311,14 @@ button:focus{
   font-style: normal;
 }
 
+.table td, .table th {
+    min-width: 120px;
+}
+
+
+.table td:nth-child(1), .table th:nth-child(1) {
+    min-width: 30px;
+}
 
 /*validation*/
 
@@ -463,11 +514,44 @@ textarea.parsley-error {
   width:21px;
 }
 
-.panel-user{
+.panel-user, .panel-tickets{
   margin-top: 20px;
   margin-bottom: 20px !important;
+}
+
+.panel-user {
   border: 1px solid #E3E6EB !important;
 }
+
+.panel-tickets{
+  border: none !important;
+}
+
+.panel-tickets tr{
+  border:1px solid #ccc;
+  margin-bottom: 5px;
+  transition: all .3s ease-in;
+  -o-transition: all .3s ease-in;
+  -moz-transition: all .3s ease-in;
+  -webkit-transition: all .3s ease-in;
+}
+
+.panel-tickets tr:hover{
+  box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.5); cursor: pointer;
+}
+
+.table-profile-img{
+  width: 33px;
+  height: 33px;
+  margin-left: 7px;
+  position: relative;
+  top: 5px;
+}
+
+.subject{
+  text-align: left;
+}
+
 
 .btn-adduser{
   margin-top: 20px;

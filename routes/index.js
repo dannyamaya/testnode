@@ -11,7 +11,9 @@ router.get('/', ensureHelper.ensureRedirect, authenticationController.login);
 router.post('/login', authenticationController.loginUser);
 
 // Admin Routes
-router.get('/users',ensureHelper.ensureAdmin, adminController.index);
+router.get('/users',ensureHelper.ensureAdmin, adminController.users);
+router.get('/tickets',ensureHelper.ensureAdmin, adminController.tickets);
+
 
 // Authorization & authentication routes
 

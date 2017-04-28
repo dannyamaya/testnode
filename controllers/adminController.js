@@ -1,7 +1,3 @@
-
-
-var Application = require('../models/application.js');
-
 module.exports = {
     users: function(req,res,next){
         res.render('admin/user/index', {

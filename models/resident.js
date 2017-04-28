@@ -20,7 +20,7 @@ var ResidentSchema = new Schema({
 
     created: {type: Date, default: Date.now},
     updated: {type: Date, default: Date.now},
-    active: {type: String, default: true},
+    active: {type: String, default: true}
 
 }, {
     toObject: {
@@ -33,7 +33,6 @@ var ResidentSchema = new Schema({
 
 ResidentSchema.virtual('duration')
     .get(function () {
-
       var date1  = this.start;
       var date2 = this.finish;
 

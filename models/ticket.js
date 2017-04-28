@@ -10,6 +10,7 @@ var TicketSchema   = new Schema({
   assigned_to: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   replies: [{ type: Schema.Types.ObjectId, ref: 'Ticket'}],
   attachments: { type: String },
+  category: {type: String},
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now }
 });

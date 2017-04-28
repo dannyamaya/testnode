@@ -60,14 +60,14 @@ block content
                 .modal-body
 
                     .row
-                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/ticket" method="post" enctype="multipart/form-data" role="form")
+                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form")
                             if user.role != 'resident'
                               .form-group
                                   label Filed by
-                                  input.form-control(type="text")
+                                  input.form-control(type="text" name="filedby")
                             .form-group
                                 label Category
-                                .select
+                                .select(name="category")
                                     select.form-control
                                         option(value="") Please choose a category
                                         option(value="support") Support
@@ -82,10 +82,10 @@ block content
                             .form-group
                                 label Attachment
                                 input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
-                .modal-footer
-                  .pull-right.form-group-end
-                    button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
-                    input.btn.btn-livinn(type="submit" value="Submit")
+                             .modal-footer
+                                .pull-right.form-group-end
+                                    button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
+                                    input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Open Ticket Modal -->
     .modal.fade#openticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -109,10 +109,11 @@ block content
                             .form-group
                                 label Asunto
                                 input.form-control#subject(type="text" placeholder="Asunto" name="subject")
-                                input(id="user" type="hidden" name="user" value="#{user._id}")
+                                input(id="subjectId" type="hidden" name="user" value="#{user._id}")
                             .form-group
                                 label Mensaje
-                                #summernote
+                                #summernoteOpen
+                            input(type="hidden" name="user")
                 .modal-footer
                   button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
                   input.pull-right.btn.btn-livinn.btn-lg(type="submit" value="Submit")
@@ -243,6 +244,7 @@ block scripts
             //opcion 1
             var formData = new FormData($('#ticketForm')[0]);
 
+
             //opcion 2
             //var formData = $('#ticketForm').serialize();
 
@@ -274,12 +276,15 @@ block scripts
             //- //newForm.concat(formData);
             //console.log(newForm);
 
-            var message = $('#summernote').code();
+            var message = $('#summernote').summernote('code');
+            formData.append('message', message);
 
             $.ajax({
                 type: "POST",
                 url: url,
                 data: formData,
+                processData: false,
+                contentType: false,
                 success : function(response){
                     console.log(response);
                     if(response.message == 'Ticket has been created'){

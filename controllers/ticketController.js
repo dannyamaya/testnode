@@ -6,6 +6,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var strftime = require('strftime');
 var slug = require('slug');
 var s3deploy= require('../helpers/bucketDeployHelper');
+var formidable = require('formidable');
 
 var AWS_PREFIX = 'https://s3-sa-east-1.amazonaws.com/cannedhead.bubaleads/';
 
@@ -17,7 +18,22 @@ module.exports = {
      * @param {string} subject - Ticket subject.
      * @param {string} password - Ticket message.
      */
+
+
     createTicket: function(req, res, next) {
+
+        var form = new formidable.IncomingForm();
+
+        form.parse(req);
+
+        form.on('fileBegin', function (name, file){
+            file.path = './uploads/' + file.name;
+        });
+
+        form.on('file', function (name, file){
+            console.log('Uploaded ' + file.name);
+        });
+
 
         if (req.user === undefined) {
           return res.status(404).json({ message: 'User not found'});
@@ -38,7 +54,7 @@ module.exports = {
           filedby = req.user._id;
         }
 
-        var file = req.files.attachments;
+        var file = req.file.attachments;
 
         if (file) {
             var upload = true;

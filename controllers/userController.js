@@ -118,9 +118,8 @@ module.exports = {
                             rateusd: req.body.rateusd,
                             agent: req.body.agent,
                             finish: req.body.finish,
-                            start: req.body.start,
-                            duration: req.body.duration,
-                        });
+                            start: req.body.start
+                         });
 
                         resident.save(function (err) {
                             if (!err) {

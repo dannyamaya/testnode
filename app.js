@@ -11,7 +11,8 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     session  = require('express-session'),
-    mongoStore = require('connect-mongo')(session);
+    mongoStore = require('connect-mongo')(session),
+    multer = require('multer');
 
 //Configuration file
 var config = require('./config/config.json');

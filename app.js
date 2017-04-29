@@ -12,7 +12,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     session  = require('express-session'),
     mongoStore = require('connect-mongo')(session),
-    multer = require('multer');
+    fileUpload = require('express-fileupload');
 
 //Configuration file
 var config = require('./config/config.json');
@@ -66,6 +66,9 @@ app.use(compression({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.disable('x-powered-by');
+
+//file uploads
+app.use(fileUpload());
 
 
 

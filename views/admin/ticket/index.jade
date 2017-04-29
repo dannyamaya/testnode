@@ -30,19 +30,11 @@ block content
                   tr
                     td
                       img.img-circle.table-profile-img(style="width:30px; height:30px; margin-left:7px;" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350")
-                    td.subject  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit, ipsa reprehenderit id voluptatum
-                    td 2017-12-05 12:20am
-                    td Maintenance
+                    td.subject
                     td
-                       span.label.label-success open
-                  tr
                     td
-                      img.img-circle.table-profile-img(style="width:30px; height:30px; margin-left:7px;" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350")
-                     td.subject  Lorem ipsum luptatum consequatur. Architecto modi earum veniam velit, omnis incidunt vel animi, hic quis laboriosam ipsam explicabo consequatur!
-                    td 2017-12-23 11:20am
-                    td Support
                     td
-                       span.label.label-warning pending
+                       span.label.label-success
             #loader.hidden
             .col-xs-12
                 p.text-center#pages 1-10 of # Tickets
@@ -67,15 +59,14 @@ block content
                                   input.form-control(type="text" name="filedby")
                             .form-group
                                 label Category
-                                .select(name="category")
-                                    select.form-control
+                                .select
+                                    select.form-control(name="category")
                                         option(value="") Please choose a category
                                         option(value="support") Support
                                         option(value="maintenance") Maintenance
                             .form-group
                                 label Subject
                                 input.form-control#subject(type="text" placeholder="Asunto" name="subject")
-                                input(id="user" type="hidden" name="user" value="#{user._id}")
                             .form-group
                                 label Message
                                 #summernote
@@ -330,8 +321,9 @@ block scripts
                   $('#page-nav').removeClass("hidden").show();
                 });
             });
-
         }
+
+
 
 
 

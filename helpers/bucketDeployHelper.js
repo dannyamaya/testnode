@@ -14,7 +14,7 @@ s3.setEndpoint('s3-sa-east-1.amazonaws.com');
 
 function getContentTypeByFile(fileName) {
   var rc = 'application/octet-stream';
-  var fileNameLowerCase = fileName.toLowerCase();
+  var fileNameLowerCase = fileName.toString().toLowerCase();
 
   if (fileNameLowerCase.indexOf('.html') >= 0) rc = 'text/html';
   else if (fileNameLowerCase.indexOf('.css') >= 0) rc = 'text/css';
@@ -57,7 +57,7 @@ module.exports = {
       });
     }
     catch (e){
-      console.log('An error has occured Buffering the file !');
+      console.log(e);
       return false;
     }
   }

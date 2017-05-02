@@ -50,7 +50,7 @@ module.exports = {
             });
 
             var upload = true;
-            upload = s3deploy.uploadFiles(filePath, fileName, req.user._id);
+            upload = s3deploy.uploadFiles(filePath, fileName, req.user._id, file.data);
 
             if(!upload)
                 return res.status(404).json({message: 'Error uploading file!'});
@@ -69,7 +69,8 @@ module.exports = {
             message: req.body.message,
             attachments: imagenUrl || '',
             category: req.body.category,
-            filedby: req.body.filedby
+            filedby: req.body.filedby,
+            file_name: fileName
 
         });
 

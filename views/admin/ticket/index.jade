@@ -26,6 +26,17 @@ block content
         .clearfix
         .table-responsive.panel-tickets
             table.table#table
+                thead
+                    tr
+                        th
+                        th Filed By
+                        th Subject
+                        th Category
+                        th Attachment
+                        th Created
+                        th Updated
+                        th Status
+
                 tbody
                   tr
                     td
@@ -34,7 +45,7 @@ block content
                     td
                     td
                     td
-                       span.label.label-success
+                       span.label.label-success open
             #loader.hidden
             .col-xs-12
                 p.text-center#pages 1-10 of # Tickets
@@ -69,7 +80,8 @@ block content
                                 input.form-control#subject(type="text" placeholder="Asunto" name="subject")
                             .form-group
                                 label Message
-                                #summernote
+                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5")
+
                             .form-group
                                 label Attachment
                                 input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
@@ -103,11 +115,38 @@ block content
                                 input(id="subjectId" type="hidden" name="user" value="#{user._id}")
                             .form-group
                                 label Mensaje
-                                #summernoteOpen
+                                input.form-control(type="text" name="message")
                             input(type="hidden" name="user")
                 .modal-footer
                   button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
                   input.pull-right.btn.btn-livinn.btn-lg(type="submit" value="Submit")
+
+    <!-- Ticket Read Modal -->
+    .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                    h3.modal-title.text-center.readModalTitle
+                .modal-body
+                    .row
+                        .col-xs-12.col-sm-10.col-sm-offset-1
+                            .col-sm-12
+                                    .form-group.col-sm-4
+                                        label(for='fieldByRead') Field By
+                                        p#filedByRead
+                                    .form-group.col-sm-4
+                                        label(for='subjectRead') Subject
+                                        p#subjectRead
+                                    .form-group.col-sm-4
+                                        label(for='categoryRead') Category
+                                        p#categoryRead
+                            .col-sm-12
+                                    .form-group.col-sm-12
+                                        label(for='messageRead') Message
+                                        p#messageRead
+
+
 
 block scripts
     script(src="/plugins/summernote/summernote.min.js")
@@ -116,13 +155,7 @@ block scripts
     script.
         $( document ).ready(function() {
 
-            $('#summernote').summernote({
-              lang: 'es-ES',
-              height: 300,                 // set editor height
-              minHeight: null,             // set minimum height of editor
-              maxHeight: null,             // set maximum height of editor
-              focus: true                  // set focus to editable area after initializing summernote
-            });
+
             $('.note-popover').css({'display': 'none'});
 
             // pagination script
@@ -134,7 +167,7 @@ block scripts
                 filterTickets(num);
             });
 
-            //filterTickets(1);
+            filterTickets(1);
 
 
         });
@@ -161,7 +194,7 @@ block scripts
         });
 
         function getTickets(page, search){
-            $('#tablecontainer').addClass("hidden")
+            //$('#tablecontainer').addClass("hidden")
             $('#table tbody').html('');
 
             $('#pages').hide();
@@ -188,9 +221,8 @@ block scripts
                     var b = m + (data.page-1)*10;
                     $('#pages').html(a + '-' + b + ' de ' + data.count + ' Tickets');
                     $('#page-selection').bootpag({total: total, maxVisible: 5});
-
                     for(key=0; key<data.tickets.length ; key++ ){
-                        $('#table tbody').prepend("<tr><td class='text-center'>"+getStatus(data.tickets[key].status)+'</td><td><a href="#" onclick="openTicket(&quot;'+data.tickets[key]._id+'&quot;)">'+data.tickets[key]._id+'</a></td><td>'+moment(data.tickets[key].created).format('L h:mm:ss a')+'</td><td>'+moment(data.tickets[key].updated).format('L  h:mm:ss a')+'</td></tr>');
+                        $('#table tbody').prepend("<tr id='"+ data.tickets[key]._id  +"'><td>"+'<img class="img-circle table-profile-img" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350"'+'</td><td>'+data.tickets[key].filedby+'</td><td>'+ data.tickets[key].subject +'</td><td>'+ data.tickets[key].category +'</td><td>'+ '<a href="'+data.tickets[key].attachments +'" download="'+data.tickets[key].file_name +'">'+data.tickets[key].file_name +'</a>' +'</td><td>'+ moment(data.tickets[key].created).format('L h:mm:ss a')+'</td><td>'+moment(data.tickets[key].updated).format('L  h:mm:ss a')+'</td><td><span class="label label-success">open</span></td></tr>');
                     }
                 }
             }).done(function(data){
@@ -224,6 +256,30 @@ block scripts
             };
             return source;
         }
+
+        $('table').on('dblclick','tr',function(){
+                    var id = $(this).attr('id');
+
+                    $.ajax({
+                        type: "GET",
+                        url: 'api/tickets/' + id,
+                        success: function (response) {
+                            $('.readModalTitle').html('<span class="text-capitalize"> Ticket ' + response.ticket._id + '</span>');
+                            $("#filedByRead").text(response.ticket.filedby);
+                            $("#subjectRead").text(response.ticket.subject);
+                            $("#categoryRead").text(response.ticket.category);
+                            $("#messageRead").text(response.ticket.message);
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            var message = XMLHttpRequest.responseJSON.message;
+                            warningAlert(message);
+                        }
+                    });
+
+                    $('#readModal').modal('show');
+
+                });
 
 
         /*=== Ticket Form ===*/
@@ -267,9 +323,6 @@ block scripts
             //- //newForm.concat(formData);
             //console.log(newForm);
 
-            var message = $('#summernote').summernote('code');
-            formData.append('message', message);
-
             $.ajax({
                 type: "POST",
                 url: url,
@@ -279,7 +332,7 @@ block scripts
                 success : function(response){
                     console.log(response);
                     if(response.message == 'Ticket has been created'){
-                        $('#table tbody').prepend("<tr><td class='text-center'>"+getStatus(response.ticket.status)+"</td><td><a href='tickets/"+response.ticket._id+"'>"+response.ticket._id+'</a></td><td>'+moment(response.ticket.created).format('L h:mm:ss a')+'</td><td>'+moment(response.ticket.updated).format('L h:mm:ss a')+'</td></tr>');
+                        $('#table tbody').prepend("<tr id='"+ response.ticket._id  +"'><td>"+'<img class="img-circle table-profile-img" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350"'+'</td><td>'+response.ticket.filedby+'</td><td>'+ response.ticket.subject +'</td><td>'+ response.ticket.category +'</td><td>'+ '<a href="'+response.ticket.attachments +'" download="'+response.ticket.file_name +'">'+response.ticket.file_name +'</a>' +'</td><td>'+ moment(response.ticket.created).format('L h:mm:ss a')+'</td><td>'+moment(response.ticket.updated).format('L  h:mm:ss a')+'</td><td><span class="label label-success">open</span></td></tr>');
                         $('#newticketModal').modal('hide');
                         $('#subject').val("");
                         $('#summernote').summernote("reset");

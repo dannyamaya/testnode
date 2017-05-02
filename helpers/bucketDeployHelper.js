@@ -31,9 +31,9 @@ function getContentTypeByFile(fileName) {
 // Export functions
 module.exports = {
 
-  uploadFiles: function(fileName,remoteName,user) {
+  uploadFiles: function(fileName,remoteName,user,buffer) {
     try{
-      var fileBuffer = fs.readFileSync(fileName);
+      //var fileBuffer = fs.readFileSync(fileName);
       console.log(fileName);
       var metaData = getContentTypeByFile(fileName);
       var remote = remoteName;
@@ -42,7 +42,7 @@ module.exports = {
         ACL: 'public-read',
         Bucket: BUCKET_NAME + '/' + user,
         Key: remote,
-        Body: fileBuffer,
+        Body: buffer,
         ContentType: metaData
       }, function(error, response) {
         if(error){          

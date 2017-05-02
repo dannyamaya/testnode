@@ -9,9 +9,10 @@ var TicketSchema   = new Schema({
   status: { type: Number, required: true, default:0},
   assigned_to: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   replies: [{ type: Schema.Types.ObjectId, ref: 'Ticket'}],
-  attachments: { type: String },
+  attachments: { type: String, default:'' },
   category: {type: String},
   filedby:   {type: String},
+  file_name: {type:String, default: ''},
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now }
 });

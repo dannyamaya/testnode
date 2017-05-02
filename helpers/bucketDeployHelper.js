@@ -1,8 +1,7 @@
 
-var BUCKET_NAME = 'cannedhead.bubaleads';
+var BUCKET_NAME = 'cannedhead.livinn/attachments';
 
 var fs = require('fs');
-
 var aws = require('aws-sdk');
 
 //Esta linea  Para trabajar en el local
@@ -32,7 +31,7 @@ function getContentTypeByFile(fileName) {
 // Export functions
 module.exports = {
 
-  uploadFiles: function(fileName,remoteName) {
+  uploadFiles: function(fileName,remoteName,user) {
     try{
       var fileBuffer = fs.readFileSync(fileName);
       var metaData = getContentTypeByFile(fileName);
@@ -40,7 +39,7 @@ module.exports = {
 
       return s3.putObject({
         ACL: 'public-read',
-        Bucket: BUCKET_NAME,
+        Bucket: BUCKET_NAME + '/' + user,
         Key: remote,
         Body: fileBuffer,
         ContentType: metaData
@@ -50,7 +49,7 @@ module.exports = {
           return false;
         }
         else{          
-          console.log('uploaded article image [' + fileName + ']');          
+          console.log('uploaded image [' + fileName + ']');
           return true;
         }
         

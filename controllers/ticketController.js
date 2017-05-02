@@ -6,6 +6,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var strftime = require('strftime');
 var slug = require('slug');
 var s3deploy = require('../helpers/bucketDeployHelper');
+var fs = require('fs');
 
 var AWS_PREFIX = 'https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/attachments';
 
@@ -35,32 +36,31 @@ module.exports = {
         }
 
 
-        //No entiendo esto
-        // if(req.user.role != resident){
-        //   filedby = req.body.filedby || req.user._id;
-        // } else {
-        //   filedby = req.user._id;
-        // }
-
         var file = req.files.attachments;
-        console.log(file);
 
         if (file) {
 
-            var fileName = slug(strftime('%Y-%H-%M-%S-') + req.user._id + '');
+            var fileName =  req.files.attachments.name;
 
             var filePath = './uploads/' + fileName;
 
-            file.mv(fileName, function (err) {
+            file.mv(filePath, function (err) {
                 if (err)
                     return res.status(500).send(err);
             });
 
             var upload = true;
-            upload = s3deploy.uploadFiles(filePath, fileName);
+            upload = s3deploy.uploadFiles(filePath, fileName, req.user._id);
+
+            if(!upload)
+                return res.status(404).json({message: 'Error uploading file!'});
+
             //console.log(req.files);
             // url stored in db
-            var imagenUrl = AWS_PREFIX + '/' + req.user._id + +'/' + fileName;
+            var imagenUrl = AWS_PREFIX + '/' + req.user._id +'/' + fileName;
+
+            //local file deleted
+            //fs.unlinkSync(filePath);
         }
 
         var ticket = new Ticket({

@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var ticketController = require('../controllers/ticketController');
-var multer = require('multer');
-var bodyParser = require('body-parser');
 
 
 

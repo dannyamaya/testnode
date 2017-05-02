@@ -34,6 +34,7 @@ module.exports = {
   uploadFiles: function(fileName,remoteName,user) {
     try{
       var fileBuffer = fs.readFileSync(fileName);
+      console.log(fileName);
       var metaData = getContentTypeByFile(fileName);
       var remote = remoteName;
 

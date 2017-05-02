@@ -284,7 +284,7 @@ block scripts
                         $('#subject').val("");
                         $('#summernote').summernote("reset");
 
-                        successAlert('Tiquete ha sido creado');
+                        successAlert(response.message);
                     } else {
                         warningAlert('Error al crear la solicitud');
                     }

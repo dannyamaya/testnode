@@ -302,44 +302,10 @@ block scripts
 
         /*=== Ticket Form ===*/
         $('#ticketForm').submit(function(evt){
+
             evt.preventDefault();
-
             var url = $(this).attr("action");
-
-            //opcion 1
             var formData = new FormData($('#ticketForm')[0]);
-
-
-            //opcion 2
-            //var formData = $('#ticketForm').serialize();
-
-            //opcion 3
-            //- var fileSelect = document.getElementById('file-select');
-            //- var files = fileSelect.files;
-            //- var formData = new FormData();
-
-            //- // Loop through each of the selected files.
-            //- for (var i = 0; i < files.length; i++) {
-            //-   var file = files[i];
-
-            //-   //- // Check the file type.
-            //-   //- if (!file.type.match('image.*')) {
-            //-   //-   continue;
-            //-   //- }
-
-            //-   console.log(file);
-
-            //-   // Add the file to the request.
-            //-   formData.append('attachments[]', file, file.name);
-            //- }
-
-            //- var newForm = [{
-            //-     subject: $("#subject").val(),
-            //-     message:  $('#summernote').summernote('code')s
-            //- }];
-
-            //- //newForm.concat(formData);
-            //console.log(newForm);
 
             $.ajax({
                 type: "POST",

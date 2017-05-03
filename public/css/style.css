@@ -18,9 +18,41 @@ button:focus{
   outline: none !important;
 }
 
+/* Helper Classes*/
+
 .no-padding{
   padding: 0 ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .form-control{

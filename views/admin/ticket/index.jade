@@ -13,11 +13,17 @@ block content
           .select.select-livinn.col-xs-2
             select.form-control#categoryselect
               option(value="" selected) Category
-              option(value="Maintenance") Manteinance
+              option(value="cleaning services") Cleaning Services
+              option(value="customer service") Customer Service
+              option(value="support") IT Support
+              option(value="maintenance") Maintenance
+              option(value="visits") Visits
+              option(value="others") Others
           .select.select-livinn.col-xs-2
             select.form-control#statusselect
               option(value="" selected) Status
               option(value="open") Open
+              option(value="closed") Closed
 
         .pull-right
             button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
@@ -73,11 +79,15 @@ block content
                                 .select
                                     select.form-control(name="category")
                                         option(value="") Please choose a category
-                                        option(value="support") Support
+                                        option(value="cleaning services") Cleaning Services
+                                        option(value="customer service") Customer Service
+                                        option(value="support") IT Support
                                         option(value="maintenance") Maintenance
+                                        option(value="visits") Visits
+                                        option(value="others") Others
                             .form-group
                                 label Subject
-                                input.form-control#subject(type="text" placeholder="Asunto" name="subject")
+                                input.form-control#subject(type="text" placeholder="Subject" name="subject")
                             .form-group
                                 label Message
                                 textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5")

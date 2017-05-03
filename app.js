@@ -112,7 +112,36 @@ app.use(function(err, req, res, next) {
 // -----------------------------------------------------------------
 // Start app
 // -----------------------------------------------------------------
+
 app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'), function(){
+
+var http = require('http'),
+    server = http.createServer(app);
+
+server.listen(app.get('port'), function(){
   console.log("Listening on port " + app.get('port'));
 });
+
+// -----------------------------------------------------------------
+// Socket.io
+// -----------------------------------------------------------------
+var io = require('socket.io').listen(server);
+
+var nsp = io.of('/superadmin');
+nsp.on('connection', function(socket){
+  socket.on('new-ticket', function (data){
+      console.log(data);
+      io.sockets.emit('new-ticket', {ticket: data});
+  });
+});
+
+
+
+/*io.sockets.on('connection', function (socket) {
+    socket.on('gratis', function (data){
+        io.sockets.emit('consulta-gratis', {dataUser: data});
+    });
+    socket.on('premium', function (data){
+        io.sockets.emit('consulta-premium', {dataUser: data});
+    });
+});*/

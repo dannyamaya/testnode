@@ -163,6 +163,14 @@ block scripts
     script(src="/plugins/summernote/lang/summernote-es-ES.js")
     script(src="/js/jquery.bootpag.min.js")
     script.
+        //----------------- SOCKET.IO ---------------------------
+        var socket = io('/superadmin');
+
+        socket.on('new-ticket', function (dataServer) {
+          console.log(dataServer);
+          alert("NEW TICKET!");
+        });
+
         $( document ).ready(function() {
 
 
@@ -341,6 +349,9 @@ block scripts
                 contentType: false,
                 success : function(response){
                     console.log(response);
+
+                    socket.emit('new-ticket', {ticket: response.ticket});
+
                     if(response.message == 'Ticket has been created'){
                         $('#table tbody').prepend("<tr id='"+ response.ticket._id  +"'><td>"+'<img class="img-circle table-profile-img" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350"'+'</td><td>'+response.ticket.filedby+'</td><td>'+ response.ticket.subject +'</td><td>'+ response.ticket.category +'</td><td>'+ '<a href="'+response.ticket.attachments +'" download="'+response.ticket.file_name +'">'+response.ticket.file_name +'</a>' +'</td><td>'+ moment(response.ticket.created).format('L h:mm:ss a')+'</td><td>'+moment(response.ticket.updated).format('L  h:mm:ss a')+'</td><td><span class="label label-success">open</span></td></tr>');
                         $('#newticketModal').modal('hide');
@@ -385,6 +396,7 @@ block scripts
                 });
             });
         }
+
 
 
 

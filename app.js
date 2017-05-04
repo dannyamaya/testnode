@@ -130,7 +130,6 @@ var io = require('socket.io').listen(server);
 var nsp = io.of('/superadmin');
 nsp.on('connection', function(socket){
   socket.on('new-ticket', function (data){
-      console.log("NEW TICKET NOTIFICATION");
       nsp.emit('new-ticket', {ticket: data.ticket});
   });
 });

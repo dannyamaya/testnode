@@ -167,8 +167,8 @@ block scripts
         var socket = io('/superadmin');
 
         socket.on('newticket', function (dataServer) {
+          console.log("NEW TICKET!");
           console.log(dataServer);
-          alert("NEW TICKET!");
         });
 
         $( document ).ready(function() {

@@ -136,12 +136,3 @@ nsp.on('connection', function(socket){
 });
 
 
-
-/*io.sockets.on('connection', function (socket) {
-    socket.on('gratis', function (data){
-        io.sockets.emit('consulta-gratis', {dataUser: data});
-    });
-    socket.on('premium', function (data){
-        io.sockets.emit('consulta-premium', {dataUser: data});
-    });
-});*/

@@ -131,7 +131,7 @@ var nsp = io.of('/superadmin');
 nsp.on('connection', function(socket){
   socket.on('new-ticket', function (data){
       console.log("NEW TICKET NOTIFICATION");
-      nsp.emit('newticket', {ticket: data.ticket});
+      nsp.emit('new-ticket', {ticket: data.ticket});
   });
 });
 

@@ -24,7 +24,7 @@ html.no-js(lang="es")
       span
     .col-xs-12.col-sm-2.dashboard-menu.off-canvas-menu-closed#off-canvas-menu
         .col-xs-8.col-xs-offset-2.col-sm-12.col-sm-offset-0.logo-dashboard
-            img.img-responsive(src="/img/logolivinn-blanco.svg", alt="union andina")
+            img.img-responsive(src="/img/logolivinn-blanco.svg", alt="Livinn")
         ul.list-unstyled
             li.inactive DASHBOARD
             if user.role == 'admin'
@@ -36,7 +36,7 @@ html.no-js(lang="es")
                     a(href="/tickets")
                       i.menu-tickets-icon
                       span Tickets
-                      i.label.label-livinn 12
+                      i.label.label-livinn#ticket-count 0
 
     .col-xs-12.no-padding.dashcontainer#dashcontainer
         .col-xs-12.no-padding.heading

@@ -166,7 +166,7 @@ block scripts
         //----------------- SOCKET.IO ---------------------------
         var socket = io('/superadmin');
 
-        socket.on('new-ticket', function (dataServer) {
+        socket.on('newticket', function (dataServer) {
           console.log(dataServer);
           alert("NEW TICKET!");
         });

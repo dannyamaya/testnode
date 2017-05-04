@@ -130,9 +130,7 @@ var io = require('socket.io').listen(server);
 var nsp = io.of('/superadmin');
 nsp.on('connection', function(socket){
   socket.on('new-ticket', function (data){
-      console.log('client side socket is listening');
-      console.log(data);
-      io.sockets.emit('new-ticket', {ticket: data});
+      io.sockets.emit('newticket', {ticket: data.ticket});
   });
 });
 

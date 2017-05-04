@@ -167,9 +167,6 @@ block scripts
         var socket = io('/superadmin');
 
         socket.on('new-ticket', function (dataServer) {
-          var ticketcount = parseInt($('#ticketcount').html());
-          ticketcount++;
-          $('#ticketcount').html(ticketcount);
           $('#table tbody').prepend("<tr id='"+ dataServer.ticket._id  +"'><td>"+'<img class="img-circle table-profile-img" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350"'+'</td><td>'+dataServer.ticket.filedby+'</td><td>'+ dataServer.ticket.subject +'</td><td>'+ dataServer.ticket.category +'</td><td>'+ '<a href="'+dataServer.ticket.attachments +'" download="'+dataServer.ticket.file_name +'">'+dataServer.ticket.file_name +'</a>' +'</td><td>'+ moment(dataServer.ticket.created).format('L h:mm:ss a')+'</td><td>'+moment(dataServer.ticket.updated).format('L  h:mm:ss a')+'</td><td><span class="label label-success">open</span></td></tr>');
 
         });

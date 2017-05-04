@@ -63,6 +63,19 @@ html.no-js(lang="es")
     script(src="/js/moment.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js")
     script.
+
+        //-------------------------------------------------------------------------
+        //            SOCKET.IO
+        //-------------------------------------------------------------------------
+
+        var socket = io('/superadmin');
+
+        socket.on('new-ticket', function (dataServer) {
+          var ticketcount = parseInt($('#ticketcount').html());
+          ticketcount++;
+          $('#ticketcount').html(ticketcount);
+        });
+
         //-------------------------------------------------------------------------
         //            MENU & NAVIGATION
         //-------------------------------------------------------------------------

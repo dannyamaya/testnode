@@ -11,7 +11,7 @@ block content
                             p#errmsj Lo sentimos no estas registrado
                     .col-xs-12.form-container
                         h1.col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.title
-                            img(src="/img/logolivinn.svg", alt="Livinn")
+                            img(src="/img/logolivinn-blanco.svg", alt="Livinn")
                         form.form#loginForm(action="/login" method="post", role="form")
                             .form-group
                                 label.sr-only(for='inputEmail') Email
@@ -70,7 +70,7 @@ block scripts
                         $('#loginerror').addClass("fadeInRight");
 
                         $('#loading').addClass("hidden");
-                        $('#loginbtn').fadeIn("fast");
+                        $('#loginbtn').show("fast");
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -82,6 +82,7 @@ block scripts
 
                     $('#loading').addClass("hidden");
                     $('#loginbtn').fadeIn("fast");
+                    $( "#loginbtn" ).effect( "shake" );
                 }
             });
 
@@ -108,9 +109,7 @@ block scripts
                     $('#loginsuccess').addClass("fadeInRight");
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    //var message = XMLHttpRequest.responseJSON.message;
                     console.log(XMLHttpRequest);
-                    //warningAlert(message);
                 }
             });
         });

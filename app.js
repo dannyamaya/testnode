@@ -128,6 +128,8 @@ server.listen(app.get('port'), function(){
 var io = require('socket.io').listen(server);
 
 var nsp = io.of('/superadmin');
+var opmanager = io.of('/opmanager');
+
 nsp.on('connection', function(socket){
   socket.on('new-ticket', function (data){
       nsp.emit('new-ticket', {ticket: data.ticket});

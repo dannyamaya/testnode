@@ -56,8 +56,6 @@ block content
                         a.locationSearch(href="#") Admin
                     li.dropdown-header.cleanSearch.pull-right Clean
 
-
-
             .clearfix
             .table-responsive.panel-user
                 table.table.table-striped.hidden#userstable
@@ -77,10 +75,10 @@ block content
                             th Last Login
                     tbody
                 #loader
-                .col-xs-12
-                    p.text-center#pages 1-10 de # Users
-                nav#page-nav
-                    .text-center#page-selection
+            .col-xs-12
+                p.text-center#pages 1-10 de # Users
+            nav#page-nav
+                .text-center#page-selection
 
     <!-- User Read Modal -->
     .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -88,30 +86,33 @@ block content
             .modal-content
                 .modal-header
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-                    h3.modal-title.text-center.readModalTitle
+                    h2.modal-title.text-center.readModalTitle
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1
-                                .col-sm-12
-                                    .form-group.emailregistrationerror.col-sm-4
-                                        label(for='email') Email
-                                        p#emailRead
-                                    .form-group.col-sm-4
-                                        label(for='first') First Name
-                                        p#firstRead
-                                    .form-group.col-sm-4
-                                        label(for='last') Last Name
-                                        p#lastRead
-                                .col-sm-12
-                                    .form-group.col-sm-4
-                                        label Type of Document
-                                        p#doctypeRead
-                                    .form-group.col-sm-4
-                                        label(for='document') Document
-                                        p#documentRead
-                                    .form-group.col-sm-4
-                                        label(for='phone') Phone
-                                        p#phoneRead
+                        .col-xs-12.col-md-6.no-padding
+                          img.img-circle(src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350")
+                          .col-sm-12.no-padding
+                              .form-group.emailregistrationerror.col-sm-4
+                                  label(for='email') Email
+                                  p#emailRead
+                              .form-group.col-sm-4
+                                  label(for='first') First Name
+                                  p#firstRead
+                              .form-group.col-sm-4
+                                  label(for='last') Last Name
+                                  p#lastRead
+                          .col-sm-12.no-padding
+                              .form-group.col-sm-4.col-sm-offset-2
+                                  label Type of Document
+                                  p#doctypeRead
+                              .form-group.col-sm-4
+                                  label(for='document') Document
+                                  p#documentRead
+                              .form-group.col-sm-8
+                                  label(for='phone') Phone
+                                  p#phoneRead
+                        .col-xs-12.col-md-6.no-padding
+
                                 .col-sm-12
                                     .form-group.col-sm-4
                                         label Role
@@ -191,44 +192,32 @@ block content
             .modal-content
                 .modal-header
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-                    h3.modal-title.text-center Register User
                 .modal-body
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1
                             form#registrationForm(action="/api/users", method="post", role="form" enctype="multipart/form-data" data-parsley-validate)
-                                .col-sm-12
-                                    .form-group.emailregistrationerror.col-sm-4
+                                .col-xs-12.col-sm-6
+                                    .form-group
+                                        .preview.img-wrapper
+                                        .file-upload-wrapper
+                                                input.file-upload-native(type="file" name="image" accept="image/*" )
+                                                input.file-upload-text(type="text" disabled placeholder="Upload profile image")
+                                    .form-group
+                                        label(for='first')
+                                            |   First Name
+                                            span.requiredLivinn *
+                                        input#first.form-control(type='text' name='first' placeholder='First Name' required='' autofocus='')
+                                    .form-group
+                                        label(for='last')
+                                            |   Last Name
+                                            span.requiredLivinn *
+                                        input#last.form-control(type='text' name='last' placeholder='Last Name' required='' autofocus='')
+                                    .form-group.emailregistrationerror
                                         label(for='email') Email
                                         span.requiredLivinn *
                                         input#email.form-control(type='text' placeholder='Email' name="email" required autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='first') First Name
-                                        span.requiredLivinn *
-                                        input#first.form-control(type='text' name='first' placeholder='First Name' required='' autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='last') Last Name
-                                        span.requiredLivinn *
-                                        input#last.form-control(type='text' name='last' placeholder='Last Name' required='' autofocus='')
-                                .col-sm-12
-                                    .form-group.col-sm-4
-                                        label Document Type
-                                        span.requiredLivinn *
-                                        .select
-                                            select(name="doctype" required)
-                                                option(value="") Choose a document type
-                                                option(value="DNI") DNI
-                                                option(value="Passport") Passport
-                                    .form-group.col-sm-4
-                                        label(for='image') Profile Picture
-                                        span.requiredLivinn *
-                                        input#image(type='file' name='image' required='' autofocus='')
-                                    .form-group.col-sm-4
-                                        label(for='document') Document
-                                        span.requiredLivinn *
-                                        input#document.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
-
-                                .col-sm-12
-                                    .form-group.col-sm-4
+                                .col-xs-12.col-sm-6
+                                    .form-group
                                         label Role
                                         span.requiredLivinn *
                                         .select
@@ -241,7 +230,19 @@ block content
                                                 option(value="client-service") Client Service
                                                 option(value="resident-assistant") Resident Assistant
                                                 option(value="admin") SuperAdmin
-                                    .form-group.col-sm-4
+                                    .form-group
+                                        label Document Type
+                                        span.requiredLivinn *
+                                        .select
+                                            select(name="doctype" required)
+                                                option(value="") Choose a document type
+                                                option(value="DNI") DNI
+                                                option(value="Passport") Passport
+                                    .form-group
+                                        label(for='document') Document
+                                        span.requiredLivinn *
+                                        input#document.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
+                                    .form-group.col-xs-12.col-sm-6.no-padding
                                         label Location
                                         span.requiredLivinn *
                                         .select
@@ -252,67 +253,65 @@ block content
                                                 option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
                                                 option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
                                                 option(value="Viña Del Mar") Viña Del Mar
-                                    .form-group.col-sm-4
+                                    .form-group.col-xs-12.col-sm-6.no-padding-right
                                         label Time Zone
+                                        span.requiredLivinn *
                                         .select
                                             select(name="timezone")
-                                                option(value="") Choose a time zone
+                                                option(value="") Choose time zone
                                                 option(value="América/Santiago") América/Santiago
                                                 option(value="América/Bogotá") América/Bogotá
-
-                                .col-md-12
-                                        .form-group.col-sm-4
-                                            label(for='phone') Phone
+                                    .form-group
+                                        label(for='phone') Phone
+                                        span.requiredLivinn *
+                                        input#phone.form-control(type='text' name='phone' placeholder='Phone' required='' autofocus='')
+                                    .form-group.differentResident
+                                        label(for='occupation') Ocuppation
+                                        input#occupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='')
+                                    .form-group.differentResident
+                                        label(for='skype') Skype
+                                        input#skype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
+                                    .form-group.residentFields
+                                        label(for='birthdate') Birth Date
+                                        input#birthdate.form-control(type='text' name='birth_date' placeholder='YYYY-MM-DD'  autofocus='')
+                                .col-xs-12.no-padding.residentFields
+                                    hr
+                                    .form-group.col-sm-4
+                                        label(for='numcontract')
+                                            |   Contract Number
                                             span.requiredLivinn *
-                                            input#phone.form-control(type='text' name='phone' placeholder='Phone' required='' autofocus='')
-                                        .form-group.col-sm-4.differentResident
-                                            label(for='occupation') Ocuppation
-                                            input#occupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='')
-                                        .form-group.col-sm-4.differentResident
-                                            label(for='skype') Skype
-                                            input#skype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
-
-
-                                .col-sm-12.residentFields
-                                    br
-                                    h3.modal-title.text-center Resident Additional Fields
-                                    br
-                                    .col-sm-12
-
-                                        .form-group.col-sm-4
-                                            label(for='numcontract') Contract Number
+                                        input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='start')
+                                            |   Start
                                             span.requiredLivinn *
-                                            input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
-                                        .form-group.col-sm-4
-                                            label(for='birthdate') Birth Date
-                                            input#birthdate.form-control(type='text' name='birth_date' placeholder='YYYY-MM-DD'  autofocus='')
-                                        .form-group.col-sm-4
-                                            label(for='apartment') Apartment
+                                        input#start.form-control(type='text' name='start' placeholder='YYYY-MM-DD' autofocus='')
+                                    .form-group.col-sm-4
+                                        label(for='finish')
+                                            |   Finish
                                             span.requiredLivinn *
-                                            input#apartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
-                                    .col-sm-12
-                                        .form-group.col-sm-4
-                                            label(for='type') Apartment Type
+                                        input#finish.form-control(type='text' name='finish' placeholder='YYYY-MM-DD'  autofocus='')
+                                    .form-group.col-sm-8
+                                            label(for='rate') Agent
                                             span.requiredLivinn *
-                                            input#type.form-control(type='text' name='apartmentType' placeholder='Type'  autofocus='')
+                                            input#agent.form-control(type='text' name='agent' placeholder='Agent'  autofocus='')
+                                    .form-group.col-sm-4
+                                        label Status
+                                        .select
+                                            select(name="status")
+                                                option(value="") Choose a status
+                                                option(value="Booked") Booked
+                                                option(value="In-house") In-house
+                                    .col-xs-12.no-padding
                                         .form-group.col-sm-4
-                                            label Bathroom
-                                            .select
-                                                select(name="bathroom")
-                                                    option(value="") Choose a bathroom
-                                                    option(value="single") Single
-                                                    option(value="shared") Shared
-                                        .form-group.col-sm-4
-                                            label(for='bed') Bed
-                                            input#bed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
-                                    .col-sm-12
-                                        .form-group.col-sm-4
-                                            label(for='rate') Amount
-                                            span.requiredLivinn *
+                                            label(for='rate')
+                                                |   Amount
+                                                span.requiredLivinn *
                                             input#rate.form-control(type='text' name='rate' placeholder='Rate' autofocus='')
                                         .form-group.col-sm-4
-                                            label(for='currency') Currency
-                                            span.requiredLivinn *
+                                            label(for='currency')
+                                                |   Currency
+                                                span.requiredLivinn *
                                             .select
                                                 select(name="currency")
                                                   option(value="") Choose a currency
@@ -321,30 +320,33 @@ block content
                                         .form-group.col-sm-4
                                             label(for='rateusd') Amount USD
                                             input#rateusd.form-control(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
+                                    hr.col-xs-12
+                                    .form-group.col-sm-6
+                                        label(for='apartment') Apartment
+                                        span.requiredLivinn *
+                                        input#apartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
+                                    .form-group.col-sm-6
+                                        label(for='type') Apartment Type
+                                        span.requiredLivinn *
+                                        input#type.form-control(type='text' name='apartmentType' placeholder='Type'  autofocus='')
+                                    .form-group.col-sm-6
+                                        label Bathroom
+                                        .select
+                                            select(name="bathroom")
+                                                option(value="") Choose a bathroom
+                                                option(value="single") Single
+                                                option(value="shared") Shared
+                                    .form-group.col-sm-6
+                                        label(for='bed') Bed
+                                        input#bed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
                                     .col-sm-12
-                                        .form-group.col-sm-4
-                                            label(for='rate') Agent
-                                            span.requiredLivinn *
-                                            input#agent.form-control(type='text' name='agent' placeholder='Agent'  autofocus='')
-                                        .form-group.col-sm-4
-                                            label(for='start') Start
-                                            span.requiredLivinn *
-                                            input#start.form-control(type='text' name='start' placeholder='YYYY-MM-DD' autofocus='')
-                                        .form-group.col-sm-4
-                                            label(for='finish') Finish
-                                            span.requiredLivinn *
-                                            input#finish.form-control(type='text' name='finish' placeholder='YYYY-MM-DD'  autofocus='')
-                                    .col-sm-12
-                                        .form-group.col-sm-4
-                                            label Status
-                                            .select
-                                                select(name="status")
-                                                    option(value="") Choose a status
-                                                    option(value="Booked") Booked
-                                                    option(value="In-house") In-house
 
-                                .form-group.col-sm-12.col-md-4.col-md-offset-8
-                                    button.btn.btn-lg.btn-livinn.btn-block(type='submit') Register
+
+                                hr.col-xs-12
+                                .form-group.col-sm-12.col-md-4.col-md-offset-8.no-padding
+                                    .pull-right
+                                        button.btn.btn-white.btn-margin-right(data-dismiss="modal" aria-hidden="true") Cancel
+                                        button.btn.btn-livinn(type='submit') Register
 
     <!-- Update User Modal -->
     .modal.fade#updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -480,6 +482,76 @@ block scripts
     script(src="/js/jquery.bootpag.min.js")
     script(src="/js/parsley.min.js")
     script.
+
+        $(function() {
+            function maskImgs() {
+                //$('.img-wrapper img').imagesLoaded({}, function() {
+                $.each($('.img-wrapper img'), function(index, img) {
+                    var src = $(img).attr('src');
+                    var parent = $(img).parent();
+                    parent
+                        .css('background', 'url(' + src + ') no-repeat center center')
+                        .css('background-size', 'cover');
+                    $(img).remove();
+                });
+                //});
+            }
+
+            var preview = {
+                init: function() {
+                    preview.setPreviewImg();
+                    preview.listenInput();
+                },
+                setPreviewImg: function(fileInput) {
+                    var path = $(fileInput).val();
+                    var uploadText = $(fileInput).siblings('.file-upload-text');
+
+                    if (!path) {
+                        $(uploadText).val('');
+                    } else {
+                        path = path.replace(/^C:\\fakepath\\/, "");
+                        $(uploadText).val(path);
+
+                        preview.showPreview(fileInput, path, uploadText);
+                    }
+                },
+                showPreview: function(fileInput, path, uploadText) {
+                    var file = $(fileInput)[0].files;
+
+                    if (file && file[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            var previewImg = $(fileInput).parents('.file-upload-wrapper').siblings('.preview');
+                            var img = $(previewImg).find('img');
+
+                            if (img.length == 0) {
+                                $(previewImg).html('<img src="' + e.target.result + '" alt=""/>');
+                            } else {
+                                img.attr('src', e.target.result);
+                            }
+
+                            uploadText.val(path);
+                            maskImgs();
+                        }
+
+                        reader.onloadstart = function() {
+                            $(uploadText).val('uploading..');
+                        }
+
+                        reader.readAsDataURL(file[0]);
+                    }
+                },
+                listenInput: function() {
+                    $('.file-upload-native').on('change', function() {
+                        preview.setPreviewImg(this);
+                    });
+                }
+            };
+            preview.init();
+        });
+
+
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })

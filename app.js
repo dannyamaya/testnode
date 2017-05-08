@@ -113,7 +113,7 @@ app.use(function(err, req, res, next) {
 // Start app
 // -----------------------------------------------------------------
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 
 var http = require('http'),
     server = http.createServer(app);

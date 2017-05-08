@@ -1,5 +1,5 @@
 
-var BUCKET_NAME = 'cannedhead.livinn/attachments';
+var BUCKET_NAME = 'cannedhead.livinn/';
 
 var fs = require('fs');
 var aws = require('aws-sdk');
@@ -31,16 +31,15 @@ function getContentTypeByFile(fileName) {
 // Export functions
 module.exports = {
 
-  uploadFiles: function(fileName,remoteName,user,buffer) {
+  uploadFiles: function(fileName,remoteName,user,buffer,folder) {
     try{
       //var fileBuffer = fs.readFileSync(fileName);
-      console.log(fileName);
       var metaData = getContentTypeByFile(fileName);
       var remote = remoteName;
 
       return s3.putObject({
         ACL: 'public-read',
-        Bucket: BUCKET_NAME + '/' + user,
+        Bucket: BUCKET_NAME + folder + user,
         Key: remote,
         Body: buffer,
         ContentType: metaData

@@ -838,7 +838,8 @@ block scripts
             }
         }
 
-        $('#updateUserButton').click(function(){
+        $('#updateUserButton').click(function(e){
+            e.preventDefault();
             var users = [];
 
             $('#userstable input:checkbox:checked').each(function () {
@@ -862,16 +863,18 @@ block scripts
                         $(this).attr('checked', false);
                     });
 
-                    var tdEmail = userr.children("td:nth-child(2)");
-                    var tdFirst = userr.children("td:nth-child(3)");
-                    var tdLast = userr.children("td:nth-child(4)");
-                    var tdTypeDoc = userr.children("td:nth-child(5)");
-                    var tdDoc = userr.children("td:nth-child(6)");
-                    var tdCellphone = userr.children("td:nth-child(7)");
-                    var tdRol = userr.children("td:nth-child(8)");
-                    var tdCity = userr.children("td:nth-child(9)");
+                    var tdPic = userr.children("td:nth-child(2)");
+                    var tdEmail = userr.children("td:nth-child(3)");
+                    var tdFirst = userr.children("td:nth-child(4)");
+                    var tdLast = userr.children("td:nth-child(5)");
+                    var tdTypeDoc = userr.children("td:nth-child(6)");
+                    var tdDoc = userr.children("td:nth-child(7)");
+                    var tdCellphone = userr.children("td:nth-child(8)");
+                    var tdRol = userr.children("td:nth-child(9)");
+                    var tdCity = userr.children("td:nth-child(10)");
                     var tdUpdated = userr.children("td:nth-child(11)");
 
+                    tdPic.children().attr('src',response.user.profile_picture);
                     tdEmail.text(response.user.email);
                     tdTypeDoc.text(response.user.doc.typedoc);
                     tdDoc.text(response.user.doc.number);

@@ -253,11 +253,13 @@ module.exports = {
                 async.parallel([
                     function (callback) {
 
-                        Ticket.find({
+                        /*{
                             $and: [
                                 {client_id: req.params.id}
                             ]
-                        }).sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
+                        }*/
+
+                        Ticket.find().populate('filedby').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                             if (err) {
                                 console.log('ERROR: ' + err);
                                 callback(err, null);

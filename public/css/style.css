@@ -444,15 +444,15 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .btn-exclamation-circle.active{
-  color:#F05050;
+  color:#D31E5B;
 }
 
 .btn-clock-o.active{
-  color:#F4BA4A;
+  color:#F0931F;
 }
 
 .btn-check-circle.active{
-  color:#4DBD74;
+  color:#5AB8B8;
 }
 
 .ticket-down{
@@ -532,6 +532,8 @@ input[type="file"]::-webkit-file-upload-button {
 .label-other{
   background-color: #c0392b;
 }
+
+
 
 
 

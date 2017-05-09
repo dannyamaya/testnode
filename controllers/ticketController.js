@@ -259,7 +259,19 @@ module.exports = {
                             ]
                         }*/
 
-                        Ticket.find().populate('filedby').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
+                        Ticket.find()
+                        .or([
+                            {
+                                subject: new RegExp(search, 'i')
+                            },
+                            {
+                                category: new RegExp(search, 'i')
+                            },
+                            {
+                                message: new RegExp(search, 'i')
+                            }
+                        ])
+                        .populate('filedby').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                             if (err) {
                                 console.log('ERROR: ' + err);
                                 callback(err, null);

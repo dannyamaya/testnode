@@ -2,10 +2,10 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
-    .col-xs-12
+    .col-xs-9.content
       .panel.panel-default.col-xs-12
         form.form.col-xs-12.col-sm-10.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-          .col-xs-4.no-padding
+          .col-xs-5.no-padding
             .input-group.search
               input.form-control#search(type="text" name="name" placeholder="Search ticket")
               span.input-group-addon
@@ -23,40 +23,19 @@ block content
             select.form-control#statusselect
               option(value="" selected) Status
               option(value="open") Open
-              option(value="closed") Closed
+              option(value="pending") Pending
+              option(value="resolved") Resolved
 
         .pull-right
             button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
                 span.hidden-xs Add Ticket
                 i.visible-xs.fa.fa-plus
-        .clearfix
-        .table-responsive.panel-tickets
-            table.table#table
-                thead
-                    tr
-                        th
-                        th Filed By
-                        th Subject
-                        th Category
-                        th Attachment
-                        th Created
-                        th Updated
-                        th Status
+        .clearfix(style="margin-bottom:15px;")
+        .col-xs-12.no-padding.tickets
 
-                tbody
-                  tr
-                    td
-                      img.img-circle.table-profile-img(style="width:30px; height:30px; margin-left:7px;" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350")
-                    td.subject
-                    td
-                    td
-                    td
-                       span.label.label-success open
-            #loader.hidden
-            .col-xs-12
-                p.text-center#pages 1-10 of # Tickets
-            nav#page-nav
-                .text-center#page-selection
+    .col-xs-3.col-xs-offset-9.no-padding.activity-feed
+        .panel.panel-default.col-xs-12.no-padding
+            h2 activity feed
 
     <!-- New Ticket Modal -->
     .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -224,22 +203,14 @@ block scripts
                 url: '/api/users/#{user._id}/tickets?page='+page +'&search='+search,
                 success: function(data){
 
+                    console.log(data);
+                    var count = data.count;
+                    var category = "";
 
-                    // change count legends
-                    var total = parseInt(data.count/10);
-                    if(data.count%10 != 0){
-                        total += 1;
-                    }
-
-                     console.log(data);
-
-                    var m = ((data.count%10 != 0 && data.page == total)? data.count%10 : 10);
-
-                    var a = 1 + (data.page-1)*10;
-                    var b = m + (data.page-1)*10;
-                    $('#pages').html(a + '-' + b + ' de ' + data.count + ' Tickets');
-                    $('#page-selection').bootpag({total: total, maxVisible: 5});
                     for(key=0; key<data.tickets.length ; key++ ){
+
+                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>"+ getCategory(data.tickets[key].category) +" "+moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a')+"</p></div><p class='col-xs-12 ticket-title'>"+ data.tickets[key].subject +"</p></div><div class='ticket-btn-group'><button type='button' title='Pending' class='btn-exclamation-circle active'><i class='fa fa-exclamation-circle'></i></button><button type='button' title='Open' class='btn-clock-o'><i class='fa fa-clock-o'></i></button><button type='button' title='Resolved' class='btn-check-circle'><i class='fa fa-check-circle'></i></button></div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#"+data.tickets[key]._id+"</strong>CREATED BY:<strong class='created-by'>SCOTT WILSON</strong>ASSIGNED TO:<strong class='assigned-to'>TOM PECHEUX</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'"+data.tickets[key]._id+"\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>")
+
                         $('#table tbody').prepend("<tr id='"+ data.tickets[key]._id  +"'><td>"+'<img class="img-circle table-profile-img" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350"'+'</td><td>'+data.tickets[key].filedby+'</td><td>'+ data.tickets[key].subject +'</td><td>'+ data.tickets[key].category +'</td><td>'+ '<a href="'+data.tickets[key].attachments +'" download="'+data.tickets[key].file_name +'">'+data.tickets[key].file_name +'</a>' +'</td><td>'+ moment(data.tickets[key].created).format('L h:mm:ss a')+'</td><td>'+moment(data.tickets[key].updated).format('L  h:mm:ss a')+'</td><td><span class="label label-success">open</span></td></tr>');
                     }
                 }
@@ -251,6 +222,24 @@ block scripts
                   $('#page-nav').removeClass("hidden").show();
                 });
             });
+        }
+
+        function getCategory(category){
+          var value = '';
+          if(category == 'cleaning services'){
+            value = "<span class='label label-cleaning'>CLEANING SERVICES</span>";
+          } else if(category == 'customer service'){
+            value = "<span class='label label-customer'>CUSTOMER SERVICES</span>";
+          } else if(category == 'support'){
+            value = "<span class='label label-it'>IT SUPPORT</span>";
+          } else if(category == 'maintenance'){
+            value = "<span class='label label-maintenance'>MAINTENANCE</span>";
+          } else if(category == 'visits'){
+            value = "<span class='label label-visits'>VISITS</span>";
+          } else {
+            value = "<span class='label label-other'>OTHERS</span>";
+          }
+          return value;
         }
 
         function getStatus(status){

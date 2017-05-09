@@ -52,7 +52,7 @@ block content
                             if user.role != 'resident'
                               .form-group
                                   label Filed by
-                                  input.form-control(type="text" name="filedby")
+                                  input.form-control#searchinput(type="text" name="filedby")
                             .form-group
                                 label Category
                                 .select
@@ -347,6 +347,25 @@ block scripts
                 });
             });
         }
+
+        $("#searchinput").autocomplete({
+            source: function (request, response) {
+                $('#searchinput').css("cursor", "wait");
+                var url ="/api/users?page=" + 1 + "&search=" + $("#searchinput").val();
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        $('#searchinput').css("cursor", "text");
+                        response(data.boarddocs);
+                    }
+                });
+
+            },
+            minLength: 1
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $("<li></li>").data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
+        };
 
 
 

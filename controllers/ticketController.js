@@ -40,7 +40,7 @@ module.exports = {
 
         if (file) {
 
-            var fileName =  req.files.attachments.name;
+            var fileName = req.files.attachments.name;
 
             var filePath = './uploads/' + fileName;
 
@@ -52,13 +52,13 @@ module.exports = {
             var upload = true;
             upload = s3deploy.uploadFiles(filePath, fileName, req.user._id, file.data, folder);
 
-            if(!upload)
+            if (!upload)
                 return res.status(404).json({message: 'Error uploading file!'});
 
             //console.log(req.files);
             // url stored in db
 
-            var imagenUrl = AWS_PREFIX + folder + req.user._id +'/' + fileName;
+            var imagenUrl = AWS_PREFIX + folder + req.user._id + '/' + fileName;
 
             //local file deleted
             fs.unlinkSync(filePath);

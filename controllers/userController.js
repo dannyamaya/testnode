@@ -185,11 +185,14 @@ module.exports = {
      */
     readUsers: function (req, res, next) {
 
+
         var search = '';
         var page = req.query.page || 1;
         if (req.query.search) {
             search = req.query.search;
         }
+
+        console.log(req.query);
 
         async.parallel([
 
@@ -634,6 +637,22 @@ module.exports = {
             });
 
         }
-    }
+    },
 
+    autocompleteUsers: function(req, res, next) {
+
+
+
+        User.find({}, function (err, user) {
+            return res.status(200).json({ user: user});
+
+            return res.status(200).json({ user: user});
+        });
+
+
+
+
+
+
+    },
 };

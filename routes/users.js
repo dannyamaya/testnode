@@ -20,6 +20,9 @@ router.route('/:id')
 router.route('/:id/tickets')
     .get(ticketController.readTicketsByUserId);
 
+router.route('/autocomplete')
+    .post(userController.autocompleteUsers);
+
 module.exports = router;
 
 

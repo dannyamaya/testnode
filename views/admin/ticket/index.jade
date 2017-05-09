@@ -31,6 +31,7 @@ block content
                 span.hidden-xs Add Ticket
                 i.visible-xs.fa.fa-plus
         .clearfix(style="margin-bottom:15px;")
+        #loader
         .col-xs-12.no-padding.tickets
 
     .col-xs-3.col-xs-offset-9.no-padding.activity-feed
@@ -79,37 +80,6 @@ block content
                                     button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
-    <!-- Open Ticket Modal -->
-    .modal.fade#openticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
-        .modal-dialog.modal-lg.big
-            .modal-content
-                .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
-                        button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-                .modal-header
-                    h2#tickettitle
-                        |   Ticket #456327
-                        span.ticketcreated creado por Juan David Florez
-                        span.ticketcreateddate 24/01/2017
-                .modal-body
-                    .row
-                        h2.col-xs-12
-                            |   Crear un nuevo tiquete
-                            br
-                            small Prometemos responder en el menor tiempo tu solicitud.
-
-                        form.col-xs-12(action="/ticket" method="post")
-                            .form-group
-                                label Asunto
-                                input.form-control#subject(type="text" placeholder="Asunto" name="subject")
-                                input(id="subjectId" type="hidden" name="user" value="#{user._id}")
-                            .form-group
-                                label Mensaje
-                                input.form-control(type="text" name="message")
-                            input(type="hidden" name="user")
-                .modal-footer
-                  button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
-                  input.pull-right.btn.btn-livinn.btn-lg(type="submit" value="Submit")
-
     <!-- Ticket Read Modal -->
     .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
@@ -146,7 +116,8 @@ block scripts
         var socket = io('/superadmin');
 
         socket.on('new-ticket', function (dataServer) {
-          $('#table tbody').prepend("<tr id='"+ dataServer.ticket._id  +"'><td>"+'<img class="img-circle table-profile-img" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350"'+'</td><td>'+dataServer.ticket.filedby+'</td><td>'+ dataServer.ticket.subject +'</td><td>'+ dataServer.ticket.category +'</td><td>'+ '<a href="'+dataServer.ticket.attachments +'" download="'+dataServer.ticket.file_name +'">'+dataServer.ticket.file_name +'</a>' +'</td><td>'+ moment(dataServer.ticket.created).format('L h:mm:ss a')+'</td><td>'+moment(dataServer.ticket.updated).format('L  h:mm:ss a')+'</td><td><span class="label label-success">open</span></td></tr>');
+
+          $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>"+ getCategory(dataServer.ticket.category) +" "+moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a')+"</p></div><p class='col-xs-12 ticket-title'>"+ dataServer.ticket.subject +"</p></div><div class='ticket-btn-group'>"+getStatus(dataServer.ticket.status)+"</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#"+dataServer.ticket._id+"</strong>CREATED BY:<strong class='created-by text-uppercase'>"+dataServer.ticket.filedby.name.first+" "+dataServer.ticket.filedby.name.last+"</strong>ASSIGNED TO:<strong class='assigned-to'>TOM PECHEUX</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'"+dataServer.ticket._id+"\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
 
         });
 
@@ -192,10 +163,7 @@ block scripts
 
         function getTickets(page, search){
             //$('#tablecontainer').addClass("hidden")
-            $('#table tbody').html('');
-
-            $('#pages').hide();
-            $('#page-nav').hide( );
+            $('.tickets').hide();
             $('#loader').fadeIn( "slow");
 
             $.ajax({
@@ -209,17 +177,12 @@ block scripts
 
                     for(key=0; key<data.tickets.length ; key++ ){
 
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>"+ getCategory(data.tickets[key].category) +" "+moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a')+"</p></div><p class='col-xs-12 ticket-title'>"+ data.tickets[key].subject +"</p></div><div class='ticket-btn-group'><button type='button' title='Pending' class='btn-exclamation-circle active'><i class='fa fa-exclamation-circle'></i></button><button type='button' title='Open' class='btn-clock-o'><i class='fa fa-clock-o'></i></button><button type='button' title='Resolved' class='btn-check-circle'><i class='fa fa-check-circle'></i></button></div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#"+data.tickets[key]._id+"</strong>CREATED BY:<strong class='created-by'>SCOTT WILSON</strong>ASSIGNED TO:<strong class='assigned-to'>TOM PECHEUX</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'"+data.tickets[key]._id+"\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>")
-
-                        $('#table tbody').prepend("<tr id='"+ data.tickets[key]._id  +"'><td>"+'<img class="img-circle table-profile-img" src="http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350"'+'</td><td>'+data.tickets[key].filedby+'</td><td>'+ data.tickets[key].subject +'</td><td>'+ data.tickets[key].category +'</td><td>'+ '<a href="'+data.tickets[key].attachments +'" download="'+data.tickets[key].file_name +'">'+data.tickets[key].file_name +'</a>' +'</td><td>'+ moment(data.tickets[key].created).format('L h:mm:ss a')+'</td><td>'+moment(data.tickets[key].updated).format('L  h:mm:ss a')+'</td><td><span class="label label-success">open</span></td></tr>');
+                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='http://www.gravatar.com/avatar/2d5f930757a2f810ec10e60d398c4e35?s=350' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>"+ getCategory(data.tickets[key].category) +" "+moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a')+"</p></div><p class='col-xs-12 ticket-title'>"+ data.tickets[key].subject +"</p></div><div class='ticket-btn-group'>"+getStatus(data.tickets[key].status)+"</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#"+data.tickets[key]._id+"</strong>CREATED BY:<strong class='created-by text-uppercase'>"+data.tickets[key].filedby.name.first+" "+data.tickets[key].filedby.name.last+"</strong>ASSIGNED TO:<strong class='assigned-to'>TOM PECHEUX</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket("+"\""+data.tickets[key]._id+"\""+")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     }
                 }
             }).done(function(data){
                 $('#loader').fadeOut( "fast", function() {
-                  $('#searchbar').removeClass("hidden").fadeIn("slow");
-                  $('#tablecontainer').removeClass("hidden").fadeIn("slow");
-                  $('#pages').removeClass("hidden").show();
-                  $('#page-nav').removeClass("hidden").show();
+                  $('.tickets').removeClass("hidden").fadeIn();
                 });
             });
         }
@@ -243,53 +206,24 @@ block scripts
         }
 
         function getStatus(status){
-            var status = '0';
+            console.log(status);
+            var source = "";
             switch (status) {
-                case '0':
-                    source = "<span class='badge'>Enviado</span>";
+                case 0:
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle active"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle"><i class="fa fa-check-circle"></i></button>';
                     break;
-                case '1':
-                    source = "<span class='badge'>Recibido</span>";
+                case 1:
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o active"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle"><i class="fa fa-check-circle"></i></button>';
                     break;
-                case '2':
-                    source = "<span class='badge'>En proceso</span>";
-                    break;
-                case '3':
-                    source = "<span class='badge'>Terminado</span>";
-                    break;
-                case '4':
-                    source = "<span class='badge'>Aprobado</span>";
+                case 2:
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active"><i class="fa fa-check-circle"></i></button>';
                     break;
             };
             return source;
         }
 
-        $('table').on('dblclick','tr',function(){
-                    var id = $(this).attr('id');
 
-                    $.ajax({
-                        type: "GET",
-                        url: 'api/tickets/' + id,
-                        success: function (response) {
-                            $('.readModalTitle').html('<span class="text-capitalize"> Ticket ' + response.ticket._id + '</span>');
-                            $("#filedByRead").text(response.ticket.filedby);
-                            $("#subjectRead").text(response.ticket.subject);
-                            $("#categoryRead").text(response.ticket.category);
-                            $("#messageRead").text(response.ticket.message);
-
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            var message = XMLHttpRequest.responseJSON.message;
-                            warningAlert(message);
-                        }
-                    });
-
-                    $('#readModal').modal('show');
-
-                });
-
-
-        /*=== Ticket Form ===*/
+        /*=== CREATE: Ticket Form ===*/
         $('#ticketForm').submit(function(evt){
 
             evt.preventDefault();
@@ -328,24 +262,28 @@ block scripts
             });
         });
 
+        /*=== READ: Open ticket ===*/
+
         function openTicket(ticketid){
 
             $.ajax({
                 type: "GET",
-                url: '/ticket/'+ticketid,
-                success: function(data){
-                    console.log(data);
-                    $('#openticketModal').modal('show');
+                url: 'api/tickets/' + ticketid,
+                success: function (response) {
+                    $('.readModalTitle').html('<span class="text-capitalize"> Ticket ' + response.ticket._id + '</span>');
+                    $("#filedByRead").text(response.ticket.filedby);
+                    $("#subjectRead").text(response.ticket.subject);
+                    $("#categoryRead").text(response.ticket.category);
+                    $("#messageRead").text(response.ticket.message);
 
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
                 }
-            }).done(function(data){
-                $('#loader').fadeOut( "fast", function() {
-                  $('#searchbar').removeClass("hidden").fadeIn("slow");
-                  $('#tablecontainer').removeClass("hidden").fadeIn("slow");
-                  $('#pages').removeClass("hidden").show();
-                  $('#page-nav').removeClass("hidden").show();
-                });
             });
+
+            $('#readModal').modal('show');
         }
 
         $("#searchinput").autocomplete({

@@ -72,13 +72,22 @@ module.exports = {
             category: req.body.category,
             filedby: req.body.filedby,
             file_name: fileName
-
         });
 
         ticket.save(function (err, t) {
             if (!err) {
-                //mailer.newTicket(req.user,ticket);
-                return res.status(200).json({ticket: t, message: "Ticket has been created"});
+                Ticket.populate(t,{ path:"filedby" }, function(err, tpopulated) {
+                            if (err){
+                                console.log('ERROR: ' + err);
+                                res.status(500).json({ err: err, message: "Internal Server Error"});
+                            }
+                            if(!tpopulated){
+                                res.status(404).json({ message: "Client not found" });
+                            }else {
+                                return res.status(200).json({ticket: tpopulated, message: "Ticket has been created"});
+                            }
+                      });
+
             } else {
                 console.log('ERROR: ' + err);
                 return res.status(500).json({err: err});
@@ -117,7 +126,8 @@ module.exports = {
                         status: new RegExp(search, 'i')
                     }
                 ])
-                    .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
+                .populate('filedby')
+                .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                     if (err) {
                         console.log('ERROR: ' + err);
                         callback(err, null);
@@ -243,11 +253,13 @@ module.exports = {
                 async.parallel([
                     function (callback) {
 
-                        Ticket.find({
+                        /*{
                             $and: [
                                 {client_id: req.params.id}
                             ]
-                        }).sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
+                        }*/
+
+                        Ticket.find().populate('filedby').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                             if (err) {
                                 console.log('ERROR: ' + err);
                                 callback(err, null);

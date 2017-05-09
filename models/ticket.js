@@ -11,7 +11,7 @@ var TicketSchema   = new Schema({
   replies: [{ type: Schema.Types.ObjectId, ref: 'Ticket'}],
   attachments: { type: String, default:'' },
   category: {type: String},
-  filedby:   [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  filedby:  { type: Schema.Types.ObjectId, ref: 'User' },
   file_name: {type:String, default: ''},
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now }

@@ -5,6 +5,9 @@ var async = require('async');
 var moment = require('moment');
 var crypto = require('crypto');
 var csv = require('express-csv');
+var s3deploy = require('../helpers/bucketDeployHelper');
+var AWS_PREFIX = 'https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/';
+var fs = require('fs');
 
 
 module.exports = {
@@ -17,6 +20,7 @@ module.exports = {
      * @param {string} passwordconf - The user's password confirmation, verification purposes.
      */
     createUser: function (req, res, next) {
+
 
         if (req.body.first === undefined) {
             return res.status(404).json({message: 'FirstName not found'});
@@ -68,6 +72,34 @@ module.exports = {
             }
         }
 
+        var file = req.files.image;
+
+        if (file) {
+
+            var fileName =  req.files.image.name;
+            var filePath = './uploads/' + fileName;
+            file.mv(filePath, function (err) {
+                if (err)
+                    return res.status(500).send(err);
+            });
+
+            var upload = true;
+            var folder = 'profile_pictures/';
+            upload = s3deploy.uploadFiles(filePath, fileName, req.body.document, file.data, folder);
+
+            if(!upload)
+                return res.status(404).json({message: 'Error uploading file!'});
+
+            // url stored in db
+            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
+            //local file deleted
+            fs.unlinkSync(filePath);
+        }
+        else{
+            var imagenUrl = AWS_PREFIX + 'foto.png';
+        }
+
+
         if (req.body.role !== 'resident') {
             if (req.body.occupation === '') {
                 return res.status(404).json({message: 'Ocuppation not found'});
@@ -87,6 +119,7 @@ module.exports = {
                 phone: {
                     number: req.body.phone
                 },
+                profile_picture: imagenUrl,
                 email: req.body.email,
                 password: req.body.document,
                 location: req.body.location,
@@ -244,6 +277,8 @@ module.exports = {
      * @param {string} id - The user's id.
      */
     updateUser: function (req, res, next) {
+
+
         User.findById(req.params.id, function (err, user) {
             if (err) {
                 return res.status(500).json({message: 'Internal Server Error'});
@@ -251,6 +286,34 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({message: 'User not found'});
             } else {
+
+                var file = req.files.image;
+
+                if (file) {
+                    var fileName =  req.files.image.name;
+                    var filePath = './uploads/' + fileName;
+                    file.mv(filePath, function (err) {
+                        if (err)
+                            return res.status(500).send(err);
+                    });
+
+                    var upload = true;
+                    var folder = 'profile_pictures/';
+                    upload = s3deploy.uploadFiles(filePath, fileName, req.body.document, file.data, folder);
+
+                    if(!upload)
+                        return res.status(404).json({message: 'Error uploading file!'});
+
+                    // url stored in db
+                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
+                    //local file deleted
+                    fs.unlinkSync(filePath);
+                }
+
+
+
+
+
                 user.email = req.body.email || user.email;
                 user.name.first = req.body.first || user.name.first;
                 user.name.last = req.body.last || user.name.last;
@@ -262,6 +325,7 @@ module.exports = {
                 user.location = req.body.location || user.location;
                 user.skype = req.body.skype || user.skype;
                 user.time_zone = req.body.timezone || user.time_zone;
+                user.profile_picture = imagenUrl || user.profile_picture;
 
                 if (user.email != req.body.email) {
                     user.email_verified = false;

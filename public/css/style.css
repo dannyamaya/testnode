@@ -1168,3 +1168,9 @@ textarea.parsley-error {
   cursor: pointer;
 }
 
+.img-preloaded{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+

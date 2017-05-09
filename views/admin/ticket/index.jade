@@ -53,7 +53,8 @@ block content
                             if user.role != 'resident'
                               .form-group
                                   label Filed by
-                                  input.form-control#searchinput(type="text" name="filedby")
+                                  input.form-control#searchinput(type="search")
+                                  input.form-control#searchinputHidden(type="hidden" name="filedby")
                             .form-group
                                 label Category
                                 .select
@@ -295,15 +296,23 @@ block scripts
                     url: url,
                     success: function (data) {
                         $('#searchinput').css("cursor", "text");
-                        response(data.boarddocs);
+                        response(data.users);
                     }
                 });
 
             },
             minLength: 1
         }).data("ui-autocomplete")._renderItem = function (ul, item) {
-            return $("<li></li>").data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
+            console.log(item);
+            return $("<li class='li-autocomplete' data-id='"+item._id +"' style='margin-bottom:5px;'></li>").append(item.name.first +' '+ item.name.last).appendTo(ul);
         };
+
+        $('body').on('click', '.li-autocomplete', function(){
+            $('#searchinput').val($(this).text());
+            $('#searchinputHidden').val($(this).attr('data-id'));
+        });
+
+
 
 
 

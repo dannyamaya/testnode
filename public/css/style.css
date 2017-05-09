@@ -1016,6 +1016,13 @@ textarea.parsley-error {
 
 }
 
+.ul-profile-img{
+  width: 70px;
+  height: 60px;
+  margin-left: 3px;
+
+}
+
 .subject{
   text-align: left;
 }
@@ -1222,5 +1229,12 @@ textarea.parsley-error {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.ui-menu{
+  z-index: 10000000;
+}
+.ui-menu:hover{
+
 }
 

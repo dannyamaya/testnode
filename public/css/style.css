@@ -36,18 +36,6 @@ button:focus{
   padding-top:75px;
 }
 
-.activity-feed{
-  padding: 65px 0 0;
-  height: 100%;
-  position: absolute;
-}
-
-.activity-feed .panel{
-  height: 100%;
-  margin-bottom:0;
-  background-color: #C8D2D7;
-}
-
 /* BUTTONS & INPUTS */
 
 .form-control, .btn, .panel{
@@ -292,6 +280,27 @@ button:focus{
   margin-right: 4px;
 }
 
+.activity-feed{
+  padding: 65px 0 0;
+  height: 100%;
+  position: absolute;
+}
+
+.activity-feed .panel{
+  height: 100%;
+  margin-bottom:0;
+  background-color: #4C5B61;
+}
+
+.activity-feed h2{
+  margin: 15px 15px 5px;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
 @media screen and (min-width: 768px) {
 
   .toggle-btn.active{
@@ -391,6 +400,12 @@ input[type="file"]::-webkit-file-upload-button {
   float: left;
 }
 
+.ticket-profile-img img{
+  width:41px;
+  height:41px;
+  margin-left:7px;
+}
+
 .ticket-up-info{
   width:calc(100% - 43px);
   float: left;
@@ -483,6 +498,39 @@ input[type="file"]::-webkit-file-upload-button {
 
 .btn-more-ticket:hover{
   background-color:#81939E;
+}
+
+.label-cleaning,
+.label-customer,
+.label-it,
+.label-maintenance,
+.label-visits,
+.label-other{
+  margin-right:2px;
+}
+
+.label-cleaning{
+  background-color: #5bc0de;
+}
+
+.label-customer{
+  background-color: #d35400;
+}
+
+.label-it{
+  background-color: #f1c40f;
+}
+
+.label-maintenance{
+   background-color: #1abc9c;
+}
+
+.label-visits{
+  background-color: #9b59b6;
+}
+
+.label-other{
+  background-color: #c0392b;
 }
 
 

@@ -191,7 +191,11 @@ module.exports = {
     },
 
     updateTicket: function (req, res, next) {
-        Ticket.findById(req.body.id, function (err, ticket) {
+
+        if(!req.params.id)
+            res.status(404).json({message: 'No ticket found'});
+
+        Ticket.findById(req.params.id, function (err, ticket) {
             if (err) {
                 console.log('ERROR: ' + err);
                 res.status(500).json({err: err});
@@ -205,6 +209,7 @@ module.exports = {
                 ticket.priority = req.body.priority || ticket.priority;
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
                 ticket.reply_of = req.body.reply_of || ticket.reply_of;
+                ticket.status = req.body.status || ticket.status;
                 ticket.updated = Date.now();
 
                 ticket.save(function (err) {
@@ -310,5 +315,9 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+
+
+
+
 }

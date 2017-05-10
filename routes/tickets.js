@@ -11,7 +11,9 @@ router.route('/')
     .delete(ticketController.deleteTicket);
 
 router.route('/:id')
-    .get(ticketController.readTicket);
+    .get(ticketController.readTicket)
+    .put(ticketController.updateTicket);
+
 
 
 module.exports = router;

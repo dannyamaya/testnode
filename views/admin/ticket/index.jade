@@ -2,10 +2,10 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
-    .col-xs-9.content
+    .col-xs-10.content
       .panel.panel-default.col-xs-12
-        form.form.col-xs-12.col-sm-10.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-          .col-xs-5.no-padding
+        form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
+          .col-xs-4.no-padding
             .input-group.search
               input.form-control#search(type="text" name="name" placeholder="Search ticket")
               span.input-group-addon
@@ -20,21 +20,29 @@ block content
               option(value="visits") Visits
               option(value="others") Others
           .select.select-livinn.col-xs-2
+            select.form-control#subcategoryselect
+              option(value="" selected) Subcategory
+          .select.select-livinn.col-xs-2
             select.form-control#statusselect
               option(value="" selected) Status
               option(value="open") Open
               option(value="pending") Pending
               option(value="resolved") Resolved
-
-        .pull-right
+          .select.select-livinn.col-xs-2
+            select.form-control#priorityselect
+              option(value="" selected) Priority
+              option(value="1") 1
+              option(value="2") 2
+              option(value="3") 3
+              option(value="4") 4
+        .col-xs-1.no-padding
             button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
-                span.hidden-xs Add Ticket
-                i.visible-xs.fa.fa-plus
+               i.fa.fa-plus
         .clearfix(style="margin-bottom:15px;")
         #loader
         .col-xs-12.no-padding.tickets
 
-    .col-xs-3.col-xs-offset-9.no-padding.activity-feed
+    .col-xs-2.col-xs-offset-10.no-padding.activity-feed
         .panel.panel-default.col-xs-12.no-padding
             h2 activity feed
 
@@ -132,7 +140,6 @@ block scripts
                 total: 10,
                 maxVisible: 5,
             }).on("page", function(event, num){
-                console.log("numero:"+num);
                 filterTickets(num);
             });
 
@@ -206,7 +213,6 @@ block scripts
         }
 
         function getStatus(status,id){
-            console.log(status);
             var source = "";
             switch (status) {
                 case 0:

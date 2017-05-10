@@ -245,7 +245,6 @@ module.exports = {
             search = req.query.search;
         }
 
-
         User.findById(req.params.id, function (err, user) {
             if (err) {
                 console.log('ERROR: ' + err);
@@ -254,7 +253,7 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({error: true, message: 'User not found'});
             } else {
-
+                console.log("Encontro user");
                 async.parallel([
                     function (callback) {
 
@@ -278,7 +277,6 @@ module.exports = {
                         ])
                         .populate('filedby').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                             if (err) {
-                                console.log('ERROR: ' + err);
                                 callback(err, null);
                             } else {
                                 callback(null, tickets);
@@ -300,6 +298,7 @@ module.exports = {
 
                 ], function (err, results) {
                     if (err) {
+                        console.log('ERROR: ' + err);
                         return res.status(500).json({
                             error: true,
                             message: 'Server connection error. Please try later'

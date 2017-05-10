@@ -1050,7 +1050,7 @@ textarea.parsley-error {
 .btn-main:active{
   margin-top: 20px;
   padding: 10px 15px;
-  margin-left: 5px;
+  float: right;
 }
 
 /* =========== LOADING ==============*/

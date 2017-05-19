@@ -326,9 +326,7 @@ block scripts
                                     $message.addClass(_this.message_side).find('.text').html(_this.text);
                                     $message.find('.img-user-conversation').attr('src',_this.profile_pic);
                                     $('.messages').append($message);
-                                    return setTimeout(function () {
                                         return $message.addClass('appeared');
-                                    }, 0);
                                 };
                             }(this);
                             return this;
@@ -354,7 +352,7 @@ block scripts
                                     user:user
                                 });
                                 message.draw();
-                                return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 300);
+                                return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
                             };
                             $('.send_message').click(function (e) {
 
@@ -390,9 +388,6 @@ block scripts
                                 });
 
 
-
-
-
                                 return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'));
                             });
                             $('.message_input').keyup(function (e) {
@@ -412,9 +407,22 @@ block scripts
                                 url: '/api/comments/discussion?ticket='+response.ticket._id,
                                 success: function (response) {
 
-                                  
-
                                     console.log(response);
+
+                                    $.each(response.comments, function (index, value) {
+                                        var parent = $('.messages').children().last().attr('data-user');
+                                        var prevside = $('.messages').children().last().attr('data-side');
+
+                                        if (parent == value.posted_by)
+                                            var side = prevside;
+                                        else {
+                                            if (prevside == 'left')
+                                                var side = 'right';
+                                            else
+                                                var side = 'left';
+                                        }
+                                        sendMessage(value.comment, value.posted_by, side, '');
+                                    });
 
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -436,7 +444,6 @@ block scripts
                     warningAlert(message);
                 }
             });
-
 
             $('#readModal').modal('show');
         }

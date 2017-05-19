@@ -21,6 +21,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var residents = require('./routes/resident');
 var tickets = require('./routes/tickets');
+var comments = require('./routes/comments');
 var session  = require('express-session');
 var mongoStore = require('connect-mongo')(session);
 
@@ -85,6 +86,7 @@ app.use('/', index);
 app.use('/api/users', users);
 app.use('/api/tickets', tickets);
 app.use('/api/residents', residents);
+app.use('/api/comments', comments);
 
 // -----------------------------------------------------------------
 // Error handling

@@ -3,44 +3,44 @@ block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
     .col-xs-10.content
-      .panel.panel-default.col-xs-12
-        form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-          .col-xs-4.no-padding
-            .input-group.search
-              input.form-control#search(type="text" name="name" placeholder="Search ticket")
-              span.input-group-addon
-                i.fa.fa-search
-          .select.select-livinn.col-xs-2
-            select.form-control#categoryselect
-              option(value="" selected) Category
-              option(value="cleaning services") Cleaning Services
-              option(value="customer service") Customer Service
-              option(value="support") IT Support
-              option(value="maintenance") Maintenance
-              option(value="visits") Visits
-              option(value="others") Others
-          .select.select-livinn.col-xs-2
-            select.form-control#subcategoryselect
-              option(value="" selected) Subcategory
-          .select.select-livinn.col-xs-2
-            select.form-control#statusselect
-              option(value="" selected) Status
-              option(value="open") Open
-              option(value="pending") Pending
-              option(value="resolved") Resolved
-          .select.select-livinn.col-xs-2
-            select.form-control#priorityselect
-              option(value="" selected) Priority
-              option(value="1") 1
-              option(value="2") 2
-              option(value="3") 3
-              option(value="4") 4
-        .col-xs-1.no-padding
-            button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
-               i.fa.fa-plus
-        .clearfix(style="margin-bottom:15px;")
-        #loader
-        .col-xs-12.no-padding.tickets
+        .panel.panel-default.col-xs-12
+            form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
+                .col-xs-4.no-padding
+                    .input-group.search
+                        input.form-control#search(type="text" name="name" placeholder="Search ticket")
+                        span.input-group-addon
+                            i.fa.fa-search
+                .select.select-livinn.col-xs-2
+                    select.form-control#categoryselect
+                        option(value="" selected) Category
+                        option(value="cleaning services") Cleaning Services
+                        option(value="customer service") Customer Service
+                        option(value="support") IT Support
+                        option(value="maintenance") Maintenance
+                        option(value="visits") Visits
+                        option(value="others") Others
+                .select.select-livinn.col-xs-2
+                    select.form-control#subcategoryselect
+                        option(value="" selected) Subcategory
+                .select.select-livinn.col-xs-2
+                    select.form-control#statusselect
+                        option(value="" selected) Status
+                        option(value="open") Open
+                        option(value="pending") Pending
+                        option(value="resolved") Resolved
+                .select.select-livinn.col-xs-2
+                    select.form-control#priorityselect
+                        option(value="" selected) Priority
+                        option(value="1") 1
+                        option(value="2") 2
+                        option(value="3") 3
+                        option(value="4") 4
+            .col-xs-1.no-padding
+                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
+                    i.fa.fa-plus
+            .clearfix(style="margin-bottom:15px;")
+            #loader
+            .col-xs-12.no-padding.tickets
 
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed
         .panel.panel-default.col-xs-12.no-padding
@@ -51,7 +51,7 @@ block content
         .modal-dialog.modal-lg
             .modal-content
                 .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
-                        button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-header
                     h2.modal-title.text-center Create Ticket
                 .modal-body
@@ -59,10 +59,10 @@ block content
                     .row
                         form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form")
                             if user.role != 'resident'
-                              .form-group
-                                  label Filed by
-                                  input.form-control#searchinput(type="search")
-                                  input.form-control#searchinputHidden(type="hidden" name="filedby")
+                                .form-group
+                                    label Filed by
+                                    input.form-control#searchinput(type="search")
+                                    input.form-control#searchinputHidden(type="hidden" name="filedby")
                             .form-group
                                 label Category
                                 .select
@@ -84,7 +84,7 @@ block content
                             .form-group
                                 label Attachment
                                 input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
-                             .modal-footer
+                            .modal-footer
                                 .pull-right.form-group-end
                                     button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
                                     input.btn.btn-livinn(type="submit" value="Submit")
@@ -100,19 +100,40 @@ block content
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1
                             .col-sm-12
-                                    .form-group.col-sm-4
-                                        label(for='fieldByRead') Field By
-                                        p#filedByRead
-                                    .form-group.col-sm-4
-                                        label(for='subjectRead') Subject
-                                        p#subjectRead
-                                    .form-group.col-sm-4
-                                        label(for='categoryRead') Category
-                                        p#categoryRead
+                                .form-group.col-sm-4
+                                    label(for='fieldByRead') Field By
+                                    p#filedByRead
+                                .form-group.col-sm-4
+                                    label(for='subjectRead') Subject
+                                    p#subjectRead
+                                .form-group.col-sm-4
+                                    label(for='categoryRead') Category
+                                    p#categoryRead
                             .col-sm-12
-                                    .form-group.col-sm-12
-                                        label(for='messageRead') Message
-                                        p#messageRead
+                                .form-group.col-sm-12
+                                    label(for='messageRead') Message
+                                    p#messageRead
+
+                        .col-xs-12-col-sm-12.col-sm-offset-1
+                            .chat_window
+                                .top_menu
+                                    .title Conversation
+                                ul(class="messages")
+                                .bottom_wrapper.clearfix
+                                    .message_input_wrapper
+                                        input(class="message_input" placeholder="Type your message here...")
+                                    .send_message(data-current-user="" data-current-user-image="")
+                                        .icon
+                                        .text Send
+                            .message_template
+                                li(class="message" data-id="" data-user="")
+                                    input#hiddenPhoto(type="hidden")
+                                    .ticket-profile-img-2
+                                        img.img-user-conversation(src="" class="img-circle img-responsive")
+                                    .text_wrapper
+                                        .text
+
+
 
 
 
@@ -126,11 +147,11 @@ block scripts
 
         socket.on('new-ticket', function (dataServer) {
 
-          $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='"+ dataServer.ticket.filedby.profile_picture +"' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>"+ getCategory(dataServer.ticket.category) +" "+moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a')+"</p></div><p class='col-xs-12 ticket-title'>"+ dataServer.ticket.subject +"</p></div><div class='ticket-btn-group'>"+getStatus(dataServer.ticket.status, dataServer.ticket._id)+"</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#"+dataServer.ticket._id+"</strong>CREATED BY:<strong class='created-by text-uppercase'>"+dataServer.ticket.filedby.name.first+" "+dataServer.ticket.filedby.name.last+"</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'"+dataServer.ticket._id+"\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.filedby.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.filedby.name.first + " " + dataServer.ticket.filedby.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'" + dataServer.ticket._id + "\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
 
         });
 
-        $( document ).ready(function() {
+        $(document).ready(function () {
 
 
             $('.note-popover').css({'display': 'none'});
@@ -139,7 +160,7 @@ block scripts
             $('#page-selection').bootpag({
                 total: 10,
                 maxVisible: 5,
-            }).on("page", function(event, num){
+            }).on("page", function (event, num) {
                 filterTickets(num);
             });
 
@@ -159,78 +180,79 @@ block scripts
         });
 
         /* Get params from all filters */
-        function filterTickets(page){
+        function filterTickets(page) {
             var search = $('#search').val().trim();
-            getTickets(page,search);
+            getTickets(page, search);
         }
 
-        $('#searchForm').submit(function(evt){
+        $('#searchForm').submit(function (evt) {
             evt.preventDefault();
             filterTickets(1);
         });
 
-        function getTickets(page, search){
+        function getTickets(page, search) {
 
             $('.tickets').hide();
-            $('#loader').fadeIn( "slow");
+            $('#loader').fadeIn("slow");
 
             $.ajax({
                 type: "GET",
-                url: '/api/users/#{user._id}/tickets?page='+page +'&search='+search,
-                success: function(data){
+                url: '/api/users/#{user._id}/tickets?page=' + page + '&search=' + search,
+                success: function (data) {
 
                     console.log(data);
                     var count = data.count;
                     var category = "";
 
-                    for(key=0; key<data.tickets.length ; key++ ){
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='"+ data.tickets[key].filedby.profile_picture +"' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>"+ getCategory(data.tickets[key].category) +" "+moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a')+"</p></div><p class='col-xs-12 ticket-title'>"+ data.tickets[key].subject +"</p></div><div class='ticket-btn-group'>"+getStatus(data.tickets[key].status, data.tickets[key]._id)+"</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#"+data.tickets[key]._id+"</strong>CREATED BY:<strong class='created-by text-uppercase'>"+data.tickets[key].filedby.name.first+" "+data.tickets[key].filedby.name.last+"</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket("+"\""+data.tickets[key]._id+"\""+")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+                    for (key = 0; key < data.tickets.length; key++) {
+                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].filedby.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].filedby.name.first + " " + data.tickets[key].filedby.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].filedby.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     }
                 }
-            }).done(function(data){
-                $('#loader').fadeOut( "fast", function() {
-                  $('.tickets').removeClass("hidden").fadeIn();
+            }).done(function (data) {
+                $('#loader').fadeOut("fast", function () {
+                    $('.tickets').removeClass("hidden").fadeIn();
                 });
             });
         }
 
-        function getCategory(category){
-          var value = '';
-          if(category == 'cleaning services'){
-            value = "<span class='label label-cleaning'>CLEANING SERVICES</span>";
-          } else if(category == 'customer service'){
-            value = "<span class='label label-customer'>CUSTOMER SERVICES</span>";
-          } else if(category == 'support'){
-            value = "<span class='label label-it'>IT SUPPORT</span>";
-          } else if(category == 'maintenance'){
-            value = "<span class='label label-maintenance'>MAINTENANCE</span>";
-          } else if(category == 'visits'){
-            value = "<span class='label label-visits'>VISITS</span>";
-          } else {
-            value = "<span class='label label-other'>OTHERS</span>";
-          }
-          return value;
+        function getCategory(category) {
+            var value = '';
+            if (category == 'cleaning services') {
+                value = "<span class='label label-cleaning'>CLEANING SERVICES</span>";
+            } else if (category == 'customer service') {
+                value = "<span class='label label-customer'>CUSTOMER SERVICES</span>";
+            } else if (category == 'support') {
+                value = "<span class='label label-it'>IT SUPPORT</span>";
+            } else if (category == 'maintenance') {
+                value = "<span class='label label-maintenance'>MAINTENANCE</span>";
+            } else if (category == 'visits') {
+                value = "<span class='label label-visits'>VISITS</span>";
+            } else {
+                value = "<span class='label label-other'>OTHERS</span>";
+            }
+            return value;
         }
 
-        function getStatus(status,id){
+        function getStatus(status, id) {
             var source = "";
             switch (status) {
                 case 0:
-                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status active" data-id="'+id+'" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="'+id+'" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="'+id+'" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status active" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
                 case 1:
-                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="'+id+'" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status active" data-id="'+id+'" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="'+id+'" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
                 case 2:
-                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="'+id+'" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="'+id+'" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active btn-status" data-id="'+id+'" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
-            };
+            }
+            ;
             return source;
         }
 
 
         /*=== CREATE: Ticket Form ===*/
-        $('#ticketForm').submit(function(evt){
+        $('#ticketForm').submit(function (evt) {
 
             evt.preventDefault();
             var url = $(this).attr("action");
@@ -242,9 +264,9 @@ block scripts
                 data: formData,
                 processData: false,
                 contentType: false,
-                success : function(response){
+                success: function (response) {
                     console.log(response);
-                    if(response.message == 'Ticket has been created'){
+                    if (response.message == 'Ticket has been created') {
                         socket.emit('new-ticket', {ticket: response.ticket});
                         $('#newticketModal').modal('hide');
                         $('#subject').val("");
@@ -254,9 +276,9 @@ block scripts
                         warningAlert('Error al crear la solicitud');
                     }
                 },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;
-                    if(message == 'password and password confirmation mismatch'){
+                    if (message == 'password and password confirmation mismatch') {
                         $('#inputConfPasswordr').focus();
                         $('.emailregistrationerror').removeClass('has-error');
                         $('.passwordregistrationerror').addClass('has-error');
@@ -270,17 +292,143 @@ block scripts
 
         /*=== READ: Open ticket ===*/
 
-        function openTicket(ticketid){
+        function openTicket(ticketid,img) {
+            $('.messages').empty();
+            $('.send_message').attr('data-current-user','#{user._id}');
+            $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
 
             $.ajax({
                 type: "GET",
                 url: 'api/tickets/' + ticketid,
                 success: function (response) {
+
+
                     $('.readModalTitle').html('<span class="text-capitalize"> Ticket ' + response.ticket._id + '</span>');
                     $("#filedByRead").text(response.ticket.filedby);
                     $("#subjectRead").text(response.ticket.subject);
                     $("#categoryRead").text(response.ticket.category);
                     $("#messageRead").text(response.ticket.message);
+
+
+                    (function () {
+                        var Message;
+                        Message = function (arg) {
+                            this.profile_pic = arg.profile_pic;
+                            this.user = arg.user;
+                            this.text = arg.text, this.message_side = arg.message_side;
+                            this.user = arg.user;
+                            this.draw = function (_this) {
+                                return function () {
+                                    var $message;
+                                    $message = $($('.message_template').clone().html());
+                                    $message.attr('data-user',_this.user);
+                                    $message.attr('data-side',_this.message_side);
+                                    $message.addClass(_this.message_side).find('.text').html(_this.text);
+                                    $message.find('.img-user-conversation').attr('src',_this.profile_pic);
+                                    $('.messages').append($message);
+                                    return setTimeout(function () {
+                                        return $message.addClass('appeared');
+                                    }, 0);
+                                };
+                            }(this);
+                            return this;
+                        };
+                        $(function () {
+                            var getMessageText, message_side, sendMessage;
+                            getMessageText = function () {
+                                var $message_input;
+                                $message_input = $('.message_input');
+                                return $message_input.val();
+                            };
+                            sendMessage = function (text, user, side, profile_pic) {
+                                var $messages, message;
+                                if (text.trim() === '') {
+                                    return;
+                                }
+                                $('.message_input').val('');
+                                $messages = $('.messages');
+                                message = new Message({
+                                    text: text,
+                                    message_side: side,
+                                    profile_pic: profile_pic,
+                                    user:user
+                                });
+                                message.draw();
+                                return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 300);
+                            };
+                            $('.send_message').click(function (e) {
+
+                                var parent = $('.messages').children().last().attr('data-user');
+                                var prevside = $('.messages').children().last().attr('data-side');
+                                var ticket = response.ticket._id;
+
+                                if(parent == $(this).attr('data-current-user'))
+                                    var side = prevside;
+                                else{
+                                    if(prevside == 'left')
+                                        var side = 'right';
+                                    else
+                                        var side = 'left';
+                                }
+
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/api/comments',
+                                    data: {
+                                        discussion_id: ticket,
+                                        posted_by: $(this).attr('data-current-user'),
+                                        comment: getMessageText()
+                                    },
+                                    success: function (response) {
+
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        var message = XMLHttpRequest.responseJSON.message;
+                                        warningAlert(message);
+                                    }
+                                });
+
+
+
+
+
+                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'));
+                            });
+                            $('.message_input').keyup(function (e) {
+                                if (e.which === 13) {
+                                    return sendMessage(getMessageText());
+                                }
+                            });
+
+
+                            //First Messages
+                            sendMessage(response.ticket.message, response.ticket.filedby, 'left',img);
+
+
+                            //Another Messages
+                            $.ajax({
+                                type: "GET",
+                                url: '/api/comments/discussion?ticket='+response.ticket._id,
+                                success: function (response) {
+
+                                  
+
+                                    console.log(response);
+
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    var message = XMLHttpRequest.responseJSON.message;
+                                    warningAlert(message);
+                                }
+                            });
+
+
+
+
+                        });
+                    }.call(this));
+
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -289,13 +437,14 @@ block scripts
                 }
             });
 
+
             $('#readModal').modal('show');
         }
 
         $("#searchinput").autocomplete({
             source: function (request, response) {
                 $('#searchinput').css("cursor", "wait");
-                var url ="/api/users?page=" + 1 + "&search=" + $("#searchinput").val();
+                var url = "/api/users?page=" + 1 + "&search=" + $("#searchinput").val();
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -309,7 +458,7 @@ block scripts
             minLength: 1
         }).data("ui-autocomplete")._renderItem = function (ul, item) {
             console.log(item);
-            return $("<li class='li-autocomplete' data-id='"+item._id +"' style='margin-bottom:5px;'></li>").append(item.name.first +' '+ item.name.last).appendTo(ul);
+            return $("<li class='li-autocomplete' data-id='" + item._id + "' style='margin-bottom:5px;'></li>").append(item.name.first + ' ' + item.name.last).appendTo(ul);
         };
         /*=== UPDATE: Update ticket ===*/
 
@@ -326,14 +475,14 @@ block scripts
             });
         });
 
-        $('body').on('click', '.li-autocomplete', function(){
+        $('body').on('click', '.li-autocomplete', function () {
             $('#searchinput').val($(this).text());
             $('#searchinputHidden').val($(this).attr('data-id'));
         });
 
 
         //Updates Status
-        $('body').on('click', '.btn-status', function(){
+        $('body').on('click', '.btn-status', function () {
 
             $(this).parent().children('button').each(function () {
                 this.classList.remove('active'); // "this" is the current element in the loop
@@ -342,9 +491,9 @@ block scripts
             $.ajax({
                 type: "PUT",
                 data: {
-                    status:$(this).attr('data-status')
+                    status: $(this).attr('data-status')
                 },
-                url: '/api/tickets/'+$(this).attr('data-id'),
+                url: '/api/tickets/' + $(this).attr('data-id'),
                 success: function (response) {
                     console.log(response);
                 },
@@ -357,9 +506,9 @@ block scripts
             $(this).addClass('active');
 
 
-
-
         });
+
+
 
 
 

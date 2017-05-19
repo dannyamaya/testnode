@@ -253,7 +253,6 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({error: true, message: 'User not found'});
             } else {
-                console.log("Encontro user");
                 async.parallel([
                     function (callback) {
 

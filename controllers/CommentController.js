@@ -57,17 +57,21 @@ module.exports = {
 
     readDiscussionComments: function (req, res, next) {
 
-        Comment.find({ 'discussion_id': req.query.ticket}, function (err, comments) {
-            if (err) {
-                console.log('ERROR: ' + err);
-                return res.status(404).json({message: 'Error, try later...'});
-            }
-            else{
-                return res.status(200).json({comments: comments});
-            }
-            // docs is an array
-        });
+        Comment.find({'discussion_id': req.query.ticket})
+            .populate('posted_by', 'email profile_picture')
+            .exec(function (err, comment) {
+                if (err) {
+                    console.log('ERROR: ' + err);
+                    return res.status(500).json({err: err, message: "Internal Server Error"});
+                }
+                if (!comment) {
+                    return res.status(404).json({message: "User not found"});
+                } else {
+                    console.log(comment);
 
+                    return res.status(200).json({comment: comment});
+                }
+            });
     }
 
 }

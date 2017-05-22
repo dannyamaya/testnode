@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var CommentsSchema   = new Schema({
-
   discussion_id:{ type: Schema.Types.ObjectId, ref: 'Ticket', required:true },
   posted_by: { type: Schema.Types.ObjectId, ref: 'User', required:true },
   comment: { type: String, required: true},

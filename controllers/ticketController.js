@@ -126,7 +126,7 @@ module.exports = {
                         status: new RegExp(search, 'i')
                     }
                 ])
-                .populate('filedby')
+                .populate('filedby','name')
                 .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                     if (err) {
                         console.log('ERROR: ' + err);
@@ -176,7 +176,8 @@ module.exports = {
     readTicket: function (req, res, next) {
 
         Ticket.findOne({_id: req.params.id})
-            .populate('client_id', 'name company email')
+            .populate('client_id', 'name company email phone profile_picture')
+            .populate('filedby', 'name email profile_picture')
             .exec(function (err, ticket) {
                 if (err) {
                     console.log('ERROR: ' + err);

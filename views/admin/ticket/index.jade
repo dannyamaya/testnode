@@ -90,48 +90,79 @@ block content
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
-    .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
-        .modal-dialog.modal-lg
+    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+        .modal-dialog.full-width
             .modal-content
-                .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
-                    h3.modal-title.text-center.readModalTitle
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1
-                            .col-sm-12
-                                .form-group.col-sm-4
-                                    label(for='fieldByRead') Field By
-                                    p#filedByRead
-                                .form-group.col-sm-4
-                                    label(for='subjectRead') Subject
-                                    p#subjectRead
-                                .form-group.col-sm-4
-                                    label(for='categoryRead') Category
-                                    p#categoryRead
-                            .col-sm-12
-                                .form-group.col-sm-12
-                                    label(for='messageRead') Message
-                                    p#messageRead
+                        .col-xs-12.no-padding(style="height:100%;")
+                            .col-xs-12.no-padding.ticket-navbar.has-feedback
+                                h3.col-xs-12.readModalTitle
+                                button.btn(type="button", data-dismiss="modal", aria-hidden="true")
+                                    span
+                            .col-xs-12.col-sm-3.ticket-left
+                                .form-group
+                                    label Requestor
+                                    p.form-control-static#ticketrequestor
+                                .form-group
+                                    label Email
+                                    p.form-control-static#ticketemail
+                                .form-group
+                                    label Phone Number
+                                    p.form-control-static#ticketphone
+                                .form-group
+                                    label(for='filedByRead') Request By
+                                    p.form-control-static#ticketrequestby
+                                .form-group
+                                    label(for="assignee") Assignee
+                                    input.form-control#ticketasignee(type="text")
+                            .col-xs-12.col-sm-9.ticket-right
+                                .col-xs-12
+                                    p.ticketsubject#ticketsubject
+                                    p.ticketcategory#ticketcategory
+                                    p.ticketdate#ticketdate
+                                .col-xs-12
+                                    // Nav tabs
+                                    ul.col-xs-12.nav.nav-tabs(role='tablist')
+                                        li.active(role='presentation')
+                                            a(href='#comment', aria-controls='comment', role='tab', data-toggle='tab') Comment
+                                        li(role='presentation')
+                                            a(href='#note', aria-controls='note', role='tab', data-toggle='tab') Note
+                                    // Tab panes
+                                    .col-xs-12.no-padding.tab-content
+                                        #comment.tab-pane.active(role='tabpanel')
+                                            textarea.form-control.message_input(rows="5" placeholder="Type your comment here...")
+                                        #note.tab-pane(role='tabpanel')
+                                            textarea.form-control(rows="5" placeholder="Type your notes here...")
+                                .col-xs-12
+                                    // Nav tabs
+                                    ul.col-xs-12.nav.nav-tabs.nav-tabs-comments(role='tablist')
+                                        li.active(role='presentation')
+                                            a(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
+                                                |   All Comments
+                                                span.badge 3
+                                        li(role='presentation')
+                                            a(href='#allnotes', aria-controls='allnotes', role='tab', data-toggle='tab')
+                                                |   Notes
+                                                span.badge 0
+                                    // Tab panes
+                                    .col-xs-12.no-padding.tab-content
+                                        #allcomments.tab-pane.active(role='tabpanel')
+                                            ul.messages
+                                            .bottom_wrapper.clearfix
+                                                .send_message(data-current-user="" data-current-user-image="")
+                                                    .icon
+                                                    .text Send
+                                            .message_template
+                                                li(class="message" data-id="" data-user="")
+                                                    input#hiddenPhoto(type="hidden")
+                                                    .ticket-profile-img-2
+                                                        img.img-user-conversation(src="" class="img-circle img-responsive")
+                                                    .text_wrapper
+                                                        .text
+                                        #allnotes.tab-pane(role='tabpanel')
+                                            textarea.form-control(rows="4" placeholder="Type your notes here...")
 
-                        .col-xs-12-col-sm-12.col-sm-offset-1
-                            .chat_window
-                                .top_menu
-                                    .title Conversation
-                                ul(class="messages")
-                                .bottom_wrapper.clearfix
-                                    .message_input_wrapper
-                                        input(class="message_input" placeholder="Type your message here...")
-                                    .send_message(data-current-user="" data-current-user-image="")
-                                        .icon
-                                        .text Send
-                            .message_template
-                                li(class="message" data-id="" data-user="")
-                                    input#hiddenPhoto(type="hidden")
-                                    .ticket-profile-img-2
-                                        img.img-user-conversation(src="" class="img-circle img-responsive")
-                                    .text_wrapper
-                                        .text
 
 
 
@@ -217,18 +248,22 @@ block scripts
 
         function getCategory(category) {
             var value = '';
-            if (category == 'cleaning services') {
-                value = "<span class='label label-cleaning'>CLEANING SERVICES</span>";
-            } else if (category == 'customer service') {
-                value = "<span class='label label-customer'>CUSTOMER SERVICES</span>";
-            } else if (category == 'support') {
-                value = "<span class='label label-it'>IT SUPPORT</span>";
-            } else if (category == 'maintenance') {
-                value = "<span class='label label-maintenance'>MAINTENANCE</span>";
-            } else if (category == 'visits') {
-                value = "<span class='label label-visits'>VISITS</span>";
-            } else {
-                value = "<span class='label label-other'>OTHERS</span>";
+            if( category ){
+                if (category == 'cleaning services') {
+                    value = "<span class='label label-cleaning'>CLEANING SERVICES</span>";
+                } else if (category == 'customer service') {
+                    value = "<span class='label label-customer'>CUSTOMER SERVICES</span>";
+                } else if (category == 'support') {
+                    value = "<span class='label label-it'>IT SUPPORT</span>";
+                } else if (category == 'maintenance') {
+                    value = "<span class='label label-maintenance'>MAINTENANCE</span>";
+                } else if (category == 'visits') {
+                    value = "<span class='label label-visits'>VISITS</span>";
+                } else if (category == 'others') {
+                    value = "<span class='label label-other'>OTHERS</span>";
+                } else {
+                    value = "<span class='label label-default text-uppercase'>"+category+"</span>";
+                }
             }
             return value;
         }
@@ -293,6 +328,7 @@ block scripts
         /*=== READ: Open ticket ===*/
 
         function openTicket(ticketid,img) {
+
             $('.messages').empty();
             $('.send_message').attr('data-current-user','#{user._id}');
             $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
@@ -302,11 +338,22 @@ block scripts
                 url: 'api/tickets/' + ticketid,
                 success: function (response) {
 
+                    console.log(response);
 
-                    $('.readModalTitle').html('<span class="text-capitalize"> Ticket ' + response.ticket._id + '</span>');
-                    $("#filedByRead").text(response.ticket.filedby);
-                    $("#subjectRead").text(response.ticket.subject);
-                    $("#categoryRead").text(response.ticket.category);
+                    $('.readModalTitle').html('Ticket #<span class="text-capitalize">' + response.ticket._id + '</span>');
+                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.client_id.profile_picture+"'</span>"+response.ticket.client_id.name.first+" "+response.ticket.client_id.name.last);
+                    $("#ticketemail").text(response.ticket.client_id.email);
+                    if(response.ticket.client_id.phone.number){
+                        $("#ticketphone").text(response.ticket.client_id.phone.number);
+                    } else {
+                        $("#ticketphone").text("N/A");
+                    }
+                    $("#ticketrequestby").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.filedby.profile_picture+"'</span>"+response.ticket.filedby.name.first+" "+response.ticket.filedby.name.last);
+                    $("#ticketsubject").text(response.ticket.subject);
+                    $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
+                    $("#ticketdate").html(moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
+
+
                     $("#messageRead").text(response.ticket.message);
 
 

@@ -454,7 +454,8 @@ input[type="file"]::-webkit-file-upload-button {
   color:#506470;
   margin-bottom: 0;
   font-size: 12px;
-  width:270px;
+  min-width:270px;
+  width:50%;
 }
 
 .ticket-title{

@@ -585,6 +585,7 @@ input[type="file"]::-webkit-file-upload-button {
 .ticket-left{
     background-color:#fcfcfc;
     height:calc(100% - 50px);
+    overflow-y:auto;
     padding-right: 20px;
     padding-left: 30px;
     padding-top: 15px;
@@ -599,6 +600,10 @@ input[type="file"]::-webkit-file-upload-button {
     font-size: 1.5em;
     margin-top: 20px;
     font-weight: bold;
+}
+
+.nav-tabs-comments-wrapper{
+    margin-bottom: 60px;
 }
 
 .nav-tabs-comments{
@@ -1428,7 +1433,6 @@ textarea.parsley-error {
 }
 .styleMessage .message .text_wrapper {
   display: inline-block;
-  padding: 10px;
   border-radius: 6px;
   width: calc(100% - 85px);
   min-width: 100px;
@@ -1451,9 +1455,9 @@ textarea.parsley-error {
   border-width: 15px;
   margin-top: -2px;
 }
-.styleMessage .message .text_wrapper .text {
-  font-size: 18px;
-  font-weight: 300;
+.styleMessage .message .text_wrapper .text label{
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 .bottom_wrapper {

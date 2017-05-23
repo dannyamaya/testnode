@@ -104,6 +104,28 @@ block content
                             .col-xs-12.col-sm-3.ticket-left
                                 input#hiddenTicket(type="hidden")
                                 .form-group
+                                    label Category
+                                    .select
+                                        select(name="category")
+                                            option(value="cleaning services") Cleaning Services
+                                            option(value="customer service") Customer Service
+                                            option(value="support") IT Support
+                                            option(value="maintenance") Maintenance
+                                            option(value="visits") Visits
+                                            option(value="others") Others
+                                .form-group
+                                    label Subcategory
+                                    .select
+                                        select(name="subcategory")
+                                .form-group
+                                    label Priority
+                                    .select
+                                        select(name="priority")
+                                            option(value="1") 1
+                                            option(value="2") 2
+                                            option(value="3") 3
+                                            option(value="4") 4
+                                .form-group
                                     label Requestor
                                     p.form-control-static#ticketrequestor
                                 .form-group
@@ -147,18 +169,18 @@ block content
                                                 .send_message.sendNote(data-current-user="" data-current-user-image="")
                                                     .icon
                                                     .text Send
-                                .col-xs-12
+                                .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
 
                                     ul.col-xs-12.nav.nav-tabs.nav-tabs-comments(role='tablist')
                                         li.active(role='presentation')
                                             a(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
                                                 |   All Comments
-                                                span.badge 3
+                                                span.badge#commentslength -
                                         li(role='presentation')
                                             a(href='#allnotes', aria-controls='allnotes', role='tab', data-toggle='tab')
                                                 |   Notes
-                                                span.badge 0
+                                                span.badge#noteslength -
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         #allcomments.tab-pane.active(role='tabpanel')
@@ -167,7 +189,7 @@ block content
                                             .message_template
                                                 li(class="message" data-id="" data-user="")
                                                     input#hiddenPhoto(type="hidden")
-                                                    .ticket-profile-img-2
+                                                    .ticket-profile-img
                                                         img.img-user-conversation(src="" class="img-circle img-responsive")
                                                     .text_wrapper
                                                         .text
@@ -175,7 +197,7 @@ block content
                                             ul.notes.styleMessage
                                             .message_template
                                                 li(class="message" data-id="" data-user="")
-                                                    .ticket-profile-img-2
+                                                    .ticket-profile-img
                                                         img.img-user-conversation(src="" class="img-circle img-responsive")
                                                     .text_wrapper
                                                         .text
@@ -371,6 +393,7 @@ block scripts
                     $("#ticketrequestby").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.client_id.profile_picture+"'</span>"+response.ticket.client_id.name.first+" "+response.ticket.client_id.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
                     $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
+
                     $.each(response.ticket.assignee, function (key, value) {
                         $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" +value.profile_picture +"'</span><span class='label label-default'>" + value.name.first + " "+ value.name.last + "  <a><i data-assignee='"+value._id +"' data-ticket-id='"+response.ticket._id+"' id='assignee"+value._id +"' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
                     });
@@ -506,6 +529,7 @@ block scripts
                                 url: '/api/comments/discussion?ticket='+response.ticket._id,
                                 success: function (response) {
 
+                                    $("#commentslength").text(response.comment.length+1);
                                     $.each(response.comment, function (index, value) {
 
                                         var parent = $('.messages').children().last().attr('data-user');
@@ -535,6 +559,7 @@ block scripts
                                 url: '/api/notes/discussion?ticket=' + response.ticket._id,
                                 success: function (response) {
                                     console.log(response);
+                                    $("#noteslength").text(response.note.length);
                                     $.each(response.note, function (index, value) {
                                         sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes');
                                     });

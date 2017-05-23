@@ -1,4 +1,4 @@
-var Comment = require('../models/comment.js'),
+var Note = require('../models/note.js'),
     User = require('../models/user.js');
 var mailer = require('../mailer/mailer'),
     async = require("async");
@@ -20,7 +20,7 @@ module.exports = {
      */
 
 
-    createComment: function (req, res, next) {
+    createNote: function (req, res, next) {
 
         if (req.body.discussion_id === undefined) {
             return res.status(404).json({message: 'Ticket not found'});
@@ -30,22 +30,22 @@ module.exports = {
             return res.status(404).json({message: 'Posted by not found'});
         }
 
-        if (req.body.comment === undefined) {
-            return res.status(404).json({message: 'comment not found'});
+        if (req.body.note === undefined) {
+            return res.status(404).json({message: 'Note not found'});
         }
 
 
-        var comment = new Comment({
+        var note = new Note({
             discussion_id: req.body.discussion_id,
             posted_by: req.body.posted_by,
-            comment: req.body.comment,
+            note: req.body.note,
 
         });
 
 
-        comment.save(function (err, t) {
+        note.save(function (err, t) {
             if (!err) {
-                console.log('New comment has been created')
+                console.log('New note has been created')
             }
             else {
                 console.log(err);
@@ -55,21 +55,20 @@ module.exports = {
 
     },
 
-    readDiscussionComments: function (req, res, next) {
+    readDiscussionNotes: function (req, res, next) {
 
-        Comment.find({'discussion_id': req.query.ticket})
+        Note.find({'discussion_id': req.query.ticket})
             .populate('posted_by', 'email profile_picture name')
-            .exec(function (err, comment) {
+            .exec(function (err, note) {
                 if (err) {
                     console.log('ERROR: ' + err);
                     return res.status(500).json({err: err, message: "Internal Server Error"});
                 }
-                if (!comment) {
-                    return res.status(404).json({message: "User not found"});
+                if (!note) {
+                    return res.status(404).json({message: "Note not found"});
                 } else {
-                    console.log(comment);
-
-                    return res.status(200).json({comment: comment});
+                    console.log(note);
+                    return res.status(200).json({note: note});
                 }
             });
     }

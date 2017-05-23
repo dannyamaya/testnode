@@ -71,7 +71,7 @@ module.exports = {
             attachments: imagenUrl || '',
             category: req.body.category,
             filedby: req.body.filedby,
-            file_name: fileName
+            file_name: fileName,
         });
 
         ticket.save(function (err, t) {
@@ -178,6 +178,8 @@ module.exports = {
         Ticket.findOne({_id: req.params.id})
             .populate('client_id', 'name company email phone profile_picture')
             .populate('filedby', 'name email profile_picture')
+            .populate('request_by', 'name email profile_picture')
+            .populate('assignee','name email profile_picture')
             .exec(function (err, ticket) {
                 if (err) {
                     console.log('ERROR: ' + err);
@@ -209,13 +211,22 @@ module.exports = {
                 ticket.message = req.body.message || ticket.message;
                 ticket.priority = req.body.priority || ticket.priority;
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
+
+                if(!ticket.assignee.includes(req.body.assignee))
+                    ticket.assignee.push({_id:req.body.assignee} );
+
+                if(req.body.remove){
+                    ticket.assignee.pull({_id:req.body.assignee});
+                }
+
+                //ticket.assignee = req.body.assignee || ticket.assignee;
                 ticket.reply_of = req.body.reply_of || ticket.reply_of;
                 ticket.status = req.body.status || ticket.status;
                 ticket.updated = Date.now();
 
                 ticket.save(function (err) {
                     if (!err) {
-                        res.status(200).json({message: "Ticket has been updated"});
+                        res.status(200).json({message: "Ticket has been updated",ticket:ticket});
                     } else {
                         console.log('ERROR: ' + err);
                         res.status(500).json({err: err});

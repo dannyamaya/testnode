@@ -7,7 +7,9 @@ var TicketSchema   = new Schema({
   //requestby
   filedby:  { type: Schema.Types.ObjectId, ref: 'User', required:true },
   //assignee
-  assigned_to: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  request_by: { type: Schema.Types.ObjectId, ref: 'User' },
+  assignee: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+
 
   subject: { type: String, required: true},
   category: {type: String},

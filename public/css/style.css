@@ -1371,67 +1371,69 @@ textarea.parsley-error {
 }
 
 /* Comments system */
-.messages {
+.styleMessage {
   position: relative;
   list-style: none;
   padding: 20px 10px 0 10px;
   margin: 0;
 }
-.messages .message {
+
+.styleMessage .message {
   clear: both;
   overflow: hidden;
   margin-bottom: 20px;
   transition: all 0.5s linear;
   opacity: 0;
 }
-.messages .message.left .ticket-profile-img-2 {
+.styleMessage .message.left .ticket-profile-img-2 {
   float: left;
 }
-.messages .message.left .text_wrapper {
-  background-color: #73D2DE;
+.styleMessage .message.left .text_wrapper {
+  background-color: white;
   margin-left: 20px;
 }
-.messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
+.styleMessage .message.left .text_wrapper::after, .styleMessage .message.left .text_wrapper::before {
   right: 100%;
-  border-right-color: #73D2DE;
+  border-right-color: white;
 }
-.messages .message.left .text {
-  color: white;
+.styleMessage .message.left .text {
+  color: black;
 }
-.messages .message.right .ticket-profile-img-2 {
+.styleMessage .message.right .ticket-profile-img-2 {
   float: right;
 }
-.messages .message.right .text_wrapper {
+.styleMessage .message.right .text_wrapper {
   background-color: #273043;
   margin-right: 20px;
   float: right;
 }
-.messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before {
+.styleMessage .message.right .text_wrapper::after, .styleMessage .message.right .text_wrapper::before {
   left: 100%;
   border-left-color: #273043;
 }
-.messages .message.right .text {
+.styleMessage .message.right .text {
   color: white;
 }
-.messages .message.appeared {
+.styleMessage .message.appeared {
   opacity: 1;
 }
-.messages .message .ticket-profile-img-2 {
+.styleMessage .message .ticket-profile-img-2 {
 
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 30px;
   border-radius: 50%;
   display: inline-block;
+  margin-top: 9px;
 }
-.messages .message .text_wrapper {
+.styleMessage .message .text_wrapper {
   display: inline-block;
-  padding: 20px;
+  padding: 10px;
   border-radius: 6px;
   width: calc(100% - 85px);
   min-width: 100px;
   position: relative;
 }
-.messages .message .text_wrapper::after, .messages .message .text_wrapper:before {
+.styleMessage .message .text_wrapper::after, .styleMessage .message .text_wrapper:before {
   top: 18px;
   border: solid transparent;
   content: " ";
@@ -1440,15 +1442,15 @@ textarea.parsley-error {
   position: absolute;
   pointer-events: none;
 }
-.messages .message .text_wrapper::after {
+.styleMessage .message .text_wrapper::after {
   border-width: 13px;
   margin-top: 0px;
 }
-.messages .message .text_wrapper::before {
+.styleMessage .message .text_wrapper::before {
   border-width: 15px;
   margin-top: -2px;
 }
-.messages .message .text_wrapper .text {
+.styleMessage .message .text_wrapper .text {
   font-size: 18px;
   font-weight: 300;
 }
@@ -1496,5 +1498,14 @@ textarea.parsley-error {
 
 .message_template {
   display: none;
+}
+
+.tag-assigned{
+    color: white;
+    cursor: pointer;
+}
+
+.label-message{
+    font-weight: 400;
 }
 

@@ -63,6 +63,7 @@ block content
                                     label Filed by
                                     input.form-control#searchinput(type="search")
                                     input.form-control#searchinputHidden(type="hidden" name="filedby")
+                                    input.form-control#requestByHidden(type="hidden" name="request_by" value="#{user._id}")
                             .form-group
                                 label Category
                                 .select
@@ -101,6 +102,7 @@ block content
                                 button.btn(type="button", data-dismiss="modal", aria-hidden="true")
                                     span
                             .col-xs-12.col-sm-3.ticket-left
+                                input#hiddenTicket(type="hidden")
                                 .form-group
                                     label Requestor
                                     p.form-control-static#ticketrequestor
@@ -115,7 +117,10 @@ block content
                                     p.form-control-static#ticketrequestby
                                 .form-group
                                     label(for="assignee") Assignee
+                                    p.form-control-static#ticketasigneeGroup
                                     input.form-control#ticketasignee(type="text")
+                                    input.form-control#ticketassigneeHiddenRemove(type="hidden")
+                                    input.form-control#ticketasigneeHidden(type="hidden" name="assigned_to")
                             .col-xs-12.col-sm-9.ticket-right
                                 .col-xs-12
                                     p.ticketsubject#ticketsubject
@@ -132,10 +137,19 @@ block content
                                     .col-xs-12.no-padding.tab-content
                                         #comment.tab-pane.active(role='tabpanel')
                                             textarea.form-control.message_input(rows="5" placeholder="Type your comment here...")
+                                            .bottom_wrapper.clearfix
+                                                .send_message.sendMessage(data-current-user="" data-current-user-image="")
+                                                    .icon
+                                                    .text Send
                                         #note.tab-pane(role='tabpanel')
-                                            textarea.form-control(rows="5" placeholder="Type your notes here...")
+                                            textarea.form-control#textareaNotes(rows="5" placeholder="Type your notes here...")
+                                            .bottom_wrapper.clearfix
+                                                .send_message.sendNote(data-current-user="" data-current-user-image="")
+                                                    .icon
+                                                    .text Send
                                 .col-xs-12
                                     // Nav tabs
+
                                     ul.col-xs-12.nav.nav-tabs.nav-tabs-comments(role='tablist')
                                         li.active(role='presentation')
                                             a(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
@@ -148,11 +162,8 @@ block content
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         #allcomments.tab-pane.active(role='tabpanel')
-                                            ul.messages
-                                            .bottom_wrapper.clearfix
-                                                .send_message(data-current-user="" data-current-user-image="")
-                                                    .icon
-                                                    .text Send
+                                            ul.messages.styleMessage
+
                                             .message_template
                                                 li(class="message" data-id="" data-user="")
                                                     input#hiddenPhoto(type="hidden")
@@ -161,7 +172,13 @@ block content
                                                     .text_wrapper
                                                         .text
                                         #allnotes.tab-pane(role='tabpanel')
-                                            textarea.form-control(rows="4" placeholder="Type your notes here...")
+                                            ul.notes.styleMessage
+                                            .message_template
+                                                li(class="message" data-id="" data-user="")
+                                                    .ticket-profile-img-2
+                                                        img.img-user-conversation(src="" class="img-circle img-responsive")
+                                                    .text_wrapper
+                                                        .text
 
 
 
@@ -330,8 +347,10 @@ block scripts
         function openTicket(ticketid,img) {
 
             $('.messages').empty();
+            $("#ticketasigneeGroup").empty();
             $('.send_message').attr('data-current-user','#{user._id}');
             $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
+            $('.send_message').attr('data-name','#{user.name.first}  #{user.name.last}');
 
             $.ajax({
                 type: "GET",
@@ -339,18 +358,22 @@ block scripts
                 success: function (response) {
 
                     console.log(response);
-
+                    $('#hiddenTicket').val(response.ticket._id);
                     $('.readModalTitle').html('Ticket #<span class="text-capitalize">' + response.ticket._id + '</span>');
-                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.client_id.profile_picture+"'</span>"+response.ticket.client_id.name.first+" "+response.ticket.client_id.name.last);
+                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.filedby.profile_picture+"'</span>"+response.ticket.filedby.name.first+" "+response.ticket.filedby.name.last);
                     $("#ticketemail").text(response.ticket.client_id.email);
                     if(response.ticket.client_id.phone.number){
                         $("#ticketphone").text(response.ticket.client_id.phone.number);
                     } else {
                         $("#ticketphone").text("N/A");
                     }
-                    $("#ticketrequestby").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.filedby.profile_picture+"'</span>"+response.ticket.filedby.name.first+" "+response.ticket.filedby.name.last);
+                    $("#ticketrequestby").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.client_id.profile_picture+"'</span>"+response.ticket.client_id.name.first+" "+response.ticket.client_id.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
                     $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
+                    $.each(response.ticket.assignee, function (key, value) {
+                        $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" +value.profile_picture +"'</span><span class='label label-default'>" + value.name.first + " "+ value.name.last + "  <a><i data-assignee='"+value._id +"' data-ticket-id='"+response.ticket._id+"' id='assignee"+value._id +"' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
+                    });
+
                     $("#ticketdate").html(moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
 
 
@@ -364,15 +387,19 @@ block scripts
                             this.user = arg.user;
                             this.text = arg.text, this.message_side = arg.message_side;
                             this.user = arg.user;
+                            this.name = arg.name;
+                            this.section = arg.section;
                             this.draw = function (_this) {
                                 return function () {
                                     var $message;
                                     $message = $($('.message_template').clone().html());
                                     $message.attr('data-user',_this.user);
                                     $message.attr('data-side',_this.message_side);
-                                    $message.addClass(_this.message_side).find('.text').html(_this.text);
+                                    $message.attr('data-name',_this.name);
+                                    $message.addClass(_this.message_side).find('.text').append('<label class="label-message">'+_this.name +'</label><br>');
+                                    $message.addClass(_this.message_side).find('.text').append(_this.text);
                                     $message.find('.img-user-conversation').attr('src',_this.profile_pic);
-                                    $('.messages').append($message);
+                                    $('.'+_this.section).append($message);
                                         return $message.addClass('appeared');
                                 };
                             }(this);
@@ -385,7 +412,7 @@ block scripts
                                 $message_input = $('.message_input');
                                 return $message_input.val();
                             };
-                            sendMessage = function (text, user, side, profile_pic) {
+                            sendMessage = function (text, user, side, profile_pic, name, section) {
                                 var $messages, message;
                                 if (text.trim() === '') {
                                     return;
@@ -394,14 +421,16 @@ block scripts
                                 $messages = $('.messages');
                                 message = new Message({
                                     text: text,
-                                    message_side: side,
+                                    message_side: 'left',
                                     profile_pic: profile_pic,
-                                    user:user
+                                    user:user,
+                                    name: name,
+                                    section:section
                                 });
                                 message.draw();
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
                             };
-                            $('.send_message').click(function (e) {
+                            $('.sendMessage').click(function (e) {
 
                                 var parent = $('.messages').children().last().attr('data-user');
                                 var prevside = $('.messages').children().last().attr('data-side');
@@ -435,17 +464,39 @@ block scripts
                                 });
 
 
-                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'));
+                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
                             });
-                            $('.message_input').keyup(function (e) {
-                                if (e.which === 13) {
-                                    return sendMessage(getMessageText());
-                                }
+
+                            $('.sendNote').click(function (e) {
+
+                                var parent = $('.messages').children().last().attr('data-user');
+                                var ticket = response.ticket._id;
+
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/api/notes',
+                                    data: {
+                                        discussion_id: ticket,
+                                        posted_by: $(this).attr('data-current-user'),
+                                        note: $('#textareaNotes').val()
+                                    },
+                                    success: function (response) {
+
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        var message = XMLHttpRequest.responseJSON.message;
+                                        warningAlert(message);
+                                    }
+                                });
+
+
+                                return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'),'notes');
                             });
 
 
                             //First Messages
-                            sendMessage(response.ticket.message, response.ticket.filedby, 'left',img);
+                            sendMessage(response.ticket.message, response.ticket.filedby, 'left',img, response.ticket.filedby.name.first + ' ' + response.ticket.filedby.name.last,'messages' );
 
 
                             //Another Messages
@@ -455,7 +506,6 @@ block scripts
                                 success: function (response) {
 
                                     $.each(response.comment, function (index, value) {
-
 
                                         var parent = $('.messages').children().last().attr('data-user');
                                         var prevside = $('.messages').children().last().attr('data-side');
@@ -468,7 +518,7 @@ block scripts
                                             else
                                                 var side = 'left';
                                         }
-                                        sendMessage(value.comment, value.posted_by._id, side, value.posted_by.profile_picture);
+                                        sendMessage(value.comment, value.posted_by._id, side, value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages');
                                     });
 
                                 },
@@ -478,7 +528,21 @@ block scripts
                                 }
                             });
 
-
+                            //Load Notes
+                            $.ajax({
+                                type: "GET",
+                                url: '/api/notes/discussion?ticket=' + response.ticket._id,
+                                success: function (response) {
+                                    console.log(response);
+                                    $.each(response.note, function (index, value) {
+                                        sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes');
+                                    });
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    var message = XMLHttpRequest.responseJSON.message;
+                                    warningAlert(message);
+                                }
+                            });
 
 
                         });
@@ -514,6 +578,26 @@ block scripts
             console.log(item);
             return $("<li class='li-autocomplete' data-id='" + item._id + "' style='margin-bottom:5px;'></li>").append(item.name.first + ' ' + item.name.last).appendTo(ul);
         };
+
+        $("#ticketasignee").autocomplete({
+            source: function (request, response) {
+                $('#ticketasignee').css("cursor", "wait");
+                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val()+'&role=resident';
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        $('#ticketasignee').css("cursor", "text");
+                        response(data.users);
+                    }
+                });
+
+            },
+            minLength: 1
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            console.log(item);
+            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append(item.name.first + ' ' + item.name.last).appendTo(ul);
+        };
         /*=== UPDATE: Update ticket ===*/
 
 
@@ -532,7 +616,65 @@ block scripts
         $('body').on('click', '.li-autocomplete', function () {
             $('#searchinput').val($(this).text());
             $('#searchinputHidden').val($(this).attr('data-id'));
+
         });
+
+        $('body').on('click', '.asigneeli', function () {
+
+            $('#ticketasignee').val($(this).text());
+            $('#ticketasigneeHidden').val($(this).attr('data-id'));
+            $('#ticketasigneeHidden').attr('data-pic',$(this).attr('data-pic'));
+            $('#ticketasigneeHidden').attr('data-name',$(this).attr('data-name'));
+
+            $.ajax({
+
+                type: "PUT",
+                data: {
+                    assignee: $('#ticketasigneeHidden').val()
+                },
+                url: '/api/tickets/' + $('#hiddenTicket').val(),
+                success: function (response) {
+                    var pic = $('#ticketasigneeHidden').attr('data-pic');
+                    var name = $('#ticketasigneeHidden').attr('data-name');
+                    $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='"+$('#ticketasigneeHidden').attr('data-pic')+"'</span><span class='label label-default'>"+$('#ticketasigneeHidden').attr('data-name')+"  <a><i data-assignee='" + $('#ticketasigneeHidden').val() + "' data-ticket-id='" + response.ticket._id + "' id='assignee" +$('#ticketasigneeHidden').val() + "' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+
+        });
+
+        $('body').on('click', '.removeAssignee', function () {
+
+            var ticket = $(this).attr('data-ticket-id');
+            var assignee = $(this).attr('data-assignee');
+            $('#ticketassigneeHiddenRemove').val($(this).attr('id'));
+
+            $.ajax({
+
+                type: "PUT",
+                data: {
+                    assignee: assignee,
+                    remove: true
+                },
+                url: '/api/tickets/' + ticket,
+                success: function (response) {
+                    console.log(response);
+                    $('#'+ $('#ticketassigneeHiddenRemove').val()).parent().parent().parent().remove();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+
+
+        });
+
+
 
 
         //Updates Status

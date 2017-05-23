@@ -185,7 +185,7 @@ module.exports = {
      */
     readUsers: function (req, res, next) {
 
-
+        console.log(req.query.role);
         var search = '';
         var page = req.query.page || 1;
         if (req.query.search) {
@@ -194,11 +194,16 @@ module.exports = {
 
         console.log(req.query);
 
+        if(req.query.role)
+            var query = {$nin:req.query.role};
+        else
+            var query = {$nin: ["admin"]};
+
         async.parallel([
 
             function (callback) {
 
-                User.find({roles: {$nin: ["admin"]}, active: true}).or([
+                User.find({role: query, active: true}).or([
                     {
                         'name.first': new RegExp(search, 'i')
                     },

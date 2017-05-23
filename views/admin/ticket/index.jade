@@ -144,10 +144,18 @@ block content
                                     input.form-control#ticketassigneeHiddenRemove(type="hidden")
                                     input.form-control#ticketasigneeHidden(type="hidden" name="assigned_to")
                             .col-xs-12.col-sm-9.ticket-right
-                                .col-xs-12
-                                    p.ticketsubject#ticketsubject
-                                    p.ticketcategory#ticketcategory
-                                    p.ticketdate#ticketdate
+                                .col-xs-12.has-feedback
+                                     p.ticketsubject#ticketsubject
+                                     p.ticketcategory#ticketcategory
+                                     p.ticketdate#ticketdate
+                                     .buttons-status(style="position: absolute; right: 10px; top:10px;")
+                                         button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus" data-status="0" data-id="1")
+                                            i(class="fa fa-exclamation-circle")
+                                         button#dos(type="button" title="Open" class="btn-clock-o btn-status classStatus" data-status="1" data-id="2")
+                                            i(class="fa fa-clock-o")
+                                         button#tres(type="button" title="Resolved" class="btn-check-circle btn-status classStatus" data-status="2" data-id="3")
+                                            i(class="fa fa-check-circle")
+
                                 .col-xs-12
                                     // Nav tabs
                                     ul.col-xs-12.nav.nav-tabs(role='tablist')
@@ -393,6 +401,22 @@ block scripts
                     $("#ticketrequestby").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.client_id.profile_picture+"'</span>"+response.ticket.client_id.name.first+" "+response.ticket.client_id.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
                     $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
+                    $('#uno').attr('data-id',response.ticket._id);
+                    $('#dos').attr('data-id',response.ticket._id);
+                    $('#tres').attr('data-id',response.ticket._id);
+                    if(response.ticket.status == 0){
+                        $('.classStatus').removeClass('active');
+                        $('#uno').addClass('active');
+                    }
+                        if(response.ticket.status == 1){
+                        $('.classStatus').removeClass('active');
+                        $('#dos').addClass('active');
+                    }
+                        if(response.ticket.status == 2){
+                        $('.classStatus').removeClass('active');
+                        $('#tres').addClass('active');
+                    }
+
 
                     $.each(response.ticket.assignee, function (key, value) {
                         $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" +value.profile_picture +"'</span><span class='label label-default'>" + value.name.first + " "+ value.name.last + "  <a><i data-assignee='"+value._id +"' data-ticket-id='"+response.ticket._id+"' id='assignee"+value._id +"' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");

@@ -196,15 +196,15 @@ module.exports = {
     updateTicket: function (req, res, next) {
 
         if(!req.params.id)
-            res.status(404).json({message: 'No ticket found'});
+            return res.status(404).json({message: 'No ticket found'});
 
         Ticket.findById(req.params.id, function (err, ticket) {
             if (err) {
                 console.log('ERROR: ' + err);
-                res.status(500).json({err: err});
+                return res.status(500).json({err: err});
             }
             if (!ticket) {
-                res.status(404).json({message: 'message not found'});
+                return res.status(404).json({message: 'message not found'});
             } else {
                 ticket.client_id = req.body.client_id || ticket.client_id;
                 ticket.subject = req.body.subject || ticket.subject;
@@ -213,7 +213,7 @@ module.exports = {
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
 
                 if(!ticket.assignee.includes(req.body.assignee))
-                    ticket.assignee.push({_id:req.body.assignee} );
+                    ticket.assignee.push(req.body.assignee);
 
                 if(req.body.remove){
                     ticket.assignee.pull({_id:req.body.assignee});
@@ -226,10 +226,10 @@ module.exports = {
 
                 ticket.save(function (err) {
                     if (!err) {
-                        res.status(200).json({message: "Ticket has been updated",ticket:ticket});
+                        return res.status(200).json({message: "Ticket has been updated",ticket:ticket});
                     } else {
                         console.log('ERROR: ' + err);
-                        res.status(500).json({err: err});
+                        return res.status(500).json({err: err});
                     }
                 });
 

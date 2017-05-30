@@ -5,6 +5,13 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+var postcssZindex = require('postcss-zindex');
+var cleanCSS = require('gulp-clean-css');
+var inlinesource = require('gulp-inline-source');
+var wait = require('gulp-wait');
+
 gulp.task('concatScripts', function () {
   gulp.src([
     'js/jquery-1.12.4.min.js',
@@ -24,3 +31,4 @@ gulp.task('minifyScripts', function () {
   .pipe(rename('app.min.js'))
   .pipe(gulp.dest("js"))
 });
+

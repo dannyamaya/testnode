@@ -7,19 +7,15 @@ block content
                     input.form-control#search(type="text" aria-label="Search users" placeholder="Search users")
                     span.input-group-addon
                         i.fa.fa-search
-            .col-sm-3
-                button.btn.btn-adduser(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
-                    i.fa.fa-trash
-                button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
-                    i.fa.fa-pencil-square-o
-                a.btn.btn-default.btn-adduser(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
-                    i.fa.fa-download
 
-            .pull-right
-                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
-                    span.hidden-xs Add User
-                    i.visible-xs.fa.fa-plus
-            .dropdown.col-xs-5.col-sm-1.no-padding
+            button.btn.btn-adduser(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
+                i.fa.fa-trash
+            button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
+                i.fa.fa-pencil-square-o
+            a.btn.btn-default.btn-adduser(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+                i.fa.fa-download
+
+            .dropdown.has-feedback
                 button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
                     i.fa.fa-angle-down
                 ul.dropdown-menu(aria-labelledby="dropdownMenu1")
@@ -33,28 +29,33 @@ block content
                         a.locationSearch(href="#") Calle 21 Bogotá
                     li
                         a.locationSearch(href="#") Villa campestre Barranquilla
-                    li.dropdown-header.cleanSearch.pull-right Clean
+                    li.dropdown-header.cleanLocationSearch.pull-right Clean
 
 
-            .dropdown.col-xs-5.col-sm-1.no-padding
-                button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Role
+            .dropdown
+                button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                    span Role
                     i.fa.fa-angle-down
                 ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                     li
-                        a.locationSearch(href="#") Marketing
+                        a.roleSearch(href="#") Marketing
                     li
-                        a.locationSearch(href="#") Resident
+                        a.roleSearch(href="#") Resident
                     li
-                        a.locationSearch(href="#") Operation Manager
+                        a.roleSearch(href="#") Operation Manager
                     li
-                        a.locationSearch(href="#") Maintenance
+                        a.roleSearch(href="#") Maintenance
                     li
-                        a.locationSearch(href="#") Client Service
+                        a.roleSearch(href="#") Client Service
                     li
-                        a.locationSearch(href="#") Resident Assistant
+                        a.roleSearch(href="#") Resident Assistant
                     li
-                        a.locationSearch(href="#") Admin
-                    li.dropdown-header.cleanSearch.pull-right Clean
+                        a.roleSearch(href="#") Admin
+                    li.dropdown-header.cleanRoleSearch.pull-right Clean
+            .pull-right
+                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
+                    span.hidden-xs Add User
+                    i.visible-xs.fa.fa-plus
 
             .clearfix
             .table-responsive.panel-user
@@ -1049,6 +1050,9 @@ block scripts
 
         $('.locationSearch').click(function(){
 
+            var selectedLocation = $(this).html();
+            $("#dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>')
+
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");
            });
@@ -1057,7 +1061,33 @@ block scripts
 
         });
 
-        $('.cleanSearch').click(function(){
+        $('.roleSearch').click(function(){
+
+            var selectedRole = $(this).html();
+            $("#dropdownRol").html(selectedRole+'<i class="fa fa-angle-down"></i>')
+
+            $('#loader').fadeOut("slow", function () {
+               $('#userstable').addClass("hidden").fadeIn("slow");
+           });
+            var search = $(this).text().trim();
+            readUsers(1, search);
+
+        });
+
+        $('.cleanLocationSearch').click(function(){
+
+            $("#dropdownLocation").html('Location<i class="fa fa-angle-down"></i>')
+
+            $('#loader').fadeOut("slow", function () {
+               $('#userstable').addClass("hidden").fadeIn("slow");
+            });
+            readUsers(1, '');
+
+        });
+
+        $('.cleanRoleSearch').click(function(){
+
+            $("#dropdownRol").html('Role<i class="fa fa-angle-down"></i>')
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");

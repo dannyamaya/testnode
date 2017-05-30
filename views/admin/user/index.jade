@@ -15,7 +15,7 @@ block content
             a.btn.btn-default.btn-adduser(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
                 i.fa.fa-download
 
-            .dropdown.has-feedback
+            .dropdown(style="display:inline-block;")
                 button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
                     i.fa.fa-angle-down
                 ul.dropdown-menu(aria-labelledby="dropdownMenu1")
@@ -32,7 +32,7 @@ block content
                     li.dropdown-header.cleanLocationSearch.pull-right Clean
 
 
-            .dropdown
+            .dropdown(style="display:inline-block;")
                 button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
                     span Role
                     i.fa.fa-angle-down

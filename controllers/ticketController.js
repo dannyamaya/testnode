@@ -295,11 +295,27 @@ module.exports = {
                     function (callback) {
                         Ticket.find(options)
                         .populate('created_by')
-                        .populate('filed_by').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
+                        .populate('filed_by').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
                             } else {
-                                callback(null, tickets);
+                                if(req.query.created_by){
+                                    var regexp = new RegExp(req.query.created_by, 'i');
+                                    var tickets = t.filter( function(val){
+                                        return regexp.test(val.created_by.name.first);
+                                    });
+                                    callback(null, tickets);
+                                }
+                                else if(req.query.filed_by){
+                                    var regexp = new RegExp(req.query.filed_by, 'i');
+                                    var tickets = t.filter( function(val){
+                                        return regexp.test(val.filed_by.name.first);
+                                    });
+                                    callback(null, tickets);
+                                }else{
+                                    tickets = t;
+                                    callback(null, tickets);
+                                }
                             }
                         });
 

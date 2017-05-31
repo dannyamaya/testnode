@@ -165,4 +165,54 @@ exports.newTicket= function(ticket){
         }
 
       });
-}
+},
+
+    exports.newComment = function(comment){
+
+        var locals = {
+            url: config.production.url,
+            comment: comment
+        };
+
+
+        emailTemplates(templatesDir,locals, function(err, template) {
+
+            if (err) {
+                console.log('Error1: '+err);
+            } else {
+
+                template('new-comment', locals, function(err, html, text) {
+                    if (err) {
+                        console.log('Error2: '+err);
+                    } else {
+
+                        var mailOptions = {
+
+                            from: 'Livinn'+' <contact@cannedhead.com>',
+                            to: locals.ticket.filed_by.email,
+                            subject: 'New Comment '+ticket._id,
+                            headers: {
+                                'X-Laziness-level': 1000
+                            },
+                            html: html
+
+                        };
+
+                        transport.sendMail(mailOptions, function(error, response){
+                            if(error){
+                                console.log(error);
+                            }else{
+                                console.log("Message sent!");
+                            }
+                            transport.close();
+                        });
+                    }
+
+                });
+            }
+
+        });
+
+
+
+    }

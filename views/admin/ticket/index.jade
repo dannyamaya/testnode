@@ -113,7 +113,7 @@ block content
                                 .form-group
                                     label Category
                                     .select
-                                        select(name="category")
+                                        select.editopenticket#openticketcategory(name="category")
                                             option(value="cleaning services") Cleaning Services
                                             option(value="customer service") Customer Service
                                             option(value="support") IT Support
@@ -123,11 +123,11 @@ block content
                                 .form-group
                                     label Subcategory
                                     .select
-                                        select(name="subcategory")
+                                        select.editopenticket#openticketsubcategory(name="subcategory")
                                 .form-group
                                     label Priority
                                     .select
-                                        select(name="priority")
+                                        select.editopenticket#openticketpriority(name="priority")
                                             option(value="1") 1
                                             option(value="2") 2
                                             option(value="3") 3
@@ -224,6 +224,8 @@ block scripts
     script(src="/js/jquery.bootpag.min.js")
     script.
 
+        var openticketid = '';
+
         $(document).ready(function () {
 
             $('#page-selection').bootpag({
@@ -286,31 +288,6 @@ block scripts
             ;
             return source;
         }
-
-        //- $('.tagarea').after('<ul class="tag-box"></ul>');
-        //- $('.tag-box').append('<li class="new-tag"><input id="searchinput" class="input-tag" type="text"></li>');
-
-        //- $('.input-tag').bind("keydown", function (kp) {
-        //-     var tag = $('.input-tag').val().trim();
-        //-     $(".tags").removeClass("danger");
-        //-     if(tag.length > 0){
-        //-         backSpace = 0;
-        //-         if(kp.keyCode  == 13){
-        //-           $(".new-tag").before('<li class="tags">'+tag+close+'</li>');
-        //-           $(this).val('');
-        //-         }
-        //-     } else {
-        //-         if(kp.keyCode == 8 ){
-        //-             $(".new-tag").prev().addClass("danger");
-        //-             backSpace++;
-        //-             if(backSpace == 2 ){
-        //-                 $(".new-tag").prev().remove();
-        //-                 backSpace = 0;
-        //-             }
-        //-         }
-        //-     }
-        //- });
-
 
         $("#searchinput").autocomplete({
             source: function (request, response) {
@@ -488,16 +465,14 @@ block scripts
 
 
 
-
-
-
-
-
         /*=== READ: Open ticket ===*/
 
         function openTicket(ticketid,img) {
 
+            openticketid = ticketid;
+
             $('.messages').empty();
+            $('.notes').empty();
             $("#ticketasigneeGroup").empty();
             $('.send_message').attr('data-current-user','#{user._id}');
             $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
@@ -518,6 +493,9 @@ block scripts
                     } else {
                         $("#ticketphone").text("N/A");
                     }
+                    $("#openticketcategory").val(response.ticket.category);
+                    $("#openticketsubcategory").val(response.ticket.subcategory);
+                    $("#openticketpriority").val(response.ticket.priority);
                     $("#ticketrequestby").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.created_by.profile_picture+"'</span>"+response.ticket.created_by.name.first+" "+response.ticket.created_by.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
                     $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
@@ -637,9 +615,7 @@ block scripts
 
                             $('.sendNote').click(function (e) {
 
-                                var parent = $('.messages').children().last().attr('data-user');
                                 var ticket = response.ticket._id;
-
 
                                 $.ajax({
                                     type: "POST",
@@ -657,7 +633,6 @@ block scripts
                                         warningAlert(message);
                                     }
                                 });
-
 
                                 return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'),'notes');
                             });
@@ -702,7 +677,7 @@ block scripts
                                 type: "GET",
                                 url: '/api/notes/discussion?ticket=' + response.ticket._id,
                                 success: function (response) {
-                                    console.log(response);
+                                    $('.notes').empty();
                                     $("#noteslength").text(response.note.length);
                                     $.each(response.note, function (index, value) {
                                         sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes');
@@ -713,8 +688,6 @@ block scripts
                                     warningAlert(message);
                                 }
                             });
-
-
                         });
                     }.call(this));
 
@@ -751,6 +724,42 @@ block scripts
             return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
         };
         /*=== UPDATE: Update ticket ===*/
+        $('.editopenticket').on('change', function () {
+            updateticket(openticketid);
+        });
+
+        function updateticket(ticketid){
+
+            var category = $('#openticketcategory').val();
+            var subcategory = $('#openticketsubcategory').val();
+            var priority = $('#openticketpriority').val();
+
+            var dataJSON = {
+                'category' : category,
+                'subcategory' : subcategory,
+                'priority' : priority
+            };
+
+            $.ajax({
+
+                type: "PUT",
+                data: dataJSON,
+                url: '/api/tickets/' + ticketid,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+
+        }
+
+
+
+
+
 
 
         /*=== SEARCH: Search ticket ===*/

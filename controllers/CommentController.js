@@ -45,7 +45,10 @@ module.exports = {
 
         comment.save(function (err, t) {
             if (!err) {
-                console.log('New comment has been created')
+                Comment.populate(t,{ path:'discussion_id',populate:{path:'filed_by'} },function(error,tpopulated){
+                    mailer.newComment(tpopulated);
+                    console.log('New comment has been created');
+                });
             }
             else {
                 console.log(err);

@@ -83,6 +83,7 @@ module.exports = {
                             if(!tpopulated){
                                 res.status(404).json({ message: "Client not found" });
                             }else {
+                                mailer.newTicket(tpopulated);
                                 return res.status(200).json({ticket: tpopulated, message: "Ticket has been created"});
                             }
                       });

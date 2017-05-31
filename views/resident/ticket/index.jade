@@ -10,7 +10,6 @@ block content
                         .col-xs-4.no-padding
                             .select
                                 select#searchby
-                                    option(value="filed_by") Filed by
                                     option(value="created_by" selected="true") Created by
                                     option(value="assigned_to") Assigned to
                                     option(value="id") Work Order ID
@@ -55,11 +54,6 @@ block content
 
                     .row
                         form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form")
-                            if user.role != 'resident'
-                                .form-group
-                                    label Filed by
-                                    input.form-control.tagarea#searchinput(type="search")
-                                    input.form-control#searchinputHidden(type="hidden" name="filed_by")
                             input(type="hidden" name="location" value="#{user.location}")
                             .form-group
                                 label Category
@@ -116,8 +110,6 @@ block content
                                     ul.col-xs-12.nav.nav-tabs(role='tablist')
                                         li.active(role='presentation')
                                             a(href='#comment', aria-controls='comment', role='tab', data-toggle='tab') Comment
-                                        li(role='presentation')
-                                            a(href='#note', aria-controls='note', role='tab', data-toggle='tab') Note
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         #comment.tab-pane.active(role='tabpanel')
@@ -126,12 +118,7 @@ block content
                                                 .send_message.sendMessage(data-current-user="" data-current-user-image="")
                                                     .icon
                                                     .text Send
-                                        #note.tab-pane(role='tabpanel')
-                                            textarea.form-control#textareaNotes(rows="5" placeholder="Type your notes here...")
-                                            .bottom_wrapper.clearfix
-                                                .send_message.sendNote(data-current-user="" data-current-user-image="")
-                                                    .icon
-                                                    .text Send
+
                                 .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
 
@@ -140,10 +127,7 @@ block content
                                             a(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
                                                 |   All Comments
                                                 span.badge#commentslength -
-                                        li(role='presentation')
-                                            a(href='#allnotes', aria-controls='allnotes', role='tab', data-toggle='tab')
-                                                |   Notes
-                                                span.badge#noteslength -
+
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         #allcomments.tab-pane.active(role='tabpanel')
@@ -156,14 +140,7 @@ block content
                                                         img.img-user-conversation(src="" class="img-circle img-responsive")
                                                     .text_wrapper
                                                         .text
-                                        #allnotes.tab-pane(role='tabpanel')
-                                            ul.notes.styleMessage
-                                            .message_template
-                                                li(class="message" data-id="" data-user="")
-                                                    .ticket-profile-img
-                                                        img.img-user-conversation(src="" class="img-circle img-responsive")
-                                                    .text_wrapper
-                                                        .text
+
 
 
 
@@ -217,7 +194,7 @@ block scripts
                 } else if (category == 'others') {
                     value = "<span class='label label-other'>OTHERS</span>";
                 } else {
-                    value = "<span class='label label-default text-uppercase'>"+category+"</span>";
+                    value = "";
                 }
             }
             return value;
@@ -315,7 +292,7 @@ block scripts
                     var category = "";
 
                     for (key = 0; key < data.tickets.length; key++) {
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].filed_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].filed_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].filed_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     }
                 }
             }).done(function (data) {

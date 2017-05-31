@@ -1194,6 +1194,7 @@ textarea.parsley-error {
     height:34px;
     font-weight: bold;
     color: #fff;
+    font-size: 0.9em;
 }
 
 .search .select::before{

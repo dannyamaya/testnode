@@ -206,18 +206,18 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                                                       div(style="color:#323341;line-height:150%;font-family:'Source Sans Pro', Tahoma, Verdana, Segoe, sans-serif;")
                                                         div(style='font-size:12px;line-height:18px;font-family:"Source Sans Pro",Tahoma,Verdana,Segoe,sans-serif;color:#323341;text-align:left;')
                                                           p(style='margin: 0;font-size: 12px;line-height: 18px;text-align: center')
-                                                            span(style='font-size: 16px; line-height: 24px;') Hemos recibido tu tiquete, 
+                                                            span(style='font-size: 16px; line-height: 24px;') Hemos recibido tu tiquete,
                                                           p(style='margin: 0;font-size: 12px;line-height: 18px;text-align: center')
-                                                            span(style='font-size: 16px; line-height: 24px;') Tiquete: #{ticket._id} 
+                                                            span(style='font-size: 16px; line-height: 24px;') Tiquete: #{ticket._id}
                                                           p(style='margin: 0;font-size: 12px;line-height: 18px;text-align: center')
-                                                            span(style='font-size: 16px; line-height: 24px;') De: #{user.email} 
+                                                            span(style='font-size: 16px; line-height: 24px;') De: #{ticket.filed_id.email}
                                                           p(style='margin: 0;font-size: 12px;line-height: 18px;text-align: center')
                                                             span(style='font-size: 16px; line-height: 24px;') Asunto: #{ticket.subject}
                                                           p(style='margin: 0;font-size: 12px;line-height: 18px;text-align: center')
-                                                            span(style='font-size: 16px; line-height: 24px;') Mensaje: #{ticket.message} 
+                                                            span(style='font-size: 16px; line-height: 24px;') Mensaje: #{ticket.message}
                                                           p(style='margin: 0;font-size: 12px;line-height: 18px;text-align: center')
                                                             span(style='font-size: 16px; line-height: 24px;') Estaremos pronto en contacto contigo.
-                                              
+
                                               table(style='border-spacing: 0;border-collapse: collapse;vertical-align: top', align='center', width='100%', border='0', cellpadding='0', cellspacing='0')
                                                 tbody
                                                   tr(style='vertical-align: top')
@@ -264,7 +264,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                                               table(style='border-spacing: 0;border-collapse: collapse;vertical-align: top', cellpadding='0', cellspacing='0', width='100%')
                                                 tbody
                                                   tr(style='vertical-align: top')
-                                                    td(style='word-break: break-word;border-collapse: collapse !important;vertical-align: top')  
+                                                    td(style='word-break: break-word;border-collapse: collapse !important;vertical-align: top')
                                     //if (gte mso 9)|(IE)
                                     //if (gte mso 9)|(IE)
                     //if mso

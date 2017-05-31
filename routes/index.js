@@ -12,7 +12,7 @@ router.post('/login', authenticationController.loginUser);
 
 // Admin Routes
 router.get('/users',ensureHelper.ensureAdmin, adminController.users);
-router.get('/tickets',ensureHelper.ensureAdmin, adminController.tickets);
+router.get('/tickets',ensureHelper.ensureLivinn, adminController.tickets);
 
 
 // Authorization & authentication routes

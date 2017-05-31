@@ -238,8 +238,11 @@ block content
                                         .select
                                             select(name="doctype" required)
                                                 option(value="") Choose a document type
+                                                option(value="Cédula de ciudadania") Cédula de ciudadania
+                                                option(value="Cédula de extranjeria") Cédula de extranjeria
                                                 option(value="DNI") DNI
                                                 option(value="Passport") Passport
+                                                option(value="Tarjeta de identidad") Tarjeta de identidad
                                     .form-group
                                         label(for='document') Document
                                         span.requiredLivinn *
@@ -250,19 +253,19 @@ block content
                                         .select
                                             select(name="location")
                                                 option(value="") Choose a location
-                                                option(value="Calle 18 Bogotá") Calle 18 Bogotá
-                                                option(value="Calle 21 Bogotá")  Calle 21 Bogotá
-                                                option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
-                                                option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
-                                                option(value="Viña Del Mar") Viña Del Mar
+                                                option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
+                                                option(value="Calle 18 Bogotá") Bogotá - Calle 18
+                                                option(value="Calle 21 Bogotá")  Bogotá - Calle 21
+                                                option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
+                                                option(value="Viña Del Mar") Viña Del Mar - Alvarez
                                     .form-group.col-xs-12.col-sm-6.no-padding-right
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
                                             select(name="timezone")
                                                 option(value="") Choose time zone
-                                                option(value="América/Santiago") América/Santiago
-                                                option(value="América/Bogotá") América/Bogotá
+                                                option(value="América/Santiago") América/Chile
+                                                option(value="América/Bogotá") América/Colombia
                                     .form-group
                                         label(for='phone') Phone
                                         span.requiredLivinn *
@@ -302,7 +305,7 @@ block content
                                         .select
                                             select(name="status")
                                                 option(value="") Choose a status
-                                                option(value="Booked") Booked
+                                                option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
                                     .col-xs-12.no-padding
                                         .form-group.col-sm-4

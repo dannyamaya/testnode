@@ -2,21 +2,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TicketSchema   = new Schema({
-  //requestor
-  client_id: { type: Schema.Types.ObjectId, ref: 'User', required:true },
-  //requestby
-  filedby:  { type: Schema.Types.ObjectId, ref: 'User', required:true },
-  //assignee
-  request_by: { type: Schema.Types.ObjectId, ref: 'User' },
-  assignee: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 
+  filed_by:  { type: Schema.Types.ObjectId, ref: 'User', required:true },
+  created_by: { type: Schema.Types.ObjectId, ref: 'User' , required:true},
+  assigned_to: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+
+  location: {type: String, required:true},
 
   subject: { type: String, required: true},
   category: {type: String},
   subcategory: {type: String},
 
   message: { type: String, required: true},
-  priority: { type: Number, required: true, default:0},
+  priority: { type: Number, required: true, default:1},
   status: { type: Number, required: true, default:0},
   replies: [{ type: Schema.Types.ObjectId, ref: 'Ticket'}],
   attachments: { type: String, default:'' },

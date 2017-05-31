@@ -27,16 +27,16 @@ html.no-js(lang="es")
             img.img-responsive(src="/img/logolivinn-blanco.svg", alt="Livinn")
         ul.list-unstyled
             li.inactive DASHBOARD
-            if user.role == 'admin'
+            if user.role == 'admin' || user.role == 'operation manager'
                 li
                     a(href="/users")
                       i.menu-users-icon
                       span Users
-                li
-                    a(href="/tickets")
-                      i.menu-tickets-icon
-                      span Tickets
-                      i.label.label-livinn#ticketcount 0
+            li
+                a(href="/tickets")
+                  i.menu-tickets-icon
+                  span Work Orders
+                  i.label.label-livinn#ticketcount 0
 
     .col-xs-12.no-padding.dashcontainer#dashcontainer
         .col-xs-12.no-padding.heading.affix

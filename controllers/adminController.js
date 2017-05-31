@@ -10,7 +10,7 @@ module.exports = {
 
     tickets: function(req,res,next){
         res.render('admin/ticket/index', {
-            title: 'Tickets',
+            title: 'Work Orders',
             user: req.user,
             logged: req.isAuthenticated()
         });

@@ -309,12 +309,7 @@ button:focus{
 
 
 
-
-
-
-
-/*
-.tagarea{
+/*.tagarea{
     display: none;
 }
 
@@ -399,8 +394,8 @@ button:focus{
 .tag-box li .input-tag:hover, .tag-box li .input-tag:focus {
   outline: none;
   border: none;
-}
-*/
+}*/
+
 
 
 
@@ -1014,7 +1009,7 @@ input[type="file"]::-webkit-file-upload-button {
   text-indent: 0.01px;
   text-overflow: '';
   width: 160% \9;
-  height: 42px;
+  height: 40px;
 }
 .select select:focus, .select select:active, .select select:hover,
 .select:focus:before, .select:active:before, .select:hover:before  {
@@ -1160,6 +1155,8 @@ textarea.parsley-error {
 
 .search{
   margin-top: 20px;
+  border:1px solid #ccc;
+  width: 100%;
 }
 
 .search .form-control,
@@ -1167,7 +1164,7 @@ textarea.parsley-error {
 .search .form-control:active{
   border-right:0;
   box-shadow: none;
-  border-color: #ccc;
+  border-color: transparent !important;
 }
 
 .search .form-control:focus{
@@ -1181,6 +1178,27 @@ textarea.parsley-error {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+}
+
+.search .select, .search .select:hover {
+    margin-top: 3px;
+    position:relative;
+    left: 3px;
+    background-color: #E30056;
+    border-color: #E30056;
+    color:#fff;
+    border-radius:0;
+}
+
+.search .select select, .search .select select:hover{
+    height:34px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.search .select::before{
+    color:#fff;
+    top:0.6em;
 }
 
 .input-group-addon.focused  {

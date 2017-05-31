@@ -470,11 +470,6 @@ block scripts
 
 
 
-
-
-
-
-
         /*=== READ: Open ticket ===*/
 
         function openTicket(ticketid,img) {
@@ -482,6 +477,7 @@ block scripts
             openticketid = ticketid;
 
             $('.messages').empty();
+            $('.notes').empty();
             $("#ticketasigneeGroup").empty();
             $('.send_message').attr('data-current-user','#{user._id}');
             $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
@@ -624,9 +620,7 @@ block scripts
 
                             $('.sendNote').click(function (e) {
 
-                                var parent = $('.messages').children().last().attr('data-user');
                                 var ticket = response.ticket._id;
-
 
                                 $.ajax({
                                     type: "POST",
@@ -644,7 +638,6 @@ block scripts
                                         warningAlert(message);
                                     }
                                 });
-
 
                                 return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'),'notes');
                             });
@@ -689,7 +682,7 @@ block scripts
                                 type: "GET",
                                 url: '/api/notes/discussion?ticket=' + response.ticket._id,
                                 success: function (response) {
-                                    console.log(response);
+                                    $('.notes').empty();
                                     $("#noteslength").text(response.note.length);
                                     $.each(response.note, function (index, value) {
                                         sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes');
@@ -700,8 +693,6 @@ block scripts
                                     warningAlert(message);
                                 }
                             });
-
-
                         });
                     }.call(this));
 

@@ -94,7 +94,6 @@ module.exports = {
                 return res.status(500).json({err: err});
             }
         });
-
     },
 
     readTickets: function (req, res, next) {
@@ -168,7 +167,6 @@ module.exports = {
                 return res.status(200).json({error: false, users: results[0], count: results[1], page: parseInt(page)});
             }
         });
-
     },
 
     readTicket: function (req, res, next) {
@@ -247,6 +245,8 @@ module.exports = {
 
     readTicketsByUserId: function (req, res, next) {
         var id = req.query.id,
+            created_by = req.query.created_by,
+            filed_by = req.query.filed_by,
             page = req.query.page || 1,
             category = req.query.category,
             subcategory = req.query.subcategory,
@@ -256,8 +256,10 @@ module.exports = {
 
 
 
-        var options  = {};
-        options['location'] = location;
+        var options  = {};  
+        if(req.user.role != 'admin'){
+            options['location'] = location;
+        }
 
         if(id){
             options['_id'] = id;
@@ -280,7 +282,7 @@ module.exports = {
         }
 
 
-        console.log(options);
+        //console.log(options);
 
 
         User.findById(req.params.id, function (err, user) {
@@ -295,11 +297,28 @@ module.exports = {
                     function (callback) {
                         Ticket.find(options)
                         .populate('created_by')
-                        .populate('filed_by').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
+                        .populate('filed_by').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
                             } else {
-                                callback(null, tickets);
+                                if(req.query.created_by){
+                                    var regexp = new RegExp(req.query.created_by, 'i');
+                                    var tickets = t.filter( function(val){
+                                        return regexp.test(val.created_by.name.first);
+                                    });
+                                    callback(null, tickets);
+                                }
+                                else if(req.query.filed_by){
+                                    var regexp = new RegExp(req.query.filed_by, 'i');
+                                    var tickets = t.filter( function(val){
+                                        return regexp.test(val.filed_by.name.first);
+                                    });
+                                    callback(null, tickets);
+                                }else{
+                                    tickets = t;
+                                    callback(null, tickets);
+                                }
+
                             }
                         });
 
@@ -324,7 +343,8 @@ module.exports = {
                             message: 'Server connection error. Please try later'
                         });
                     } else {
-                        return res.status(200).json({
+
+                       return res.status(200).json({
                             error: false,
                             tickets: results[0],
                             count: results[1],
@@ -335,8 +355,5 @@ module.exports = {
             }
         });
     },
-
-
-
 
 }

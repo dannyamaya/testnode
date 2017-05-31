@@ -318,10 +318,6 @@ module.exports = {
                     fs.unlinkSync(filePath);
                 }
 
-
-
-
-
                 user.email = req.body.email || user.email;
                 user.name.first = req.body.first || user.name.first;
                 user.name.last = req.body.last || user.name.last;
@@ -346,7 +342,7 @@ module.exports = {
                         if (err) {
                             return res.status(500).json({message: 'Internal Server Error'});
                         }
-                        if (!user) {
+                        if (!resident) {
                             return res.status(404).json({message: 'Resident not found'});
                         }
 
@@ -653,11 +649,6 @@ module.exports = {
 
             return res.status(200).json({ user: user});
         });
-
-
-
-
-
 
     },
 };

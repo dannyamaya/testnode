@@ -185,12 +185,11 @@ exports.newTicket= function(ticket){
                     if (err) {
                         console.log('Error2: '+err);
                     } else {
-
                         var mailOptions = {
 
                             from: 'Livinn'+' <contact@cannedhead.com>',
-                            to: locals.ticket.filed_by.email,
-                            subject: 'New Comment '+ticket._id,
+                            to: locals.comment.discussion_id.filed_by.email,
+                            subject: 'New Comment '+ locals.comment.discussion_id._id,
                             headers: {
                                 'X-Laziness-level': 1000
                             },

@@ -380,7 +380,7 @@ module.exports = {
                             var residentnew = new Resident({
                                 user_id: req.params.id,
                                 contract_number: req.body.numcontract,
-                                birth_date:  moment(req.body.birthdate).format(),
+                                birth_date:  req.body.birthdate,
                                 apartment: req.body.apartment,
                                 apartment_type: req.body.apartmentType,
                                 bathroom: req.body.bathroom,

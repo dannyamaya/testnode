@@ -56,9 +56,7 @@ module.exports = {
             if (!upload)
                 return res.status(404).json({message: 'Error uploading file!'});
 
-            //console.log(req.files);
             // url stored in db
-
             var imagenUrl = AWS_PREFIX + folder + req.user._id + '/' + fileName;
 
             //local file deleted
@@ -66,18 +64,19 @@ module.exports = {
         }
 
         var ticket = new Ticket({
-            client_id: req.user._id,
+            filed_by: req.body.filed_by || req.user._id ,
+            created_by: req.user._id,
             subject: req.body.subject,
             message: req.body.message,
             attachments: imagenUrl || '',
             category: req.body.category,
-            filedby: req.body.filedby,
             file_name: fileName,
+            location: req.body.location
         });
 
         ticket.save(function (err, t) {
             if (!err) {
-                Ticket.populate(t,{ path:"filedby" }, function(err, tpopulated) {
+                Ticket.populate(t,{ path:"filed_by" }, function(err, tpopulated) {
                             if (err){
                                 console.log('ERROR: ' + err);
                                 res.status(500).json({ err: err, message: "Internal Server Error"});
@@ -95,27 +94,29 @@ module.exports = {
             }
         });
 
-
     },
 
     readTickets: function (req, res, next) {
 
-        var search = '';
-        var page = req.query.page || 1;
-        if (req.query.search) {
-            search = req.query.search;
-        }
+        var search = req.query.search || '',
+            page = req.query.page || 1,
+            category = req.query.category || '',
+            subcategory = req.query.subcategory || '';
+            status = req.query.status || '';
+            priority = req.query.priority || '';
+            location = req.user.location;
 
-        async.parallel([
-
-            function (callback) {
-
-                Ticket.find({}).or([
+        var options = [{
+                        location:location
+                    },
                     {
                         subject: new RegExp(search, 'i')
                     },
                     {
-                        category: new RegExp(search, 'i')
+                        category: new RegExp(category, 'i')
+                    },
+                    {
+                        subcategory: new RegExp(subcategory, 'i')
                     },
                     {
                         message: new RegExp(search, 'i')
@@ -124,9 +125,17 @@ module.exports = {
                         filedby: new RegExp(search, 'i')
                     },
                     {
-                        status: new RegExp(search, 'i')
-                    }
-                ])
+                        status: new RegExp(status, 'i')
+                    },
+                    {
+                        priority: new RegExp(priority, 'i')
+                    }];
+
+        async.parallel([
+
+            function (callback) {
+
+                Ticket.find({}).or(options)
                 .populate('filedby','name')
                 .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                     if (err) {
@@ -140,20 +149,7 @@ module.exports = {
             }, function (callback) {
 
                 Ticket.count({
-                    $or: [{
-                        subject: new RegExp(search, 'i')
-                    },
-                        {
-                            category: new RegExp(search, 'i')
-                        },
-                        {
-                            message: new RegExp(search, 'i')
-                        },
-                        {
-                            filedby: new RegExp(search, 'i')
-                        }, {
-                            status: new RegExp(search, 'i')
-                        }]
+                    $or: options
                 }).exec(function (err, count) {
                     if (err) {
                         callback(err, null);
@@ -177,10 +173,9 @@ module.exports = {
     readTicket: function (req, res, next) {
 
         Ticket.findOne({_id: req.params.id})
-            .populate('client_id', 'name company email phone profile_picture')
-            .populate('filedby', 'name email profile_picture')
-            .populate('request_by', 'name email profile_picture')
-            .populate('assignee','name email profile_picture')
+            .populate('created_by', 'name company email phone profile_picture')
+            .populate('filed_by', 'name company email phone profile_picture')
+            .populate('assignee','name company email phone profile_picture')
             .exec(function (err, ticket) {
                 if (err) {
                     console.log('ERROR: ' + err);
@@ -207,20 +202,18 @@ module.exports = {
             if (!ticket) {
                 return res.status(404).json({message: 'message not found'});
             } else {
-                ticket.client_id = req.body.client_id || ticket.client_id;
                 ticket.subject = req.body.subject || ticket.subject;
                 ticket.message = req.body.message || ticket.message;
                 ticket.priority = req.body.priority || ticket.priority;
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
 
-                if(!ticket.assignee.includes(req.body.assignee))
-                    ticket.assignee.push(req.body.assignee);
+                if(!ticket.assigned_to.includes(req.body.assignee))
+                    ticket.assigned_to.push(req.body.assignee);
 
                 if(req.body.remove){
-                    ticket.assignee.pull({_id:req.body.assignee});
+                    ticket.assigned_to.pull({_id:req.body.assignee});
                 }
 
-                //ticket.assignee = req.body.assignee || ticket.assignee;
                 ticket.reply_of = req.body.reply_of || ticket.reply_of;
                 ticket.status = req.body.status || ticket.status;
                 ticket.updated = Date.now();
@@ -252,11 +245,42 @@ module.exports = {
     },
 
     readTicketsByUserId: function (req, res, next) {
-        var search = '';
-        var page = req.query.page || 1;
-        if (req.query.search) {
-            search = req.query.search;
+        var id = req.query.id,
+            page = req.query.page || 1,
+            category = req.query.category,
+            subcategory = req.query.subcategory,
+            status = req.query.status,
+            priority = req.query.priority,
+            location = req.user.location;
+
+
+
+        var options  = {};
+        options['location'] = location;
+
+        if(id){
+            options['_id'] = id;
         }
+
+        if(category){
+            options['category'] = category;
+        }
+
+        if(subcategory){
+            options['subcategory'] = subcategory;
+        }
+
+        if(status){
+            options['status'] = status;
+        }
+
+        if(priority){
+            options['priority'] = priority;
+        }
+
+
+        console.log(options);
+
 
         User.findById(req.params.id, function (err, user) {
             if (err) {
@@ -268,26 +292,9 @@ module.exports = {
             } else {
                 async.parallel([
                     function (callback) {
-
-                        /*{
-                            $and: [
-                                {client_id: req.params.id}
-                            ]
-                        }*/
-
-                        Ticket.find()
-                        .or([
-                            {
-                                subject: new RegExp(search, 'i')
-                            },
-                            {
-                                category: new RegExp(search, 'i')
-                            },
-                            {
-                                message: new RegExp(search, 'i')
-                            }
-                        ])
-                        .populate('filedby').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
+                        Ticket.find(options)
+                        .populate('created_by')
+                        .populate('filed_by').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                             if (err) {
                                 callback(err, null);
                             } else {
@@ -298,7 +305,7 @@ module.exports = {
                     },
                     function (callback) {
 
-                        Ticket.count({client_id: req.params.id}).exec(function (err, count) {
+                        Ticket.count(options).exec(function (err, count) {
                             if (err) {
                                 callback(err, null);
                             } else {

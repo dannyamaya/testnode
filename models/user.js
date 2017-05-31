@@ -93,17 +93,19 @@ UserSchema.statics.hashPassword = function (passwordRaw, fn) {
     bcrypt.hash(passwordRaw, salt, fn);
 };
 
+UserSchema.statics.comparePasswordAndHash = function (password, passwordHash, fn) {
+    bcrypt.compare(password, passwordHash, fn);
+};
+
 UserSchema.methods.verifyPassword = function (password, fn) {
     bcrypt.compare(password, this.hash, fn);
 };
 
 UserSchema.methods.hasRole = function (role) {
     var hasRole = false;
-
     if (this.role === role) {
         hasRole = true;
     }
-
     return hasRole;
 };
 

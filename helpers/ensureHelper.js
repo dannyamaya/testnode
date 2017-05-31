@@ -6,12 +6,14 @@ module.exports = {
     ensureRedirect: function (req, res, next) {
 
         if (req.isAuthenticated()) {
-            if (req.user.hasRole('admin')) {
+            if ( req.user.hasRole('admin') || req.user.hasRole('operation manager') ) {
                 return res.redirect('/users');
-            } else if (req.user.hasRole('user')) {
-                return res.redirect('/dashboard');
+            } else if ( req.user.hasRole('marketing') || req.user.hasRole('maintenance') || req.user.hasRole('client-service') || req.user.hasRole('resident-assitant') ) {
+                return res.redirect('/tickets');
+            } else if (req.user.hasRole('resident')) {
+                return res.redirect('/resident/tickets');
             } else {
-                return res.redirect('/login');
+                return res.redirect('/');
             }
         }
         else {
@@ -30,9 +32,20 @@ module.exports = {
         return res.redirect('/');
     },
 
-    ensureUser: function(req,res,next){
+    ensureLivinn: function(req,res,next){
         if (req.isAuthenticated()) {
-            if ( req.user.hasRole('user') || req.user.hasRole('admin') ){
+            if (req.user.hasRole('admin') || req.user.hasRole('marketing') || req.user.hasRole('operation manager') || req.user.hasRole('maintenance') || req.user.hasRole('client-service') || req.user.hasRole('resident-assitant') ) {
+                return next();
+            } else {
+                return res.redirect('/');
+            }
+        }
+        return res.redirect('/');
+    },
+
+    ensureResident: function(req,res,next){
+        if (req.isAuthenticated()) {
+            if ( req.user.hasRole('resident') ){
                 return next();
             } else {
                 return res.redirect('/');

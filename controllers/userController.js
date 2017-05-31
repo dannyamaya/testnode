@@ -338,72 +338,101 @@ module.exports = {
 
 
                 if (req.body.role === 'resident') {
+                    if (req.body.numcontract === '') {
+                        return res.status(404).json({message: 'Contract Number not found'});
+                    }
+                    if (req.body.apartment === '') {
+                        return res.status(404).json({message: 'Apartment not found'});
+                    }
+                    if (req.body.apartmentType === '') {
+                        return res.status(404).json({message: 'Apartment type not found'});
+                    }
+                    if (req.body.rate === '') {
+                        return res.status(404).json({message: 'Rate not found'});
+                    }
+                    if (req.body.currency === '') {
+                        return res.status(404).json({message: 'Currency not found'});
+                    }
+                    if (req.body.rateusd === '') {
+                        return res.status(404).json({message: 'Rate USD not found'});
+                    }
+                    if (req.body.agent === '') {
+                        return res.status(404).json({message: 'Agent not found'});
+                    }
+                    if (req.body.finish === '') {
+                        return res.status(404).json({message: 'Finish not found'});
+                    }
+                    if (req.body.start === '') {
+                        return res.status(404).json({message: 'Start not found'});
+                    }
+                    if (req.body.duration === '') {
+                        return res.status(404).json({message: 'Duration not found'});
+                    }
+
                     Resident.findOne({user_id: user._id}, function (err, resident) {
                         if (err) {
                             return res.status(500).json({message: 'Internal Server Error'});
                         }
+
+
                         if (!resident) {
-                            return res.status(404).json({message: 'Resident not found'});
-                        }
 
-                        if (req.body.numcontract === '') {
-                            return res.status(404).json({message: 'Contract Number not found'});
-                        }
-                        if (req.body.apartment === '') {
-                            return res.status(404).json({message: 'Apartment not found'});
-                        }
-                        if (req.body.apartmentType === '') {
-                            return res.status(404).json({message: 'Apartment type not found'});
-                        }
-                        if (req.body.rate === '') {
-                            return res.status(404).json({message: 'Rate not found'});
-                        }
-                        if (req.body.currency === '') {
-                            return res.status(404).json({message: 'Currency not found'});
-                        }
-                        if (req.body.rateusd === '') {
-                            return res.status(404).json({message: 'Rate USD not found'});
-                        }
-                        if (req.body.agent === '') {
-                            return res.status(404).json({message: 'Agent not found'});
-                        }
-                        if (req.body.finish === '') {
-                            return res.status(404).json({message: 'Finish not found'});
-                        }
-                        if (req.body.start === '') {
-                            return res.status(404).json({message: 'Start not found'});
-                        }
-                        if (req.body.duration === '') {
-                            return res.status(404).json({message: 'Duration not found'});
-                        }
+                            var residentnew = new Resident({
+                                user_id: req.params.id,
+                                contract_number: req.body.numcontract,
+                                birth_date:  moment(req.body.birthdate).format(),
+                                apartment: req.body.apartment,
+                                apartment_type: req.body.apartmentType,
+                                bathroom: req.body.bathroom,
+                                status: req.body.status,
+                                bed: req.body.bed,
+                                rate: req.body.rate,
+                                currency: req.body.currency,
+                                rateusd: req.body.rateusd,
+                                agent: req.body.agent,
+                                finish: req.body.finish,
+                                start: req.body.start
+                            });
 
-                        resident.contract_number = req.body.numcontract || resident.contract_number;
-                        resident.birth_date = moment(req.body.birthdate).format() || resident.birth_date;
-                        resident.apartment = req.body.apartment || resident.apartment;
-                        resident.apartment_type = req.body.apartmentType || resident.apartment_type;
-                        resident.bathroom = req.body.bathroom || resident.bathroom;
-                        resident.status = req.body.status || resident.status;
-                        resident.bed = req.body.bed || resident.bed;
-                        resident.rate = req.body.rate || resident.rate;
-                        resident.currency = req.body.currency || resident.currency;
-                        resident.rateusd = req.body.rateusd || resident.rateusd;
-                        resident.agent = req.body.agent || resident.agent;
-                        resident.finish = moment(req.body.finish).format() || resident.finish;
-                        resident.start = moment(req.body.start).format() || resident.start;
-                        resident.duration = req.body.duration || resident.duration;
-                        resident.updated = Date.now();
+                            residentnew.save(function (err) {
+                                if (!err) {
+                                    console.log('New resident has been created')
+                                }
+                                else {
+                                    console.log(err);
+
+                                }
+                            });
+
+                        }
+                        else{
+                            resident.contract_number = req.body.numcontract || resident.contract_number;
+                            resident.birth_date = moment(req.body.birthdate).format() || resident.birth_date;
+                            resident.apartment = req.body.apartment || resident.apartment;
+                            resident.apartment_type = req.body.apartmentType || resident.apartment_type;
+                            resident.bathroom = req.body.bathroom || resident.bathroom;
+                            resident.status = req.body.status || resident.status;
+                            resident.bed = req.body.bed || resident.bed;
+                            resident.rate = req.body.rate || resident.rate;
+                            resident.currency = req.body.currency || resident.currency;
+                            resident.rateusd = req.body.rateusd || resident.rateusd;
+                            resident.agent = req.body.agent || resident.agent;
+                            resident.finish = moment(req.body.finish).format() || resident.finish;
+                            resident.start = moment(req.body.start).format() || resident.start;
+                            resident.duration = req.body.duration || resident.duration;
+                            resident.updated = Date.now();
 
 
-                        resident.save(function (err) {
-                            if (!err) {
-                                console.log('Resident Updated')
-                            }
-                            else {
-                                console.log(err);
-                                return res.status(409).json({message: "Error, check your details."});
+                            resident.save(function (err) {
+                                if (!err) {
+                                    console.log('Resident Updated')
+                                }
+                                else {
+                                    console.log(err);
 
-                            }
-                        });
+                                }
+                            });
+                        }
 
                     });
                 }

@@ -820,7 +820,13 @@ block scripts
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                                     var message = XMLHttpRequest.responseJSON.message;
-                                    warningAlert(message);
+                                    if(XMLHttpRequest.status == 404){
+                                        //No existe informacion de residente para este usuario
+                                    }else{
+                                        warningAlert(message);
+
+                                    }
+
                                 }
                             });
                         }else{

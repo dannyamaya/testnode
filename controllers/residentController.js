@@ -1,6 +1,15 @@
 var Resident = require('../models/resident.js');
 
 module.exports = {
+    tickets: function(req,res,next){
+        res.render('resident/ticket/index', {
+            title: 'Work Orders',
+            user: req.user,
+            logged: req.isAuthenticated()
+        });
+
+    },
+
     readResident: function(req,res,next){
         Resident.findOne({user_id:req.params.id}, function (err, resident) {
             if (err) return next(err);

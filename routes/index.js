@@ -5,6 +5,7 @@ var authenticationController = require('../controllers/authenticationController'
 var adminController = require('../controllers/adminController');
 var ensureHelper = require('../helpers/ensureHelper');
 var userController = require('../controllers/userController');
+var residentController = require('../controllers/residentController');
 
 /* GET home page. */
 router.get('/', ensureHelper.ensureRedirect, authenticationController.login);
@@ -13,6 +14,8 @@ router.post('/login', authenticationController.loginUser);
 // Admin Routes
 router.get('/users',ensureHelper.ensureAdmin, adminController.users);
 router.get('/tickets',ensureHelper.ensureLivinn, adminController.tickets);
+
+router.get('/resident/tickets',ensureHelper.ensureResident, residentController.tickets);
 
 
 // Authorization & authentication routes

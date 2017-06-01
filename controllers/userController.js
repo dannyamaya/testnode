@@ -297,7 +297,7 @@ module.exports = {
      */
     updateUser: function (req, res, next) {
 
-
+        var errorResident = false;
         User.findById(req.params.id, function (err, user) {
             if (err) {
                 return res.status(500).json({message: 'Internal Server Error'});
@@ -407,10 +407,10 @@ module.exports = {
 
                             residentnew.save(function (err) {
                                 if (!err) {
-                                    console.log('New resident has been created')
+                                    console.log('New resident has been created');
                                 }
                                 else {
-                                    console.log(err);
+                                    errorResident = true;
 
                                 }
                             });
@@ -439,8 +439,7 @@ module.exports = {
                                     console.log('Resident Updated')
                                 }
                                 else {
-                                    console.log(err);
-
+                                    errorResident = true;
                                 }
                             });
                         }
@@ -449,7 +448,7 @@ module.exports = {
                 }
 
                 user.save(function (err, u) {
-                    if (err) {
+                    if (err || errorResident) {
                        return res.status(500).json({message: 'Internal Server Error'});
                     } else {
                        return res.status(200).json({

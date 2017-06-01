@@ -136,9 +136,11 @@ button:focus{
 .btn-livinn2, .btn-livinn2:hover, .btn-livinn2:active, .btn-livinn2:focus {
   background-color: #FFF;
   color: #E30056;
-  padding-top: 3px;
-  padding-bottom: 5px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   margin-top: 25px;
+  font-size: 2rem;
+  font-family: 'BebasNeue-Book', sans-serif;
 }
 
 .btn-transparent, .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
@@ -1537,7 +1539,7 @@ textarea.parsley-error {
 }
 
 .login h1{
-  margin-bottom: 37px;
+  margin-bottom: 47px;
 }
 
 .form-container form input[type="email"],
@@ -1554,18 +1556,18 @@ textarea.parsley-error {
   border-top: none;
   border-left: none;
   border-right: none;
-  padding-right: 0px;
-  padding-left: 0px;
-  padding-bottom: 0px;
-  font-size: 1.8rem;
+  padding: 0px;
+  margin-bottom: 25px;
+  font-size: 1.95rem;
   color: #FFF;
+  height: 30px;
 }
 
 .form-container form input[type="email"]::placeholder,
 .form-container form input[type="password"]::placeholder {
-  color: #e2e0e1;
+  color: #dbdbdb;
   line-height: 25px;
-  font-family: 'BebasNeue-Thin', sans-serif; 
+  font-family: 'BebasNeue-Book', sans-serif; 
 }
 
 .forgot-btn{

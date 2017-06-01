@@ -400,8 +400,12 @@ block content
                                         span.requiredLivinn *
                                         .select
                                             select#inputUpdateDocType(name="doctype")
-                                                option(value="DNI") DNI
-                                                option(value="Passport") Passport
+                                                option(value="") Choose a document type
+                                                    option(value="Cédula de ciudadania") Cédula de ciudadania
+                                                    option(value="Cédula de extranjeria") Cédula de extranjeria
+                                                    option(value="DNI") DNI
+                                                    option(value="Passport") Passport
+                                                    option(value="Tarjeta de identidad") Tarjeta de identidad
                                     .form-group
                                         label(for='inputUpdateDoc') Document
                                         span.requiredLivinn *
@@ -492,7 +496,7 @@ block content
                                     .form-group.col-sm-6
                                         label(for='inputUpdateApartmentType') Apartment Type
                                         span.requiredLivinn *
-                                        input#inputUpdateApartmentType.form-control(type='text' name='bedtype' placeholder='Type'  autofocus='')
+                                        input#inputUpdateApartmentType.form-control(type='text' name='apartmentType' placeholder='Type'  autofocus='')
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -804,8 +808,11 @@ block scripts
                                 type: "GET",
                                 url: 'api/residents/' + id,
                                 success: function (response) {
+                                    console.log(response);
+
                                     $("#inputUpdateContract").val(response.resident.contract_number);
-                                    $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
+                                    if(response.resident.birth_date)
+                                        $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
                                     $("#inputUpdateApartment").val(response.resident.apartment);
                                     $("#inputUpdateApartmentType").val(response.resident.apartment_type);
                                     $("#inputUpdateRate").val(response.resident.rate);

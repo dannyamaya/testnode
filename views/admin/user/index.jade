@@ -14,22 +14,22 @@ block content
                 i.fa.fa-pencil-square-o
             a.btn.btn-default.btn-adduser(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
                 i.fa.fa-download
-
-            .dropdown(style="display:inline-block;")
-                button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
-                    i.fa.fa-angle-down
-                ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                    li
-                        a.locationSearch(href="#") Lord Cochrane Santiago
-                    li
-                        a.locationSearch(href="#") Viña del Mar
-                    li
-                        a.locationSearch(href="#") Calle 18 Bogotá
-                    li
-                        a.locationSearch(href="#") Calle 21 Bogotá
-                    li
-                        a.locationSearch(href="#") Villa campestre Barranquilla
-                    li.dropdown-header.cleanLocationSearch.pull-right Clean
+            if user.role == 'admin'
+                .dropdown(style="display:inline-block;")
+                    button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
+                        i.fa.fa-angle-down
+                    ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                        li
+                            a.locationSearch(href="#") Lord Cochrane Santiago
+                        li
+                            a.locationSearch(href="#") Viña del Mar
+                        li
+                            a.locationSearch(href="#") Calle 18 Bogotá
+                        li
+                            a.locationSearch(href="#") Calle 21 Bogotá
+                        li
+                            a.locationSearch(href="#") Villa campestre Barranquilla
+                        li.dropdown-header.cleanLocationSearch.pull-right Clear
 
 
             .dropdown(style="display:inline-block;")
@@ -38,25 +38,22 @@ block content
                     i.fa.fa-angle-down
                 ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                     li
+                        a.roleSearch(href="#") Client Service
+                    li
+                        a.roleSearch(href="#") Maintenance
+                    li
                         a.roleSearch(href="#") Marketing
                     li
                         a.roleSearch(href="#") Resident
                     li
-                        a.roleSearch(href="#") Operation Manager
-                    li
-                        a.roleSearch(href="#") Maintenance
-                    li
-                        a.roleSearch(href="#") Client Service
-                    li
                         a.roleSearch(href="#") Resident Assistant
                     li
-                        a.roleSearch(href="#") Admin
-                    li.dropdown-header.cleanRoleSearch.pull-right Clean
+                        a.roleSearch(href="#") Operation Manager
+                    li.dropdown-header.cleanRoleSearch.pull-right Clear
             .pull-right
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
                     span.hidden-xs Add User
                     i.visible-xs.fa.fa-plus
-
             .clearfix
             .table-responsive.panel-user
                 table.table.table-striped.hidden#userstable
@@ -71,7 +68,8 @@ block content
                             th Document
                             th Cellphone
                             th Role
-                            th City
+                            if user.role == 'admin'
+                                th City
                             th Created
                             th Updated
                             th Last Login
@@ -539,6 +537,12 @@ block scripts
     script(src="/js/parsley.min.js")
     script.
 
+        if(!{user.role == 'admin'}){
+            var showLocation = true;
+        } else {
+            var showLocation = false;
+        }
+
         $(function() {
             function maskImgs() {
                 //$('.img-wrapper img').imagesLoaded({}, function() {
@@ -704,7 +708,6 @@ block scripts
                         $('#registrationModal').modal('hide');
                         $('.residentFields').show();
                         document.getElementById("registrationForm").reset();
-
                         $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td style='width:33px;'><img class='img-circle table-profile-img' src='"+response.users.profile_picture + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
 
                         successAlert("User created");
@@ -744,6 +747,7 @@ block scripts
 
                     var banned;
                     $("#userstable tbody tr").remove();
+                    var location = '';
                     for (key = 0; key < response.users.length; key++) {
 
                         if (response.users[key].banned) {
@@ -753,9 +757,12 @@ block scripts
                         }
                         var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
                         var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
-
-
-                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td><td>" + response.users[key].location + "</td><td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM') + "</td></tr>");
+                        if(showLocation){
+                            location = "<td>" + response.users[key].location + "</td>";
+                        } else {
+                            location = "";
+                        }
+                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td>"+location+"<td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM') + "</td></tr>");
                     }
 
                     $('#loader').fadeOut("slow", function () {

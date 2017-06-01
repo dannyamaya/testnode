@@ -185,44 +185,44 @@ module.exports = {
      */
     readUsers: function (req, res, next) {
 
-        console.log(req.query.role);
         var search = '';
         var page = req.query.page || 1;
         if (req.query.search) {
             search = req.query.search;
         }
 
-        console.log(req.query);
+        var query = {};
+        query['role'] = {$nin: ["admin"]};
+        query['active'] = true;
 
-        if(req.query.role)
-            var query = {$nin:req.query.role};
-        else
-            var query = {$nin: ["admin"]};
+        if(req.user.role != 'admin'){
+            query['location'] = req.user.location;
+        }
 
         async.parallel([
 
             function (callback) {
 
-                User.find({role: query, active: true}).or([
-                    {
-                        'name.first': new RegExp(search, 'i')
-                    },
-                    {
-                        'name.last': new RegExp(search, 'i')
-                    },
-                    {
-                        email: new RegExp(search, 'i')
-                    },
-                    {
-                        location: new RegExp(search, 'i')
-                    },
-                    {
-                        role: new RegExp(search, 'i')
-                    },
-                    {
-                        doc: new RegExp(search, 'i')
-                    }
-                ])
+                User.find(query).or([
+                        {
+                            'name.first': new RegExp(search, 'i')
+                        },
+                        {
+                            'name.last': new RegExp(search, 'i')
+                        },
+                        {
+                            email: new RegExp(search, 'i')
+                        },
+                        {
+                            location: new RegExp(search, 'i')
+                        },
+                        {
+                            role: new RegExp(search, 'i')
+                        },
+                        {
+                            doc: new RegExp(search, 'i')
+                        }
+                    ])
                     .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, users) {
                     if (err) {
                         console.log('ERROR: ' + err);
@@ -234,10 +234,10 @@ module.exports = {
 
             }, function (callback) {
 
-                User.count({
-                    $or: [{
-                        'name.first': new RegExp(search, 'i')
-                    },
+                User.count(query).or([
+                        {
+                            'name.first': new RegExp(search, 'i')
+                        },
                         {
                             'name.last': new RegExp(search, 'i')
                         },
@@ -245,16 +245,22 @@ module.exports = {
                             email: new RegExp(search, 'i')
                         },
                         {
+                            location: new RegExp(search, 'i')
+                        },
+                        {
+                            role: new RegExp(search, 'i')
+                        },
+                        {
                             doc: new RegExp(search, 'i')
-                        }]
-                }).exec(function (err, count) {
-                    if (err) {
-                        callback(err, null);
-                    } else {
-                        callback(null, count);
-                    }
-                });
-
+                        }
+                    ])
+                    .exec(function (err, count) {
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            callback(null, count);
+                        }
+                    });
             }
 
         ], function (err, results) {
@@ -267,6 +273,11 @@ module.exports = {
 
     },
 
+    /**
+     * Read user.
+     * @param {string} page - The user's name.
+     * @param {string} search - The user's email.
+     */
     readUser: function (req, res, next) {
 
         User.findById(req.params.id, function (err, user) {

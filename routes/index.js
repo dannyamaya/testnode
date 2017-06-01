@@ -12,7 +12,7 @@ router.get('/', ensureHelper.ensureRedirect, authenticationController.login);
 router.post('/login', authenticationController.loginUser);
 
 // Admin Routes
-router.get('/users',ensureHelper.ensureAdmin, adminController.users);
+router.get('/users',ensureHelper.ensureLivinn, adminController.users);
 router.get('/tickets',ensureHelper.ensureLivinn, adminController.tickets);
 
 router.get('/resident/tickets',ensureHelper.ensureResident, residentController.tickets);

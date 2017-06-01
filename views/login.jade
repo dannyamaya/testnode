@@ -11,12 +11,12 @@ block content
                             p#errmsj Lo sentimos no estas registrado
                     .col-xs-12.form-container
                         .col-xs-12
-                            h1.col-xs-6.col-xs-offset-3.col-sm-8.col-sm-offset-2.title
+                            h1.col-xs-8.col-xs-offset-2.col-sm-8.col-sm-offset-2.title
                                 img(src="/img/logolivinn-blanco.svg", alt="Livinn")
                             form.form#loginForm(action="/login" method="post", role="form")
                                 .form-group
                                     label.sr-only(for='inputEmail') Email
-                                    input#inputEmail.form-control(type='email' name='email' placeholder='Email Usuario',autofocus='' required disabled=logged)
+                                    input#inputEmail.form-control(type='email' name='email' placeholder='Email',autofocus='' required disabled=logged)
                                 .form-group
                                     label.sr-only(for='inputPassword') Password
                                     input#inputPassword.form-control(type='password' name='password' placeholder='Password' required disabled=logged)

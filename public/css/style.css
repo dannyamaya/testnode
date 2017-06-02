@@ -94,6 +94,10 @@ button:focus{
   padding-top:75px;
 }
 
+.img-responsive {
+  width: 100%;
+}
+
 
 /* BUTTONS & INPUTS */
 
@@ -190,33 +194,38 @@ button:focus{
 
 /* MENU & NAVIGATIONS */
 
+.btn-mobileMenu {
+  width: 16px;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+}
+
 .toggle-btn{
   position: fixed;
-  left: 18px;
-  top: 20px;
+  right: 13px;
+  top: 17px;
   cursor: pointer;
-  padding: 10px 35px 16px 0px;
+  padding: 13px 23px 15px 7px;
   z-index: 1031;
   background-color: transparent;
-  border: none;
 }
 
 .toggle-btn span, .toggle-btn span:before, .toggle-btn span:after {
   cursor: pointer;
   border-radius: 1px;
-  height: 3px;
-  width: 33px;
-  background: #E30056;
+  height: 2px;
+  width: inherit;
+  background: #FFF;
   position: absolute;
   display: block;
   content: '';
 }
 
 .toggle-btn span:before {
-  top: -10px;
+  top: -5px;
 }
 .toggle-btn span:after {
-  bottom: -10px;
+  bottom: -5px;
 }
 
 .toggle-btn span, .toggle-btn span:before, .toggle-btn span:after {
@@ -235,13 +244,26 @@ button:focus{
 .toggle-btn.active span:before, .toggle-btn.active span:after {
   top: 0;
   height:2px;
-  width: 25px;
+  width: 20px;
 }
 .toggle-btn.active span:before {
   transform: rotate(45deg);
+  right: -2px;
 }
 .toggle-btn.active span:after {
   transform: rotate(-45deg);
+  right: -2px;
+}
+
+.bordeGradiente {
+  height: 4px;
+  margin-top: 66px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bc215d+0,bc215d+14,333d62+94,333d62+100 */
+  background: #bc215d; /* Old browsers */
+  background: -moz-linear-gradient(left, #bc215d 0%, #bc215d 14%, #333d62 94%, #333d62 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #bc215d 0%,#bc215d 14%,#333d62 94%,#333d62 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #bc215d 0%,#bc215d 14%,#333d62 94%,#333d62 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc215d', endColorstr='#333d62',GradientType=1 ); /* IE6-9 */
 }
 
 .dashboard-menu{
@@ -262,11 +284,11 @@ button:focus{
 }
 
 .off-canvas-menu-closed{
-  -webkit-transform: translate3d(-100%,0,0);
-  -moz-transform: translate3d(-100%,0,0);
-  -ms-transform: translate3d(-100%,0,0);
-  -o-transform: translate3d(-100%,0,0);
-  transform: translate3d(-100%,0,0);
+  -webkit-transform: translate3d( 200%,0,0);
+  -moz-transform: translate3d( 200%,0,0);
+  -ms-transform: translate3d( 200%,0,0);
+  -o-transform: translate3d( 200%,0,0);
+  transform: translate3d( 200%,0,0);
 }
 
 .off-canvas-menu-open{
@@ -345,9 +367,9 @@ button:focus{
   padding-top: 80px
 }
 
-.navbar-brand{
+/*.navbar-brand{
   width:100px;
-}
+}*/
 .navbar-nav {
     margin: 0 0px;
 }
@@ -357,13 +379,14 @@ button:focus{
   color: #554F58;
   padding-top: 18px;
   padding-bottom: 17px;
+  padding-right: 14px;
   float: right;
 }
 
 .nav, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
     border-color: #fff;
-    background-color: #fff;
     color:#554F58;
+    background-color: #000;
 }
 
 .user-disp-img{
@@ -1205,8 +1228,7 @@ textarea.parsley-error {
   position: fixed;
   height: 66px;
   z-index: 999;
-  background-color: #fff;
-  border-bottom: 1px solid #E3E6EB;
+  background-color: #000;
   margin-bottom: 15px;
 }
 .heading h1{
@@ -1216,6 +1238,23 @@ textarea.parsley-error {
   margin-bottom: 17px;
   left:62px;
   color: #E30056;
+}
+
+.heading .navbar-right .dropdown-menu>li>a {
+  color: #FFF;
+}
+
+.logoHeading {
+  height: inherit;
+}
+
+.logoHeading a {
+  position: relative;
+  top: 50%;  
+  -ms-transform: translateY(-50%);  
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+
 }
 
 .dashcontainer.col-sm-10 .heading h1{

@@ -32,6 +32,17 @@ module.exports = {
         return res.redirect('/');
     },
 
+    ensureAdminAndOperationManager: function(req,res,next){
+        if (req.isAuthenticated()) {
+            if (req.user.hasRole('admin') || req.user.hasRole('operation manager')) {
+                return next();
+            } else {
+                return res.redirect('/');
+            }
+        }
+        return res.redirect('/');
+    },
+
     ensureLivinn: function(req,res,next){
         if (req.isAuthenticated()) {
             if (req.user.hasRole('admin') || req.user.hasRole('marketing') || req.user.hasRole('operation manager') || req.user.hasRole('maintenance') || req.user.hasRole('client-service') || req.user.hasRole('resident-assitant') ) {

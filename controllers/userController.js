@@ -593,7 +593,49 @@ module.exports = {
      * @param {string} search - The user's email.
      */
     exportUsers: function(req, res, next) {
-        User.find({ roles: { $nin: [ "admin" ] } })
+
+        var search = '';
+        var page = req.query.page || 1;
+        if (req.query.search) {
+            search = req.query.search;
+        }
+
+        var query = {};
+        query['active'] = true;
+
+        //Filter role
+        if( req.query.role ){
+            query['role'] = {$nin: ["admin"]};
+        } else {
+            query['role'] = {$nin: ["admin",req.query.role]};
+        }
+
+        //Filter location
+        if(req.user.role != 'admin'){
+            query['location'] = req.user.location;
+        }
+
+        User.find(query)
+            .or([
+                    {
+                        'name.first': new RegExp(search, 'i')
+                    },
+                    {
+                        'name.last': new RegExp(search, 'i')
+                    },
+                    {
+                        email: new RegExp(search, 'i')
+                    },
+                    {
+                        location: new RegExp(search, 'i')
+                    },
+                    {
+                        role: new RegExp(search, 'i')
+                    },
+                    {
+                        doc: new RegExp(search, 'i')
+                    }
+                ])
             .sort({created: -1}).exec(function(err,users) {
                 if (err){
                     console.log('ERROR: ' + err);

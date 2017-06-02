@@ -12,7 +12,7 @@ block content
                 i.fa.fa-trash
             button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
                 i.fa.fa-pencil-square-o
-            a.btn.btn-default.btn-adduser(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+            button.btn.btn-default.btn-adduser(onclick="exportUsers()" data-toggle="tooltip" data-placement="top" title="Download")
                 i.fa.fa-download
             if user.role == 'admin'
                 .dropdown(style="display:inline-block;")
@@ -1118,6 +1118,11 @@ block scripts
 
         });
 
+        //Export users
+        function exportUsers(){
+            var search = $('#search').val().trim();
+            window.open('/api/users/export?search='+search,'_blank');
+        }
 
         // Enables datepicker select in modal
         var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;

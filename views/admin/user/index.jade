@@ -94,33 +94,32 @@ block content
     
 
     .col-xs-12.content
-        .panel.panel-default.col-xs-12
-            
-            .clearfix
-            .table-responsive.panel-user
-                table.table.table-striped.hidden#userstable
-                    thead
-                        tr
-                            th
-                            th(style="min-width:33px;")
-                            th Email
-                            th First Name
-                            th Last Name
-                            th Document type
-                            th Document
-                            th Cellphone
-                            th Role
-                            if user.role == 'admin'
-                                th City
-                            th Created
-                            th Updated
-                            th Last Login
-                    tbody
-                #loader
-            .col-xs-12
-                p.text-center#pages 1-10 de # Users
-            nav#page-nav
-                .text-center#page-selection
+        .panel-default.col-xs-12.no-padding            
+          .clearfix
+          .table-responsive.panel-user
+              table.table.table-striped.hidden#userstable
+                  thead
+                      tr
+                          th.hidden-xs
+                          th(style="min-width:33px;")
+                          th Email
+                          th First Name
+                          th Last Name
+                          th Document type
+                          th Document
+                          th Cellphone
+                          th Role
+                          if user.role == 'admin'
+                              th City
+                          th Created
+                          th Updated
+                          th Last Login
+                  tbody
+              #loader
+          .col-xs-12
+              p.text-center#pages 1-10 de # Users
+          nav#page-nav
+              .text-center#page-selection
 
     <!-- User Read Modal -->
     .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")

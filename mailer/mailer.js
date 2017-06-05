@@ -127,7 +127,6 @@ exports.newTicket= function(ticket){
         ticket: ticket
     };
 
-
     emailTemplates(templatesDir,locals, function(err, template) {
 
         if (err) {
@@ -142,7 +141,7 @@ exports.newTicket= function(ticket){
               var mailOptions = {
 
                   from: 'Livinn'+' <contact@cannedhead.com>',
-                  to: locals.ticket.filed_by.email,
+                  to: locals.ticket.requested_by.email,
                   subject: 'New Ticket '+ticket._id,
                   headers: {
                       'X-Laziness-level': 1000

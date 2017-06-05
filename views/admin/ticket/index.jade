@@ -12,7 +12,7 @@ block content
                         .col-xs-4.no-padding
                             .select
                                 select#searchby
-                                    option(value="filed_by") Filed by
+                                    option(value="requested_by") Requested by
                                     option(value="created_by" selected="true") Created by
                                     option(value="assigned_to") Assigned to
                                     option(value="id") Work Order ID
@@ -58,28 +58,30 @@ block content
         .panel.panel-default.col-xs-12.no-padding
             h2 activity feed
 
-    <!-- New Ticket Modal -->
+    <!-- New Work Order Modal -->
     .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-header
-                    h2.modal-title.text-center Create Ticket
+                    h2.modal-title.text-center Create Work Order
                 .modal-body
 
                     .row
-                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form")
+                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
                             if user.role != 'resident'
                                 .form-group
-                                    label Filed by
+                                    label
+                                        |   Requested by
+                                        span  (optional)
                                     input.form-control.tagarea#searchinput(type="search")
-                                    input.form-control#searchinputHidden(type="hidden" name="filed_by")
+                                    input.form-control#searchinputHidden(type="hidden" name="requested_by")
                             input(type="hidden" name="location" value="#{user.location}")
                             .form-group
                                 label Category
                                 .select
-                                    select.form-control(name="category")
+                                    select.form-control(name="category" required)
                                         option(value="") Please choose a category
                                         option(value="cleaning services") Cleaning Services
                                         option(value="customer service") Customer Service
@@ -89,13 +91,15 @@ block content
                                         option(value="others") Others
                             .form-group
                                 label Subject
-                                input.form-control#subject(type="text" placeholder="Subject" name="subject")
+                                input.form-control#subject(type="text" placeholder="Subject" name="subject" required)
                             .form-group
                                 label Message
-                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5")
+                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5" required)
 
                             .form-group
-                                label Attachment
+                                label
+                                    |   Attachment
+                                    span (optional)
                                 input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
                             .modal-footer
                                 .pull-right.form-group-end
@@ -103,7 +107,7 @@ block content
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
-    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.full-width
             .modal-content
                 .modal-body
@@ -138,7 +142,7 @@ block content
                                             option(value="3") 3
                                             option(value="4") 4
                                 .form-group
-                                    label Filed By
+                                    label Requested By
                                     p.form-control-static#ticketrequestor
                                 .form-group
                                     label Email
@@ -232,6 +236,7 @@ block scripts
     script(src="/plugins/summernote/summernote.min.js")
     script(src="/plugins/summernote/lang/summernote-es-ES.js")
     script(src="/js/jquery.bootpag.min.js")
+    script(src="/js/parsley.min.js")
     script.
 
         var openticketid = '';
@@ -254,7 +259,7 @@ block scripts
         var socket = io('/superadmin');
         socket.on('new-ticket', function (dataServer) {
 
-            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.filed_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+dataServer.ticket.priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'" + dataServer.ticket._id + "\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+dataServer.ticket.priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" +'"'+ dataServer.ticket._id +'"'+ " )' ><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
 
         });
 
@@ -360,26 +365,23 @@ block scripts
                 contentType: false,
                 success: function (response) {
                     console.log(response);
-                    if (response.message == 'Ticket has been created') {
+                    if (response.message == 'Work Order has been created') {
                         socket.emit('new-ticket', {ticket: response.ticket});
                         $('#newticketModal').modal('hide');
                         $('#subject').val("");
                         $('#summernote').summernote("reset");
+                        $('#ticketForm').parsley().reset();
+                        document.getElementById('ticketForm').reset();
                         successAlert(response.message);
                     } else {
-                        warningAlert('Error al crear la solicitud');
+                        warningAlert('Error creating work order');
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;
-                    if (message == 'password and password confirmation mismatch') {
-                        $('#inputConfPasswordr').focus();
-                        $('.emailregistrationerror').removeClass('has-error');
-                        $('.passwordregistrationerror').addClass('has-error');
-                        warningAlert('Las contraseñas no coinciden');
-                    } else {
-                        warningAlert(message);
-                    }
+                    console.log(XMLHttpRequest);
+                    warningAlert(message);
+
                 }
             });
         });
@@ -405,8 +407,8 @@ block scripts
                     options+= '&created_by='+search;
                 } else if(searchby == 'assigned_to'){
                     options+= '&assigned_to='+search;
-                } else if(searchby == 'filed_by'){
-                    options+= '&filed_by='+search;
+                } else if(searchby == 'requested_by'){
+                    options+= '&requested_by='+search;
                 } else {
                     options+= '&id='+search;
                 }
@@ -423,7 +425,7 @@ block scripts
                     var category = "";
 
                     for (key = 0; key < data.tickets.length; key++) {
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].filed_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].filed_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].requested_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     }
                 }
             }).done(function (data) {
@@ -481,10 +483,10 @@ block scripts
                     console.log(response);
                     $('#hiddenTicket').val(response.ticket._id);
                     $('.readModalTitle').html('Ticket #<span class="text-capitalize">' + response.ticket._id + '</span>');
-                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.filed_by.profile_picture+"'</span>"+response.ticket.filed_by.name.first+" "+response.ticket.filed_by.name.last);
-                    $("#ticketemail").text(response.ticket.filed_by.email);
-                    if(response.ticket.filed_by.phone.number){
-                        $("#ticketphone").text(response.ticket.filed_by.phone.number);
+                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.requested_by.profile_picture+"'</span>"+response.ticket.requested_by.name.first+" "+response.ticket.requested_by.name.last);
+                    $("#ticketemail").text(response.ticket.requested_by.email);
+                    if(response.ticket.requested_by.phone.number){
+                        $("#ticketphone").text(response.ticket.requested_by.phone.number);
                     } else {
                         $("#ticketphone").text("N/A");
                     }
@@ -634,7 +636,7 @@ block scripts
 
 
                             //First Messages
-                            sendMessage(response.ticket.message, response.ticket.filed_by, 'left',img, response.ticket.filed_by.name.first + ' ' + response.ticket.filed_by.name.last,'messages' );
+                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages' );
 
 
                             //Another Messages

@@ -55,15 +55,15 @@ block content
               button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
                   span.hidden-xs Add User
                   i.visible-xs.fa.fa-plus
-          .col-xs-8.userSearch-Management
-            .navbar-form.navbar-left
+          .col-xs-8.no-padding.userSearch-Management.hidden-md.hidden-lg
+            .navbar-form
               .form-group
                 input.form-control.hidden-xs.hidden-sm(type='text', placeholder='Search')
                 button.btn.btn-default#Filters(onclick='deployFilters()')
                   span
                     i.icon.ion-ios-search-strong
 
-        .col-xs-12.no-padding#userFilters.userFilters.userFiltersUp
+        .col-xs-12.no-padding.hidden-md.hidden-lg#userFilters.userFilters.userFiltersUp
             .col-xs-12.no-padding.clearFilters
               .col-xs-6.btnCloseFiltersMobile
                 button.btn.btn-default(onclick='collapseFilters()')

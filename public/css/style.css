@@ -214,11 +214,11 @@ button:focus{
 }
 
 .slideContainerRight {
-  -webkit-transform: translate3d(0%,0,0);
-  -moz-transform: translate3d(0%,0,0);
-  -ms-transform: translate3d(0%,0,0);
-  -o-transform: translate3d(0%,0,0);
-  transform: translate3d(0%,0,0);
+  -webkit-transform: translate3d(0px,0,0);
+  -moz-transform: translate3d(0px,0,0);
+  -ms-transform: translate3d(0px,0,0);
+  -o-transform: translate3d(0px,0,0);
+  transform: translate3d(0px,0,0);
   transition: transform 0.4s ease-in-out;
 }
 
@@ -406,7 +406,7 @@ button:focus{
 
 .nav > li > a, .nav > li > a:active, .nav > li > a:focus, .nav > li > a:hover{
   background-color:transparent;
-  color: #554F58;
+  color: #FFF;
   padding-top: 18px;
   padding-bottom: 17px;
   padding-right: 14px;
@@ -434,7 +434,7 @@ button:focus{
   margin-top: 70px;
   height: 45px;
   position: fixed;
-  z-index: 1054;
+  z-index: 998;
 }
 
 .userTools h2 {
@@ -560,6 +560,7 @@ button:focus{
   margin-top: 0px;
   margin-bottom: 0px;
   padding: 5px 5px;
+  float: right;
 }
 
 .userSearch-Management .form-group button,
@@ -732,11 +733,11 @@ button:focus{
   }
 
   .slideContainerLeft {
-    -webkit-transform: translate3d(-50%,0,0);
-    -moz-transform: translate3d(-50%,0,0);
-    -ms-transform: translate3d(-50%,0,0);
-    -o-transform: translate3d(-50%,0,0);
-    transform: translate3d(-29%,0,0);
+    -webkit-transform: translate3d(-190px,0,0);
+    -moz-transform: translate3d(-190px,0,0);
+    -ms-transform: translate3d(-190px,0,0);
+    -o-transform: translate3d(-190px,0,0);
+    transform: translate3d(-190px,0,0);
     transition: transform 0.4s ease-out;
   }
 
@@ -1429,10 +1430,11 @@ textarea.parsley-error {
 .heading{
   position: fixed;
   height: 66px;
-  z-index: 1055;
+  z-index: 999;
   background-color: #000;
   margin-bottom: 15px;
 }
+
 .heading h1{
   position:relative;
   font-size: 2em;
@@ -1456,7 +1458,10 @@ textarea.parsley-error {
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+}
 
+.heading .userInfo {
+  height: inherit;
 }
 
 .dashcontainer.col-sm-10 .heading h1{
@@ -1464,7 +1469,11 @@ textarea.parsley-error {
 }
 
 .search{
+<<<<<<< HEAD
   margin-top: 1px;
+=======
+  margin-top: 5px;
+>>>>>>> 559e008796a72c0a134df2c6c7dfd6251b10ff2a
   border:1px solid #ccc;
   width: 100%;
 }
@@ -1608,7 +1617,7 @@ textarea.parsley-error {
 
 
 .btn-adduser{
-  margin-top: 20px;
+  margin-top: 5px;
   padding: 10px 15px;
   margin-left: 5px;
   color: #333;
@@ -1641,7 +1650,7 @@ textarea.parsley-error {
 .btn-main_hover,
 .btn-main:focus,
 .btn-main:active{
-  margin-top: 1px;
+  margin-top: 5px;
   padding: 10px 15px;
   float: right;
 }
@@ -1830,6 +1839,10 @@ textarea.parsley-error {
   .dashboard-menu{
     position: fixed;
   }
+
+  .heading .userInfo {
+    right: -40px;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -1840,6 +1853,33 @@ textarea.parsley-error {
     -webkit-transform: translateY(-63%);
     transform: translateY(-63%);
   }
+
+  .heading{
+    position: fixed;
+    height: 75px;
+    z-index: 999;
+    background-color: #000;
+    margin-bottom: 15px;
+  }
+
+  .heading .userInfo ul {
+    margin-top: 7px;
+  }
+
+  .toggle-btn {
+    margin-top: 7px;
+  }
+
+  .bordeGradiente {
+    height: 4px;
+    margin-top: 75px;
+  }
+
+  .userTools {
+    margin-top: 79px;
+    height: 55px;
+  }
+
 }
 
 .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {

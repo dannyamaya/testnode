@@ -38,9 +38,9 @@ html.no-js(lang="es")
     .col-xs-12.no-padding.dashcontainer#dashcontainer
         .col-xs-12.no-padding.heading.affix            
             .col-xs-5.navbar-brand.logoHeading
-              a.col-xs-12.col-sm-6.col-m-4.col-lg-3(href="#")
+              a.col-xs-12.col-sm-5.col-md-4.col-lg-3(href="#")
                 img(class="img-responsive" src="../img/logolivinn-blanco.svg")
-            .col-xs-5.col-xs-offset-1
+            .col-xs-5.col-xs-offset-1.userInfo
                 ul.nav.navbar-nav.navbar-right
                     li.dropdown
                         a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false' style="text-transform:capitalize;")
@@ -100,6 +100,8 @@ html.no-js(lang="es")
               $('#dashcontainer').addClass('slideContainerRight');
               $('#dashcontainer').removeClass('slideContainerLeft');
               $('#btn-mobileMenu').css('right', '13px');
+              $('.userInfo').addClass('right', '-40px');
+
           } else {
               $("#dashcontainer").addClass("col-sm-10 col-sm-offset-2");
               $('#off-canvas-menu').removeClass('off-canvas-menu-closed');
@@ -107,6 +109,7 @@ html.no-js(lang="es")
               $('#dashcontainer').addClass('slideContainerLeft');
               $('#dashcontainer').removeClass('slideContainerRight');
               $('#btn-mobileMenu').css('right', '5%', 'z-index','10');
+              $('.userInfo').css('right', '-10px');
           }
         }
 

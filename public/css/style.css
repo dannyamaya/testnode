@@ -434,7 +434,7 @@ button:focus{
   margin-top: 70px;
   height: 45px;
   position: fixed;
-  z-index: 1054;
+  z-index: 998;
 }
 
 .userTools h2 {
@@ -560,6 +560,7 @@ button:focus{
   margin-top: 0px;
   margin-bottom: 0px;
   padding: 5px 5px;
+  float: right;
 }
 
 .userSearch-Management .form-group button,
@@ -1429,10 +1430,11 @@ textarea.parsley-error {
 .heading{
   position: fixed;
   height: 66px;
-  z-index: 1055;
+  z-index: 999;
   background-color: #000;
   margin-bottom: 15px;
 }
+
 .heading h1{
   position:relative;
   font-size: 2em;
@@ -1838,7 +1840,26 @@ textarea.parsley-error {
     -ms-transform: translateY(-63%);  
     -webkit-transform: translateY(-63%);
     transform: translateY(-63%);
-  } 
+  }
+
+
+  .heading{
+    position: fixed;
+    height: 75px;
+    z-index: 999;
+    background-color: #000;
+    margin-bottom: 15px;
+  }
+
+  .bordeGradiente {
+    height: 4px;
+    margin-top: 75px;
+  }
+
+  .userTools {
+    margin-top: 79px;
+    height: 55px;
+  }
 }
 
 .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {

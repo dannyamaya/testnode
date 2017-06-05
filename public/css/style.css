@@ -1469,7 +1469,7 @@ textarea.parsley-error {
 }
 
 .search{
-  margin-top: 20px;
+  margin-top: 5px;
   border:1px solid #ccc;
   width: 100%;
 }
@@ -1613,7 +1613,7 @@ textarea.parsley-error {
 
 
 .btn-adduser{
-  margin-top: 20px;
+  margin-top: 5px;
   padding: 10px 15px;
   margin-left: 5px;
   color: #333;
@@ -1646,7 +1646,7 @@ textarea.parsley-error {
 .btn-main_hover,
 .btn-main:focus,
 .btn-main:active{
-  margin-top: 20px;
+  margin-top: 5px;
   padding: 10px 15px;
   float: right;
 }

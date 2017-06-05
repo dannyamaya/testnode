@@ -1,84 +1,126 @@
 extend ../layout
 block content
+    .col-xs-12.userTools.has-feedback
+          .col-xs-4.va.no-padding
+            h2.col-xs-12.no-padding #{title}
+          form.form.col-xs-12.col-sm-4.no-padding.hidden-xs.hidden-sm#searchform(method="post" action="users")
+              .input-group.search
+                  input.form-control#search(type="text" aria-label="Search users" placeholder="Search users")
+                  span.input-group-addon
+                      i.fa.fa-search
+
+          button.btn.btn-adduser.hidden-xs.hidden-sm(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
+              i.fa.fa-trash
+          button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
+              i.fa.fa-pencil-square-o
+          a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+              i.fa.fa-download
+          if user.role == 'admin'
+              .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
+                      i.fa.fa-angle-down
+                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                      li
+                          a.locationSearch(href="#") Lord Cochrane Santiago
+                      li
+                          a.locationSearch(href="#") Viña del Mar
+                      li
+                          a.locationSearch(href="#") Calle 18 Bogotá
+                      li
+                          a.locationSearch(href="#") Calle 21 Bogotá
+                      li
+                          a.locationSearch(href="#") Villa campestre Barranquilla
+                      li.dropdown-header.cleanLocationSearch.pull-right Clear
+
+
+          .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+              button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                  span Role
+                  i.fa.fa-angle-down
+              ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                  li
+                      a.roleSearch(href="#") Client Service
+                  li
+                      a.roleSearch(href="#") Maintenance
+                  li
+                      a.roleSearch(href="#") Marketing
+                  li
+                      a.roleSearch(href="#") Resident
+                  li
+                      a.roleSearch(href="#") Resident Assistant
+                  li
+                      a.roleSearch(href="#") Operation Manager
+                  li.dropdown-header.cleanRoleSearch.pull-right Clear
+          .pull-right.hidden-xs.hidden-sm
+              button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
+                  span.hidden-xs Add User
+                  i.visible-xs.fa.fa-plus
+          .col-xs-8.userSearch-Management
+            .navbar-form.navbar-left
+              .form-group
+                input.form-control.hidden-xs.hidden-sm(type='text', placeholder='Search')
+                button.btn.btn-default#Filters(onclick='deployFilters()')
+                  span
+                    i.icon.ion-ios-search-strong
+
+        .col-xs-12.no-padding#userFilters.userFilters.userFiltersUp
+            .col-xs-12.no-padding.clearFilters
+              .col-xs-6.btnCloseFiltersMobile
+                button.btn.btn-default(onclick='collapseFilters()')
+                  span
+                    i.icon.ion-ios-arrow-up
+              .col-xs-6.btnClearFilters
+                button.btn.btn-default Clear All
+            .col-xs-12.no-padding.search-filtersMobile
+              form.col-xs-12.navbar-left(action='' method='' type='')
+                .form-group
+                  input.form-control(type='text', placeholder='Search')
+              ul.col-xs-12.no-padding.nav.navbar-nav
+                li.col-xs-12.no-padding.dropdown
+                  a.col-xs-12.dropdown-toggle(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+                    span
+                      i.icon.ion-ios-arrow-down
+                  ul.col-xs-12.no-padding.dropdown-menu
+                    li.col-xs-12 Bogotá
+                    li.col-xs-12 Medellin
+                li.col-xs-12.no-padding.dropdown
+                  a.col-xs-12.dropdown-toggle(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
+                    span
+                      i.icon.ion-ios-arrow-down
+                  ul.col-xs-12.no-padding.dropdown-menu
+                    li.col-xs-12 Aministrador
+                    li.col-xs-12 Residente
+
+
+
     .col-xs-12.content
-        .panel.panel-default.col-xs-12
-            form.form.col-xs-12.col-sm-4.no-padding#searchform(method="post" action="users")
-                .input-group.search
-                    input.form-control#search(type="text" aria-label="Search users" placeholder="Search users")
-                    span.input-group-addon
-                        i.fa.fa-search
 
-            button.btn.btn-adduser(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
-                i.fa.fa-trash
-            button.btn.btn-default.btn-adduser(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
-                i.fa.fa-pencil-square-o
-            button.btn.btn-default.btn-adduser(onclick="exportUsers()" data-toggle="tooltip" data-placement="top" title="Download")
-                i.fa.fa-download
-            if user.role == 'admin'
-                .dropdown(style="display:inline-block;")
-                    button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
-                        i.fa.fa-angle-down
-                    ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                        li
-                            a.locationSearch(href="#") Lord Cochrane Santiago
-                        li
-                            a.locationSearch(href="#") Viña del Mar
-                        li
-                            a.locationSearch(href="#") Calle 18 Bogotá
-                        li
-                            a.locationSearch(href="#") Calle 21 Bogotá
-                        li
-                            a.locationSearch(href="#") Villa campestre Barranquilla
-                        li.dropdown-header.cleanLocationSearch.pull-right Clear
-
-
-            .dropdown(style="display:inline-block;")
-                button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
-                    span Role
-                    i.fa.fa-angle-down
-                ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                    li
-                        a.roleSearch(href="#") Customer Service
-                    li
-                        a.roleSearch(href="#") Maintenance
-                    li
-                        a.roleSearch(href="#") Marketing
-                    li
-                        a.roleSearch(href="#") Resident
-                    li
-                        a.roleSearch(href="#") Resident Assistant
-                    li
-                        a.roleSearch(href="#") Operation Manager
-                    li.dropdown-header.cleanRoleSearch.pull-right Clear
-            .pull-right
-                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
-                    span.hidden-xs Add User
-                    i.visible-xs.fa.fa-plus
-            .clearfix
-            .table-responsive.panel-user
-                table.table.table-striped.hidden#userstable
-                    thead
-                        tr
-                            th
-                            th(style="min-width:33px;")
-                            th Email
-                            th First Name
-                            th Last Name
-                            th Document type
-                            th Document
-                            th Cellphone
-                            th Role
-                            if user.role == 'admin'
-                                th City
-                            th Created
-                            th Updated
-                            th Last Login
-                    tbody
-                #loader
-            .col-xs-12
-                p.text-center#pages 1-10 de # Users
-            nav#page-nav
-                .text-center#page-selection
+        .panel-default.col-xs-12.no-padding
+          .clearfix
+          .table-responsive.panel-user
+              table.table.table-striped.hidden#userstable
+                  thead
+                      tr
+                          th.hidden-xs
+                          th(style="min-width:33px;")
+                          th Email
+                          th First Name
+                          th Last Name
+                          th Document type
+                          th Document
+                          th Cellphone
+                          th Role
+                          if user.role == 'admin'
+                              th City
+                          th Created
+                          th Updated
+                          th Last Login
+                  tbody
+              #loader
+          .col-xs-12
+              p.text-center#pages 1-10 de # Users
+          nav#page-nav
+              .text-center#page-selection
 
     <!-- User Read Modal -->
     .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")

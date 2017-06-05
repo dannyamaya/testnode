@@ -214,11 +214,11 @@ button:focus{
 }
 
 .slideContainerRight {
-  -webkit-transform: translate3d(0%,0,0);
-  -moz-transform: translate3d(0%,0,0);
-  -ms-transform: translate3d(0%,0,0);
-  -o-transform: translate3d(0%,0,0);
-  transform: translate3d(0%,0,0);
+  -webkit-transform: translate3d(0px,0,0);
+  -moz-transform: translate3d(0px,0,0);
+  -ms-transform: translate3d(0px,0,0);
+  -o-transform: translate3d(0px,0,0);
+  transform: translate3d(0px,0,0);
   transition: transform 0.4s ease-in-out;
 }
 
@@ -733,11 +733,11 @@ button:focus{
   }
 
   .slideContainerLeft {
-    -webkit-transform: translate3d(-50%,0,0);
-    -moz-transform: translate3d(-50%,0,0);
-    -ms-transform: translate3d(-50%,0,0);
-    -o-transform: translate3d(-50%,0,0);
-    transform: translate3d(-29%,0,0);
+    -webkit-transform: translate3d(-190px,0,0);
+    -moz-transform: translate3d(-190px,0,0);
+    -ms-transform: translate3d(-190px,0,0);
+    -o-transform: translate3d(-190px,0,0);
+    transform: translate3d(-190px,0,0);
     transition: transform 0.4s ease-out;
   }
 
@@ -1838,10 +1838,6 @@ textarea.parsley-error {
 
   .heading .userInfo {
     right: -40px;
-  }
-
-  .heading .userInfo ul {
-    height: inherit;
   }
 }
 

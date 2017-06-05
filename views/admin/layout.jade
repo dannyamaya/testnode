@@ -100,6 +100,8 @@ html.no-js(lang="es")
               $('#dashcontainer').addClass('slideContainerRight');
               $('#dashcontainer').removeClass('slideContainerLeft');
               $('#btn-mobileMenu').css('right', '13px');
+              $('.userInfo').css('right', '-40px');
+
           } else {
               $("#dashcontainer").addClass("col-sm-10 col-sm-offset-2");
               $('#off-canvas-menu').removeClass('off-canvas-menu-closed');
@@ -107,6 +109,7 @@ html.no-js(lang="es")
               $('#dashcontainer').addClass('slideContainerLeft');
               $('#dashcontainer').removeClass('slideContainerRight');
               $('#btn-mobileMenu').css('right', '5%', 'z-index','10');
+              $('.userInfo').css('right', '-10px');
           }
         }
 

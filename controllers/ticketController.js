@@ -261,7 +261,13 @@ module.exports = {
 
 
         var options  = {};
-        options['location'] = location;
+
+        if(req.user.role == 'admin' && req.query.location){
+            options['location'] = req.query.location
+        } else {
+            options['location'] = req.user.location;
+        }
+
 
         if(id){
             options['_id'] = id;

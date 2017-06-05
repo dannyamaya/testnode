@@ -75,7 +75,7 @@ block content
             .col-xs-12.no-padding.search-filtersMobile
               form.col-xs-12.navbar-left(action='' method='' type='')
                 .form-group
-                  input.form-control(type='text', placeholder='Search')
+                  input.form-control#searchMobile(type='text', placeholder='Search')
               ul.col-xs-12.no-padding.nav.navbar-nav
                 li.col-xs-12.no-padding.dropdown
                   a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
@@ -342,7 +342,7 @@ block content
                                         label(for='numcontract')
                                             |   Contract Number
                                             span.requiredLivinn *
-                                        input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
+                                        input#numcontract.form-control(type='text' placeholder='Contract Number' require name="numcontract" autofocus='')
                                     .form-group.col-sm-4
                                         label(for='start')
                                             |   Start
@@ -1075,6 +1075,7 @@ block scripts
                     $("#skypeRead").text(response.user.skype);
 
                     if ($("#roleRead").text() === 'resident') {
+
                         $('.residentFields').show();
                         $('.differentResident').hide();
 
@@ -1182,7 +1183,29 @@ block scripts
 
         });
 
-        //Export users
+
+        //Search Mobi
+        $('#searchMobile').keypress(function(){
+            $('#userstable').fadeOut("fast", function () {
+                $('#loader').fadeIn("fast");
+                readUsers(1, $("#searchMobile").val());
+            });
+        });
+
+        $('#searchMobile').keyup(function (e) {
+            if(e.keyCode == 8){
+                $('#userstable').fadeOut("fast", function () {
+                    $('#loader').fadeIn("fast");
+                    readUsers(1, $("#searchMobile").val());
+                });
+            };
+        });
+
+
+
+
+
+            //Export users
         function exportUsers(){
             var search = $('#search').val().trim();
             window.open('/api/users/export?search='+search,'_blank');

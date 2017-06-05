@@ -3,59 +3,57 @@ block content
     .col-xs-12.userTools.has-feedback
           .col-xs-4.col-md-2.va.no-padding
             h2.col-xs-12.no-padding #{title}
-          .col-md-10.no-padding
-            .col-md-8.no-padding
-              form.form.col-xs-12.col-md-7.col-md-offset-1.col-lg-6.col-lg-offset-3.no-padding.hidden-xs.hidden-sm#searchform(method="post" action="users")
-                  .input-group.search
-                      input.form-control#search(type="text" aria-label="Search users" placeholder="Search")
-                      span.input-group-addon
-                          i.fa.fa-search            
-              if user.role == 'admin'
-                  .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
-                          i.fa.fa-angle-down
-                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                          li
-                              a.locationSearch(href="#") Lord Cochrane Santiago
-                          li
-                              a.locationSearch(href="#") Viña del Mar
-                          li
-                              a.locationSearch(href="#") Calle 18 Bogotá
-                          li
-                              a.locationSearch(href="#") Calle 21 Bogotá
-                          li
-                              a.locationSearch(href="#") Villa campestre Barranquilla
-                          li.dropdown-header.cleanLocationSearch.pull-right Clear
+          .col-md-10.no-padding.userMaganementDesktop
+            form.form.col-xs-12.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-3.no-padding.hidden-xs.hidden-sm#searchform(method="post" action="users")
+                .input-group.search
+                    input.form-control#search(type="text" aria-label="Search users" placeholder="Search")
+                    span.input-group-addon
+                        i.fa.fa-search            
+            if user.role == 'admin'
+                .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                    button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
+                        i.fa.fa-angle-down
+                    ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                        li
+                            a.locationSearch(href="#") Lord Cochrane Santiago
+                        li
+                            a.locationSearch(href="#") Viña del Mar
+                        li
+                            a.locationSearch(href="#") Calle 18 Bogotá
+                        li
+                            a.locationSearch(href="#") Calle 21 Bogotá
+                        li
+                            a.locationSearch(href="#") Villa campestre Barranquilla
+                        li.dropdown-header.cleanLocationSearch.pull-right Clear
 
 
-              .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
-                      span Role
-                      i.fa.fa-angle-down
-                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                      li
-                          a.roleSearch(href="#") Client Service
-                      li
-                          a.roleSearch(href="#") Maintenance
-                      li
-                          a.roleSearch(href="#") Marketing
-                      li
-                          a.roleSearch(href="#") Resident
-                      li
-                          a.roleSearch(href="#") Resident Assistant
-                      li
-                          a.roleSearch(href="#") Operation Manager
-                      li.dropdown-header.cleanRoleSearch.pull-right Clear
-            .col-md-4.btnsManageUsers
-              button.btn.btn-adduser.hidden-xs.hidden-sm(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
-                  i.fa.fa-trash
-              button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
-                  i.fa.fa-pencil-square-o
-              a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
-                  i.fa.fa-download               
-              button.btn.btn-main.btn-livinn.hidden-xs.hidden-sm(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
-               span.hidden-xs Add User
-                  i.visible-xs.fa.fa-plus
+            .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                    span Role
+                    i.fa.fa-angle-down
+                ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                    li
+                        a.roleSearch(href="#") Client Service
+                    li
+                        a.roleSearch(href="#") Maintenance
+                    li
+                        a.roleSearch(href="#") Marketing
+                    li
+                        a.roleSearch(href="#") Resident
+                    li
+                        a.roleSearch(href="#") Resident Assistant
+                    li
+                        a.roleSearch(href="#") Operation Manager
+                    li.dropdown-header.cleanRoleSearch.pull-right Clear
+            button.btn.btn-adduser.hidden-xs.hidden-sm.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
+                i.fa.fa-trash
+            button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
+                i.fa.fa-pencil-square-o
+            a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+                i.fa.fa-download               
+            button.btn.btn-main.btn-livinn.hidden-xs.hidden-sm.btnsManageUsers(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
+             span.hidden-xs Add User
+                i.visible-xs.fa.fa-plus
           .col-xs-8.no-padding.userSearch-Management.hidden-md.hidden-lg
             .col-xs-12.no-padding
               .col-xs-12.no-padding.form-group
@@ -75,7 +73,7 @@ block content
             .col-xs-12.no-padding.search-filtersMobile
               form.col-xs-12.navbar-left(action='' method='' type='')
                 .form-group
-                  input.form-control(type='text', placeholder='Search')
+                  input.form-control#searchMobile(type='text', placeholder='Search')
               ul.col-xs-12.no-padding.nav.navbar-nav
                 li.col-xs-12.no-padding.dropdown
                   a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
@@ -139,7 +137,7 @@ block content
             p.text-center#pages 1-10 de # Users
         nav#page-nav
             .text-center#page-selection
-
+block modals
     <!-- User Read Modal -->
     .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
@@ -342,7 +340,7 @@ block content
                                         label(for='numcontract')
                                             |   Contract Number
                                             span.requiredLivinn *
-                                        input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
+                                        input#numcontract.form-control(type='text' placeholder='Contract Number' require name="numcontract" autofocus='')
                                     .form-group.col-sm-4
                                         label(for='start')
                                             |   Start
@@ -1075,6 +1073,7 @@ block scripts
                     $("#skypeRead").text(response.user.skype);
 
                     if ($("#roleRead").text() === 'resident') {
+
                         $('.residentFields').show();
                         $('.differentResident').hide();
 
@@ -1182,7 +1181,29 @@ block scripts
 
         });
 
-        //Export users
+
+        //Search Mobi
+        $('#searchMobile').keypress(function(){
+            $('#userstable').fadeOut("fast", function () {
+                $('#loader').fadeIn("fast");
+                readUsers(1, $("#searchMobile").val());
+            });
+        });
+
+        $('#searchMobile').keyup(function (e) {
+            if(e.keyCode == 8){
+                $('#userstable').fadeOut("fast", function () {
+                    $('#loader').fadeIn("fast");
+                    readUsers(1, $("#searchMobile").val());
+                });
+            };
+        });
+
+
+
+
+
+            //Export users
         function exportUsers(){
             var search = $('#search').val().trim();
             window.open('/api/users/export?search='+search,'_blank');

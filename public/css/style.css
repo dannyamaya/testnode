@@ -1,5 +1,6 @@
 /*** Fonts ***/
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 
 @font-face {
   font-family: 'BebasNeue';
@@ -118,7 +119,7 @@ button:focus{
 }
 
 .form-control{
-  height: 32px;
+  height: 37px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
@@ -210,7 +211,7 @@ button:focus{
   -ms-transform: translate3d(-190px,0,0);
   -o-transform: translate3d(-190px,0,0);
   transform: translate3d(-190px,0,0);
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-out;
 }
 
 .slideContainerRight {
@@ -219,7 +220,7 @@ button:focus{
   -ms-transform: translate3d(0px,0,0);
   -o-transform: translate3d(0px,0,0);
   transform: translate3d(0px,0,0);
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-out;
 }
 
 .btn-mobileMenu {
@@ -482,8 +483,8 @@ button:focus{
 
 .userFilters .btnClearFilters button {
   text-transform: uppercase;
-  font-family: 'BebasNeue-Regular', sans-serif;
-  font-size: 1.35rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
 
 }
 
@@ -517,39 +518,44 @@ button:focus{
 }
 
 .userFilters .search-filtersMobile form {
-  border-bottom: 1px solid #D51C5C;
+  border-bottom: 1px solid #D5D4D6;
   margin-top: 0px;
+}
+
+.userFilters .search-filtersMobile form .form-group {
+  margin-bottom: 7px;
 }
 
 .userFilters .search-filtersMobile form input[type='text'],
 .userFilters .search-filtersMobile form input[type='text']:focus,
 .userFilters .search-filtersMobile form input[type='text']:active {
-  background-color: transparent;
+  background-color: #FFF;
   border: none;
   border-radius: 0px;
   box-shadow: none;
-  padding: 15px 0px 0px 0px;
+  padding: 0px 8px;
   color: #D51C5C;
-  text-transform: uppercase;
-  font-family: 'BebasNeue-Book', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 2rem;
+  border: 1px solid #D51C5C;
 }
 
 .userFilters .search-filtersMobile form input[type='text']::placeholder {
-  color: #D51C5C;
-  font-size: 2.2rem;
-  font-family: 'BebasNeue-Book', sans-serif;
+  color: #9f9fa0;
+  font-size: 1.6rem;
+  font-family: 'Open Sans', sans-serif;
   padding-top: 8px;
 }
 
 .userFilters .search-filtersMobile ul .dropdown a {
-  color: #D51C5C;
+  color: #9f9fa0;
   padding-top: 15px;
   padding-bottom: 15px;
+  font-size: 1.5rem;
 }
 
 .userFilters .search-filtersMobile .dropdown:nth-child(1) {
-  border-bottom: 1px solid #D51C5C;
+  border-bottom: 1px solid #D5D4D6;
 }
 
 .userFilters .search-filtersMobile .dropdown a span {
@@ -712,6 +718,10 @@ button:focus{
     left: 14.7%;
   }*/
 
+  .form-control {
+    height: 32px;
+  }
+
   .logo-dashboard{
     margin-top:58px;
     margin-bottom:30px;
@@ -734,15 +744,75 @@ button:focus{
   }
 
   .slideContainerLeft {
-    -webkit-transform: translate3d(-190px,0,0);
-    -moz-transform: translate3d(-190px,0,0);
-    -ms-transform: translate3d(-190px,0,0);
-    -o-transform: translate3d(-190px,0,0);
-    transform: translate3d(-190px,0,0);
+    -webkit-transform: translate3d(0px,0,0);
+    -moz-transform: translate3d(0px,0,0);
+    -ms-transform: translate3d(0px,0,0);
+    -o-transform: translate3d(0px,0,0);
+    transform: translate3d(0px,0,0);
     transition: transform 0.4s ease-out;
+    width: 75.5%;
+  }
+
+  .slideContainerRight {
+    width: 100%;
   }
 
 }
+
+@media screen and (min-width: 992px) {
+
+  .userTools .userMaganementDesktop form {
+    margin-left: 60px;
+  }
+
+  .dashboard-menu {
+    width: 20%;
+  }
+
+  .slideContainerLeft {
+    width: 80%;
+  }
+  
+}
+
+@media screen and (min-width: 1200px) {
+  .userTools .userMaganementDesktop form {
+    margin-left: 15%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .userTools .userMaganementDesktop form {
+    margin-left: 27%;
+  }
+
+  .dashboard-menu {
+    width: 15%;
+  }
+
+  .slideContainerLeft {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .userTools .userMaganementDesktop form {
+    margin-left: 31%;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .userTools .userMaganementDesktop form {
+    margin-left: 31%;
+  }
+}
+
+@media screen and (min-width: 2300px) {
+  .userTools .userMaganementDesktop form {
+    margin-left: 35%;
+  }
+}
+
 
 /* USERS ADMIN*/
 
@@ -1632,7 +1702,6 @@ textarea.parsley-error {
   text-align: left;
 }
 
-
 .btn-adduser{
   margin-top: 11px;
   padding: 7px 15px;
@@ -1642,9 +1711,14 @@ textarea.parsley-error {
   border-color: #ccc;
 }
 
-.btnsManageUsers button,
-.btnsManageUsers a {
+.btnsManageUsers {
   margin-left: 3px;
+  border: none;
+}
+
+.btnsManageUsers2 {
+  margin-left: 22px;
+  border: none;
 }
 
 .btn-adduser:focus,
@@ -1866,7 +1940,7 @@ textarea.parsley-error {
   }
 
   .heading .userInfo {
-    right: -40px;
+    right: -5%;
   }
 }
 

@@ -1474,6 +1474,18 @@ textarea.parsley-error {
   width: 100%;
 }
 
+.input-group.search,
+.input-group.search:hover,
+.input-group.search:active,
+.input-group.search:focus {
+  border: 1px solid #D51C5C;
+}
+
+.input-group.search input[type="text"]::placeholder {
+  font-family: 'BebasNeue-Book', sans-serif;
+  font-size: 2rem;
+}
+
 .search .form-control,
 .search .form-control:hover,
 .search .form-control:active{
@@ -1493,6 +1505,9 @@ textarea.parsley-error {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+  background-color: #D51C5C;
+  color: #FFF;
+  border: 0px;
 }
 
 .search .select, .search .select:hover {
@@ -1516,10 +1531,9 @@ textarea.parsley-error {
     color:#fff;
     top:0.6em;
 }
-
 .input-group-addon.focused  {
-  border-color: #41BEBB;
-  color: #41BEBB;
+  border-color: ##FFF;
+  color: ##FFF;
 }
 
 
@@ -1614,7 +1628,7 @@ textarea.parsley-error {
 
 .btn-adduser{
   margin-top: 5px;
-  padding: 10px 15px;
+  padding: 11px 15px;
   margin-left: 5px;
   color: #333;
   background-color: #fff;

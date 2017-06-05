@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var TicketSchema   = new Schema({
 
-  filed_by:  { type: Schema.Types.ObjectId, ref: 'User', required:true },
+  requested_by:  { type: Schema.Types.ObjectId, ref: 'User', required:true },
   created_by: { type: Schema.Types.ObjectId, ref: 'User' , required:true},
   assigned_to: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 

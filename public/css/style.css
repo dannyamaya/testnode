@@ -56,8 +56,6 @@
   font-style: normal;
 }
 
-
-
 html,body{
   height: 100%;
   width:100%;
@@ -1264,7 +1262,7 @@ input[type="file"]::-webkit-file-upload-button {
   position: relative;
   vertical-align: middle;
   padding: 0;
-  overflow: hidden;
+  height:40px;
   background: #fff;
   color: #555;
   border: 1px solid #aaa;
@@ -1294,7 +1292,7 @@ input[type="file"]::-webkit-file-upload-button {
   outline: none !important;
   padding: 0.5em;
   padding-right: 2em;
-  width: 130%;
+  width: 100%;
   border: none;
   background: transparent;
   background-image: none;
@@ -1399,6 +1397,7 @@ textarea.parsley-error {
   font-size: 0.9em;
   line-height: 0.9em;
   opacity: 0;
+  color:#B94A48;
 
   transition: all .3s ease-in;
   -o-transition: all .3s ease-in;
@@ -1409,11 +1408,6 @@ textarea.parsley-error {
 .parsley-errors-list.filled {
   opacity: 1;
 }
-
-
-
-
-
 
 .dashcontainer{
   min-height:100%;

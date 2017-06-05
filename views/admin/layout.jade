@@ -20,7 +20,7 @@ html.no-js(lang="es")
   body
     
     .col-xs-6.col-sm-2.dashboard-menu.off-canvas-menu-closed#off-canvas-menu
-        .col-xs-8.col-xs-offset-2.col-sm-12.col-sm-offset-0.logo-dashboard
+        .col-xs-8.col-xs-offset-2.col-md-8.col-md-offset-2.logo-dashboard
             img.img-responsive(src="/img/logolivinn-blanco.svg", alt="Livinn")
         ul.list-unstyled.col-xs-12.no-padding
             //- li.inactive DASHBOARD
@@ -59,6 +59,8 @@ html.no-js(lang="es")
 
 
         block content
+
+    block modals
     .alert.alert-warning.animated.col-xs-12.col-sm-6.col-sm-offset-3#warning
         p.text-center
     .alert.alert-success.animated.col-xs-12.col-sm-6.col-sm-offset-3#success
@@ -93,22 +95,23 @@ html.no-js(lang="es")
         function toggleMenu() {
           $('.toggle-btn').toggleClass( "active" );
           
-          if ($('#off-canvas-menu').hasClass('off-canvas-menu-open')) {
-              $("#dashcontainer").removeClass("col-sm-10 col-sm-offset-2");              
+          if ($('#off-canvas-menu').hasClass('off-canvas-menu-open')) {             
               $('#off-canvas-menu').removeClass('off-canvas-menu-open');
               $('#off-canvas-menu').addClass('off-canvas-menu-closed');
               $('#dashcontainer').addClass('slideContainerRight');
               $('#dashcontainer').removeClass('slideContainerLeft');
+              $('.logoHeading').children().addClass('col-sm-5');
+              $('.logoHeading').children().removeClass('col-sm-7');
               $('#btn-mobileMenu').css('right', '13px');
-              $('.userInfo').addClass('right', '-40px');
 
           } else {
-              $("#dashcontainer").addClass("col-sm-10 col-sm-offset-2");
               $('#off-canvas-menu').removeClass('off-canvas-menu-closed');
               $('#off-canvas-menu').addClass('off-canvas-menu-open');
               $('#dashcontainer').addClass('slideContainerLeft');
               $('#dashcontainer').removeClass('slideContainerRight');
-              $('#btn-mobileMenu').css('right', '5%', 'z-index','10');
+              $('.logoHeading').children().removeClass('col-sm-5');
+              $('.logoHeading').children().addClass('col-sm-7');
+              $('#btn-mobileMenu').css('right', '4%');
               $('.userInfo').css('right', '-10px');
           }
         }

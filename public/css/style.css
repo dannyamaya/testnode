@@ -1469,11 +1469,7 @@ textarea.parsley-error {
 }
 
 .search{
-<<<<<<< HEAD
-  margin-top: 1px;
-=======
   margin-top: 5px;
->>>>>>> 559e008796a72c0a134df2c6c7dfd6251b10ff2a
   border:1px solid #ccc;
   width: 100%;
 }

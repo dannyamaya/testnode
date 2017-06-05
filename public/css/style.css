@@ -116,7 +116,7 @@ button:focus{
 }
 
 .form-control{
-  height: 42px;
+  height: 32px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
@@ -203,11 +203,11 @@ button:focus{
 /* MENU & NAVIGATIONS */
 
 .slideContainerLeft {
-  -webkit-transform: translate3d(-50%,0,0);
-  -moz-transform: translate3d(-50%,0,0);
-  -ms-transform: translate3d(-50%,0,0);
-  -o-transform: translate3d(-50%,0,0);
-  transform: translate3d(-50%,0,0);
+  -webkit-transform: translate3d(-190px,0,0);
+  -moz-transform: translate3d(-190px,0,0);
+  -ms-transform: translate3d(-190px,0,0);
+  -o-transform: translate3d(-190px,0,0);
+  transform: translate3d(-190px,0,0);
   transition: transform 0.4s ease-in-out;
 }
 
@@ -571,6 +571,7 @@ button:focus{
   float: right;
   border: none;
   box-shadow: none;
+  margin-top: 5px;
 }
 
 .userSearch-Management .form-group button i {
@@ -1463,13 +1464,21 @@ textarea.parsley-error {
 }
 
 .search{
-<<<<<<< HEAD
-  margin-top: 1px;
-=======
-  margin-top: 5px;
->>>>>>> 559e008796a72c0a134df2c6c7dfd6251b10ff2a
+  margin-top: 11px;
   border:1px solid #ccc;
   width: 100%;
+}
+
+.input-group.search,
+.input-group.search:hover,
+.input-group.search:active,
+.input-group.search:focus {
+  border: 1px solid #D51C5C;
+}
+
+.input-group.search input[type="text"]::placeholder {
+  font-family: 'BebasNeue-Book', sans-serif;
+  font-size: 2rem;
 }
 
 .search .form-control,
@@ -1491,6 +1500,9 @@ textarea.parsley-error {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+  background-color: #D51C5C;
+  color: #FFF;
+  border: 0px;
 }
 
 .search .select, .search .select:hover {
@@ -1514,10 +1526,9 @@ textarea.parsley-error {
     color:#fff;
     top:0.6em;
 }
-
 .input-group-addon.focused  {
-  border-color: #41BEBB;
-  color: #41BEBB;
+  border-color: ##FFF;
+  color: ##FFF;
 }
 
 
@@ -1525,13 +1536,16 @@ textarea.parsley-error {
   border-color: #E3E6EB;
 }
 
-.table-responsive{
+/*.table-responsive{
   background-color: #F9F9FC;
-}
+}*/
 
 .table tbody tr{
   background-color:#fff;
   text-align: center;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+
 }
 
 .table-striped > tbody > tr:nth-of-type(2n+1) {
@@ -1570,9 +1584,13 @@ textarea.parsley-error {
   margin-bottom: 20px !important;
 }
 
-.panel-user {
-  border: 1px solid #E3E6EB !important;
+.table-responsive {
+  border: none;
 }
+
+/*.panel-user {
+  border: 1px solid #E3E6EB !important;
+}*/
 
 .panel-tickets{
   border: none !important;
@@ -1602,7 +1620,6 @@ textarea.parsley-error {
   width: 70px;
   height: 60px;
   margin-left: 3px;
-
 }
 
 .subject{
@@ -1611,12 +1628,17 @@ textarea.parsley-error {
 
 
 .btn-adduser{
-  margin-top: 5px;
-  padding: 10px 15px;
+  margin-top: 11px;
+  padding: 7px 15px;
   margin-left: 5px;
   color: #333;
   background-color: #fff;
   border-color: #ccc;
+}
+
+.btnsManageUsers button,
+.btnsManageUsers a {
+  margin-left: 3px;
 }
 
 .btn-adduser:focus,
@@ -1644,9 +1666,12 @@ textarea.parsley-error {
 .btn-main_hover,
 .btn-main:focus,
 .btn-main:active{
-  margin-top: 5px;
-  padding: 10px 15px;
-  float: right;
+  margin-top: 11px;
+  padding: 7px 15px 5px;
+  margin-left: 5px;
+  box-shadow: none;
+  text-transform: uppercase;
+  font-family: 'BebasNeue-Regular', sans-serif;
 }
 
 .cleanRoleSearch, .cleanLocationSearch{

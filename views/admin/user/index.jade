@@ -71,26 +71,44 @@ block content
                   span
                     i.icon.ion-ios-arrow-up
               .col-xs-6.btnClearFilters
-                button.btn.btn-default Clear All
+                button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
             .col-xs-12.no-padding.search-filtersMobile
               form.col-xs-12.navbar-left(action='' method='' type='')
                 .form-group
                   input.form-control(type='text', placeholder='Search')
               ul.col-xs-12.no-padding.nav.navbar-nav
                 li.col-xs-12.no-padding.dropdown
-                  a.col-xs-12.dropdown-toggle(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+                  a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
                     span
                       i.icon.ion-ios-arrow-down
                   ul.col-xs-12.no-padding.dropdown-menu
-                    li.col-xs-12 Bogotá
-                    li.col-xs-12 Medellin
+                    li
+                        a.locationSearch(href="#") Lord Cochrane Santiago
+                    li
+                        a.locationSearch(href="#") Viña del Mar
+                    li
+                        a.locationSearch(href="#") Calle 18 Bogotá
+                    li
+                        a.locationSearch(href="#") Calle 21 Bogotá
+                    li
+                        a.locationSearch(href="#") Villa campestre Barranquilla
                 li.col-xs-12.no-padding.dropdown
-                  a.col-xs-12.dropdown-toggle(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
+                  a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
                     span
                       i.icon.ion-ios-arrow-down
                   ul.col-xs-12.no-padding.dropdown-menu
-                    li.col-xs-12 Aministrador
-                    li.col-xs-12 Residente
+                    li
+                      a.roleSearch(href="#") Client Service
+                    li
+                        a.roleSearch(href="#") Maintenance
+                    li
+                        a.roleSearch(href="#") Marketing
+                    li
+                        a.roleSearch(href="#") Resident
+                    li
+                        a.roleSearch(href="#") Resident Assistant
+                    li
+                        a.roleSearch(href="#") Operation Manager
 
 
 
@@ -1116,7 +1134,8 @@ block scripts
         $('.locationSearch').click(function(){
 
             var selectedLocation = $(this).html();
-            $("#dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>')
+            $("#dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>');
+            $(".dropdownLocation").html(selectedLocation+'<span><i class="fa fa-angle-down"></i></span>');
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");
@@ -1129,7 +1148,8 @@ block scripts
         $('.roleSearch').click(function(){
 
             var selectedRole = $(this).html();
-            $("#dropdownRol").html(selectedRole+'<i class="fa fa-angle-down"></i>')
+            $("#dropdownRol").html(selectedRole+'<i class="fa fa-angle-down"></i>');
+            $(".dropdownRol").html(selectedRole+'<span><i class="fa fa-angle-down"></i></span>');
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");
@@ -1142,6 +1162,7 @@ block scripts
         $('.cleanLocationSearch').click(function(){
 
             $("#dropdownLocation").html('Location<i class="fa fa-angle-down"></i>')
+            $(".dropdownLocation").html('Location<span><i class="fa fa-angle-down"></i></span>');
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");
@@ -1153,6 +1174,7 @@ block scripts
         $('.cleanRoleSearch').click(function(){
 
             $("#dropdownRol").html('Role<i class="fa fa-angle-down"></i>')
+            $(".dropdownRol").html('Role<span><i class="fa fa-angle-down"></i></span>')
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");

@@ -1349,7 +1349,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .select.select-livinn {
   width: auto;
-  margin: 19px 15px 0;
+  margin: 3px 15px 0;
   border: none;
   text-shadow: none;
 }
@@ -1469,7 +1469,11 @@ textarea.parsley-error {
 }
 
 .search{
+<<<<<<< HEAD
+  margin-top: 1px;
+=======
   margin-top: 5px;
+>>>>>>> 559e008796a72c0a134df2c6c7dfd6251b10ff2a
   border:1px solid #ccc;
   width: 100%;
 }

@@ -2,8 +2,10 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
-    .col-xs-12.content
-        .panel.panel-default.col-xs-12
+    .col-xs-12.userTools.has-feedbackc
+        .col-xs-2
+            h2 #{title}
+        .col-xs-10
             form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
                 .col-xs-4.no-padding
                     .input-group.search
@@ -45,6 +47,9 @@ block content
             .col-xs-1.no-padding
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
                     i.fa.fa-plus
+    .col-xs-12.content
+        .panel.panel-default.col-xs-12
+
             .clearfix(style="margin-bottom:15px;")
             #loader
             .col-xs-12.no-padding.tickets

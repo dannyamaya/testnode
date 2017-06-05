@@ -925,6 +925,10 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 /* TICKET MODAL */
+.ticket-modal{
+    padding-right: 0 !important;
+}
+
 .ticket-modal .modal-content, .ticket-modal .modal-body, .ticket-modal .modal-body .row{
     height:100% !important;
 }

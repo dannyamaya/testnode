@@ -87,7 +87,7 @@ module.exports = {
                     if(!tpopulated){
                         res.status(404).json({ message: "User not found" });
                     }else {
-                        mailer.newTicket(tpopulated);
+                        //mailer.newTicket(tpopulated);
                         return res.status(200).json({ticket: tpopulated, message: "Work Order has been created"});
                     }
                 });
@@ -300,6 +300,7 @@ module.exports = {
                         Ticket.find(options)
                         .populate('created_by', 'name company email phone profile_picture')
                         .populate('requested_by', 'name company email phone profile_picture')
+                        .populate('requested_by', 'name company email phone profile_picture')
                         .sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
@@ -311,10 +312,10 @@ module.exports = {
                                     });
                                     callback(null, tickets);
                                 }
-                                else if(req.query.filed_by){
-                                    var regexp = new RegExp(req.query.filed_by, 'i');
+                                else if(req.query.requested_by){
+                                    var regexp = new RegExp(req.query.requested_by, 'i');
                                     var tickets = t.filter( function(val){
-                                        return regexp.test(val.filed_by.name.first);
+                                        return regexp.test(val.requested_by.name.first);
                                     });
                                     callback(null, tickets);
                                 }else{

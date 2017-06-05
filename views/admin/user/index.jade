@@ -63,14 +63,14 @@ block content
                   span
                     i.icon.ion-ios-search-strong
 
-        .col-xs-12.no-padding#userFilters.userFilters.userFiltersUp
+        .col-xs-12.no-padding.hidden-md.hidden-lg#userFilters.userFilters.userFiltersUp
             .col-xs-12.no-padding.clearFilters
               .col-xs-6.btnCloseFiltersMobile
                 button.btn.btn-default(onclick='collapseFilters()')
                   span
                     i.icon.ion-ios-arrow-up
               .col-xs-6.btnClearFilters
-                button.btn.btn-default Clear All       
+                button.btn.btn-default Clear All
             .col-xs-12.no-padding.search-filtersMobile
               form.col-xs-12.navbar-left(action='' method='' type='')
                 .form-group
@@ -90,11 +90,12 @@ block content
                   ul.col-xs-12.no-padding.dropdown-menu
                     li.col-xs-12 Aministrador
                     li.col-xs-12 Residente
-    
-    
+
+
 
     .col-xs-12.content
-        .panel-default.col-xs-12.no-padding            
+
+        .panel-default.col-xs-12.no-padding
           .clearfix
           .table-responsive.panel-user
               table.table.table-striped.hidden#userstable
@@ -1159,6 +1160,11 @@ block scripts
 
         });
 
+        //Export users
+        function exportUsers(){
+            var search = $('#search').val().trim();
+            window.open('/api/users/export?search='+search,'_blank');
+        }
 
         // Enables datepicker select in modal
         var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;

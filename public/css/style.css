@@ -406,7 +406,7 @@ button:focus{
 
 .nav > li > a, .nav > li > a:active, .nav > li > a:focus, .nav > li > a:hover{
   background-color:transparent;
-  color: #554F58;
+  color: #FFF;
   padding-top: 18px;
   padding-bottom: 17px;
   padding-right: 14px;
@@ -576,7 +576,7 @@ button:focus{
 }
 
 .userSearch-Management .form-group button i {
-  font-size: 2rem  
+  font-size: 2rem
 }
 
 /*.tagarea{
@@ -1454,11 +1454,14 @@ textarea.parsley-error {
 
 .logoHeading a {
   position: relative;
-  top: 50%;  
-  -ms-transform: translateY(-50%);  
+  top: 50%;
+  -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+}
 
+.heading .userInfo {
+  height: inherit;
 }
 
 .dashcontainer.col-sm-10 .heading h1{
@@ -1754,7 +1757,7 @@ textarea.parsley-error {
 .form-login {
   position: relative;
   top: 50%;
-  -ms-transform: translateY(-53%);  
+  -ms-transform: translateY(-53%);
   -webkit-transform: translateY(-53%);
   transform: translateY(-53%);
 }
@@ -1806,11 +1809,12 @@ textarea.parsley-error {
   height: 30px;
 }
 
+
 .form-container form input[type="email"]::placeholder,
 .form-container form input[type="password"]::placeholder {
   color: #dbdbdb;
   line-height: 25px;
-  font-family: 'BebasNeue-Book', sans-serif; 
+  font-family: 'BebasNeue-Book', sans-serif;
 }
 
 .forgot-btn{
@@ -1831,17 +1835,24 @@ textarea.parsley-error {
   .dashboard-menu{
     position: fixed;
   }
+
+  .heading .userInfo {
+    right: -40px;
+  }
+
+  .heading .userInfo ul {
+    height: inherit;
+  }
 }
 
 @media screen and (min-width: 992px) {
   .form-login {
     position: relative;
     top: 50%;
-    -ms-transform: translateY(-63%);  
+    -ms-transform: translateY(-63%);
     -webkit-transform: translateY(-63%);
     transform: translateY(-63%);
   }
-
 
   .heading{
     position: fixed;
@@ -1849,6 +1860,14 @@ textarea.parsley-error {
     z-index: 999;
     background-color: #000;
     margin-bottom: 15px;
+  }
+
+  .heading .userInfo ul {
+    margin-top: 7px;
+  }
+
+  .toggle-btn {
+    margin-top: 7px;
   }
 
   .bordeGradiente {
@@ -1860,6 +1879,7 @@ textarea.parsley-error {
     margin-top: 79px;
     height: 55px;
   }
+
 }
 
 .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {

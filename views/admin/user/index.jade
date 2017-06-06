@@ -151,111 +151,131 @@ block content
             p.text-center#pages 1-10 de # Users
         nav#page-nav
             .text-center#page-selection
+      button.btn.btn-livinn.hidden-md.hidden-lg.btn-addUserMobile(data-toggle='modal', data-target="#registrationModal", href="/#", data-dismiss="modal")
+        i.icon.ion-plus
 block modals
+
+
     <!-- User Read Modal -->
-    .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-                    h2.modal-title.text-center.readModalTitle
                 .modal-body
                     .row
-                        .col-xs-12.col-md-6.no-padding
-                          img.img-circle#profilePicture(src="")
-                          .col-sm-12.no-padding
-                              .form-group.emailregistrationerror.col-sm-4
-                                  label(for='email') Email
-                                  p#emailRead
-                              .form-group.col-sm-4
-                                  label(for='first') First Name
-                                  p#firstRead
-                              .form-group.col-sm-4
-                                  label(for='last') Last Name
-                                  p#lastRead
-                          .col-sm-12.no-padding
-                              .form-group.col-sm-4.col-sm-offset-2
-                                  label Type of Document
-                                  p#doctypeRead
-                              .form-group.col-sm-4
-                                  label(for='document') Document
-                                  p#documentRead
-                              .form-group.col-sm-8
-                                  label(for='phone') Phone
-                                  p#phoneRead
-                        .col-xs-12.col-md-6.no-padding
-
-                                .col-sm-12
-                                    .form-group.col-sm-4
+                        .col-xs-12.col-sm-10.col-sm-offset-1
+                                .col-xs-12.col-sm-6
+                                    .form-group
+                                        .preview.img-wrapper.img-preloaded#readProfileImage
+                                    .form-group
+                                        label(for='first')
+                                            |   First Name
+                                            span.requiredLivinn *
+                                        p#firstRead
+                                    .form-group
+                                        label(for='last')
+                                            |   Last Name
+                                            span.requiredLivinn *
+                                        p#lastRead
+                                    .form-group.emailregistrationerror
+                                        label(for='email') Email
+                                        span.requiredLivinn *
+                                        p#emailRead
+                                .col-xs-12.col-sm-6
+                                    .form-group
                                         label Role
+                                        span.requiredLivinn *
                                         p#roleRead
-                                    .form-group.col-sm-4
+
+                                    .form-group
+                                        label Document Type
+                                        span.requiredLivinn *
+                                        p#doctypeRead
+
+                                    .form-group
+                                        label(for='document') Document
+                                        span.requiredLivinn *
+                                        p#documentRead
+                                    .form-group.col-xs-12.col-sm-6.no-padding
                                         label Location
+                                        span.requiredLivinn *
                                         p#locationRead
-                                    .form-group.col-sm-4
+
+                                    .form-group.col-xs-12.col-sm-6.no-padding-right
                                         label Time Zone
+                                        span.requiredLivinn *
                                         p#timezoneRead
-                                    .differentResident
-                                        .form-group.col-sm-4
-                                            label(for='occupation') Ocuppation
-                                            p#occupationRead
-                                        .form-group.col-sm-4
-                                            label(for='skype') Skype
-                                            p#skypeRead
 
+                                    .form-group
+                                        label(for='phone') Phone
+                                        span.requiredLivinn *
+                                        p#phoneRead
+                                    .form-group.differentResident
+                                        label(for='occupation') Ocuppation
+                                        p#occupationRead
+                                    .form-group.differentResident
+                                        label(for='skype') Skype
+                                        p#skypeRead
+                                    .form-group.residentFields
+                                        label(for='birthdate') Birth Date
+                                        p#birthdateRead
+                                .col-xs-12.no-padding.residentFields
+                                    hr
+                                    .form-group.col-sm-4
+                                        label(for='numcontract')
+                                            |   Contract Number
+                                        span.requiredLivinn *
+                                        p#numcontractRead
+                                    .form-group.col-sm-4
+                                        label(for='start')
+                                            |   Start
+                                            span.requiredLivinn *
+                                        p#startRead
+                                    .form-group.col-sm-4
+                                        label(for='finish')
+                                            |   Finish
+                                            span.requiredLivinn *
+                                        p#finishRead
+                                    .form-group.col-sm-8
+                                        label(for='rate') Agent
+                                        span.requiredLivinn *
+                                        p#agentRead
+                                    .form-group.col-sm-4
+                                        label Status
+                                        p#statusRead
 
-                                .col-sm-12.residentFields
-                                    br
-                                    h3.modal-title.text-center Resident Aditional Fields
-                                    br
-                                    .col-sm-12
-
+                                    .col-xs-12.no-padding
                                         .form-group.col-sm-4
-                                            label(for='numcontract') Contract Number
-                                            p#numcontractRead
-                                        .form-group.col-sm-4
-                                            label(for='birthdate') Birth Date
-                                            p#birthdateRead
-                                        .form-group.col-sm-4
-                                            label(for='apartment') Apartment
-                                            p#apartmentRead
-                                    .col-sm-12
-                                        .form-group.col-sm-4
-                                            label(for='type') Apartment Type
-                                            p#typeRead
-                                        .form-group.col-sm-4
-                                            label Bathroom
-                                            p#bathroomRead
-                                        .form-group.col-sm-4
-                                            label(for='bed') Bed
-                                            p#bedRead
-                                    .col-sm-12
-                                        .form-group.col-sm-4
-                                            label(for='rate') Rate
+                                            label(for='rate')
+                                                |   Amount
+                                                span.requiredLivinn *
                                             p#rateRead
                                         .form-group.col-sm-4
-                                            label(for='currency') Currency
+                                            label(for='currency')
+                                                |   Currency
+                                            span.requiredLivinn *
                                             p#currencyRead
+
                                         .form-group.col-sm-4
-                                            label(for='rateusd') Rate USD
+                                            label(for='rateusd') Amount USD
                                             p#rateusdRead
-                                    .col-sm-12
-                                        .form-group.col-sm-4
-                                            label(for='rate') Agent
-                                            p#agentRead
-                                        .form-group.col-sm-4
-                                            label(for='finish') Finish
-                                            p#finishRead
-                                        .form-group.col-sm-4
-                                            label(for='start') Start
-                                            p#startRead
-                                    .col-sm-12
-                                        .form-group.col-sm-4
-                                            label(for='duration') Duration
-                                            p#durationRead
-                                        .form-group.col-sm-4
-                                            label Status
-                                            p#statusRead(name="status" disabled)
+                                    hr.col-xs-12
+                                    .form-group.col-sm-6
+                                        label(for='apartment') Apartment
+                                        span.requiredLivinn *
+                                        p#apartmentRead
+                                    .form-group.col-sm-6
+                                        label(for='type') Apartment Type
+                                        span.requiredLivinn *
+                                        p#typeRead
+                                    .form-group.col-sm-6
+                                        label Bathroom
+                                        p#bathroomRead(name="bathroom" )
+
+                                    .form-group.col-sm-6
+                                        label(for='bed') Bed
+                                        p#bedRead
 
 
     <!-- User Registration Modal -->
@@ -1126,6 +1146,8 @@ block scripts
                 url: 'api/users/' + id,
                 success: function (response) {
                     $('.readModalTitle').html('<span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>');
+                    $('#readProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
+
                     $("#profilePicture").attr('src',response.user.profile_picture);
                     $("#emailRead").text(response.user.email);
                     $("#firstRead").text(response.user.name.first);

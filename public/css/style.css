@@ -781,11 +781,11 @@ button:focus{
   .slideContainerLeft {
     width: 80%;
   }
-  
+
 }
 
 @media screen and (min-width: 1200px) {
-    
+
   .logoHeading a {
     width: 120px;
   }
@@ -910,7 +910,7 @@ input[type="file"]::-webkit-file-upload-button {
 /* TICKETS */
 .ticket{
   border:1px solid #ccc;
-  height:100px;
+  height:138px;
   margin-bottom: 10px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -918,7 +918,6 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-up{
-  height:65px;
   padding-top:10px;
 }
 
@@ -961,10 +960,8 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-title{
-  color:#506470;
-  margin-top:3px;
-  font-size: 16px;
-  font-weight: bold;
+  color: #506470;
+  margin-bottom: 0;
 }
 
 .ticket-btn-group{
@@ -1021,8 +1018,8 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket .reference, .ticket .created-by, .ticket .assigned-to{
-  margin-right: 7px;
-  color:#FFF;
+  color:#506470;
+  margin-bottom: 0
 }
 
 /* TICKET MODAL */
@@ -1368,7 +1365,7 @@ input[type="file"]::-webkit-file-upload-button {
   position: relative;
   vertical-align: middle;
   padding: 0;
-  height:40px;
+  height:32px;
   background: #fff;
   color: #555;
   border: 1px solid #aaa;
@@ -1389,7 +1386,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 .select:before {
   position: absolute;
-  top: 0.9em;
+  top: 0.5em;
   right: 0.5em;
   pointer-events: none;
 }
@@ -1408,7 +1405,7 @@ input[type="file"]::-webkit-file-upload-button {
   text-indent: 0.01px;
   text-overflow: '';
   width: 160% \9;
-  height: 40px;
+  height: 32px;
 }
 .select select:focus, .select select:active, .select select:hover,
 .select:focus:before, .select:active:before, .select:hover:before  {
@@ -1520,12 +1517,12 @@ textarea.parsley-error {
   background-color: #fff;
 }
 
-.dashcontainer .col-xs-12{
+/*.dashcontainer .col-xs-12{
   -webkit-transition: -webkit-transform .5s cubic-bezier(.16, .68, .43, .99);
   -moz-transition: -moz-transform .5s cubic-bezier(.16, .68, .43, .99);
   -o-transition: -o-transform .5s cubic-bezier(.16, .68, .43, .99);
   transition: transform .5s cubic-bezier(.16, .68, .43, .99);
-}
+}*/
 
 .heading{
   position: fixed;
@@ -1546,6 +1543,10 @@ textarea.parsley-error {
 
 .heading .navbar-right .dropdown-menu>li>a {
   color: #FFF;
+}
+
+.heading-title{
+    margin-top: 7px;
 }
 
 .logoHeading {
@@ -1578,7 +1579,7 @@ textarea.parsley-error {
 .input-group.search:hover,
 .input-group.search:active,
 .input-group.search:focus {
-  border: 1px solid #D51C5C;
+  border: none;
 }
 
 .input-group.search input[type="text"]::placeholder {
@@ -1611,13 +1612,12 @@ textarea.parsley-error {
 }
 
 .search .select, .search .select:hover {
-    margin-top: 3px;
     position:relative;
-    left: 3px;
     background-color: #E30056;
     border-color: #E30056;
-    color:#fff;
-    border-radius:0;
+    color: #fff;
+    border-radius: 0;
+    height: 32px;
 }
 
 .search .select select, .search .select select:hover{
@@ -2004,6 +2004,10 @@ textarea.parsley-error {
     z-index: 999;
     background-color: #000;
     margin-bottom: 15px;
+  }
+
+  .heading-title{
+      margin-top: 12px;
   }
 
   .heading .userInfo ul {

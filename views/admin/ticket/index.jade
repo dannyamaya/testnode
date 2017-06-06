@@ -3,9 +3,13 @@ block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
     .col-xs-12.userTools.has-feedbackc
-        .col-xs-2
-            h2 #{title}
-        .col-xs-10
+        .col-xs-12.col-md-2.heading-title
+            h2.col-xs-10.col-md-12.no-padding #{title}
+            .pull-right.visible-xs.visible-sm
+                button.btn.btn-livinn#Filters(onclick="deployFilters()" style="padding: 2px 8px; margin-top: -2px;")
+                    span
+                        i.icon.ion-ios-search-strong(style="font-size:2rem;")
+        .col-xs-10.hidden-xs.hidden-sm
             form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
                 .col-xs-4.no-padding
                     .input-group.search
@@ -48,16 +52,42 @@ block content
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
                     i.fa.fa-plus
     .col-xs-12.content
-        .panel.panel-default.col-xs-12
-
+        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
             .clearfix(style="margin-bottom:15px;")
             #loader
             .col-xs-12.no-padding.tickets
+                //------------- TICKET EXAMPLE ---------------
+                .col-xs-12.no-padding.ticket
+                    .col-xs-2.ticket-profile-img.no-padding
+                      img.img-circle.img-responsive(src='https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/profile_pictures/1020751320/descarga.jpg')
+                    .col-xs-10.ticket-up-info
+                      p.col-xs-12.no-padding.ticket-title easdczx
+                      p.col-xs-12.no-padding.reference #5935d58f651b69495de73d98
+                      p.col-xs-12.no-padding.assigned-to
+                        |   Assigned to:
+                        span Tim
+                      p.col-xs-12.no-padding.created-to
+                        |   Created by:
+                        span Tim
+                      .col-xs-12.no-padding.ticket-subtitle
+                          .col-xs-6.no-padding
+                            span.label.label-customer CUSTOMER SERVICES
+                            span.label.label-default CUSTOMER SERVICES
+                          .col-xs-6.no-padding
+                            p.text-right June 5th 2017, 5:05:03 pm
+                    .ticket-btn-group.hidden-xs.hidden-sm
+                      button.btn-exclamation-circle.btn-status.active(type='button', title='Pending', data-id='5935d58f651b69495de73d98', data-status='0')
+                        i.fa.fa-exclamation-circle
+                      button.btn-clock-o.btn-status(type='button', title='Open', data-id='5935d58f651b69495de73d98', data-status='1')
+                        i.fa.fa-clock-o
+                      button.btn-check-circle.btn-status(type='button', title='Resolved', data-id='5935d58f651b69495de73d98', data-status='2')
+                        i.fa.fa-check-circle
+
 
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed.hide
         .panel.panel-default.col-xs-12.no-padding
             h2 activity feed
-
+block modals
     <!-- New Work Order Modal -->
     .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
@@ -257,9 +287,14 @@ block scripts
         //----------------- SOCKET.IO ---------------------------
 
         var socket = io('/superadmin');
+        var attachment = '';
         socket.on('new-ticket', function (dataServer) {
-
-            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+dataServer.ticket.priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" +'"'+ dataServer.ticket._id +'"'+ " )' ><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+            if(dataServer.ticket.attachments){
+                attachment = '<i class="fa fa-paperclip" aria-hidden="true"></i>';
+            } else {
+                attachment = '';
+            }
+            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+dataServer.ticket.priority+"</strong></p></div>"+attachment+"<div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" +'"'+ dataServer.ticket._id +'"'+ " )' ><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
 
         });
 
@@ -414,7 +449,7 @@ block scripts
                 }
             }
 
-            $('.tickets').html("");
+            //$('.tickets').html("");
 
             $.ajax({
                 type: "GET",
@@ -423,9 +458,15 @@ block scripts
 
                     var count = data.count;
                     var category = "";
+                    var attachment = "";
 
                     for (key = 0; key < data.tickets.length; key++) {
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].requested_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+                        if(data.tickets[key].attachments){
+                            attachment = '<i class="fa fa-paperclip paperclip" aria-hidden="true"></i>';
+                        } else {
+                            attachment = '';
+                        }
+                        $('.tickets').append("<div class='col-xs-12 no-padding ticket hidden'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') +attachment+ "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].requested_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     }
                 }
             }).done(function (data) {

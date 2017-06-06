@@ -8,7 +8,7 @@ module.exports = {
         if (req.isAuthenticated()) {
             if ( req.user.hasRole('admin') || req.user.hasRole('operation manager') ) {
                 return res.redirect('/users');
-            } else if ( req.user.hasRole('marketing') || req.user.hasRole('maintenance') || req.user.hasRole('client-service') || req.user.hasRole('resident-assitant') ) {
+            } else if ( req.user.hasRole('marketing') || req.user.hasRole('maintenance') || req.user.hasRole('client service') || req.user.hasRole('resident assitant') ) {
                 return res.redirect('/tickets');
             } else if (req.user.hasRole('resident')) {
                 return res.redirect('/resident/tickets');
@@ -45,7 +45,7 @@ module.exports = {
 
     ensureLivinn: function(req,res,next){
         if (req.isAuthenticated()) {
-            if (req.user.hasRole('admin') || req.user.hasRole('marketing') || req.user.hasRole('operation manager') || req.user.hasRole('maintenance') || req.user.hasRole('client-service') || req.user.hasRole('resident-assitant') ) {
+            if (req.user.hasRole('admin') || req.user.hasRole('marketing') || req.user.hasRole('operation manager') || req.user.hasRole('maintenance') || req.user.hasRole('client service') || req.user.hasRole('resident assitant') ) {
                 return next();
             } else {
                 return res.redirect('/');

@@ -523,7 +523,9 @@ module.exports = {
                     });
                 }
                 else{
-                    res.render('404');
+                    res.render('token-expired', {
+                        title: 'token expired'
+                    });
                 }
             }
         });

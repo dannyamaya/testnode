@@ -178,7 +178,7 @@ module.exports = {
         Ticket.findOne({_id: req.params.id})
             .populate('created_by', 'name company email phone profile_picture')
             .populate('requested_by', 'name company email phone profile_picture')
-            .populate('assignee','name company email phone profile_picture')
+            .populate('assigned_to','name company email phone profile_picture')
             .exec(function (err, ticket) {
                 if (err) {
                     console.log('ERROR: ' + err);
@@ -371,14 +371,13 @@ module.exports = {
                         else{
                             var tickets = results[0].filter( function(val){
                                 return (val.requested_by.id == req.user.id);
-                            });                            
+                            });
                         }
 
                         // console.log('RESULTS************');
                         // tickets.forEach(function(r) {
                         //     console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
                         //     console.log('***************');
-
                         // });
 
                         //console.log(results[0]);

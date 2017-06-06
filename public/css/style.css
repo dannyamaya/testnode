@@ -90,7 +90,7 @@ button:focus{
 }
 
 .content{
-  padding-top:135px;
+  padding-top:115px;
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -2024,6 +2024,10 @@ textarea.parsley-error {
     -ms-transform: translateY(-63%);
     -webkit-transform: translateY(-63%);
     transform: translateY(-63%);
+  }
+
+  .content {
+      padding-top: 134px;
   }
 
   .heading{

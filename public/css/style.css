@@ -912,7 +912,7 @@ input[type="file"]::-webkit-file-upload-button {
 .ticket{
   border:1px solid #ccc;
   min-height:138px;
-  margin-bottom: 10px;
+  margin-bottom: -1px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -956,9 +956,16 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-title{
-  color: #506470;
-  margin-bottom: 0;
-  margin-top: 5px;
+    color: #506470;
+    margin-bottom: 0;
+    margin-top: 10px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    font-size: 1.4em;
+}
+.ticket-title:hover{
+    font-weight: bold;
 }
 
 .ticket-btn-group{
@@ -1166,6 +1173,17 @@ input[type="file"]::-webkit-file-upload-button {
 
 .label-other{
   background-color: #c0392b;
+}
+
+.white{
+  color: white;
+}
+
+.textTemplate{
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
 }
 
 

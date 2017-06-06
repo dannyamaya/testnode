@@ -13,7 +13,7 @@ var ResidentSchema = new Schema({
     status:{type:String},
     rate: {type: String, required:true},
     currency: {type: String, required:true},
-    rateusd: {type: String, required:true},
+    rateusd: {type: String},
     agent: {type: String, required:true},
     finish: {type: Date, required:true},
     start: {type: Date, required:true},

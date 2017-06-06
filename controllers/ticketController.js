@@ -371,13 +371,13 @@ module.exports = {
                         else{
                             var tickets = results[0].filter( function(val){
                                 return (val.requested_by.id == req.user.id);
-                            });                            
+                            });
                         }
 
-                        console.log('RESULTS************');
+                        //console.log('RESULTS************');
                         tickets.forEach(function(r) {
-                            console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
-                            console.log('***************');
+                            //console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
+                            //console.log('***************');
 
                         });
 

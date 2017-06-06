@@ -73,7 +73,7 @@ block content
             .col-xs-12.no-padding.search-filtersMobile
               form.col-xs-12.navbar-left(action='' method='' type='')
                 .form-group
-                  input.form-control(type='text', placeholder='Search')
+                  input.form-control#searchMobile(type='text', placeholder='Search')
               ul.col-xs-12.no-padding.nav.navbar-nav
                 li.col-xs-12.no-padding.dropdown
                   a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
@@ -279,9 +279,8 @@ block modals
                                         label Role
                                         span.requiredLivinn *
                                         .select
-                                            select.roleSelect(name="role")
-                                                option(value="") Choose a role
-                                                option(value="resident") Resident
+                                            select.roleSelect#roleCreate(name="role" required='')
+                                                option(value="resident" selected=) Resident
                                                 option(value="marketing") Marketing
                                                 option(value="operation-manager") Operation Manager
                                                 option(value="maintenance") Maintenance
@@ -306,7 +305,7 @@ block modals
                                         label Location
                                         span.requiredLivinn *
                                         .select
-                                            select(name="location")
+                                            select(name="location" required='')
                                                 option(value="") Choose a location
                                                 option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
                                                 option(value="Calle 18 Bogotá") Bogotá - Calle 18
@@ -317,7 +316,7 @@ block modals
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
-                                            select(name="timezone")
+                                            select(name="timezone" required='')
                                                 option(value="") Choose time zone
                                                 option(value="América/Santiago") América/Chile
                                                 option(value="América/Bogotá") América/Colombia
@@ -327,7 +326,7 @@ block modals
                                         input#phone.form-control(type='text' name='phone' placeholder='Phone' required='' autofocus='')
                                     .form-group.differentResident
                                         label(for='occupation') Ocuppation
-                                        input#occupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='')
+                                        input#occupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='' required='')
                                     .form-group.differentResident
                                         label(for='skype') Skype
                                         input#skype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
@@ -340,25 +339,25 @@ block modals
                                         label(for='numcontract')
                                             |   Contract Number
                                             span.requiredLivinn *
-                                        input#numcontract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
+                                        input#numcontract.form-control.inputResident(type='text' placeholder='Contract Number' required='' name="numcontract" autofocus='')
                                     .form-group.col-sm-4
                                         label(for='start')
                                             |   Start
                                             span.requiredLivinn *
-                                        input#start.form-control(type='text' name='start' placeholder='YYYY-MM-DD' autofocus='')
+                                        input#start.form-control.inputResident(type='text' name='start' placeholder='YYYY-MM-DD' autofocus='' required='')
                                     .form-group.col-sm-4
                                         label(for='finish')
                                             |   Finish
                                             span.requiredLivinn *
-                                        input#finish.form-control(type='text' name='finish' placeholder='YYYY-MM-DD'  autofocus='')
+                                        input#finish.form-control.inputResident(type='text' name='finish' placeholder='YYYY-MM-DD'  autofocus='' required='')
                                     .form-group.col-sm-8
                                             label(for='rate') Agent
                                             span.requiredLivinn *
-                                            input#agent.form-control(type='text' name='agent' placeholder='Agent'  autofocus='')
+                                            input#agent.form-control.inputResident(type='text' name='agent' placeholder='Agent'  autofocus='' required='')
                                     .form-group.col-sm-4
                                         label Status
                                         .select
-                                            select(name="status")
+                                            select.inputResident(name="status")
                                                 option(value="") Choose a status
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
@@ -367,38 +366,38 @@ block modals
                                             label(for='rate')
                                                 |   Amount
                                                 span.requiredLivinn *
-                                            input#rate.form-control(type='text' name='rate' placeholder='Rate' autofocus='')
+                                            input#rate.form-control.inputResident(type='text' name='rate' placeholder='Rate' autofocus='' required='')
                                         .form-group.col-sm-4
                                             label(for='currency')
                                                 |   Currency
                                                 span.requiredLivinn *
                                             .select
-                                                select(name="currency")
+                                                select.inputResident(name="currency" required='')
                                                   option(value="") Choose a currency
                                                   option(value="CLP") CLP
                                                   option(value="COP") COP
                                         .form-group.col-sm-4
                                             label(for='rateusd') Amount USD
-                                            input#rateusd.form-control(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
+                                            input#rateusd.form-control.inputResident(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
                                     hr.col-xs-12
                                     .form-group.col-sm-6
                                         label(for='apartment') Apartment
                                         span.requiredLivinn *
-                                        input#apartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
+                                        input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
                                     .form-group.col-sm-6
                                         label(for='type') Apartment Type
                                         span.requiredLivinn *
-                                        input#type.form-control(type='text' name='apartmentType' placeholder='Type'  autofocus='')
+                                        input#type.form-control.inputResident(type='text' name='apartmentType' placeholder='Type'  autofocus='' required='')
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
-                                            select(name="bathroom")
+                                            select.inputResident(name="bathroom" )
                                                 option(value="") Choose a bathroom
                                                 option(value="single") Single
                                                 option(value="shared") Shared
                                     .form-group.col-sm-6
                                         label(for='bed') Bed
-                                        input#bed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
+                                        input#bed.form-control.inputResident(type='text' name='bed' placeholder='Bed' autofocus='')
                                     .col-sm-12
 
 
@@ -741,6 +740,26 @@ block scripts
 
         });
 
+        $('#roleCreate').on('change', function (e) {
+            var optionSelected = $("option:selected", this).val();
+            if(optionSelected != 'resident'){
+                $('.inputResident').prop('disabled', true);
+                $('#occupation').prop('disabled', false);
+
+            }else{
+                $('#occupation').prop('disabled',true);
+                $('.inputResident').prop('disabled', false);
+
+            }
+        });
+
+        $('.differentResident').hide();
+        $('#occupation').prop('disabled',true);
+
+        $('#registrationForm').parsley({
+            excluded: ' :disabled'
+        });
+
 
         /*=== Create user ===*/
         $('#registrationForm').submit(function (evt) {
@@ -768,7 +787,10 @@ block scripts
                         $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td style='width:33px;'><img class='img-circle table-profile-img' src='"+response.users.profile_picture + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
 
                         successAlert("User created");
+
                         $('#registrationForm').parsley().reset();
+
+
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1073,6 +1095,7 @@ block scripts
                     $("#skypeRead").text(response.user.skype);
 
                     if ($("#roleRead").text() === 'resident') {
+
                         $('.residentFields').show();
                         $('.differentResident').hide();
 
@@ -1180,7 +1203,29 @@ block scripts
 
         });
 
-        //Export users
+
+        //Search Mobi
+        $('#searchMobile').keypress(function(){
+            $('#userstable').fadeOut("fast", function () {
+                $('#loader').fadeIn("fast");
+                readUsers(1, $("#searchMobile").val());
+            });
+        });
+
+        $('#searchMobile').keyup(function (e) {
+            if(e.keyCode == 8){
+                $('#userstable').fadeOut("fast", function () {
+                    $('#loader').fadeIn("fast");
+                    readUsers(1, $("#searchMobile").val());
+                });
+            };
+        });
+
+
+
+
+
+            //Export users
         function exportUsers(){
             var search = $('#search').val().trim();
             window.open('/api/users/export?search='+search,'_blank');

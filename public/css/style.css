@@ -440,6 +440,7 @@ button:focus{
   display: table;
   white-space: nowrap;
   float: left;
+  margin-top: 8px;
 }
 
 .userTools h2 {
@@ -588,6 +589,10 @@ button:focus{
 
 .userSearch-Management .form-group button i {
   font-size: 2rem
+}
+
+.userMaganementDesktop form.form .search {
+  border: 1px solid #D51C5C;
 }
 
 /*.tagarea{
@@ -765,13 +770,12 @@ button:focus{
 
 @media screen and (min-width: 992px) {
 
-  .userTools .userMaganementDesktop form {
-    margin-left: 12%;
-    width: 245px;
+  .userTools .titleUserManagement {
+    margin-top: 11px;
   }
 
-  .userToolManageSlide {
-    margin-left: 1.6% !important;
+  .userTools .userMaganementDesktop form {
+    width: 195px;
   }
 
   .dashboard-menu {
@@ -791,25 +795,14 @@ button:focus{
   }
 
   .userTools .userMaganementDesktop form {
-    margin-left: 28%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 18% !important;
+    width: 250px;
   }
 }
 
 @media screen and (min-width: 1600px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 29%;
-  }
 
   .userTools .userMaganementDesktop form {
     width: 358px;
-  }
-
-  .userToolManageSlide {
-    margin-left: 24% !important;
   }
 
   .dashboard-menu {
@@ -822,24 +815,11 @@ button:focus{
 }
 
 @media screen and (min-width: 1900px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 34%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 30% !important;
-  }
 
 }
 
 @media screen and (min-width: 2300px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 38%;
-  }
 
-  .userToolManageSlide {
-    margin-left: 35% !important;
-  }
 }
 
 
@@ -910,7 +890,7 @@ input[type="file"]::-webkit-file-upload-button {
 /* TICKETS */
 .ticket{
   border:1px solid #ccc;
-  height:138px;
+  min-height:138px;
   margin-bottom: 10px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -922,9 +902,6 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-profile-img{
-  width:41px;
-  height:41px;
-  margin-top:2px;
   float: left;
 }
 
@@ -936,9 +913,10 @@ input[type="file"]::-webkit-file-upload-button {
 
 
 .ticket-profile-img img{
-  width:41px;
-  height:41px;
-  margin-left:7px;
+  width: 40px;
+  height: 40px;
+  margin-left: 7px;
+  margin-top: 8px;
 }
 
 .ticket-profile-img-2 img{
@@ -947,21 +925,19 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-up-info{
-  width:calc(100% - 43px);
   float: left;
 }
 
 .ticket-subtitle{
   color:#506470;
-  margin-bottom: 0;
-  font-size: 12px;
-  min-width:270px;
-  width:50%;
+  margin-bottom: 19px;
+  font-size: 14px;
 }
 
 .ticket-title{
   color: #506470;
   margin-bottom: 0;
+  margin-top: 5px;
 }
 
 .ticket-btn-group{
@@ -1017,9 +993,15 @@ input[type="file"]::-webkit-file-upload-button {
   font-weight: bold;
 }
 
-.ticket .reference, .ticket .created-by, .ticket .assigned-to{
+.ticket-date{
+    text-align: right;
+    margin-right: 15px;
+}
+
+.ticket .reference, .ticket .created-by, .ticket .assigned-to, .ticket-date{
   color:#506470;
-  margin-bottom: 0
+  margin-bottom: 0;
+  font-size: 0.9em;
 }
 
 /* TICKET MODAL */
@@ -1130,12 +1112,14 @@ input[type="file"]::-webkit-file-upload-button {
   background-color:#81939E;
 }
 
+.ticket .label,
 .label-cleaning,
 .label-customer,
 .label-it,
 .label-maintenance,
 .label-visits,
 .label-other{
+  text-transform: lowercase;
   margin-right:2px;
 }
 
@@ -1752,10 +1736,6 @@ textarea.parsley-error {
   box-shadow: none;
 }
 
-.btnManageUser span {
-  color: #D51C5C;
-}
-
 .btnsManageUsers {
   margin-left: 3px;
   border: none;
@@ -1764,6 +1744,15 @@ textarea.parsley-error {
 .btnsManageUsers2 {
   margin-left: 22px;
   border: none;
+}
+
+.menuManageUser >li>a {
+  padding: 10px 6px;
+}
+
+.menuManageUser >li>a i {
+  margin: 3px 8px 5px;
+  float: left;
 }
 
 .btn-adduser:focus,
@@ -1987,6 +1976,10 @@ textarea.parsley-error {
   .heading .userInfo {
     right: -5%;
   }
+
+  .ticket {
+    min-height: 120px;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -2026,6 +2019,18 @@ textarea.parsley-error {
   .userTools {
     margin-top: 79px;
     height: 55px;
+  }
+
+  .ticket-date {
+      text-align: right;
+      margin-right: 15px;
+  }
+
+  .ticket-profile-img img {
+      width: 60px;
+      height: 60px;
+      margin-left: 7px;
+      margin-top: 9px;
   }
 
 }

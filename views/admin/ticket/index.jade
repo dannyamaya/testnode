@@ -453,14 +453,18 @@ block scripts
 
                     var count = data.count;
                     var category = "";
-                    var attachment = "";
 
+                    var today = moment();
+                    var createddate = '';
                     for (key = 0; key < data.tickets.length; key++) {
 
-                        if(data.tickets[key].attachments){
-                            attachment = '<i class="fa fa-paperclip paperclip" aria-hidden="true"></i>';
+                        createddate = moment(data.tickets[key].created);
+                        if (today.isSame(createddate, 'd')) {
+                            // They are on the same day
+                            //console.log('Same day: '+createddate.format('MMMM Do YYYY, h:mm:ss a')+' - '+today.format('MMMM Do YYYY, h:mm:ss a'));
                         } else {
-                            attachment = '';
+                            // They are not on the same day
+                            //console.log('Not on the same day: '+createddate.format('MMMM Do YYYY, h:mm:ss a')+' - '+today.format('MMMM Do YYYY, h:mm:ss a'));
                         }
 
                         $('.tickets').append('<div class="col-xs-12 no-padding ticket"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ data.tickets[key].requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span>Tim</span></p><p class="col-xs-12 no-padding created-by">  Created by:<span>Tim</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">June 5</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');

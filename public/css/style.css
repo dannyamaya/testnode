@@ -767,6 +767,7 @@ button:focus{
 
   .userTools .userMaganementDesktop form {
     margin-left: 12%;
+    width: 245px;
   }
 
   .userToolManageSlide {

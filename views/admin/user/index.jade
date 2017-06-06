@@ -45,11 +45,24 @@ block content
                     li
                         a.roleSearch(href="#") Operation Manager
                     li.dropdown-header.cleanRoleSearch.pull-right Clear
-            button.btn.btn-adduser.hidden-xs.hidden-sm.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
+            .dropdown.hidden-xs.hidden-sm.hidden-lg(style="display:inline-block")
+              button.btn.btn-default.dropdown-toggle#dropdownMenu1(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                span(class="glyphicon glyphicon-option-vertical")
+              ul.dropdown-menu(aria-labelledby='dropdownMenu1')
+                li
+                  i.fa.fa-trash
+                  a(href='#') Eliminar
+                li
+                  i.fa.fa-pencil-square-o
+                  a(href='#') Ediatar
+                li
+                  i.fa.fa-download
+                  a(href='#') Descargar
+            button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
                 i.fa.fa-trash
-            button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
+            button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
                 i.fa.fa-pencil-square-o
-            a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+            a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
                 i.fa.fa-download               
             button.btn.btn-main.btn-livinn.hidden-xs.hidden-sm.btnsManageUsers(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
              span.hidden-xs Add User

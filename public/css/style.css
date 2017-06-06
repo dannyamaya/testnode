@@ -156,6 +156,11 @@ button:focus{
   font-family: 'BebasNeue-Book', sans-serif;
 }
 
+.btn-livinn3{
+    font-weight: bold;
+}
+
+
 .btn-transparent, .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
   background-color: transparent;
   color:#fff;
@@ -1162,8 +1167,14 @@ input[type="file"]::-webkit-file-upload-button {
     color: white;
     font-size: 18px;
     text-align: center;
-    margin-top: 10px;
+    margin: 15px 0 15px 0;
+    opacity: 0.5;
 }
+
+.medium-size{
+    width: 60%;
+}
+
 
 
 

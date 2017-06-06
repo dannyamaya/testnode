@@ -2,48 +2,20 @@ extend layout
 block content
     .login.col-xs-12.no-padding
         .layer.col-xs-12.no-padding
-            .container
-              .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.no-padding.form-login.has-feedback
-                .col-xs-12.form-container
-                    h3.text-center.title Reset your password
+            .container.containerForm-Login
+                .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.no-padding.form-login.has-feedback
+                    .col-xs-12.form-container
+                        .col-xs-12
+                            h1.col-xs-8.col-xs-offset-2.col-sm-8.col-sm-offset-2.title
+                                img(src="/img/logolivinn-blanco.svg", alt="Livinn")
+                                p.white.textTemplate  This links has expired, try to request a new password recovery link again
 
-                    form.form#updatepasswordForm(action="/update-password" method="post", role="form")
-                        .form-group
-                            input.form-control(type='hidden', name='id' value='#{user.id}')
-                            input.form-control(type='hidden', name='token' value='#{user.reset_password_token}')
-                        .form-group
-                            label.sr-only(for='inputPassword') New password
-                            input.form-control(type='password'  name="password", placeholder='New password', required='')
-                        .form-group.passwordregistrationerror
-                            label.sr-only(for='inputPassword') Confirm new password
-                            input.form-control#inputConfPasswordr(type='password'  name="passwordconfirmation", placeholder='Confirm new password', required='')
-                        button.btn.btn-lg.btn-livinn.btn-block(type='submit') Save &amp; Continue
+                                button.btn.btn-lg.btn-livinn.btn-block#home Return
+
+
 block scripts
     script.
-        /*=== Registration Form ===*/
-        $('#updatepasswordForm').submit(function(evt){
-            evt.preventDefault();
-
-            var url = $(this).attr("action");
-            var formData = $(this).serialize();
-
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: formData,
-                success : function(response){
-                    window.location="/";
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    var message = XMLHttpRequest.responseJSON.message;
-                    if(message == 'password and password confirmation mismatch'){
-                        $('#inputConfPasswordr').focus();
-                        $('.passwordregistrationerror').addClass('has-error');
-                        warningAlert('Las contraseñas no coinciden');
-                    } else {
-                        warningAlert(message);
-                    }
-                }
-            });
+        $('#home').click(function(e){
+            window.location.replace('/');
         });
 

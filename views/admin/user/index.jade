@@ -296,10 +296,10 @@ block modals
                                             select.roleSelect#roleCreate(name="role" required='')
                                                 option(value="resident" selected=) Resident
                                                 option(value="marketing") Marketing
-                                                option(value="operation-manager") Operation Manager
+                                                option(value="operation manager") Operation Manager
                                                 option(value="maintenance") Maintenance
-                                                option(value="client-service") Customer Service
-                                                option(value="resident-assistant") Resident Assistant
+                                                option(value="client service") Customer Service
+                                                option(value="resident assistant") Resident Assistant
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
@@ -320,12 +320,15 @@ block modals
                                         span.requiredLivinn *
                                         .select
                                             select(name="location" required='')
-                                                option(value="") Choose a location
-                                                option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
-                                                option(value="Calle 18 Bogotá") Bogotá - Calle 18
-                                                option(value="Calle 21 Bogotá")  Bogotá - Calle 21
-                                                option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
-                                                option(value="Viña Del Mar") Viña Del Mar - Alvarez
+                                                if user.role == 'operation manager'
+                                                    option(value="#{user.location}") #{user.location}
+                                                else
+                                                    option(value="") Choose a location
+                                                    option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
+                                                    option(value="Calle 18 Bogotá") Bogotá - Calle 18
+                                                    option(value="Calle 21 Bogotá")  Bogotá - Calle 21
+                                                    option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
+                                                    option(value="Viña Del Mar") Viña Del Mar - Alvarez
                                     .form-group.col-xs-12.col-sm-6.no-padding-right
                                         label Time Zone
                                         span.requiredLivinn *
@@ -448,26 +451,26 @@ block modals
                                         input#inputUpdateLastname.form-control(type='text' name='last' placeholder='Last Name' required='' autofocus='')
                                     .form-group.emailregistrationerror
                                         label(for='inputUpdateEmail') Email
-                                        input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required autofocus='')
+                                        input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required='' autofocus='')
                                 .col-xs-12.col-sm-6
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
                                         .select
-                                            select#inputUpdateRole.roleSelect(name="role")
+                                            select#inputUpdateRole.roleSelect(name="role" required='')
                                                 option(value="resident") Resident
                                                 option(value="marketing") Marketing
-                                                option(value="operation-manager") Operation Manager
+                                                option(value="operation manager") Operation Manager
                                                 option(value="maintenance") Maintenance
-                                                option(value="client-service") Client Service
-                                                option(value="resident-assistant") Resident Assistant
+                                                option(value="client service") Client Service
+                                                option(value="resident assistant") Resident Assistant
                                                 option(value="admin") Super Admin
 
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
                                         .select
-                                            select#inputUpdateDocType(name="doctype")
+                                            select#inputUpdateDocType(name="doctype" required='')
                                                 option(value="") Choose a document type
                                                     option(value="Cédula de ciudadania") Cédula de ciudadania
                                                     option(value="Cédula de extranjeria") Cédula de extranjeria
@@ -482,17 +485,21 @@ block modals
                                         label Location
                                         span.requiredLivinn *
                                         .select
-                                            select#inputUpdateLocation(name="location")
-                                                option(value="Lord Cochrane Santiago") Lord Cochrane Santiago
-                                                option(value="Viña Del Mar") Viña Del Mar
-                                                option(value="Calle 18 Bogotá") Calle 18 Bogotá
-                                                option(value="Calle 21 Bogotá")  Calle 21 Bogotá
-                                                option(value="Villa Campestre Barranquilla") Villa Campestre Barranquilla
+                                            select#inputUpdateLocation(name="location" required='')
+                                                if user.role == 'operation manager'
+                                                    option(value="#{user.location}") #{user.location}
+                                                else
+                                                    option(value="") Choose a location
+                                                    option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
+                                                    option(value="Calle 18 Bogotá") Bogotá - Calle 18
+                                                    option(value="Calle 21 Bogotá")  Bogotá - Calle 21
+                                                    option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
+                                                    option(value="Viña Del Mar") Viña Del Mar - Alvarez
                                     .form-group.col-xs-12.col-sm-6.no-padding-right
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
-                                            select#inputUpdateTimeZone(name="timezone")
+                                            select#inputUpdateTimeZone(name="timezone" required='')
                                                 option(value="América/Santiago") América/Santiago
                                                 option(value="América/Bogotá") América/Bogotá
                                     .form-group
@@ -502,7 +509,7 @@ block modals
 
                                     .form-group.differentResident
                                         label(for='inputUpdateOccupation') Ocuppation
-                                        input#inputUpdateOccupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='')
+                                        input#inputUpdateOccupation.form-control(type='text' name='occupation' placeholder='Occupation'  autofocus='' required='')
 
                                     .form-group.differentResident
                                         label(for='inputUpdateSkype') Skype
@@ -517,23 +524,23 @@ block modals
                                     .form-group.col-sm-4
                                         label(for='inputUpdateContract') Contract Number
                                         span.requiredLivinn *
-                                        input#inputUpdateContract.form-control(type='text' placeholder='Contract Number' name="numcontract" autofocus='')
+                                        input#inputUpdateContract.form-control.inputResidentUpdate(type='text' placeholder='Contract Number' name="numcontract" autofocus='' required='')
                                     .form-group.col-sm-4
                                         label(for='inputUpdateStart') Start
                                         span.requiredLivinn *
-                                        input#inputUpdateStart.form-control(type='text' placeholder="YYYY-MM-DD" name='start' autofocus='')
+                                        input#inputUpdateStart.form-control.inputResidentUpdate(type='text' placeholder="YYYY-MM-DD" name='start' autofocus='' required='')
                                     .form-group.col-sm-4
                                         label(for='inputUpdateFinish') Finish
                                         span.requiredLivinn *
-                                        input#inputUpdateFinish.form-control(type='text' placeholder="YYYY-MM-DD" name='finish' autofocus='')
+                                        input#inputUpdateFinish.form-control.inputResidentUpdate(type='text' placeholder="YYYY-MM-DD" name='finish' autofocus='' required='')
                                     .form-group.col-sm-8
                                         label(for='inputUpdateAgent') Agent
                                         span.requiredLivinn *
-                                        input#inputUpdateAgent.form-control(type='text' name='agent' placeholder='Agent'  autofocus='')
+                                        input#inputUpdateAgent.form-control.inputResidentUpdate(type='text' name='agent' placeholder='Agent'  autofocus='' required='')
                                     .form-group.col-sm-4
                                         label Status
                                         .select#inputUpdateStatus
-                                            select(name="status")
+                                            select.inputResidentUpdate(name="status" required='')
                                                 option(value="") Choose a status
                                                 option(value="Booked") Booked
                                                 option(value="In-house") In-house
@@ -542,39 +549,39 @@ block modals
                                     .form-group.col-sm-4
                                         label(for='inputUpdateRate') Amount
                                         span.requiredLivinn *
-                                        input#inputUpdateRate.form-control(type='text' name='rate' placeholder='Rate' autofocus='')
+                                        input#inputUpdateRate.form-control.inputResidentUpdate(type='text' name='rate' placeholder='Rate' autofocus='' required='')
                                     .form-group.col-sm-4
                                         label(for='inputUpdateCurrency')
                                             |   Currency
                                             span.requiredLivinn *
-                                        .select#inputUpdateCurrency
-                                            select(name="currency")
+                                        .select
+                                            select#inputUpdateCurrency.inputResidentUpdate(name="currency" required='')
                                                 option(value="") Choose a currency
                                                 option(value="CLP") CLP
                                                 option(value="COP") COP
                                     .form-group.col-sm-4
                                         label(for='inputUpdateRateusd') Amount USD
-                                        input#inputUpdateRateusd.form-control(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
+                                        input#inputUpdateRateusd.form-control.inputResidentUpdate(type='text' name='rateusd' placeholder='Rate USD' autofocus='' required='')
                                 .col-xs-12.no-padding.residentFields
                                     hr
                                     .form-group.col-sm-6
                                         label(for='inputUpdateApartment') Apartment
                                         span.requiredLivinn *
-                                        input#inputUpdateApartment.form-control(type='text' name='apartment' placeholder='Apartment'  autofocus='')
+                                        input#inputUpdateApartment.form-control.inputResidentUpdate(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
                                     .form-group.col-sm-6
                                         label(for='inputUpdateApartmentType') Apartment Type
                                         span.requiredLivinn *
-                                        input#inputUpdateApartmentType.form-control(type='text' name='apartmentType' placeholder='Type'  autofocus='')
+                                        input#inputUpdateApartmentType.form-control.inputResidentUpdate(type='text' name='apartmentType' placeholder='Type'  autofocus='' required='')
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
-                                            select#inputUpdateBathroom(name="bathroom")
+                                            select#inputUpdateBathroom.inputResidentUpdate(name="bathroom")
                                                 option(value="") Choose a bathroom
                                                 option(value="single") Single
                                                 option(value="shared") Shared
                                     .form-group.col-sm-6
                                         label(for='inputUpdateBed') Bed
-                                        input#inputUpdateBed.form-control(type='text' name='bed' placeholder='Bed' autofocus='')
+                                        input#inputUpdateBed.form-control.inputResidentUpdate(type='text' name='bed' placeholder='Bed' autofocus='')
                                     .col-sm-12
                                         hr
 
@@ -754,6 +761,7 @@ block scripts
 
         });
 
+
         $('#roleCreate').on('change', function (e) {
             var optionSelected = $("option:selected", this).val();
             if(optionSelected != 'resident'){
@@ -763,7 +771,18 @@ block scripts
             }else{
                 $('#occupation').prop('disabled',true);
                 $('.inputResident').prop('disabled', false);
+            }
+        });
 
+        $('#inputUpdateRole').on('change', function (e) {
+            var optionSelected = $("option:selected", this).val();
+            if (optionSelected != 'resident') {
+                $('.inputResidentUpdate').prop('disabled', true);
+                $('#inputUpdateOccupation').prop('disabled', false);
+
+            } else {
+                $('#inputUpdateOccupation').prop('disabled', true);
+                $('.inputResidentUpdate').prop('disabled', false);
             }
         });
 
@@ -911,7 +930,7 @@ block scripts
                                     console.log(response);
 
                                     $("#inputUpdateContract").val(response.resident.contract_number);
-                                    if(response.resident.birth_date)
+                                    if(!typeof response.resident.birth_date == null )
                                         $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
                                     $("#inputUpdateApartment").val(response.resident.apartment);
                                     $("#inputUpdateApartmentType").val(response.resident.apartment_type);
@@ -958,12 +977,24 @@ block scripts
             e.preventDefault();
             var users = [];
 
+            if($('#inputUpdateRole').val() != 'resident'){
+                $('.inputResidentUpdate').prop('disabled', true);
+                $('#inputUpdateOccupation').prop('disabled', false);
+
+            }else{
+                $('.inputResidentUpdate').prop('disabled', false);
+                $('#inputUpdateOccupation').prop('disabled', true);
+            }
+
+            $('#updateForm').parsley({
+                excluded: ' :disabled'
+            });
+
             $('#userstable input:checkbox:checked').each(function () {
                 users.push($(this).val());
             });
 
             var formData = new FormData($('#updateForm')[0]);
-
 
             $.ajax({
                 type: "PUT",
@@ -1003,7 +1034,7 @@ block scripts
 
                     $('#updateUserModal').modal('hide');
 
-                    successAlert('Usuario ha sido modificado');
+                    successAlert('User has been updated');
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;

@@ -556,23 +556,20 @@ block scripts
                         $('#tres').addClass('active');
                     }
 
-
-                    $.each(response.ticket.assignee, function (key, value) {
+                    $.each(response.ticket.assigned_to, function (key, value) {
                         $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" +value.profile_picture +"'</span><span class='label label-default'>" + value.name.first + " "+ value.name.last + "  <a><i data-assignee='"+value._id +"' data-ticket-id='"+response.ticket._id+"' id='assignee"+value._id +"' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
                     });
 
                     $("#ticketdate").html(moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
-
-
                     $("#messageRead").text(response.ticket.message);
-
 
                     (function () {
                         var Message;
                         Message = function (arg) {
                             this.profile_pic = arg.profile_pic;
                             this.user = arg.user;
-                            this.text = arg.text, this.message_side = arg.message_side;
+                            this.text = arg.text;
+                            this.message_side = arg.message_side;
                             this.user = arg.user;
                             this.name = arg.name;
                             this.section = arg.section;
@@ -650,13 +647,13 @@ block scripts
                                     }
                                 });
 
-
                                 return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
                             });
 
                             $('.sendNote').click(function (e) {
 
                                 var ticket = response.ticket._id;
+                                alert('aa');
 
                                 $.ajax({
                                     type: "POST",

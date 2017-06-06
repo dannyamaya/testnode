@@ -436,6 +436,12 @@ button:focus{
   z-index: 998;
 }
 
+.userTools .titleUserManagement {
+  display: table;
+  white-space: nowrap;
+  float: left;
+}
+
 .userTools h2 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -760,7 +766,11 @@ button:focus{
 @media screen and (min-width: 992px) {
 
   .userTools .userMaganementDesktop form {
-    margin-left: 60px;
+    margin-left: 13%;
+  }
+
+  .userToolManageSlide {
+    margin-left: 1.6% !important;
   }
 
   .dashboard-menu {
@@ -775,13 +785,21 @@ button:focus{
 
 @media screen and (min-width: 1200px) {
   .userTools .userMaganementDesktop form {
-    margin-left: 15%;
+    margin-left: 20%;
+  }
+
+  .userToolManageSlide {
+    margin-left: 10% !important;
   }
 }
 
 @media screen and (min-width: 1600px) {
   .userTools .userMaganementDesktop form {
-    margin-left: 27%;
+    margin-left: 29%;
+  }
+
+  .userToolManageSlide {
+    margin-left: 24% !important;
   }
 
   .dashboard-menu {

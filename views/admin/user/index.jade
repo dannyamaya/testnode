@@ -1,9 +1,9 @@
 extend ../layout
 block content
     .col-xs-12.userTools.has-feedback
-          .col-xs-4.col-md-2.va.no-padding
-            h2.col-xs-12.no-padding #{title}
-          .col-md-10.no-padding.userMaganementDesktop
+          .titleUserManagement.va.no-padding
+            h2.no-padding #{title}
+          .col-md-11.pull-right.no-padding.userMaganementDesktop
             form.form.col-xs-12.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-3.no-padding.hidden-xs.hidden-sm#searchform(method="post" action="users")
                 .input-group.search
                     input.form-control#search(type="text" aria-label="Search users" placeholder="Search")

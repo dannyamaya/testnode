@@ -11,43 +11,43 @@ block content
                         i.icon.ion-ios-search-strong(style="font-size:2rem;")
         .col-xs-10.hidden-xs.hidden-sm
             form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-                .col-xs-4.no-padding
-                    .input-group.search
-                        .col-xs-4.no-padding
-                            .select
-                                select#searchby
-                                    option(value="requested_by") Requested by
-                                    option(value="created_by" selected="true") Created by
-                                    option(value="assigned_to") Assigned to
-                                    option(value="id") Work Order ID
-                        .col-xs-8.no-padding
-                            input.form-control#search(type="text" name="name" placeholder="Search")
-                .pull-right
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#categoryselect
-                            option(value="" selected) Category
-                            option(value="cleaning services") Cleaning Services
-                            option(value="customer service") Customer Service
-                            option(value="support") IT Support
-                            option(value="maintenance") Maintenance
-                            option(value="visits") Visits
-                            option(value="others") Others
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#subcategoryselect
-                            option(value="" selected) Subcategory
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#statusselect
-                            option(value="" selected) Status
-                            option(value="0") Open
-                            option(value="1") Pending
-                            option(value="2") Resolved
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#priorityselect
-                            option(value="" selected) Priority
-                            option(value="1") 1
-                            option(value="2") 2
-                            option(value="3") 3
-                            option(value="4") 4
+                    .pull-right
+                       .col-xs-4.no-padding
+                            .input-group.search
+                                .col-xs-4.no-padding
+                                    .select
+                                        select#searchby
+                                            option(value="requested_by") Requested by
+                                            option(value="created_by" selected="true") Created by
+                                            option(value="assigned_to") Assigned to
+                                            option(value="id") Work Order ID
+                                .col-xs-8.no-padding
+                                    input.form-control#search(type="text" name="name" placeholder="Search")
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#categoryselect
+                                option(value="" selected) Category
+                                option(value="cleaning services") Cleaning Services
+                                option(value="customer service") Customer Service
+                                option(value="support") IT Support
+                                option(value="maintenance") Maintenance
+                                option(value="visits") Visits
+                                option(value="others") Others
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#subcategoryselect
+                                option(value="" selected) Subcategory
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#statusselect
+                                option(value="" selected) Status
+                                option(value="0") Open
+                                option(value="1") Pending
+                                option(value="2") Resolved
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#priorityselect
+                                option(value="" selected) Priority
+                                option(value="1") 1
+                                option(value="2") 2
+                                option(value="3") 3
+                                option(value="4") 4
             .col-xs-1.no-padding
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
                     i.fa.fa-plus

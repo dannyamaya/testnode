@@ -436,6 +436,12 @@ button:focus{
   z-index: 998;
 }
 
+.userTools .titleUserManagement {
+  display: table;
+  white-space: nowrap;
+  float: left;
+}
+
 .userTools h2 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -760,7 +766,12 @@ button:focus{
 @media screen and (min-width: 992px) {
 
   .userTools .userMaganementDesktop form {
-    margin-left: 60px;
+    margin-left: 12%;
+    width: 245px;
+  }
+
+  .userToolManageSlide {
+    margin-left: 1.6% !important;
   }
 
   .dashboard-menu {
@@ -774,14 +785,31 @@ button:focus{
 }
 
 @media screen and (min-width: 1200px) {
+    
+  .logoHeading a {
+    width: 120px;
+  }
+
   .userTools .userMaganementDesktop form {
-    margin-left: 15%;
+    margin-left: 28%;
+  }
+
+  .userToolManageSlide {
+    margin-left: 18% !important;
   }
 }
 
 @media screen and (min-width: 1600px) {
   .userTools .userMaganementDesktop form {
-    margin-left: 27%;
+    margin-left: 29%;
+  }
+
+  .userTools .userMaganementDesktop form input[type="text"] {
+    width: 358px;
+  }
+
+  .userToolManageSlide {
+    margin-left: 24% !important;
   }
 
   .dashboard-menu {
@@ -795,19 +823,22 @@ button:focus{
 
 @media screen and (min-width: 1900px) {
   .userTools .userMaganementDesktop form {
-    margin-left: 31%;
+    margin-left: 34%;
   }
-}
 
-@media screen and (min-width: 1900px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 31%;
+  .userToolManageSlide {
+    margin-left: 30% !important;
   }
+
 }
 
 @media screen and (min-width: 2300px) {
   .userTools .userMaganementDesktop form {
-    margin-left: 35%;
+    margin-left: 38%;
+  }
+
+  .userToolManageSlide {
+    margin-left: 35% !important;
   }
 }
 

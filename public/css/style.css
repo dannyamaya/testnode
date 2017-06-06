@@ -440,6 +440,7 @@ button:focus{
   display: table;
   white-space: nowrap;
   float: left;
+  margin-top: 8px;
 }
 
 .userTools h2 {
@@ -588,6 +589,10 @@ button:focus{
 
 .userSearch-Management .form-group button i {
   font-size: 2rem
+}
+
+.userMaganementDesktop form.form .search {
+  border: 1px solid #D51C5C;
 }
 
 /*.tagarea{
@@ -765,13 +770,12 @@ button:focus{
 
 @media screen and (min-width: 992px) {
 
-  .userTools .userMaganementDesktop form {
-    margin-left: 12%;
-    width: 245px;
+  .userTools .titleUserManagement {
+    margin-top: 11px;
   }
 
-  .userToolManageSlide {
-    margin-left: 1.6% !important;
+  .userTools .userMaganementDesktop form {
+    width: 195px;
   }
 
   .dashboard-menu {
@@ -781,35 +785,24 @@ button:focus{
   .slideContainerLeft {
     width: 80%;
   }
-  
+
 }
 
 @media screen and (min-width: 1200px) {
-    
+
   .logoHeading a {
     width: 120px;
   }
 
   .userTools .userMaganementDesktop form {
-    margin-left: 28%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 18% !important;
+    width: 250px;
   }
 }
 
 @media screen and (min-width: 1600px) {
+
   .userTools .userMaganementDesktop form {
-    margin-left: 29%;
-  }
-
-  .userTools .userMaganementDesktop form input[type="text"] {
     width: 358px;
-  }
-
-  .userToolManageSlide {
-    margin-left: 24% !important;
   }
 
   .dashboard-menu {
@@ -822,24 +815,11 @@ button:focus{
 }
 
 @media screen and (min-width: 1900px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 34%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 30% !important;
-  }
 
 }
 
 @media screen and (min-width: 2300px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 38%;
-  }
 
-  .userToolManageSlide {
-    margin-left: 35% !important;
-  }
 }
 
 
@@ -910,7 +890,7 @@ input[type="file"]::-webkit-file-upload-button {
 /* TICKETS */
 .ticket{
   border:1px solid #ccc;
-  height:100px;
+  min-height:138px;
   margin-bottom: 10px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -918,14 +898,10 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-up{
-  height:65px;
   padding-top:10px;
 }
 
 .ticket-profile-img{
-  width:41px;
-  height:41px;
-  margin-top:2px;
   float: left;
 }
 
@@ -937,9 +913,10 @@ input[type="file"]::-webkit-file-upload-button {
 
 
 .ticket-profile-img img{
-  width:41px;
-  height:41px;
-  margin-left:7px;
+  width: 40px;
+  height: 40px;
+  margin-left: 7px;
+  margin-top: 8px;
 }
 
 .ticket-profile-img-2 img{
@@ -948,23 +925,19 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-up-info{
-  width:calc(100% - 43px);
   float: left;
 }
 
 .ticket-subtitle{
   color:#506470;
-  margin-bottom: 0;
-  font-size: 12px;
-  min-width:270px;
-  width:50%;
+  margin-bottom: 19px;
+  font-size: 14px;
 }
 
 .ticket-title{
-  color:#506470;
-  margin-top:3px;
-  font-size: 16px;
-  font-weight: bold;
+  color: #506470;
+  margin-bottom: 0;
+  margin-top: 5px;
 }
 
 .ticket-btn-group{
@@ -1020,9 +993,15 @@ input[type="file"]::-webkit-file-upload-button {
   font-weight: bold;
 }
 
-.ticket .reference, .ticket .created-by, .ticket .assigned-to{
-  margin-right: 7px;
-  color:#FFF;
+.ticket-date{
+    text-align: right;
+    margin-right: 15px;
+}
+
+.ticket .reference, .ticket .created-by, .ticket .assigned-to, .ticket-date{
+  color:#506470;
+  margin-bottom: 0;
+  font-size: 0.9em;
 }
 
 /* TICKET MODAL */
@@ -1133,12 +1112,14 @@ input[type="file"]::-webkit-file-upload-button {
   background-color:#81939E;
 }
 
+.ticket .label,
 .label-cleaning,
 .label-customer,
 .label-it,
 .label-maintenance,
 .label-visits,
 .label-other{
+  text-transform: lowercase;
   margin-right:2px;
 }
 
@@ -1368,14 +1349,14 @@ input[type="file"]::-webkit-file-upload-button {
   position: relative;
   vertical-align: middle;
   padding: 0;
-  height:40px;
+  height:32px;
   background: #fff;
   color: #555;
   border: 1px solid #aaa;
   text-shadow: none;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
   -moz-transition: box-shadow 0.25s ease;
   -o-transition: box-shadow 0.25s ease;
   -webkit-transition: box-shadow 0.25s ease;
@@ -1389,7 +1370,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 .select:before {
   position: absolute;
-  top: 0.9em;
+  top: 0.5em;
   right: 0.5em;
   pointer-events: none;
 }
@@ -1408,7 +1389,7 @@ input[type="file"]::-webkit-file-upload-button {
   text-indent: 0.01px;
   text-overflow: '';
   width: 160% \9;
-  height: 40px;
+  height: 32px;
 }
 .select select:focus, .select select:active, .select select:hover,
 .select:focus:before, .select:active:before, .select:hover:before  {
@@ -1452,10 +1433,10 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .select.select-livinn {
-  width: auto;
-  margin: 3px 15px 0;
-  border: none;
-  text-shadow: none;
+    width: auto;
+    margin: 0px 3px;
+    border: none;
+    text-shadow: none;}
 }
 
 .select.select-livinn:hover {
@@ -1520,12 +1501,12 @@ textarea.parsley-error {
   background-color: #fff;
 }
 
-.dashcontainer .col-xs-12{
+/*.dashcontainer .col-xs-12{
   -webkit-transition: -webkit-transform .5s cubic-bezier(.16, .68, .43, .99);
   -moz-transition: -moz-transform .5s cubic-bezier(.16, .68, .43, .99);
   -o-transition: -o-transform .5s cubic-bezier(.16, .68, .43, .99);
   transition: transform .5s cubic-bezier(.16, .68, .43, .99);
-}
+}*/
 
 .heading{
   position: fixed;
@@ -1546,6 +1527,10 @@ textarea.parsley-error {
 
 .heading .navbar-right .dropdown-menu>li>a {
   color: #FFF;
+}
+
+.heading-title{
+    margin-top: 7px;
 }
 
 .logoHeading {
@@ -1578,7 +1563,7 @@ textarea.parsley-error {
 .input-group.search:hover,
 .input-group.search:active,
 .input-group.search:focus {
-  border: 1px solid #D51C5C;
+  border: none;
 }
 
 .input-group.search input[type="text"]::placeholder {
@@ -1611,17 +1596,16 @@ textarea.parsley-error {
 }
 
 .search .select, .search .select:hover {
-    margin-top: 3px;
     position:relative;
-    left: 3px;
     background-color: #E30056;
     border-color: #E30056;
-    color:#fff;
-    border-radius:0;
+    color: #fff;
+    border-radius: 0;
+    height: 32px;
 }
 
 .search .select select, .search .select select:hover{
-    height:34px;
+    height:32px;
     font-weight: bold;
     color: #fff;
     font-size: 0.9em;
@@ -1629,7 +1613,7 @@ textarea.parsley-error {
 
 .search .select::before{
     color:#fff;
-    top:0.6em;
+    top:0.5em;
 }
 .input-group-addon.focused  {
   border-color: ##FFF;
@@ -1740,6 +1724,18 @@ textarea.parsley-error {
   border-color: #ccc;
 }
 
+.btnManageUser,
+.btnManageUser:hover,
+.btnManageUser:active,
+.btnManageUser:focus{
+  margin-top: 11px;
+  padding: 7px 11px;
+  margin-left: 5px;
+  color: #D51C5C;
+  background-color: #fff;
+  box-shadow: none;
+}
+
 .btnsManageUsers {
   margin-left: 3px;
   border: none;
@@ -1748,6 +1744,15 @@ textarea.parsley-error {
 .btnsManageUsers2 {
   margin-left: 22px;
   border: none;
+}
+
+.menuManageUser >li>a {
+  padding: 10px 6px;
+}
+
+.menuManageUser >li>a i {
+  margin: 3px 8px 5px;
+  float: left;
 }
 
 .btn-adduser:focus,
@@ -1971,6 +1976,10 @@ textarea.parsley-error {
   .heading .userInfo {
     right: -5%;
   }
+
+  .ticket {
+    min-height: 120px;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -1990,6 +1999,10 @@ textarea.parsley-error {
     margin-bottom: 15px;
   }
 
+  .heading-title{
+      margin-top: 12px;
+  }
+
   .heading .userInfo ul {
     margin-top: 7px;
   }
@@ -2006,6 +2019,18 @@ textarea.parsley-error {
   .userTools {
     margin-top: 79px;
     height: 55px;
+  }
+
+  .ticket-date {
+      text-align: right;
+      margin-right: 15px;
+  }
+
+  .ticket-profile-img img {
+      width: 60px;
+      height: 60px;
+      margin-left: 7px;
+      margin-top: 9px;
   }
 
 }

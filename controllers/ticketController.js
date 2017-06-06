@@ -97,7 +97,6 @@ module.exports = {
                 return res.status(500).json({err: err});
             }
         });
-
     },
 
     readTickets: function (req, res, next) {
@@ -172,7 +171,6 @@ module.exports = {
                 return res.status(200).json({error: false, users: results[0], count: results[1], page: parseInt(page)});
             }
         });
-
     },
 
     readTicket: function (req, res, next) {
@@ -251,6 +249,8 @@ module.exports = {
 
     readTicketsByUserId: function (req, res, next) {
         var id = req.query.id,
+            created_by = req.query.created_by,
+            filed_by = req.query.filed_by,
             page = req.query.page || 1,
             category = req.query.category,
             subcategory = req.query.subcategory,
@@ -259,12 +259,18 @@ module.exports = {
             location = req.user.location;
 
 
-
         var options  = {};
-        options['location'] = location;
+
+        if(req.user.role == 'admin' && req.query.location){
+            options['location'] = req.query.location
+        } else {
+            options['location'] = req.user.location;
+        }
+
 
         if(id){
-            options['_id'] = id;
+            var o_id = new ObjectId(id);
+            options['_id'] = o_id;
         }
 
         if(category){
@@ -284,7 +290,7 @@ module.exports = {
         }
 
 
-        console.log(options);
+        //console.log(options);
 
 
         User.findById(req.params.id, function (err, user) {
@@ -300,7 +306,7 @@ module.exports = {
                         Ticket.find(options)
                         .populate('created_by', 'name company email phone profile_picture')
                         .populate('requested_by', 'name company email phone profile_picture')
-                        .populate('requested_by', 'name company email phone profile_picture')
+                        .populate('assigned_to', 'name company email phone profile_picture')
                         .sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
@@ -316,6 +322,17 @@ module.exports = {
                                     var regexp = new RegExp(req.query.requested_by, 'i');
                                     var tickets = t.filter( function(val){
                                         return regexp.test(val.requested_by.name.first);
+                                    });
+                                    callback(null, tickets);
+                                }
+                                else if(req.query.assigned_to){
+                                    var regexp = new RegExp(req.query.assigned_to, 'i');
+
+                                    function checkRegexp(u){
+                                        return regexp.test(u.name.first,'i');
+                                    };
+                                    var tickets = t.filter( function(val){
+                                        return val.assigned_to.some(checkRegexp);
                                     });
                                     callback(null, tickets);
                                 }else{
@@ -335,9 +352,7 @@ module.exports = {
                                 callback(null, count);
                             }
                         });
-
                     }
-
                 ], function (err, results) {
                     if (err) {
                         console.log('ERROR: ' + err);
@@ -346,7 +361,16 @@ module.exports = {
                             message: 'Server connection error. Please try later'
                         });
                     } else {
-                        return res.status(200).json({
+
+                        results[0].forEach(function(r) {
+                            console.log(r.subject, r.category, r.location, r.requested_by.name.first, r.created_by.name.first, r.assigned_to);
+                            console.log('***************');
+
+                        });
+
+                        //console.log(results[0]);
+
+                       return res.status(200).json({
                             error: false,
                             tickets: results[0],
                             count: results[1],
@@ -356,9 +380,6 @@ module.exports = {
                 });
             }
         });
-    },
-
-
-
+    }
 
 }

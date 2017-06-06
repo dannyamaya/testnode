@@ -18,15 +18,12 @@ html.no-js(lang="es")
     link(href="/css/style.css", rel="stylesheet")
     block header
   body
-    button.toggle-btn.toggle-menu
-      span
-      span
-      span
-    .col-xs-12.col-sm-2.dashboard-menu.off-canvas-menu-closed#off-canvas-menu
-        .col-xs-8.col-xs-offset-2.col-sm-12.col-sm-offset-0.logo-dashboard
+    
+    .col-xs-6.col-sm-2.dashboard-menu.off-canvas-menu-closed#off-canvas-menu
+        .col-xs-8.col-xs-offset-2.col-md-8.col-md-offset-2.logo-dashboard
             img.img-responsive(src="/img/logolivinn-blanco.svg", alt="Livinn")
-        ul.list-unstyled
-            li.inactive DASHBOARD
+        ul.list-unstyled.col-xs-12.no-padding
+            //- li.inactive DASHBOARD
             if user.role == 'admin' || user.role == 'operation manager'
                 li
                     a(href="/users")
@@ -39,21 +36,31 @@ html.no-js(lang="es")
                   i.label.label-livinn#ticketcount 0
 
     .col-xs-12.no-padding.dashcontainer#dashcontainer
-        .col-xs-12.no-padding.heading.affix
-            h1.col-xs-6 #{title}
-            .col-xs-6
+        .col-xs-12.no-padding.heading.affix            
+            .col-xs-5.navbar-brand.logoHeading
+              a.col-xs-12.col-sm-5.col-md-4.col-lg-3(href="#")
+                img(class="img-responsive" src="../img/logolivinn-blanco.svg")
+            .col-xs-5.col-xs-offset-1.userInfo
                 ul.nav.navbar-nav.navbar-right
                     li.dropdown
                         a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false' style="text-transform:capitalize;")
                             img.img-circle.user-disp-img(src="#{user.profile_picture}")
                             span.hidden-xs.user-disp-name    #{user.name.first} #{user.name.last}
-                            i.fa.fa-angle-down
-                        ul.dropdown-menu
+                        ul.dropdown-menu(style="z-index: 2000;")
                             li
                                 a(href='/settings/personal-information') Settings
                             li
                                 a(href='/logout') Log Out
+            button.toggle-btn.toggle-menu#btn-mobileMenu.btn-mobileMenu
+              span
+              span
+              span
+        .col-xs-12.bordeGradiente       
+
+
         block content
+
+    block modals
     .alert.alert-warning.animated.col-xs-12.col-sm-6.col-sm-offset-3#warning
         p.text-center
     .alert.alert-success.animated.col-xs-12.col-sm-6.col-sm-offset-3#success
@@ -87,14 +94,41 @@ html.no-js(lang="es")
 
         function toggleMenu() {
           $('.toggle-btn').toggleClass( "active" );
-          if ($('#off-canvas-menu').hasClass('off-canvas-menu-open')) {
-              $("#dashcontainer").removeClass("col-sm-10 col-sm-offset-2");
+          
+          if ($('#off-canvas-menu').hasClass('off-canvas-menu-open')) {             
               $('#off-canvas-menu').removeClass('off-canvas-menu-open');
               $('#off-canvas-menu').addClass('off-canvas-menu-closed');
+              $('#dashcontainer').addClass('slideContainerRight');
+              $('#dashcontainer').removeClass('slideContainerLeft');
+              $('.logoHeading').children().addClass('col-sm-5 col-lg-3');
+              $('.logoHeading').children().removeClass('col-sm-7 col-lg-4');
+              $('#btn-mobileMenu').css('right', '13px');
+              $('#searchform').removeClass('userToolManageSlide');
+
           } else {
-              $("#dashcontainer").addClass("col-sm-10 col-sm-offset-2");
               $('#off-canvas-menu').removeClass('off-canvas-menu-closed');
               $('#off-canvas-menu').addClass('off-canvas-menu-open');
+              $('#dashcontainer').addClass('slideContainerLeft');
+              $('#dashcontainer').removeClass('slideContainerRight');
+              $('.logoHeading').children().removeClass('col-sm-5 col-lg-3');
+              $('.logoHeading').children().addClass('col-sm-7 col-lg-4');
+              $('#btn-mobileMenu').css('right', '4%');
+              $('.userInfo').css('right', '-10px');
+              $('#searchform').addClass('userToolManageSlide');
+          }
+        }
+
+        function deployFilters() {
+          if ($("#userFilters").hasClass("userFiltersUp")) {
+            $("#userFilters").removeClass("userFiltersUp");
+            $("#userFilters").addClass("userFiltersDown");
+          }
+        }
+
+        function collapseFilters() {
+          if ($("#userFilters").hasClass("userFiltersDown")) {
+            $("#userFilters").removeClass("userFiltersDown");
+            $("#userFilters").addClass("userFiltersUp");
           }
         }
 

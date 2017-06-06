@@ -2,79 +2,116 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
-    .col-xs-12.content
-        .panel.panel-default.col-xs-12
+    .col-xs-12.userTools.has-feedbackc
+        .col-xs-12.col-md-2.heading-title
+            h2.col-xs-10.col-md-12.no-padding #{title}
+            .pull-right.visible-xs.visible-sm
+                button.btn.btn-livinn#Filters(onclick="deployFilters()" style="padding: 2px 8px; margin-top: -2px;")
+                    span
+                        i.icon.ion-ios-search-strong(style="font-size:2rem;")
+        .col-xs-10.hidden-xs.hidden-sm
             form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-                .col-xs-4.no-padding
-                    .input-group.search
-                        .col-xs-4.no-padding
-                            .select
-                                select#searchby
-                                    option(value="filed_by") Filed by
-                                    option(value="created_by" selected="true") Created by
-                                    option(value="assigned_to") Assigned to
-                                    option(value="id") Work Order ID
-                        .col-xs-8.no-padding
-                            input.form-control#search(type="text" name="name" placeholder="Search")
-                .pull-right
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#categoryselect
-                            option(value="" selected) Category
-                            option(value="cleaning services") Cleaning Services
-                            option(value="customer service") Customer Service
-                            option(value="support") IT Support
-                            option(value="maintenance") Maintenance
-                            option(value="visits") Visits
-                            option(value="others") Others
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#subcategoryselect
-                            option(value="" selected) Subcategory
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#statusselect
-                            option(value="" selected) Status
-                            option(value="0") Open
-                            option(value="1") Pending
-                            option(value="2") Resolved
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#priorityselect
-                            option(value="" selected) Priority
-                            option(value="1") 1
-                            option(value="2") 2
-                            option(value="3") 3
-                            option(value="4") 4
+                    .pull-right
+                       .col-xs-4.no-padding
+                            .input-group.search
+                                .col-xs-4.no-padding
+                                    .select
+                                        select#searchby
+                                            option(value="requested_by") Requested by
+                                            option(value="created_by" selected="true") Created by
+                                            option(value="assigned_to") Assigned to
+                                            option(value="id") Work Order ID
+                                .col-xs-8.no-padding
+                                    input.form-control#search(type="text" name="name" placeholder="Search")
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#categoryselect
+                                option(value="" selected) Category
+                                option(value="cleaning services") Cleaning Services
+                                option(value="customer service") Customer Service
+                                option(value="support") IT Support
+                                option(value="maintenance") Maintenance
+                                option(value="visits") Visits
+                                option(value="others") Others
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#subcategoryselect
+                                option(value="" selected) Subcategory
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#statusselect
+                                option(value="" selected) Status
+                                option(value="0") Open
+                                option(value="1") Pending
+                                option(value="2") Resolved
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#priorityselect
+                                option(value="" selected) Priority
+                                option(value="1") 1
+                                option(value="2") 2
+                                option(value="3") 3
+                                option(value="4") 4
             .col-xs-1.no-padding
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
                     i.fa.fa-plus
+    .col-xs-12.content
+        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
             .clearfix(style="margin-bottom:15px;")
             #loader
             .col-xs-12.no-padding.tickets
+                //------------- TICKET EXAMPLE ---------------
+                .col-xs-12.no-padding.ticket
+                    .col-xs-2.ticket-profile-img.no-padding
+                      img.img-circle.img-responsive(src='https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/profile_pictures/1020751320/descarga.jpg')
+                    .col-xs-10.ticket-up-info
+                      p.col-xs-12.no-padding.ticket-title easdczx
+                      p.col-xs-12.no-padding.reference #5935d58f651b69495de73d98
+                      p.col-xs-12.no-padding.assigned-to
+                        |   Assigned to:
+                        span Tim
+                      p.col-xs-12.no-padding.created-to
+                        |   Created by:
+                        span Tim
+                      .col-xs-12.no-padding.ticket-subtitle
+                          .col-xs-6.no-padding
+                            span.label.label-customer CUSTOMER SERVICES
+                            span.label.label-default CUSTOMER SERVICES
+                          .col-xs-6.no-padding
+                            p.text-right June 5th 2017, 5:05:03 pm
+                    .ticket-btn-group.hidden-xs.hidden-sm
+                      button.btn-exclamation-circle.btn-status.active(type='button', title='Pending', data-id='5935d58f651b69495de73d98', data-status='0')
+                        i.fa.fa-exclamation-circle
+                      button.btn-clock-o.btn-status(type='button', title='Open', data-id='5935d58f651b69495de73d98', data-status='1')
+                        i.fa.fa-clock-o
+                      button.btn-check-circle.btn-status(type='button', title='Resolved', data-id='5935d58f651b69495de73d98', data-status='2')
+                        i.fa.fa-check-circle
+
 
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed.hide
         .panel.panel-default.col-xs-12.no-padding
             h2 activity feed
-
-    <!-- New Ticket Modal -->
+block modals
+    <!-- New Work Order Modal -->
     .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-header
-                    h2.modal-title.text-center Create Ticket
+                    h2.modal-title.text-center Create Work Order
                 .modal-body
 
                     .row
-                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form")
+                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
                             if user.role != 'resident'
                                 .form-group
-                                    label Filed by
+                                    label
+                                        |   Requested by
+                                        span  (optional)
                                     input.form-control.tagarea#searchinput(type="search")
-                                    input.form-control#searchinputHidden(type="hidden" name="filed_by")
+                                    input.form-control#searchinputHidden(type="hidden" name="requested_by")
                             input(type="hidden" name="location" value="#{user.location}")
                             .form-group
                                 label Category
                                 .select
-                                    select.form-control(name="category")
+                                    select.form-control(name="category" required)
                                         option(value="") Please choose a category
                                         option(value="cleaning services") Cleaning Services
                                         option(value="customer service") Customer Service
@@ -84,13 +121,15 @@ block content
                                         option(value="others") Others
                             .form-group
                                 label Subject
-                                input.form-control#subject(type="text" placeholder="Subject" name="subject")
+                                input.form-control#subject(type="text" placeholder="Subject" name="subject" required)
                             .form-group
                                 label Message
-                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5")
+                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5" required)
 
                             .form-group
-                                label Attachment
+                                label
+                                    |   Attachment
+                                    span (optional)
                                 input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
                             .modal-footer
                                 .pull-right.form-group-end
@@ -98,7 +137,7 @@ block content
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
-    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.full-width
             .modal-content
                 .modal-body
@@ -133,7 +172,7 @@ block content
                                             option(value="3") 3
                                             option(value="4") 4
                                 .form-group
-                                    label Filed By
+                                    label Requested By
                                     p.form-control-static#ticketrequestor
                                 .form-group
                                     label Email
@@ -222,6 +261,7 @@ block scripts
     script(src="/plugins/summernote/summernote.min.js")
     script(src="/plugins/summernote/lang/summernote-es-ES.js")
     script(src="/js/jquery.bootpag.min.js")
+    script(src="/js/parsley.min.js")
     script.
 
         var openticketid = '';
@@ -242,9 +282,14 @@ block scripts
         //----------------- SOCKET.IO ---------------------------
 
         var socket = io('/superadmin');
+        var attachment = '';
         socket.on('new-ticket', function (dataServer) {
-
-            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.filed_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+dataServer.ticket.priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'" + dataServer.ticket._id + "\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+            if(dataServer.ticket.attachments){
+                attachment = '<i class="fa fa-paperclip" aria-hidden="true"></i>';
+            } else {
+                attachment = '';
+            }
+            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+dataServer.ticket.priority+"</strong></p></div>"+attachment+"<div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" +'"'+ dataServer.ticket._id +'"'+ " )' ><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
 
         });
 
@@ -350,26 +395,23 @@ block scripts
                 contentType: false,
                 success: function (response) {
                     console.log(response);
-                    if (response.message == 'Ticket has been created') {
+                    if (response.message == 'Work Order has been created') {
                         socket.emit('new-ticket', {ticket: response.ticket});
                         $('#newticketModal').modal('hide');
                         $('#subject').val("");
                         $('#summernote').summernote("reset");
+                        $('#ticketForm').parsley().reset();
+                        document.getElementById('ticketForm').reset();
                         successAlert(response.message);
                     } else {
-                        warningAlert('Error al crear la solicitud');
+                        warningAlert('Error creating work order');
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;
-                    if (message == 'password and password confirmation mismatch') {
-                        $('#inputConfPasswordr').focus();
-                        $('.emailregistrationerror').removeClass('has-error');
-                        $('.passwordregistrationerror').addClass('has-error');
-                        warningAlert('Las contraseñas no coinciden');
-                    } else {
-                        warningAlert(message);
-                    }
+                    console.log(XMLHttpRequest);
+                    warningAlert(message);
+
                 }
             });
         });
@@ -395,14 +437,14 @@ block scripts
                     options+= '&created_by='+search;
                 } else if(searchby == 'assigned_to'){
                     options+= '&assigned_to='+search;
-                } else if(searchby == 'filed_by'){
-                    options+= '&filed_by='+search;
+                } else if(searchby == 'requested_by'){
+                    options+= '&requested_by='+search;
                 } else {
                     options+= '&id='+search;
                 }
             }
 
-            $('.tickets').html("");
+            //$('.tickets').html("");
 
             $.ajax({
                 type: "GET",
@@ -411,9 +453,15 @@ block scripts
 
                     var count = data.count;
                     var category = "";
+                    var attachment = "";
 
                     for (key = 0; key < data.tickets.length; key++) {
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].filed_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].filed_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+                        if(data.tickets[key].attachments){
+                            attachment = '<i class="fa fa-paperclip paperclip" aria-hidden="true"></i>';
+                        } else {
+                            attachment = '';
+                        }
+                        $('.tickets').append("<div class='col-xs-12 no-padding ticket hidden'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') +attachment+ "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].requested_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     }
                 }
             }).done(function (data) {
@@ -422,21 +470,6 @@ block scripts
                 });
             });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         $('#search').on({
             focus: function () {
@@ -486,10 +519,10 @@ block scripts
                     console.log(response);
                     $('#hiddenTicket').val(response.ticket._id);
                     $('.readModalTitle').html('Ticket #<span class="text-capitalize">' + response.ticket._id + '</span>');
-                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.filed_by.profile_picture+"'</span>"+response.ticket.filed_by.name.first+" "+response.ticket.filed_by.name.last);
-                    $("#ticketemail").text(response.ticket.filed_by.email);
-                    if(response.ticket.filed_by.phone.number){
-                        $("#ticketphone").text(response.ticket.filed_by.phone.number);
+                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.requested_by.profile_picture+"'</span>"+response.ticket.requested_by.name.first+" "+response.ticket.requested_by.name.last);
+                    $("#ticketemail").text(response.ticket.requested_by.email);
+                    if(response.ticket.requested_by.phone.number){
+                        $("#ticketphone").text(response.ticket.requested_by.phone.number);
                     } else {
                         $("#ticketphone").text("N/A");
                     }
@@ -639,7 +672,7 @@ block scripts
 
 
                             //First Messages
-                            sendMessage(response.ticket.message, response.ticket.filed_by, 'left',img, response.ticket.filed_by.name.first + ' ' + response.ticket.filed_by.name.last,'messages' );
+                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages' );
 
 
                             //Another Messages
@@ -755,12 +788,6 @@ block scripts
             });
 
         }
-
-
-
-
-
-
 
         /*=== SEARCH: Search ticket ===*/
         $('#searchform').submit(function (event) {

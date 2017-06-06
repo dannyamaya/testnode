@@ -14,27 +14,30 @@ module.exports = {
 
     /**
      * Creates a new ticket.
-     * @param {Object} user - User.
-     * @param {string} subject - Ticket subject.
-     * @param {string} password - Ticket message.
+     * @param {Object} user - User in session.
+     * @param {string} category - Work order category.
+     * @param {string} subject - Work order subject.
+     * @param {string} message - Ticket message.
+     * @param {string} attachments - Work order attachments.
      */
-
-
     createTicket: function (req, res, next) {
 
 
-        if (req.user === undefined) {
+        if (!req.user || req.user === undefined) {
             return res.status(404).json({message: 'User not found'});
         }
 
-        if (req.body.subject === undefined) {
+        if (!req.body.category || req.body.category === undefined) {
+            return res.status(404).json({message: 'category not found'});
+        }
+
+        if (!req.body.subject || req.body.subject === undefined) {
             return res.status(404).json({message: 'subject not found'});
         }
 
-        if (req.body.message === undefined) {
+        if (!req.body.message || req.body.message === undefined) {
             return res.status(404).json({message: 'message not found'});
         }
-
 
         var file = req.files.attachments;
 
@@ -64,7 +67,7 @@ module.exports = {
         }
 
         var ticket = new Ticket({
-            filed_by: req.body.filed_by || req.user._id ,
+            requested_by: req.body.requested_by || req.user._id ,
             created_by: req.user._id,
             subject: req.body.subject,
             message: req.body.message,
@@ -76,18 +79,18 @@ module.exports = {
 
         ticket.save(function (err, t) {
             if (!err) {
-                Ticket.populate(t,{ path:"filed_by" }, function(err, tpopulated) {
-                            if (err){
-                                console.log('ERROR: ' + err);
-                                res.status(500).json({ err: err, message: "Internal Server Error"});
-                            }
-                            if(!tpopulated){
-                                res.status(404).json({ message: "Client not found" });
-                            }else {
-                                mailer.newTicket(tpopulated);
-                                return res.status(200).json({ticket: tpopulated, message: "Ticket has been created"});
-                            }
-                      });
+                Ticket.populate(t,"requested_by created_by" , function(err, tpopulated) {
+                    if (err){
+                        console.log('ERROR: ' + err);
+                        res.status(500).json({ err: err, message: "Internal Server Error"});
+                    }
+                    if(!tpopulated){
+                        res.status(404).json({ message: "User not found" });
+                    }else {
+                        //mailer.newTicket(tpopulated);
+                        return res.status(200).json({ticket: tpopulated, message: "Work Order has been created"});
+                    }
+                });
 
             } else {
                 console.log('ERROR: ' + err);
@@ -136,7 +139,8 @@ module.exports = {
             function (callback) {
 
                 Ticket.find({}).or(options)
-                .populate('filedby','name')
+                .populate('requested_by','name company email phone profile_picture')
+                .populate('created_by','name company email phone profile_picture')
                 .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, tickets) {
                     if (err) {
                         console.log('ERROR: ' + err);
@@ -173,7 +177,7 @@ module.exports = {
 
         Ticket.findOne({_id: req.params.id})
             .populate('created_by', 'name company email phone profile_picture')
-            .populate('filed_by', 'name company email phone profile_picture')
+            .populate('requested_by', 'name company email phone profile_picture')
             .populate('assignee','name company email phone profile_picture')
             .exec(function (err, ticket) {
                 if (err) {
@@ -255,11 +259,14 @@ module.exports = {
             location = req.user.location;
 
 
+        var options  = {};
 
-        var options  = {};  
-        if(req.user.role != 'admin'){
-            options['location'] = location;
+        if(req.user.role == 'admin' && req.query.location){
+            options['location'] = req.query.location
+        } else {
+            options['location'] = req.user.location;
         }
+
 
         if(id){
             options['_id'] = id;
@@ -296,8 +303,9 @@ module.exports = {
                 async.parallel([
                     function (callback) {
                         Ticket.find(options)
-                        .populate('created_by')
-                        .populate('filed_by').sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
+                        .populate('created_by', 'name company email phone profile_picture')
+                        .populate('requested_by', 'name company email phone profile_picture')
+                        .sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
                             } else {
@@ -308,17 +316,16 @@ module.exports = {
                                     });
                                     callback(null, tickets);
                                 }
-                                else if(req.query.filed_by){
-                                    var regexp = new RegExp(req.query.filed_by, 'i');
+                                else if(req.query.requested_by){
+                                    var regexp = new RegExp(req.query.requested_by, 'i');
                                     var tickets = t.filter( function(val){
-                                        return regexp.test(val.filed_by.name.first);
+                                        return regexp.test(val.requested_by.name.first);
                                     });
                                     callback(null, tickets);
                                 }else{
                                     tickets = t;
                                     callback(null, tickets);
                                 }
-
                             }
                         });
 
@@ -354,6 +361,6 @@ module.exports = {
                 });
             }
         });
-    },
+    }
 
 }

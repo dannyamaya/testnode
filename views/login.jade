@@ -2,7 +2,7 @@ extend layout
 block content
     .login.col-xs-12.no-padding
         .layer.col-xs-12.no-padding
-            .container
+            .container.containerForm-Login
                 .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.no-padding.form-login.has-feedback
                     .col-xs-12.no-padding
                         .alert.alert-success.animated.col-xs-12#loginsuccess(style="display:none;")
@@ -10,19 +10,20 @@ block content
                         .alert.alert-danger.animated.col-xs-12#loginerror(style="display:none;")
                             p#errmsj Lo sentimos no estas registrado
                     .col-xs-12.form-container
-                        h1.col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.title
-                            img(src="/img/logolivinn-blanco.svg", alt="Livinn")
-                        form.form#loginForm(action="/login" method="post", role="form")
-                            .form-group
-                                label.sr-only(for='inputEmail') Email
-                                input#inputEmail.form-control(type='email' name='email' placeholder='Email',autofocus='' required disabled=logged)
-                            .form-group
-                                label.sr-only(for='inputPassword') Password
-                                input#inputPassword.form-control(type='password' name='password' placeholder='Password' required disabled=logged)
-                            .loading#loading(style="display:none")
-                            button.btn.btn-lg.btn-livinn.btn-block#loginbtn(type='submit') Sign In
-                            p.text-center.forgot-btn
-                                a(data-toggle="modal", data-target="#forgotPswdModal", href="/#",data-dismiss="modal" disabled=logged) Forgot password?
+                        .col-xs-12
+                            h1.col-xs-8.col-xs-offset-2.col-sm-8.col-sm-offset-2.title
+                                img(src="/img/logolivinn-blanco.svg", alt="Livinn")
+                            form.form#loginForm(action="/login" method="post", role="form")
+                                .form-group
+                                    label.sr-only(for='inputEmail') Email
+                                    input#inputEmail.form-control(type='email' name='email' placeholder='Email',autofocus='' required disabled=logged)
+                                .form-group
+                                    label.sr-only(for='inputPassword') Password
+                                    input#inputPassword.form-control(type='password' name='password' placeholder='Password' required disabled=logged)
+                                .loading#loading(style="display:none")
+                                button.btn.btn-lg.btn-livinn2.btn-block#loginbtn(type='submit') Sign In
+                                p.text-center.forgot-btn
+                                    a(data-toggle="modal", data-target="#forgotPswdModal", href="/#",data-dismiss="modal" disabled=logged) Forgot password?
     <!-- Forgot Password Modal -->
     .modal.fade#forgotPswdModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog
@@ -71,6 +72,8 @@ block scripts
 
                         $('#loading').addClass("hidden");
                         $('#loginbtn').show("fast");
+
+                        $('#loginForm').reset();
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {

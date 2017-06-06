@@ -180,7 +180,7 @@ module.exports = {
         Ticket.findOne({_id: req.params.id})
             .populate('created_by', 'name company email phone profile_picture')
             .populate('requested_by', 'name company email phone profile_picture')
-            .populate('assignee','name company email phone profile_picture')
+            .populate('assigned_to','name company email phone profile_picture')
             .exec(function (err, ticket) {
                 if (err) {
                     console.log('ERROR: ' + err);

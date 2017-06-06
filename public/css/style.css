@@ -804,7 +804,7 @@ button:focus{
     margin-left: 29%;
   }
 
-  .userTools .userMaganementDesktop form input[type="text"] {
+  .userTools .userMaganementDesktop form {
     width: 358px;
   }
 
@@ -1738,6 +1738,22 @@ textarea.parsley-error {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
+}
+
+.btnManageUser,
+.btnManageUser:hover,
+.btnManageUser:active,
+.btnManageUser:focus{
+  margin-top: 11px;
+  padding: 7px 11px;
+  margin-left: 5px;
+  color: #D51C5C;
+  background-color: #fff;
+  box-shadow: none;
+}
+
+.btnManageUser span {
+  color: #D51C5C;
 }
 
 .btnsManageUsers {

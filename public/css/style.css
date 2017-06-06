@@ -440,6 +440,7 @@ button:focus{
   display: table;
   white-space: nowrap;
   float: left;
+  margin-top: 8px;
 }
 
 .userTools h2 {
@@ -588,6 +589,10 @@ button:focus{
 
 .userSearch-Management .form-group button i {
   font-size: 2rem
+}
+
+.userMaganementDesktop form.form .search {
+  border: 1px solid #D51C5C;
 }
 
 /*.tagarea{
@@ -765,13 +770,12 @@ button:focus{
 
 @media screen and (min-width: 992px) {
 
-  .userTools .userMaganementDesktop form {
-    margin-left: 12%;
-    width: 245px;
+  .userTools .titleUserManagement {
+    margin-top: 11px;
   }
 
-  .userToolManageSlide {
-    margin-left: 1.6% !important;
+  .userTools .userMaganementDesktop form {
+    width: 195px;
   }
 
   .dashboard-menu {
@@ -791,25 +795,14 @@ button:focus{
   }
 
   .userTools .userMaganementDesktop form {
-    margin-left: 28%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 18% !important;
+    width: 250px;
   }
 }
 
 @media screen and (min-width: 1600px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 29%;
-  }
 
   .userTools .userMaganementDesktop form {
     width: 358px;
-  }
-
-  .userToolManageSlide {
-    margin-left: 24% !important;
   }
 
   .dashboard-menu {
@@ -822,24 +815,11 @@ button:focus{
 }
 
 @media screen and (min-width: 1900px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 34%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 30% !important;
-  }
 
 }
 
 @media screen and (min-width: 2300px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 38%;
-  }
 
-  .userToolManageSlide {
-    margin-left: 35% !important;
-  }
 }
 
 
@@ -1756,10 +1736,6 @@ textarea.parsley-error {
   box-shadow: none;
 }
 
-.btnManageUser span {
-  color: #D51C5C;
-}
-
 .btnsManageUsers {
   margin-left: 3px;
   border: none;
@@ -1768,6 +1744,15 @@ textarea.parsley-error {
 .btnsManageUsers2 {
   margin-left: 22px;
   border: none;
+}
+
+.menuManageUser >li>a {
+  padding: 10px 6px;
+}
+
+.menuManageUser >li>a i {
+  margin: 3px 8px 5px;
+  float: left;
 }
 
 .btn-adduser:focus,

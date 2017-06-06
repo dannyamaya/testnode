@@ -261,8 +261,10 @@ module.exports = {
 
         var options  = {};
 
-        if(req.user.role == 'admin' && req.query.location){
-            options['location'] = req.query.location
+        if(req.user.role == 'admin'){
+            if(req.query.location){
+                options['location'] = req.query.location
+            }
         } else {
             options['location'] = req.user.location;
         }
@@ -318,13 +320,6 @@ module.exports = {
                                     });
                                     callback(null, tickets);
                                 }
-                                else if(req.query.requested_by){
-                                    var regexp = new RegExp(req.query.requested_by, 'i');
-                                    var tickets = t.filter( function(val){
-                                        return regexp.test(val.requested_by.name.first);
-                                    });
-                                    callback(null, tickets);
-                                }
                                 else if(req.query.assigned_to){
                                     var regexp = new RegExp(req.query.assigned_to, 'i');
 
@@ -362,8 +357,26 @@ module.exports = {
                         });
                     } else {
 
-                        results[0].forEach(function(r) {
-                            console.log(r.subject, r.category, r.location, r.requested_by.name.first, r.created_by.name.first, r.assigned_to);
+                        // filter: requested_by
+                        if(req.user.role == 'admin'){
+                            if(req.query.requested_by){
+                                var regexp = new RegExp(req.query.requested_by, 'i');
+                                var tickets = results[0].filter( function(val){
+                                    return regexp.test(val.requested_by.name.first);
+                                });
+                            }else{
+                                var tickets = results[0];
+                            }
+                        }
+                        else{
+                            var tickets = results[0].filter( function(val){
+                                return (val.requested_by.id == req.user.id);
+                            });                            
+                        }
+
+                        console.log('RESULTS************');
+                        tickets.forEach(function(r) {
+                            console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
                             console.log('***************');
 
                         });
@@ -372,7 +385,7 @@ module.exports = {
 
                        return res.status(200).json({
                             error: false,
-                            tickets: results[0],
+                            tickets: tickets,
                             count: results[1],
                             page: parseInt(page)
                         });

@@ -428,6 +428,21 @@ button:focus{
   margin-right: 4px;
 }
 
+.userSettings {
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 0px
+}
+
+.userSettings li {
+  padding: 10px 15px;
+  border-top: 1px solid #171717;
+}
+
+.userSettings li a {
+  color: #7B7B7B;
+}
+
 .userTools {
   background-color: #E1E1E1;
   margin-top: 70px;
@@ -593,6 +608,12 @@ button:focus{
 
 .userMaganementDesktop form.form .search {
   border: 1px solid #D51C5C;
+}
+
+.userInfo ul.nav {
+  float: right;
+  right: 35px;
+  position: relative;
 }
 
 /*.tagarea{
@@ -1567,8 +1588,8 @@ textarea.parsley-error {
 }
 
 .input-group.search input[type="text"]::placeholder {
-  font-family: 'BebasNeue-Book', sans-serif;
-  font-size: 2rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.3rem;
 }
 
 .search .form-control,
@@ -1632,8 +1653,8 @@ textarea.parsley-error {
 .table tbody tr{
   background-color:#fff;
   text-align: center;
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 
 }
 
@@ -1971,10 +1992,6 @@ textarea.parsley-error {
 
   .dashboard-menu{
     position: fixed;
-  }
-
-  .heading .userInfo {
-    right: -5%;
   }
 
   .ticket {

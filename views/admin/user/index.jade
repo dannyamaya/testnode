@@ -133,9 +133,9 @@ block content
                     tr
                         th.hidden-xs
                         th(style="min-width:33px;")
-                        th Email
                         th First Name
                         th Last Name
+                        th Email
                         th Document type
                         th Document
                         th Cellphone
@@ -279,11 +279,12 @@ block modals
 
 
     <!-- User Registration Modal -->
-    .modal.fade#registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+    .modal.fade#registrationModal.registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.modal-lg
             .modal-content
-                .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                .modal-header.gradienteLivinn
+                  h3.text-center New User
+                    button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1
@@ -291,6 +292,7 @@ block modals
                                 .col-xs-12.col-sm-6
                                     .form-group
                                         .preview.img-wrapper
+                                          i.icon.ion-plus
                                         .file-upload-wrapper
                                                 input.file-upload-native(type="file" name="image" accept="image/*" )
                                                 input.file-upload-text(type="text" disabled placeholder="Upload profile image")
@@ -894,7 +896,7 @@ block scripts
                         } else {
                             location = "";
                         }
-                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td class='hidden-xs hidde-sm'><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td>" + response.users[key].email + "</td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td>"+location+"<td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM') + "</td></tr>");
+                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td class='hidden-xs hidde-sm'><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td class='text-capitalize'>" + response.users[key].email + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td>" + response.users[key].role + "</td>"+location+"<td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM') + "</td></tr>");
                     }
 
                     $('#loader').fadeOut("slow", function () {

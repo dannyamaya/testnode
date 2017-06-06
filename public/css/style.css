@@ -107,7 +107,7 @@ button:focus{
   transform: translateY(-50%);
 }
 
-.gradienteLivvin {
+.gradienteLivinn {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bc215d+0,bc215d+14,333d62+94,333d62+100 */
   background: #bc215d; /* Old browsers */
   background: -moz-linear-gradient(left, #bc215d 0%, #bc215d 14%, #333d62 94%, #333d62 100%); /* FF3.6-15 */
@@ -894,12 +894,20 @@ button:focus{
 
 .preview {
     display: block;
-    width: 200px;
-    height: 200px;
+    width: 145px;
+    height: 145px;
     margin: 20px auto;
     border: 2px solid #E30056;
     border-radius: 50%;
     overflow: hidden;
+}
+
+.preview i {
+  margin: 0px auto;
+  position: absolute;
+  top: 84px;
+  left: 161px;
+  color: #D51C5C;
 }
 
 .file-upload-wrapper {
@@ -907,11 +915,14 @@ button:focus{
     z-index: 5;
     display: block;
     width: 250px;
-    height: 30px;
+    height: 50px;
     margin: 5px auto 70px;
-    border-right: 2px dotted #E30056;
-    border-bottom: 2px dotted #E30056;
-    border-left: 2px dotted #E30056;
+    border: 1px solid #E30056;
+    padding: 10px 35px;
+}
+
+.file-upload-wrapper input[type="text"] {
+  color: #D51C5C;
 }
 
 .file-upload-native,
@@ -1430,6 +1441,26 @@ input[type="file"]::-webkit-file-upload-button {
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
+}
+
+.registrationModal .modal-dialog {
+  margin: 0px;
+}
+
+.registrationModal .modal-content {
+  border: none;
+}
+
+.registrationModal .modal-header {
+  padding: 10px 0px;
+}
+
+.registrationModal .modal-header h3 {
+  font-family: 'BebasNeue-Bold', sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #FFF;
+  font-size: 2.3rem;
 }
 
 /* ---- select ---*/

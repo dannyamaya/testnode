@@ -785,7 +785,7 @@ button:focus{
 }
 
 @media screen and (min-width: 1200px) {
-    
+
   .logoHeading a {
     width: 120px;
   }
@@ -1365,7 +1365,7 @@ input[type="file"]::-webkit-file-upload-button {
   position: relative;
   vertical-align: middle;
   padding: 0;
-  height:40px;
+  height:32px;
   background: #fff;
   color: #555;
   border: 1px solid #aaa;
@@ -1386,7 +1386,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 .select:before {
   position: absolute;
-  top: 0.9em;
+  top: 0.5em;
   right: 0.5em;
   pointer-events: none;
 }
@@ -1405,7 +1405,7 @@ input[type="file"]::-webkit-file-upload-button {
   text-indent: 0.01px;
   text-overflow: '';
   width: 160% \9;
-  height: 40px;
+  height: 32px;
 }
 .select select:focus, .select select:active, .select select:hover,
 .select:focus:before, .select:active:before, .select:hover:before  {

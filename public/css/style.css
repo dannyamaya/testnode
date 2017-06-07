@@ -1035,8 +1035,8 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-profile-img-2 img{
-    width:61px;
-    height:61px;
+    width:52px;
+    height:45px;
 }
 
 .ticket-up-info{
@@ -1473,7 +1473,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .full-width.modal-dialog {
-  width: 70%;
+  width: 90%;
   height: 90%;
 }
 
@@ -2462,5 +2462,28 @@ textarea.parsley-error {
 
 .label-message{
     font-weight: 400;
+    color: #606470;
 }
+
+.comment-chat{
+    color: #606470;
+    margin-bottom: -2px;
+
+}
+
+.comment-chat-date{
+    color: #606470;
+    margin-bottom: -2px;
+    font-size: 12px;
+
+}
+
+.comment-section{
+    background-color: white ;
+}
+
+.gray{
+    color: #606470 !important;
+}
+
 

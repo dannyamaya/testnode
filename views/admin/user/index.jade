@@ -25,7 +25,7 @@ block content
                           a.locationSearch(href="#") Calle 21 Bogotá
                       li
                           a.locationSearch(href="#") Villa campestre Barranquilla
-                      li.dropdown-header.cleanLocationSearch.pull-right Clear
+                      li.dropdown-header.cleanLocationSearch.pull-right(style="color:#D51C5C;") Clear
 
 
           .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
@@ -45,7 +45,7 @@ block content
                       a.roleSearch(href="#") Resident Assistant
                   li
                       a.roleSearch(href="#") Operation Manager
-                  li.dropdown-header.cleanRoleSearch.pull-right Clear
+                  li.dropdown-header.cleanRoleSearch.pull-right(style="color:#D51C5C;") Clear
           .dropdown.hidden-xs.hidden-sm.hidden-lg(style="display:inline-block")
             button.btn.btnManageUser.btn-dropdown.dropdown-toggle#dropdownMenu1(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
               span(class="glyphicon glyphicon-option-vertical")
@@ -400,24 +400,6 @@ block modals
                                                 option(value="") Choose a status
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
-                                    .col-xs-12.no-padding
-                                        .form-group.col-sm-6
-                                            label(for='rate')
-                                                |   Amount
-                                                span.requiredLivinn *
-                                            input#rate.form-control.inputResident(type='text' name='rate' placeholder='Rate' autofocus='' required='')
-                                        .form-group.col-sm-6
-                                            label(for='currency')
-                                                |   Currency
-                                                span.requiredLivinn *
-                                            .select
-                                                select.inputResident(name="currency" required='')
-                                                  option(value="") Choose a currency
-                                                  option(value="CLP") CLP
-                                                  option(value="COP") COP
-                                        .form-group.col-sm-6
-                                            label(for='rateusd') Amount USD
-                                            input#rateusd.form-control.inputResident(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
                                     hr.col-xs-12.no-padding
                                     .col-xs-12.no-padding
                                       .form-group.col-sm-6
@@ -427,7 +409,21 @@ block modals
                                       .form-group.col-sm-6
                                           label(for='type') Apartment Type
                                           span.requiredLivinn *
-                                          input#type.form-control.inputResident(type='text' name='apartmentType' placeholder='Type'  autofocus='' required='')
+                                          .select
+                                            select#type.inputResident(name='apartmentType' required)
+                                              option(value="") Apartment type
+                                              option(value="1A") 1A
+                                              option(value="1B") 1B
+                                              option(value="2A") 2A
+                                              option(value="2B") 2B
+                                              option(value="3A") 3A
+                                              option(value="3B") 3B
+                                              option(value="4A") 4A
+                                              option(value="4B") 4B
+                                              option(value="4C") 4C
+                                              option(value="4D") 4D
+                                              option(value="4E") 4E
+                                              option(value="4F") 4F
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -437,7 +433,15 @@ block modals
                                                 option(value="shared") Shared
                                     .form-group.col-sm-6
                                         label(for='bed') Bed
-                                        input#bed.form-control.inputResident(type='text' name='bed' placeholder='Bed' autofocus='')
+                                        .select
+                                          select#bed.inputResident(name='bed')
+                                            option(value="") Bed
+                                            option(value="A1") A1
+                                            option(value="A2") A2
+                                            option(value="B1") B1
+                                            option(value="B2") B2
+                                            option(value="C1") C1
+                                            option(value="D1") D1
                                     .col-sm-12
 
 
@@ -451,8 +455,9 @@ block modals
     .modal.fade#updateUserModal.updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
-                .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                      i.icon.ion-android-close
                     h3.modal-sm-title.text-center#updateModal_h ¿Do you want to update this user?
                 .modal-body
                     .row
@@ -464,7 +469,7 @@ block modals
                                         .preview.img-wrapper.img-preloaded#updateProfileImage
                                         .file-upload-wrapper
                                             input.file-upload-native#inputUpdateImage(type="file" name="image" accept="image/*" )
-                                            input.file-upload-text(type="text" disabled placeholder="Change Profile Image")
+                                            input.file-upload-text(type="text" disabled placeholder="Change Profile Photo")
 
                                     .form-group
                                         label(for='inputUpdateFirstname') First Name
@@ -475,7 +480,6 @@ block modals
                                     .form-group.emailregistrationerror
                                         label(for='inputUpdateEmail') Email
                                         input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required='' autofocus='')
-                                .col-xs-12.col-sm-6
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -488,7 +492,7 @@ block modals
                                                 option(value="client service") Client Service
                                                 option(value="resident assistant") Resident Assistant
                                                 option(value="admin") Super Admin
-
+                                .col-xs-12.col-sm-6.secondInputGroup
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
@@ -519,7 +523,7 @@ block modals
                                                     option(value="Calle 21 Bogotá")  Bogotá - Calle 21
                                                     option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
                                                     option(value="Viña Del Mar") Viña Del Mar - Alvarez
-                                    .form-group.col-xs-12.col-sm-6.no-padding-right
+                                    .form-group.col-xs-12.col-sm-6.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
@@ -539,6 +543,12 @@ block modals
                                         label(for='inputUpdateSkype') Skype
                                         input#inputUpdateSkype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
 
+                                    .col-xs-12.no-padding
+                                      .form-group.col-xs-12.btnsModal.text-center.no-padding
+                                          .col-xs-12.no-padding
+                                            .text-center
+                                              button.col-xs-5.col-xs-offset-1.col-md-offset-0.btn.btn-livinn#updateUserButton  Update
+                                              button.col-xs-5.col-md-offset-2.btn.deleteBtn.btn-livinn4(data-dismiss="modal" aria-hidden="true") Cancel
                                     .form-group.residentFields
                                         label(for='inputUpdateBirthdate') Birth Date
                                         input#inputUpdateBirthdate.form-control(type='text' name='birthdate' placeholder='YYYY-MM-DD'  autofocus='')
@@ -568,24 +578,6 @@ block modals
                                                 option(value="") Choose a status
                                                 option(value="Booked") Booked
                                                 option(value="In-house") In-house
-
-                                .col-xs-12.no-padding.residentFields
-                                    .form-group.col-sm-4
-                                        label(for='inputUpdateRate') Amount
-                                        span.requiredLivinn *
-                                        input#inputUpdateRate.form-control.inputResidentUpdate(type='text' name='rate' placeholder='Rate' autofocus='' required='')
-                                    .form-group.col-sm-4
-                                        label(for='inputUpdateCurrency')
-                                            |   Currency
-                                            span.requiredLivinn *
-                                        .select
-                                            select#inputUpdateCurrency.inputResidentUpdate(name="currency" required='')
-                                                option(value="") Choose a currency
-                                                option(value="CLP") CLP
-                                                option(value="COP") COP
-                                    .form-group.col-sm-4
-                                        label(for='inputUpdateRateusd') Amount USD
-                                        input#inputUpdateRateusd.form-control.inputResidentUpdate(type='text' name='rateusd' placeholder='Rate USD' autofocus='' required='')
                                 .col-xs-12.no-padding.residentFields
                                     hr
                                     .form-group.col-sm-6
@@ -609,11 +601,6 @@ block modals
                                     .col-sm-12
                                         hr
 
-                                .col-xs-12
-                                    .form-group.col-sm-12.col-md-4.col-md-offset-8.no-padding
-                                        .pull-right
-                                            button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
-                                            button.btn.btn-livinn#updateUserButton  Update
 
     <!-- Delete User Modal -->
     .modal.fade#deleteUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -928,7 +915,7 @@ block scripts
                     type: "GET",
                     url: 'api/users/' + id,
                     success: function (response) {
-                        $('#updateModal_h').html('¿Do you want to update the user <span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>?');
+                        $('#updateModal_h').html( response.user.name.first + ' ' + response.user.name.last );
                         $('#updateProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
                         $("#inputUpdateEmail").val(response.user.email);
                         $("#inputUpdateFirstname").val(response.user.name.first);
@@ -958,10 +945,7 @@ block scripts
                                         $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
                                     $("#inputUpdateApartment").val(response.resident.apartment);
                                     $("#inputUpdateApartmentType").val(response.resident.apartment_type);
-                                    $("#inputUpdateRate").val(response.resident.rate);
                                     $("#inputUpdateBed").val(response.resident.bed);
-                                    $("#inputUpdateCurrency").val(response.resident.currency);
-                                    $("#inputUpdateRateusd").val(response.resident.rateusd);
                                     $("#inputUpdateAgent").val(response.resident.agent);
                                     $("#inputUpdateFinish").val(response.resident.finish.substr(0,10));
                                     $("#inputUpdateStart").val(response.resident.start.substr(0,10));
@@ -1180,11 +1164,8 @@ block scripts
                                 $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
                                 $("#apartmentRead").text(response.resident.apartment);
                                 $("#typeRead").text(response.resident.apartment_type);
-                                $("#rateRead").text(response.resident.rate);
                                 $("#bathroomRead").text(response.resident.bathroom);
                                 $("#bedRead").text(response.resident.bed);
-                                $("#currencyRead").text(response.resident.currency);
-                                $("#rateusdRead").text(response.resident.rateusd);
                                 $("#agentRead").text(response.resident.agent);
                                 $("#finishRead").text(response.resident.finish.substr(0, 10));
                                 $("#startRead").text(response.resident.start.substr(0, 10));

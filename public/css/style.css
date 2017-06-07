@@ -166,7 +166,7 @@ button:focus{
 }
 
 .btn-livinn3{
-    font-weight: bold;
+  font-weight: bold;
 }
 
 
@@ -906,7 +906,7 @@ button:focus{
   margin: 0px auto;
   position: absolute;
   top: 85px;
-  left: 175px;
+  left: 180px;
   color: #D51C5C;
 }
 
@@ -919,6 +919,10 @@ button:focus{
     margin: 5px auto 40px;
     border: 1px solid #E30056;
     padding: 10px 35px;
+}
+
+.registrationModal .modal-body form .form-group .file-upload-wrapper input[type="text"] {
+  background-color: #FFF;
 }
 
 .file-upload-wrapper input[type="text"]::placeholder {
@@ -969,6 +973,10 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 /* TICKETS */
+.tickets{
+    margin-bottom: 80px;
+}
+
 .ticket{
   border:1px solid #ccc;
   min-height:138px;
@@ -1495,6 +1503,66 @@ input[type="file"]::-webkit-file-upload-button {
   margin-bottom: 10px;
   color: #FFF;
   font-size: 2.3rem;
+}
+
+.registrationModal .modal-body form .form-group {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.registrationModal .modal-body form .form-group label {
+  color: #D51C5C;
+  margin-left: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.3rem;
+}
+
+.registrationModal .modal-body form .form-group input {
+  padding: 24px 12px;
+  background-color: #DCDCDC;
+  border-top: none;
+  border-bottom: none;
+  border-right: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group .form-control {
+  border-top: none;
+  border-bottom: none;
+  border-right: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group input::placeholder {
+  color: #9C9C9C;
+}
+
+.registrationModal .modal-body form .form-group .select,
+.registrationModal .modal-body form .form-group .select select {
+  height: 50px;
+  background-color: #DCDCDC;
+  color: #9C9C9C;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px solid #FFF;
+  border-left: 1px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group .select:before {
+  top: 1em;
+}
+
+.registrationModal .modal-body form .form-group.btnsModal {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.registrationModal .modal-body form .form-group.btnsModal button.btn-livinn {
+  font-size: 2.3rem;
+  padding: 5px 22px 1px;
+  font-family: 'BebasNeue-Regular' , sans-serif;
+  text-transform: uppercase;
+  box-shadow: none;
 }
 
 /* ---- select ---*/
@@ -2132,6 +2200,11 @@ textarea.parsley-error {
   .ticket {
     min-height: 120px;
   }
+
+  .preview i {
+    top: 85px;
+    left: 245px;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -2176,6 +2249,10 @@ textarea.parsley-error {
     margin-top: 79px;
     height: 55px;
   }
+
+  .tickets{
+     margin-top:20px;
+   }
 
   .ticket-date {
       text-align: right;

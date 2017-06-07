@@ -426,6 +426,8 @@ block scripts
                     var createddate = '';
                     var formatedDate = '';
                     var priority = 'four';
+                    var assignedto = '';
+                    var opened = '';
                     if(data.tickets.length == 0){
                         $('#loading').remove();
                     };
@@ -450,7 +452,25 @@ block scripts
                             priority = 'four';
                         }
 
-                        $('.tickets').append('<div class="col-xs-12 no-padding ticket '+priority+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ data.tickets[key].requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span>Tim</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');
+                        //Assigned to
+
+                        data.tickets[key].assigned_to.length==0?assignedto = 'Not assigned':assignedto = '';
+                        for(i = 0; i < data.tickets[key].assigned_to.length;i++){
+                            if(i==data.tickets[key].assigned_to.length-1){
+                                assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
+                            } else {
+                                assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+                            }
+                        }
+
+                        //Opened
+                        if(data.tickets[key].opened){
+                            opened='opened';
+                        } else {
+                            opened='';
+                        }
+
+                        $('.tickets').append('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+data.tickets[key]._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ data.tickets[key].requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');
 
                         $('.tickets').append("<div class='col-xs-12 no-padding ticket hidden'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') +attachment+ "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].requested_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     };
@@ -705,6 +725,20 @@ block scripts
             });
 
             $('#readModal').modal('show');
+
+            $.ajax({
+
+                type: "PUT",
+                data: {"opened":true},
+                url: '/api/tickets/' + ticketid,
+                success: function (response) {
+                    $('.ticket[data-ticketid="'+ticketid+'"]').addClass('opened');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
         }
 
         $("#ticketasignee").autocomplete({

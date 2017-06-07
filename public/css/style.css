@@ -985,6 +985,20 @@ input[type="file"]::-webkit-file-upload-button {
   -moz-border-radius: 0px;
   border-radius: 0px;
   border-left:4px solid #CECECE;
+  background-color: #ededed;
+}
+
+
+.ticket.opened{
+    background-color: #fff;
+}
+
+.ticket.opened .ticket-title {
+    font-weight: normal;
+}
+
+.ticket .ticket-title, .ticket.opened .ticket-title :hover {
+    font-weight: bold;
 }
 
 .ticket.one{
@@ -1069,7 +1083,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .btn-exclamation-circle, .btn-clock-o, .btn-check-circle{
-  background-color: #fff;
+  background-color: transparent;
   border:none;
   box-shadow: none;
   font-size: 22px;

@@ -14,7 +14,7 @@ block content
         form.col-xs-12.navbar-left(action='' method='' type='')
             .input-group.search
                 .col-xs-8.no-padding
-                    input.form-control#search(type="text" name="name" placeholder="Search")
+                    input.form-control#searchmobile(type="text" name="name" placeholder="Search")
                 .col-xs-4.no-padding
                     .select
                         select#searchby
@@ -24,7 +24,7 @@ block content
                             option(value="id") Work Order ID
         .col-xs-12
          .select.select-livinn
-            select.form-control.filter#categoryselect
+            select.form-control.filter#categoryselectmobile
                 option(value="" selected) Category
                 option(value="cleaning services") Cleaning Services
                 option(value="customer service") Customer Service
@@ -34,18 +34,18 @@ block content
                 option(value="others") Others
         .col-xs-12
           .select.select-livinn.col-xs-2
-              select.form-control.filter#subcategoryselect
+              select.form-control.filter#subcategoryselectmobile
                   option(value="" selected) Subcategory
         .col-xs-12
           .select.select-livinn.col-xs-2
-              select.form-control.filter#statusselect
+              select.form-control.filter#statusselectmobile
                   option(value="" selected) Status
                   option(value="0") Open
                   option(value="1") Pending
                   option(value="2") Resolved
         .col-xs-12
           .select.select-livinn.col-xs-2
-              select.form-control.filter#priorityselect
+              select.form-control.filter#priorityselectmobile
                   option(value="" selected) Priority
                   option(value="1") 1
                   option(value="2") 2
@@ -376,12 +376,16 @@ block scripts
             }
 
             //Assigned to
-            dataServer.ticket.assigned_to.length==0?assignedto = 'Not assigned':assignedto = '';
-            for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
-                if(i==dataServer.ticket.assigned_to.length-1){
-                    assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
-                } else {
-                    assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+            if(!dataServer.ticket.assigned_to || dataServer.ticket.assigned_to.length==0){
+                assignedto = 'Not assigned';
+            } else {
+                assignedto = '';
+                for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
+                    if(i==dataServer.ticket.assigned_to.length-1){
+                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
+                    } else {
+                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                    }
                 }
             }
 
@@ -551,6 +555,9 @@ block scripts
                 }
             }
 
+            console.log("las options:");
+            console.log(options);
+
             $.ajax({
                 type: "GET",
                 url: '/api/users/#{user._id}/tickets?page=' + page + options,
@@ -593,12 +600,16 @@ block scripts
                         }
 
                         //Assigned to
-                        data.tickets[key].assigned_to.length==0?assignedto = 'Not assigned':assignedto = '';
-                        for(i = 0; i < data.tickets[key].assigned_to.length;i++){
-                            if(i==data.tickets[key].assigned_to.length-1){
-                                assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
-                            } else {
-                                assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+                        if(!data.tickets[key].assigned_to || data.tickets[key].assigned_to.length==0){
+                            assignedto = 'Not assigned';
+                        } else {
+                            assignedto = '';
+                            for(i = 0; i < data.tickets[key].assigned_to.length;i++){
+                                if(i==data.tickets[key].assigned_to.length-1){
+                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
+                                } else {
+                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+                                }
                             }
                         }
 

@@ -1027,6 +1027,13 @@ input[type="file"]::-webkit-file-upload-button {
   position: relative;
 }
 
+.ticket-profile-img-two img {
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+    position: relative;
+}
+
 .ticket-profile-img-2 img{
     width:61px;
     height:61px;

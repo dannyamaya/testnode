@@ -37,10 +37,16 @@ html.no-js(lang="es")
                     i.label.label-livinn#ticketcount 0
 
         ul.list-unstyled.col-xs-12.no-padding.userSettings(style="z-index: 2000;")
-          li
-              a(href='/settings/personal-information') Settings
-                i.ion-ios-arrow-down.pull-right
-          li
+          li.dropdown.col-xs-12.no-pading
+            a.dropdown-toggle.col-xs-12(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+              | Settings 
+              i.ion-ios-arrow-down.pull-right
+            ul.dropdown-menu.col-xs-12.no-padding
+              li.userSettingOption
+                a(href='/settings/personal-information') Personal Information
+              li.userSettingOption
+                a(href='/settings/personal-information') Update Password
+          li.col-xs-12
               a(href='/logout') Log Out
 
     .col-xs-12.no-padding.dashcontainer#dashcontainer
@@ -58,7 +64,7 @@ html.no-js(lang="es")
                       span
                       span
                       span
-        .col-xs-12.bordeGradiente       
+        .col-xs-12.bordeGradiente   
 
 
         block content

@@ -465,18 +465,30 @@ block scripts
 
                     var today = moment();
                     var createddate = '';
+                    var formatedDate = '';
+                    var priority = 'four';
                     for (key = 0; key < data.tickets.length; key++) {
 
+                        //Date
                         createddate = moment(data.tickets[key].created);
                         if (today.isSame(createddate, 'd')) {
-                            // They are on the same day
-                            //console.log('Same day: '+createddate.format('MMMM Do YYYY, h:mm:ss a')+' - '+today.format('MMMM Do YYYY, h:mm:ss a'));
+                            formatedDate = createddate.format('LT');
                         } else {
-                            // They are not on the same day
-                            //console.log('Not on the same day: '+createddate.format('MMMM Do YYYY, h:mm:ss a')+' - '+today.format('MMMM Do YYYY, h:mm:ss a'));
+                            formatedDate = createddate.format('MMM D');
                         }
 
-                        $('.tickets').append('<div class="col-xs-12 no-padding ticket"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ data.tickets[key].requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span>Tim</span></p><p class="col-xs-12 no-padding created-by">  Created by:<span>Tim</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">June 5</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');
+                        //Priority
+                        if(data.tickets[key].priority == 1){
+                            priority = 'one';
+                        } else if(data.tickets[key].priority == 2){
+                            priority = 'two';
+                        } else if(data.tickets[key].priority == 3){
+                            priority = 'three';
+                        } else {
+                            priority = 'four';
+                        }
+
+                        $('.tickets').append('<div class="col-xs-12 no-padding ticket '+priority+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ data.tickets[key].requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span>Tim</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');
 
                         $('.tickets').append("<div class='col-xs-12 no-padding ticket hidden'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') +attachment+ "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].requested_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     }
@@ -574,6 +586,7 @@ block scripts
                     $("#messageRead").text(response.ticket.message);
 
                     (function () {
+
                         var Message;
                         Message = function (arg) {
                             this.profile_pic = arg.profile_pic;
@@ -625,20 +638,7 @@ block scripts
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
                             };
                             $('.sendMessage').click(function (e) {
-
-                                var parent = $('.messages').children().last().attr('data-user');
-                                var prevside = $('.messages').children().last().attr('data-side');
                                 var ticket = response.ticket._id;
-
-                                if(parent == $(this).attr('data-current-user'))
-                                    var side = prevside;
-                                else{
-                                    if(prevside == 'left')
-                                        var side = 'right';
-                                    else
-                                        var side = 'left';
-                                }
-
 
                                 $.ajax({
                                     type: "POST",
@@ -652,18 +652,16 @@ block scripts
 
                                     },
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        var message = XMLHttpRequest.responseJSON.message;
-                                        warningAlert(message);
+
                                     }
                                 });
 
-                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
+                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),'left',$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
                             });
 
                             $('.sendNote').click(function (e) {
 
                                 var ticket = response.ticket._id;
-                                alert('aa');
 
                                 $.ajax({
                                     type: "POST",
@@ -677,8 +675,7 @@ block scripts
 
                                     },
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        var message = XMLHttpRequest.responseJSON.message;
-                                        warningAlert(message);
+
                                     }
                                 });
 
@@ -700,17 +697,7 @@ block scripts
                                     $.each(response.comment, function (index, value) {
 
                                         var parent = $('.messages').children().last().attr('data-user');
-                                        var prevside = $('.messages').children().last().attr('data-side');
-
-                                        if (parent == value.posted_by._id)
-                                            var side = prevside;
-                                        else {
-                                            if (prevside == 'left')
-                                                var side = 'right';
-                                            else
-                                                var side = 'left';
-                                        }
-                                        sendMessage(value.comment, value.posted_by._id, side, value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages');
+                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages');
                                     });
 
                                 },

@@ -104,7 +104,7 @@ block content
                                             option(value="requested_by") Requested by
                                             option(value="created_by" selected="true") Created by
                                             option(value="assigned_to") Assigned to
-                                            option(value="id") Work Order ID                                
+                                            option(value="id") Work Order ID
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#categoryselect
                                 option(value="" selected) Category
@@ -343,13 +343,53 @@ block scripts
 
         var socket = io('/superadmin');
         var attachment = '';
+
         socket.on('new-ticket', function (dataServer) {
-            if(dataServer.ticket.attachments){
-                attachment = '<i class="fa fa-paperclip" aria-hidden="true"></i>';
+
+            var today = moment();
+            var createddate = '';
+            var formatedDate = '';
+            var priority = 'four';
+            var assignedto = '';
+            var opened = '';
+
+            //Date
+            createddate = moment(dataServer.ticket.created);
+            if (today.isSame(createddate, 'd')) {
+                formatedDate = createddate.format('LT');
             } else {
-                attachment = '';
+                formatedDate = createddate.format('MMM D');
             }
-            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+dataServer.ticket.priority+"</strong></p></div>"+attachment+"<div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" +'"'+ dataServer.ticket._id +'"'+ " )' ><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+
+            //Priority
+            if(dataServer.ticket.priority == 1){
+                priority = 'one';
+            } else if(dataServer.ticket.priority == 2){
+                priority = 'two';
+            } else if(dataServer.ticket.priority == 3){
+                priority = 'three';
+            } else {
+                priority = 'four';
+            }
+
+            //Assigned to
+            dataServer.ticket.assigned_to.length==0?assignedto = 'Not assigned':assignedto = '';
+            for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
+                if(i==dataServer.ticket.assigned_to.length-1){
+                    assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
+                } else {
+                    assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                }
+            }
+
+            //Opened
+            if(dataServer.ticket.opened){
+                opened='opened';
+            } else {
+                opened='';
+            }
+
+            $('.tickets').append('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ dataServer.ticket.requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category)+getCategory(dataServer.ticket.subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
 
         });
 
@@ -568,7 +608,6 @@ block scripts
 
                         $('.tickets').append('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+data.tickets[key]._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ data.tickets[key].requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');
 
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket hidden'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + data.tickets[key].requested_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') +attachment+ "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong>PRIORITY:<strong>"+data.tickets[key].priority+"</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].requested_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
                     };
                 }
             }).done(function (data) {
@@ -626,7 +665,7 @@ block scripts
 
                     console.log(response);
                     $('#hiddenTicket').val(response.ticket._id);
-                    $('.readModalTitle').html('Ticket #' + response.ticket._id );
+                    $('.readModalTitle').html('Work Order #' + response.ticket._id );
                     $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.requested_by.profile_picture+"'</span>"+response.ticket.requested_by.name.first+" "+response.ticket.requested_by.name.last);
                     $("#ticketemail").text(response.ticket.requested_by.email);
                     if(response.ticket.requested_by.phone.number){

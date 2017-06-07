@@ -107,6 +107,15 @@ button:focus{
   transform: translateY(-50%);
 }
 
+.gradienteLivinn {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bc215d+0,bc215d+14,333d62+94,333d62+100 */
+  background: #bc215d; /* Old browsers */
+  background: -moz-linear-gradient(left, #bc215d 0%, #bc215d 14%, #333d62 94%, #333d62 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #bc215d 0%,#bc215d 14%,#333d62 94%,#333d62 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #bc215d 0%,#bc215d 14%,#333d62 94%,#333d62 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc215d', endColorstr='#333d62',GradientType=1 ); /* IE6-9 */
+}
+
 
 /* BUTTONS & INPUTS */
 
@@ -885,12 +894,20 @@ button:focus{
 
 .preview {
     display: block;
-    width: 200px;
-    height: 200px;
+    width: 145px;
+    height: 145px;
     margin: 20px auto;
     border: 2px solid #E30056;
     border-radius: 50%;
     overflow: hidden;
+}
+
+.preview i {
+  margin: 0px auto;
+  position: absolute;
+  top: 84px;
+  left: 161px;
+  color: #D51C5C;
 }
 
 .file-upload-wrapper {
@@ -898,11 +915,14 @@ button:focus{
     z-index: 5;
     display: block;
     width: 250px;
-    height: 30px;
+    height: 50px;
     margin: 5px auto 70px;
-    border-right: 2px dotted #E30056;
-    border-bottom: 2px dotted #E30056;
-    border-left: 2px dotted #E30056;
+    border: 1px solid #E30056;
+    padding: 10px 35px;
+}
+
+.file-upload-wrapper input[type="text"] {
+  color: #D51C5C;
 }
 
 .file-upload-native,
@@ -1442,6 +1462,26 @@ input[type="file"]::-webkit-file-upload-button {
   border-radius: 25px;
 }
 
+.registrationModal .modal-dialog {
+  margin: 0px;
+}
+
+.registrationModal .modal-content {
+  border: none;
+}
+
+.registrationModal .modal-header {
+  padding: 10px 0px;
+}
+
+.registrationModal .modal-header h3 {
+  font-family: 'BebasNeue-Bold', sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #FFF;
+  font-size: 2.3rem;
+}
+
 /* ---- select ---*/
 
 .select{
@@ -1746,12 +1786,13 @@ textarea.parsley-error {
 }
 
 .table > thead > tr > th {
-  color: #000;
+  color: #898989;
   text-transform: uppercase;
   font-size: 0.8em;
   border-bottom: 1px solid #ddd;
   text-align: center;
   vertical-align: middle;
+  padding: 26px 0px 26px;
 }
 
 .table input[type="checkbox"]{
@@ -1770,7 +1811,6 @@ textarea.parsley-error {
 }
 
 .panel-user, .panel-tickets{
-  margin-top: 20px;
   margin-bottom: 20px !important;
 }
 

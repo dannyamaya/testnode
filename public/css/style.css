@@ -2037,11 +2037,13 @@ textarea.parsley-error {
 
 .btnsManageUsers {
   margin-left: 3px;
+  margin-top: 5px;
   border: none;
 }
 
 .btnsManageUsers2 {
   margin-left: 22px;
+  margin-top: 5px;
   border: none;
 }
 
@@ -2332,6 +2334,16 @@ textarea.parsley-error {
 
   .userTools.ticketTools form .search {
     border: 1px solid #D51C5C;
+  }
+
+  .menuManageUser >li>button {
+    padding: 7px 45px 5px 7px;
+    margin-left: 0px;
+  }
+
+  .menuManageUser >li>button i {
+    margin: 3px 8px 5px;
+    float: left;
   }
 
   .tickets{

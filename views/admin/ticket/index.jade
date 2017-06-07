@@ -56,32 +56,34 @@ block content
 
             #loader
             .col-xs-12.no-padding.tickets
-                //------------- TICKET EXAMPLE ---------------
-                .col-xs-12.no-padding.ticket
-                    .col-xs-2.col-sm-1.no-padding.ticket-profile-img
-                      img.img-circle.img-responsive(src='https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/profile_pictures/1020751320/descarga.jpg')
-                    .col-xs-10.col-sm-11.no-padding.ticket-up-info
-                      p.col-xs-12.no-padding.ticket-title easdczx
-                      p.col-xs-12.no-padding.reference #5935d58f651b69495de73d98
-                      p.col-xs-12.no-padding.assigned-to
-                        |   Assigned to:
-                        span Tim
-                      p.col-xs-12.no-padding.created-by
-                        |   Created by:
-                        span Tim
-                      .col-xs-12.no-padding.ticket-subtitle
-                          .col-xs-6.no-padding
-                            span.label.label-customer CUSTOMER SERVICES
-                            span.label.label-default CUSTOMER SERVICES
-                          .col-xs-6.no-padding
-                            p.ticket-date June 5
-                    .ticket-btn-group.hidden-xs.hidden-sm
-                      button.btn-exclamation-circle.btn-status.active(type='button', title='Pending', data-id='5935d58f651b69495de73d98', data-status='0')
-                        i.fa.fa-exclamation-circle
-                      button.btn-clock-o.btn-status(type='button', title='Open', data-id='5935d58f651b69495de73d98', data-status='1')
-                        i.fa.fa-clock-o
-                      button.btn-check-circle.btn-status(type='button', title='Resolved', data-id='5935d58f651b69495de73d98', data-status='2')
-                        i.fa.fa-check-circle
+            .col-xs-12.loading#loading(style="display:none")
+
+                //- //------------- TICKET EXAMPLE ---------------
+                //- .col-xs-12.no-padding.ticket
+                //-     .col-xs-2.col-sm-1.no-padding.ticket-profile-img
+                //-       img.img-circle.img-responsive(src='https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/profile_pictures/1020751320/descarga.jpg')
+                //-     .col-xs-10.col-sm-11.no-padding.ticket-up-info
+                //-       p.col-xs-12.no-padding.ticket-title easdczx
+                //-       p.col-xs-12.no-padding.reference #5935d58f651b69495de73d98
+                //-       p.col-xs-12.no-padding.assigned-to
+                //-         |   Assigned to:
+                //-         span Tim
+                //-       p.col-xs-12.no-padding.created-by
+                //-         |   Created by:
+                //-         span Tim
+                //-       .col-xs-12.no-padding.ticket-subtitle
+                //-           .col-xs-6.no-padding
+                //-             span.label.label-customer CUSTOMER SERVICES
+                //-             span.label.label-default CUSTOMER SERVICES
+                //-           .col-xs-6.no-padding
+                //-             p.ticket-date June 5
+                //-     .ticket-btn-group.hidden-xs.hidden-sm
+                //-       button.btn-exclamation-circle.btn-status.active(type='button', title='Pending', data-id='5935d58f651b69495de73d98', data-status='0')
+                //-         i.fa.fa-exclamation-circle
+                //-       button.btn-clock-o.btn-status(type='button', title='Open', data-id='5935d58f651b69495de73d98', data-status='1')
+                //-         i.fa.fa-clock-o
+                //-       button.btn-check-circle.btn-status(type='button', title='Resolved', data-id='5935d58f651b69495de73d98', data-status='2')
+                //-         i.fa.fa-check-circle
 
 
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed.hide
@@ -268,11 +270,13 @@ block scripts
 
         $(document).ready(function () {
 
-            $('#page-selection').bootpag({
-                total: 10,
-                maxVisible: 5,
-            }).on("page", function (event, num) {
-                filterTickets(num);
+            var count = 2;
+            $(window).scroll(function(){
+                if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+                   console.log('loading on scroll, page: ' + count);
+                   filterTickets(count);
+                   count++;
+                }
             });
 
             filterTickets(1);
@@ -419,8 +423,12 @@ block scripts
         //----------------- READ ---------------------------
         function getTickets(page, search) {
 
-            $('.tickets').hide();
-            $('#loader').fadeIn("slow");
+            if(page =='1') {
+                $('.tickets').hide();
+                $('#loader').fadeIn("slow");
+            }else{
+                $('#loading').fadeIn("slow");
+            }
 
             var options = '';
 
@@ -444,8 +452,9 @@ block scripts
                 }
             }
 
-            $('.tickets').html("");
-
+            if(page =='1') {
+                $('.tickets').html("");
+            }
             $.ajax({
                 type: "GET",
                 url: '/api/users/#{user._id}/tickets?page=' + page + options,
@@ -474,6 +483,7 @@ block scripts
                 }
             }).done(function (data) {
                 $('#loader').fadeOut("fast", function () {
+                    $('#loading').fadeOut("slow");
                     $('.tickets').removeClass("hidden").fadeIn();
                 });
             });

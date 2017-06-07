@@ -522,15 +522,17 @@ button:focus{
   font-size: 2rem;
 }
 
-.userTools.ticketTools .search .select::before {
-  top: 0.15em;
-  right: 0.15em;
-}
-
+/*.userTools.ticketTools .search .select::before,
 .userTools.ticketTools .select::before {
+  top: 0.65em;
+  right: 0.35em;
+  font-size: 1.3rem;
+}
+*/
+/*.userTools.ticketTools .select::before {
   top: 0.15em;
   right: 0.15em;
-}
+}*/
 
 .userFilters {
   background-color: #E1E1E1;
@@ -659,6 +661,20 @@ button:focus{
 
 .userFilters.searchTicket .search-filtersMobile form {
   border: none;
+}
+
+.userFilters.searchTicket .search-filtersMobile form .search {
+  border: 1px solid  #D51C5C;
+  margin-top: 0px;
+}
+
+.userFilters.searchTicket .search-filtersMobile form .search input {
+  height: 32px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .select.select-livinn {
+  width: 100%;
+  margin: 11px 0px 11px;
 }
 
 .userSearch-Management .navbar-form {
@@ -1607,7 +1623,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .registrationModal .modal-body form .form-group .select:before {
-  top: 0.55em;
+  top: 1.05em;
 }
 
 .registrationModal .modal-body form .form-group.btnsModal {
@@ -1713,7 +1729,6 @@ input[type="file"]::-webkit-file-upload-button {
 
 .icon--down:before, .select:before {
   content: "\e600";
-  font-size: 2rem;
 }
 
 .select.select-livinn {
@@ -2313,6 +2328,10 @@ textarea.parsley-error {
   .userTools {
     margin-top: 79px;
     height: 55px;
+  }
+
+  .userTools.ticketTools form .search {
+    border: 1px solid #D51C5C;
   }
 
   .tickets{

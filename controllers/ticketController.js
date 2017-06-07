@@ -87,7 +87,7 @@ module.exports = {
                     if(!tpopulated){
                         res.status(404).json({ message: "User not found" });
                     }else {
-                        //mailer.newTicket(tpopulated);
+                        mailer.newTicket(tpopulated);
                         return res.status(200).json({ticket: tpopulated, message: "Work Order has been created"});
                     }
                 });
@@ -208,6 +208,15 @@ module.exports = {
                 ticket.subject = req.body.subject || ticket.subject;
                 ticket.message = req.body.message || ticket.message;
                 ticket.priority = req.body.priority || ticket.priority;
+
+                if(req.body.opened == "true"){
+                    ticket.opened = true;
+                } else if(req.body.opened == "false") {
+                    ticket.opened = false;
+                } else {
+
+                }
+
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
 
                 if(!ticket.assigned_to.includes(req.body.assignee))
@@ -309,7 +318,7 @@ module.exports = {
                         .populate('created_by', 'name company email phone profile_picture')
                         .populate('requested_by', 'name company email phone profile_picture')
                         .populate('assigned_to', 'name company email phone profile_picture')
-                        .sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
+                        .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
                             } else {

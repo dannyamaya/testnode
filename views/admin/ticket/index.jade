@@ -163,7 +163,7 @@ block modals
             .modal-content
                 .modal-body
                     .row
-                        .col-xs-12.no-padding(style="height:100%;")
+                        .col-xs-12(style="height:100%;")
                             .col-xs-12.no-padding.ticket-navbar.has-feedback.gradienteLivinn
                                 h3.col-xs-12.readModalTitle
                                 button.btn(type="button", data-dismiss="modal", aria-hidden="true")
@@ -171,7 +171,12 @@ block modals
                             .col-xs-12.col-sm-3.ticket-left
                                 input#hiddenTicket(type="hidden")
                                 .form-group
-                                    label Category
+                                    p.form-control-static.mt-15#ticketasigneeGroup
+                                    input.form-control#ticketasignee(type="text" placeholder="Assigned To")
+                                    input.form-control#ticketassigneeHiddenRemove(type="hidden")
+                                    input.form-control#ticketasigneeHidden(type="hidden" name="assigned_to")
+
+                                .form-group
                                     .select
                                         select.editopenticket#openticketcategory(name="category")
                                             option(value="cleaning services") Cleaning Services
@@ -181,11 +186,9 @@ block modals
                                             option(value="visits") Visits
                                             option(value="others") Others
                                 .form-group
-                                    label Subcategory
                                     .select
                                         select.editopenticket#openticketsubcategory(name="subcategory")
                                 .form-group
-                                    label Priority
                                     .select
                                         select.editopenticket#openticketpriority(name="priority")
                                             option(value="1") 1
@@ -193,33 +196,28 @@ block modals
                                             option(value="3") 3
                                             option(value="4") 4
 
-                                .form-group
-                                    label(for="assignee") Assignee
-                                    p.form-control-static#ticketasigneeGroup
-                                    input.form-control#ticketasignee(type="text")
-                                    input.form-control#ticketassigneeHiddenRemove(type="hidden")
-                                    input.form-control#ticketasigneeHidden(type="hidden" name="assigned_to")
+
                             .col-xs-12.col-sm-9.ticket-right
                                 .col-xs-12.has-feedback
                                      p.ticketrequestby#ticketrequestby
                                      p.ticketsubject#ticketsubject
                                      p.ticketcategory#ticketcategory
                                      p.ticketdate#ticketdate
-                                     .buttons-status(style="position: absolute; right: 10px; top:10px;")
-                                         button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus" data-status="0" data-id="1")
+                                     .buttons-status(style="")
+                                         button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus no-padding" data-status="0" data-id="1")
                                             i(class="fa fa-exclamation-circle")
-                                         button#dos(type="button" title="Open" class="btn-clock-o btn-status classStatus" data-status="1" data-id="2")
+                                         button#dos(type="button" title="Open" class="btn-clock-o btn-status classStatus " data-status="1" data-id="2")
                                             i(class="fa fa-clock-o")
-                                         button#tres(type="button" title="Resolved" class="btn-check-circle btn-status classStatus" data-status="2" data-id="3")
+                                         button#tres(type="button" title="Resolved" class="btn-check-circle btn-status classStatus no-padding" data-status="2" data-id="3")
                                             i(class="fa fa-check-circle")
 
                                 .col-xs-12
                                     // Nav tabs
-                                    ul.col-xs-12.nav.nav-tabs(role='tablist')
+                                    ul.col-xs-12.nav.nav-tabs.comment-section(role='tablist')
                                         li.active(role='presentation')
-                                            a(href='#comment', aria-controls='comment', role='tab', data-toggle='tab') Comment
+                                            a.gray(href='#comment', aria-controls='comment', role='tab', data-toggle='tab') Comment
                                         li(role='presentation')
-                                            a(href='#note', aria-controls='note', role='tab', data-toggle='tab') Note
+                                            a.gray(href='#note', aria-controls='note', role='tab', data-toggle='tab') Note
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         #comment.tab-pane.active(role='tabpanel')
@@ -237,13 +235,13 @@ block modals
                                 .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
 
-                                    ul.col-xs-12.nav.nav-tabs.nav-tabs-comments(role='tablist')
+                                    ul.col-xs-12.nav.nav-tabs.nav-tabs-comments.comment-section(role='tablist')
                                         li.active(role='presentation')
-                                            a(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
+                                            a.gray(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
                                                 |   All Comments
                                                 span.badge#commentslength -
                                         li(role='presentation')
-                                            a(href='#allnotes', aria-controls='allnotes', role='tab', data-toggle='tab')
+                                            a.gray(href='#allnotes', aria-controls='allnotes', role='tab', data-toggle='tab')
                                                 |   Notes
                                                 span.badge#noteslength -
                                     // Tab panes
@@ -254,7 +252,7 @@ block modals
                                             .message_template
                                                 li(class="message" data-id="" data-user="")
                                                     input#hiddenPhoto(type="hidden")
-                                                    .ticket-profile-img
+                                                    .ticket-profile-img-2
                                                         img.img-user-conversation(src="" class="img-circle img-responsive")
                                                     .text_wrapper
                                                         .text
@@ -262,7 +260,7 @@ block modals
                                             ul.notes.styleMessage
                                             .message_template
                                                 li(class="message" data-id="" data-user="")
-                                                    .ticket-profile-img
+                                                    .ticket-profile-img-2
                                                         img.img-user-conversation(src="" class="img-circle img-responsive")
                                                     .text_wrapper
                                                         .text
@@ -621,6 +619,8 @@ block scripts
                             this.user = arg.user;
                             this.name = arg.name;
                             this.section = arg.section;
+                            this.created = arg.created;
+
                             this.draw = function (_this) {
                                 return function () {
                                     var $message;
@@ -629,7 +629,7 @@ block scripts
                                     $message.attr('data-side',_this.message_side);
                                     $message.attr('data-name',_this.name);
                                     $message.addClass(_this.message_side).find('.text').append('<label class="label-message">'+_this.name +'</label><br>');
-                                    $message.addClass(_this.message_side).find('.text').append(_this.text);
+                                    $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">'+_this.created+'</p><p class="comment-chat">' + _this.text + '</p>');
                                     $message.find('.img-user-conversation').attr('src',_this.profile_pic);
                                     $('.'+_this.section).append($message);
                                         return $message.addClass('appeared');
@@ -644,7 +644,7 @@ block scripts
                                 $message_input = $('.message_input');
                                 return $message_input.val();
                             };
-                            sendMessage = function (text, user, side, profile_pic, name, section) {
+                            sendMessage = function (text, user, side, profile_pic, name, section, created) {
                                 var $messages, message;
                                 if (text.trim() === '') {
                                     return;
@@ -657,18 +657,17 @@ block scripts
                                     profile_pic: profile_pic,
                                     user:user,
                                     name: name,
-                                    section:section
+                                    section:section,
+                                    created:created
                                 });
                                 message.draw();
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
                             };
 
-
                             if ($('#hiddenHelper').val() == 0) {
                                 $('#hiddenHelper').val(1);
 
                                 $('.sendNote').click(function (e) {
-
                                     var ticket = response.ticket._id;
 
                                     $.ajax({
@@ -687,7 +686,7 @@ block scripts
                                         }
                                     });
 
-                                    return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'notes');
+                                    return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'notes',moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'));
                                 });
 
                                 $('.sendMessage').click(function (e) {
@@ -709,15 +708,13 @@ block scripts
                                         }
                                     });
 
-                                    return sendMessage(getMessageText(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'messages');
+                                    return sendMessage(getMessageText(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'));
                                 });
 
                             }
 
-
-
                             //First Messages
-                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages' );
+                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages',moment(response.ticket.created ).format('YYYY-MM-DD h:mm:ss a'));
 
                             //Another Messages
                             $.ajax({
@@ -725,11 +722,12 @@ block scripts
                                 url: '/api/comments/discussion?ticket='+response.ticket._id,
                                 success: function (response) {
 
+                                console.log(response);
+
                                     $("#commentslength").text(response.comment.length+1);
                                     $.each(response.comment, function (index, value) {
-
                                         var parent = $('.messages').children().last().attr('data-user');
-                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages');
+                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages',moment(value.created).format('YYYY-MM-DD h:mm:ss a'));
                                     });
 
                                 },
@@ -747,7 +745,7 @@ block scripts
                                     $('.notes').empty();
                                     $("#noteslength").text(response.note.length);
                                     $.each(response.note, function (index, value) {
-                                        sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes');
+                                        sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes',moment(value.created).format('YYYY-MM-DD h:mm:ss a'));
                                     });
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {

@@ -252,12 +252,14 @@ block modals
                             .col-xs-12.col-sm-3.ticket-left
                                 input#hiddenTicket(type="hidden")
                                 .form-group
+                                    label Assigned to
                                     p.form-control-static.mt-15#ticketasigneeGroup
                                     input.form-control#ticketasignee(type="text" placeholder="Assigned To")
                                     input.form-control#ticketassigneeHiddenRemove(type="hidden")
                                     input.form-control#ticketasigneeHidden(type="hidden" name="assigned_to")
 
                                 .form-group
+                                    label Category
                                     .select
                                         select.editopenticket#openticketcategory(name="category")
                                             option(value="cleaning services") Cleaning Services
@@ -267,6 +269,7 @@ block modals
                                             option(value="visits") Visits
                                             option(value="others") Others
                                 .form-group
+                                    label Subcategory
                                     .select
                                         select.editopenticket#openticketsubcategory(name="subcategory")
                                             option(value="" selected) Subcategories
@@ -292,6 +295,7 @@ block modals
                                                     option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                                     option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
                                 .form-group
+                                    label Priority
                                     .select
                                         select.editopenticket#openticketpriority(name="priority")
                                             option(value="1") 1

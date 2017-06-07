@@ -21,7 +21,7 @@ block content
                             option(value="requested_by") Requested by
                             option(value="created_by" selected="true") Created by
                             option(value="assigned_to") Assigned to
-                            option(value="id") Work Order ID                                
+                            option(value="id") Work Order ID
         .col-xs-12
          .select.select-livinn
             select.form-control.filter#categoryselect
@@ -96,8 +96,6 @@ block content
                     .pull-right
                        .col-xs-4.no-padding
                             .input-group.search
-                                .col-xs-8.no-padding
-                                    input.form-control#search(type="text" name="name" placeholder="Search")
                                 .col-xs-4.no-padding
                                     .select
                                         select#searchby
@@ -105,6 +103,8 @@ block content
                                             option(value="created_by" selected="true") Created by
                                             option(value="assigned_to") Assigned to
                                             option(value="id") Work Order ID
+                                .col-xs-8.no-padding
+                                    input.form-control#search(type="text" name="name" placeholder="Search")
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#categoryselect
                                 option(value="" selected) Category
@@ -329,7 +329,7 @@ block scripts
             var count = 2;
             $(window).scroll(function(){
                 if  (($(window).scrollTop() == $(document).height() - $(window).height())&& $('#loading').length){
-                   console.log('loading on scroll, page: ' + count);
+                   //console.log('loading on scroll, page: ' + count);
                    filterTickets(count);
                    count++;
                 }
@@ -345,6 +345,9 @@ block scripts
         var attachment = '';
 
         socket.on('new-ticket', function (dataServer) {
+
+            console.log("socket: new-ticket received");
+            console.log(dataServer);
 
             var today = moment();
             var createddate = '';
@@ -389,7 +392,7 @@ block scripts
                 opened='';
             }
 
-            $('.tickets').append('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ dataServer.ticket.requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category)+getCategory(dataServer.ticket.subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
+            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ dataServer.ticket.requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category)+getCategory(dataServer.ticket.subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
 
         });
 

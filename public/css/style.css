@@ -1661,7 +1661,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .updateUserModal {
-  padding-left: 0px !important; 
+  padding-left: 0px !important;
 }
 
 .updateUserModal .modal-header button {
@@ -1849,17 +1849,10 @@ textarea.parsley-error {
   background-color: #fff;
 }
 
-/*.dashcontainer .col-xs-12{
-  -webkit-transition: -webkit-transform .5s cubic-bezier(.16, .68, .43, .99);
-  -moz-transition: -moz-transform .5s cubic-bezier(.16, .68, .43, .99);
-  -o-transition: -o-transform .5s cubic-bezier(.16, .68, .43, .99);
-  transition: transform .5s cubic-bezier(.16, .68, .43, .99);
-}*/
-
 .heading{
   position: fixed;
   height: 66px;
-  z-index: 999;
+  z-index: 10;
   background-color: #000;
   margin-bottom: 15px;
 }
@@ -2359,7 +2352,7 @@ textarea.parsley-error {
     color: #D51C5C;
     float: right;
   }
-  
+
   .form-login {
     position: relative;
     top: 50%;
@@ -2375,7 +2368,7 @@ textarea.parsley-error {
   .heading{
     position: fixed;
     height: 75px;
-    z-index: 999;
+    z-index: 10;
     background-color: #000;
     margin-bottom: 15px;
   }
@@ -2672,7 +2665,7 @@ textarea.parsley-error {
 }
 
 .mt-15{
-    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 

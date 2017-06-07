@@ -8,7 +8,8 @@ block content
           form.form.col-xs-12.col-md-5.col-lg-4.no-padding.hidden-xs.hidden-sm#searchform(method="post" action="users")
               .input-group.search
                   input.form-control#search(type="text" aria-label="Search users" placeholder="Search")
-                  span.input-group-addon
+                  span.input-group-addon.no-padding
+                    button.btn.btn-livinn
                       i.fa.fa-search
           if user.role == 'admin'
               .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
@@ -57,7 +58,7 @@ block content
                 button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()') Editar
                   i.fa.fa-pencil-square-o
               li
-                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download") Descargar
+                a.col-xs-8.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download") Descargar
                   i.fa.fa-download
           button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
               i.fa.fa-trash

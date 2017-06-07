@@ -2084,7 +2084,8 @@ textarea.parsley-error {
 }
 
 .menuManageUser >li>a {
-  padding: 10px 6px;
+  padding: 10px 4px;
+  margin-top: 5px;
 }
 
 .menuManageUser >li>a i {
@@ -2396,7 +2397,7 @@ textarea.parsley-error {
   }
 
   .userTools form .search input {
-    height: 32px;
+    height: 34px;
   }
 
   .userTools.ticketTools form .search {

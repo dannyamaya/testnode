@@ -384,7 +384,6 @@ module.exports = {
 
                     Resident.findOne({user_id: user._id}, function (err, resident) {
                         if (err) {
-
                             return res.status(500).json({message: 'Internal Server Error'});
                         }
 
@@ -421,7 +420,16 @@ module.exports = {
                         }
                         else{
                             resident.contract_number = req.body.numcontract || resident.contract_number;
-                            resident.birth_date = moment(req.body.birthdate).format() || resident.birth_date;
+
+                            if(req.body.birthdate == ''){
+                                console.log('aquiiii')
+                                resident.birth_date = resident.birth_date;
+                            }else{
+                                console.log('allaaaa')
+
+                                resident.birth_date = moment(req.body.birthdate).format();
+                            }
+
                             resident.apartment = req.body.apartment || resident.apartment;
                             resident.apartment_type = req.body.apartmentType || resident.apartment_type;
                             resident.bathroom = req.body.bathroom || resident.bathroom;

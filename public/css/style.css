@@ -1036,6 +1036,10 @@ input[type="file"]::-webkit-file-upload-button {
   background-color: #ededed;
 }
 
+.ticket.resident-ticket{
+    min-height:100px;
+}
+
 .ticket.one,
 .ticket.two,
 .ticket.three,

@@ -830,30 +830,7 @@ block scripts
             });
         });
 
-        //Updates Status
-        $('body').on('click', '.btn-status', function () {
-
-            $(this).parent().children('button').each(function () {
-                this.classList.remove('active'); // "this" is the current element in the loop
-            })
-
-            $.ajax({
-                type: "PUT",
-                data: {
-                    status: $(this).attr('data-status')
-                },
-                url: '/api/tickets/' + $(this).attr('data-id'),
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var message = XMLHttpRequest.responseJSON.message;
-                    warningAlert(message);
-                }
-            });
-
-            $(this).addClass('active');
-        });
+        
 
 
 

@@ -522,6 +522,16 @@ button:focus{
   font-size: 2rem;
 }
 
+.userTools.ticketTools .search .select::before {
+  top: 0.15em;
+  right: 0.15em;
+}
+
+.userTools.ticketTools .select::before {
+  top: 0.15em;
+  right: 0.15em;
+}
+
 .userFilters {
   background-color: #E1E1E1;
   position: absolute;

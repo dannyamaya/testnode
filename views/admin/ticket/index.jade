@@ -51,6 +51,7 @@ block content
             .col-xs-1.no-padding
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
                     i.fa.fa-plus
+    input#hiddenHelper(value=0)
     .col-xs-12.content
         .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
 
@@ -143,7 +144,7 @@ block modals
                 .modal-body
                     .row
                         .col-xs-12.no-padding(style="height:100%;")
-                            .col-xs-12.no-padding.ticket-navbar.has-feedback
+                            .col-xs-12.no-padding.ticket-navbar.has-feedback.gradienteLivinn
                                 h3.col-xs-12.readModalTitle
                                 button.btn(type="button", data-dismiss="modal", aria-hidden="true")
                                     span
@@ -171,18 +172,7 @@ block modals
                                             option(value="2") 2
                                             option(value="3") 3
                                             option(value="4") 4
-                                .form-group
-                                    label Requested By
-                                    p.form-control-static#ticketrequestor
-                                .form-group
-                                    label Email
-                                    p.form-control-static#ticketemail
-                                .form-group
-                                    label Phone Number
-                                    p.form-control-static#ticketphone
-                                .form-group
-                                    label(for='filedByRead') Created By
-                                    p.form-control-static#ticketrequestby
+
                                 .form-group
                                     label(for="assignee") Assignee
                                     p.form-control-static#ticketasigneeGroup
@@ -191,6 +181,7 @@ block modals
                                     input.form-control#ticketasigneeHidden(type="hidden" name="assigned_to")
                             .col-xs-12.col-sm-9.ticket-right
                                 .col-xs-12.has-feedback
+                                     p.ticketrequestby#ticketrequestby
                                      p.ticketsubject#ticketsubject
                                      p.ticketcategory#ticketcategory
                                      p.ticketdate#ticketdate
@@ -538,7 +529,7 @@ block scripts
 
                     console.log(response);
                     $('#hiddenTicket').val(response.ticket._id);
-                    $('.readModalTitle').html('Ticket #<span class="text-capitalize">' + response.ticket._id + '</span>');
+                    $('.readModalTitle').html('Ticket #' + response.ticket._id );
                     $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.requested_by.profile_picture+"'</span>"+response.ticket.requested_by.name.first+" "+response.ticket.requested_by.name.last);
                     $("#ticketemail").text(response.ticket.requested_by.email);
                     if(response.ticket.requested_by.phone.number){
@@ -549,7 +540,7 @@ block scripts
                     $("#openticketcategory").val(response.ticket.category);
                     $("#openticketsubcategory").val(response.ticket.subcategory);
                     $("#openticketpriority").val(response.ticket.priority);
-                    $("#ticketrequestby").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.created_by.profile_picture+"'</span>"+response.ticket.created_by.name.first+" "+response.ticket.created_by.name.last);
+                    $("#ticketrequestby").html("<span class='text'><img class='img-circle user-disp-img' src='"+response.ticket.created_by.profile_picture+"'</span>"+response.ticket.created_by.name.first+" "+response.ticket.created_by.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
                     $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
                     $('#uno').attr('data-id',response.ticket._id);
@@ -574,6 +565,7 @@ block scripts
 
                     $("#ticketdate").html(moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
                     $("#messageRead").text(response.ticket.message);
+
 
                     (function () {
 
@@ -627,55 +619,62 @@ block scripts
                                 message.draw();
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
                             };
-                            $('.sendMessage').click(function (e) {
-                                var ticket = response.ticket._id;
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/api/comments',
-                                    data: {
-                                        discussion_id: ticket,
-                                        posted_by: $(this).attr('data-current-user'),
-                                        comment: getMessageText()
-                                    },
-                                    success: function (response) {
 
-                                    },
-                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            if ($('#hiddenHelper').val() == 0) {
+                                $('#hiddenHelper').val(1);
 
-                                    }
+                                $('.sendNote').click(function (e) {
+
+                                    var ticket = response.ticket._id;
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/api/notes',
+                                        data: {
+                                            discussion_id: ticket,
+                                            posted_by: $(this).attr('data-current-user'),
+                                            note: $('#textareaNotes').val()
+                                        },
+                                        success: function (response) {
+
+                                        },
+                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                        }
+                                    });
+
+                                    return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'notes');
                                 });
 
-                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),'left',$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
-                            });
+                                $('.sendMessage').click(function (e) {
+                                    var ticket = response.ticket._id;
 
-                            $('.sendNote').click(function (e) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/api/comments',
+                                        data: {
+                                            discussion_id: ticket,
+                                            posted_by: $(this).attr('data-current-user'),
+                                            comment: getMessageText()
+                                        },
+                                        success: function (response) {
 
-                                var ticket = response.ticket._id;
+                                        },
+                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/api/notes',
-                                    data: {
-                                        discussion_id: ticket,
-                                        posted_by: $(this).attr('data-current-user'),
-                                        note: $('#textareaNotes').val()
-                                    },
-                                    success: function (response) {
+                                        }
+                                    });
 
-                                    },
-                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                                    }
+                                    return sendMessage(getMessageText(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'messages');
                                 });
 
-                                return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'),'notes');
-                            });
+                            }
+
 
 
                             //First Messages
                             sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages' );
-
 
                             //Another Messages
                             $.ajax({

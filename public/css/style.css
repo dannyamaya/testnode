@@ -90,7 +90,7 @@ button:focus{
 }
 
 .content{
-  padding-top:135px;
+  padding-top:115px;
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -105,6 +105,15 @@ button:focus{
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+.gradienteLivinn {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bc215d+0,bc215d+14,333d62+94,333d62+100 */
+  background: #bc215d; /* Old browsers */
+  background: -moz-linear-gradient(left, #bc215d 0%, #bc215d 14%, #333d62 94%, #333d62 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #bc215d 0%,#bc215d 14%,#333d62 94%,#333d62 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #bc215d 0%,#bc215d 14%,#333d62 94%,#333d62 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc215d', endColorstr='#333d62',GradientType=1 ); /* IE6-9 */
 }
 
 
@@ -156,6 +165,11 @@ button:focus{
   font-family: 'BebasNeue-Book', sans-serif;
 }
 
+.btn-livinn3{
+  font-weight: bold;
+}
+
+
 .btn-transparent, .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
   background-color: transparent;
   color:#fff;
@@ -173,6 +187,17 @@ button:focus{
 
 .btn-margin-right{
   margin-right:5px;
+}
+
+.btn-addUserMobile {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 100%;
+  font-size: 2.3rem;
+  width: 46px;
 }
 
 /*TABS*/
@@ -424,8 +449,44 @@ button:focus{
   margin-left:7px;
   margin-right: 5px;
 }
+
 .user-disp-name{
   margin-right: 4px;
+}
+
+.userSettings {
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: 0px
+}
+
+.userSettings li {
+  border-top: 1px solid #171717;
+  padding: 10px 15px;
+}
+
+.userSettings li.dropdown {
+  border-top: 1px solid #171717;
+  padding: 10px 0px;
+}
+
+.userSettings li a {
+  color: #7B7B7B;
+}
+
+.userSettings li .dropdown-menu {
+  position: relative;
+  border: none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  background-color: #1E1E1E;
+  top: 10px;
+  box-shadow: none;
+}
+
+.userSettings li .dropdown-menu .userSettingOption {
+  padding: 1px 0px;
 }
 
 .userTools {
@@ -440,6 +501,7 @@ button:focus{
   display: table;
   white-space: nowrap;
   float: left;
+  margin-top: 8px;
 }
 
 .userTools h2 {
@@ -588,6 +650,16 @@ button:focus{
 
 .userSearch-Management .form-group button i {
   font-size: 2rem
+}
+
+.userMaganementDesktop form.form .search {
+  border: 1px solid #D51C5C;
+}
+
+.userInfo ul.nav {
+  float: right;
+  right: 35px;
+  position: relative;
 }
 
 /*.tagarea{
@@ -765,13 +837,12 @@ button:focus{
 
 @media screen and (min-width: 992px) {
 
-  .userTools .userMaganementDesktop form {
-    margin-left: 12%;
-    width: 245px;
+  .userTools .titleUserManagement {
+    margin-top: 11px;
   }
 
-  .userToolManageSlide {
-    margin-left: 1.6% !important;
+  .userTools .userMaganementDesktop form {
+    width: 195px;
   }
 
   .dashboard-menu {
@@ -791,25 +862,14 @@ button:focus{
   }
 
   .userTools .userMaganementDesktop form {
-    margin-left: 28%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 18% !important;
+    width: 250px;
   }
 }
 
 @media screen and (min-width: 1600px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 29%;
-  }
 
   .userTools .userMaganementDesktop form {
     width: 358px;
-  }
-
-  .userToolManageSlide {
-    margin-left: 24% !important;
   }
 
   .dashboard-menu {
@@ -822,24 +882,11 @@ button:focus{
 }
 
 @media screen and (min-width: 1900px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 34%;
-  }
-
-  .userToolManageSlide {
-    margin-left: 30% !important;
-  }
 
 }
 
 @media screen and (min-width: 2300px) {
-  .userTools .userMaganementDesktop form {
-    margin-left: 38%;
-  }
 
-  .userToolManageSlide {
-    margin-left: 35% !important;
-  }
 }
 
 
@@ -847,24 +894,42 @@ button:focus{
 
 .preview {
     display: block;
-    width: 200px;
-    height: 200px;
+    width: 145px;
+    height: 145px;
     margin: 20px auto;
     border: 2px solid #E30056;
     border-radius: 50%;
     overflow: hidden;
 }
 
+.preview i {
+  margin: 0px auto;
+  position: absolute;
+  top: 85px;
+  left: 180px;
+  color: #D51C5C;
+}
+
 .file-upload-wrapper {
     position: relative;
     z-index: 5;
     display: block;
-    width: 250px;
-    height: 30px;
-    margin: 5px auto 70px;
-    border-right: 2px dotted #E30056;
-    border-bottom: 2px dotted #E30056;
-    border-left: 2px dotted #E30056;
+    width: 230px;
+    height: 50px;
+    margin: 5px auto 40px;
+    border: 1px solid #E30056;
+    padding: 10px 35px;
+}
+
+.registrationModal .modal-body form .form-group .file-upload-wrapper input[type="text"] {
+  background-color: #FFF;
+}
+
+.file-upload-wrapper input[type="text"]::placeholder {
+  color: #D51C5C;
+  font-family: 'BebasNeue-Book', sans-serif;
+  text-transform: uppercase;
+  font-size: 2rem;
 }
 
 .file-upload-native,
@@ -889,7 +954,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .file-upload-text {
     z-index: 10;
-    padding: 5px 15px 8px;
+    padding: 10px 15px 8px;
     overflow: hidden;
     font-size: 14px;
     line-height: 1.4;
@@ -908,13 +973,34 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 /* TICKETS */
+.tickets{
+    margin-bottom: 80px;
+}
+
 .ticket{
   border:1px solid #ccc;
-  height:138px;
-  margin-bottom: 10px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  min-height:138px;
+  margin-bottom: -1px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  border-left:4px solid #CECECE;
+}
+
+.ticket.one{
+    border-left-color: #FF0000;
+}
+
+.ticket.two{
+    border-left-color: #808080;
+}
+
+.ticket.three{
+    border-left-color: #B8B8B8;
+}
+
+.ticket.four{
+    border-left-color: #CECECE;
 }
 
 .ticket-up{
@@ -922,9 +1008,6 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-profile-img{
-  width:41px;
-  height:41px;
-  margin-top:2px;
   float: left;
 }
 
@@ -936,9 +1019,19 @@ input[type="file"]::-webkit-file-upload-button {
 
 
 .ticket-profile-img img{
-  width:41px;
-  height:41px;
-  margin-left:7px;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: 8px;
+  left: 50%;
+  position: relative;
+}
+
+.ticket-profile-img-two img {
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+    position: relative;
 }
 
 .ticket-profile-img-2 img{
@@ -947,21 +1040,26 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticket-up-info{
-  width:calc(100% - 43px);
   float: left;
 }
 
 .ticket-subtitle{
   color:#506470;
-  margin-bottom: 0;
-  font-size: 12px;
-  min-width:270px;
-  width:50%;
+  margin-bottom: 19px;
+  font-size: 14px;
 }
 
 .ticket-title{
-  color: #506470;
-  margin-bottom: 0;
+    color: #506470;
+    margin-bottom: 0;
+    margin-top: 10px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    font-size: 1.4em;
+}
+.ticket-title:hover{
+    font-weight: bold;
 }
 
 .ticket-btn-group{
@@ -1017,9 +1115,15 @@ input[type="file"]::-webkit-file-upload-button {
   font-weight: bold;
 }
 
-.ticket .reference, .ticket .created-by, .ticket .assigned-to{
+.ticket-date{
+    text-align: right;
+    margin-right: 15px;
+}
+
+.ticket .reference, .ticket .created-by, .ticket .assigned-to, .ticket-date{
   color:#506470;
-  margin-bottom: 0
+  margin-bottom: 0;
+  font-size: 0.9em;
 }
 
 /* TICKET MODAL */
@@ -1042,8 +1146,9 @@ input[type="file"]::-webkit-file-upload-button {
 
 .ticket-navbar h3{
     margin-top: 14px;
-    font-size: 1.4em;
+    font-size: 2.0em;
     margin-left: 15px;
+
 }
 
 .ticket-navbar h3 span{
@@ -1077,6 +1182,12 @@ input[type="file"]::-webkit-file-upload-button {
     left:0;
 }
 
+.readModalTitle{
+    text-align: center;
+    font-family: 'BebasNeue-Regular';
+    color: white;
+}
+
 .ticket-navbar button span::before {
     transform: rotate(45deg);
 }
@@ -1100,9 +1211,16 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticketsubject{
-    font-size: 1.5em;
-    margin-top: 20px;
+    font-size: 1.2em;
+    color: #606470;
+    margin-top: 5px;
+}
+
+.ticketrequestby{
+    font-size: 1.2em;
+    margin-top: 38px;
     font-weight: bold;
+    color: #606470;
 }
 
 .nav-tabs-comments-wrapper{
@@ -1130,12 +1248,14 @@ input[type="file"]::-webkit-file-upload-button {
   background-color:#81939E;
 }
 
+.ticket .label,
 .label-cleaning,
 .label-customer,
 .label-it,
 .label-maintenance,
 .label-visits,
 .label-other{
+  text-transform: lowercase;
   margin-right:2px;
 }
 
@@ -1162,6 +1282,23 @@ input[type="file"]::-webkit-file-upload-button {
 .label-other{
   background-color: #c0392b;
 }
+
+.white{
+  color: white;
+}
+
+.textTemplate{
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin: 15px 0 15px 0;
+    opacity: 0.5;
+}
+
+.medium-size{
+    width: 60%;
+}
+
 
 
 
@@ -1336,10 +1473,8 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .full-width.modal-dialog {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  width: 70%;
+  height: 90%;
 }
 
 .full-width .modal-content {
@@ -1355,6 +1490,86 @@ input[type="file"]::-webkit-file-upload-button {
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
+}
+
+.registrationModal .modal-dialog {
+  margin: 0px auto;
+}
+
+.registrationModal .modal-content {
+  border: none;
+}
+
+.registrationModal .modal-header {
+  padding: 10px 0px;
+}
+
+.registrationModal .modal-header h3 {
+  font-family: 'BebasNeue-Bold', sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #FFF;
+  font-size: 2.3rem;
+}
+
+.registrationModal .modal-body form .form-group {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.registrationModal .modal-body form .form-group label {
+  color: #D51C5C;
+  margin-left: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.3rem;
+}
+
+.registrationModal .modal-body form .form-group input {
+  padding: 24px 12px;
+  background-color: #DCDCDC;
+  border-top: none;
+  border-bottom: none;
+  border-right: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group .form-control {
+  border-top: none;
+  border-bottom: none;
+  border-right: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group input::placeholder {
+  color: #9C9C9C;
+}
+
+.registrationModal .modal-body form .form-group .select,
+.registrationModal .modal-body form .form-group .select select {
+  height: 50px;
+  background-color: #DCDCDC;
+  color: #9C9C9C;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px solid #FFF;
+  border-left: 1px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group .select:before {
+  top: 1em;
+}
+
+.registrationModal .modal-body form .form-group.btnsModal {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.registrationModal .modal-body form .form-group.btnsModal button.btn-livinn {
+  font-size: 2.3rem;
+  padding: 5px 22px 1px;
+  font-family: 'BebasNeue-Regular' , sans-serif;
+  text-transform: uppercase;
+  box-shadow: none;
 }
 
 /* ---- select ---*/
@@ -1583,8 +1798,8 @@ textarea.parsley-error {
 }
 
 .input-group.search input[type="text"]::placeholder {
-  font-family: 'BebasNeue-Book', sans-serif;
-  font-size: 2rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.3rem;
 }
 
 .search .form-control,
@@ -1648,8 +1863,8 @@ textarea.parsley-error {
 .table tbody tr{
   background-color:#fff;
   text-align: center;
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 
 }
 
@@ -1661,12 +1876,13 @@ textarea.parsley-error {
 }
 
 .table > thead > tr > th {
-  color: #000;
+  color: #898989;
   text-transform: uppercase;
   font-size: 0.8em;
   border-bottom: 1px solid #ddd;
   text-align: center;
   vertical-align: middle;
+  padding: 26px 0px 26px;
 }
 
 .table input[type="checkbox"]{
@@ -1685,7 +1901,6 @@ textarea.parsley-error {
 }
 
 .panel-user, .panel-tickets{
-  margin-top: 20px;
   margin-bottom: 20px !important;
 }
 
@@ -1752,10 +1967,6 @@ textarea.parsley-error {
   box-shadow: none;
 }
 
-.btnManageUser span {
-  color: #D51C5C;
-}
-
 .btnsManageUsers {
   margin-left: 3px;
   border: none;
@@ -1764,6 +1975,15 @@ textarea.parsley-error {
 .btnsManageUsers2 {
   margin-left: 22px;
   border: none;
+}
+
+.menuManageUser >li>a {
+  padding: 10px 6px;
+}
+
+.menuManageUser >li>a i {
+  margin: 3px 8px 5px;
+  float: left;
 }
 
 .btn-adduser:focus,
@@ -1984,8 +2204,13 @@ textarea.parsley-error {
     position: fixed;
   }
 
-  .heading .userInfo {
-    right: -5%;
+  .ticket {
+    min-height: 120px;
+  }
+
+  .preview i {
+    top: 85px;
+    left: 245px;
   }
 }
 
@@ -1996,6 +2221,10 @@ textarea.parsley-error {
     -ms-transform: translateY(-63%);
     -webkit-transform: translateY(-63%);
     transform: translateY(-63%);
+  }
+
+  .content {
+      padding-top: 134px;
   }
 
   .heading{
@@ -2026,6 +2255,29 @@ textarea.parsley-error {
   .userTools {
     margin-top: 79px;
     height: 55px;
+  }
+
+  .tickets{
+     margin-top:20px;
+   }
+
+  .ticket-date {
+      text-align: right;
+      margin-right: 15px;
+  }
+
+  .ticket-profile-img img {
+      width: 60px;
+      height: 60px;
+      margin-left: -30px;
+      margin-top: 9px;
+  }
+
+  .ticket-profile-img-3 img{
+      width: 60px;
+      height: 60px;
+      margin-left: -30px;
+      margin-top: 9px;
   }
 
 }

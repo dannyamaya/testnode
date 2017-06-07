@@ -38,7 +38,7 @@ module.exports = {
         var note = new Note({
             discussion_id: req.body.discussion_id,
             posted_by: req.body.posted_by,
-            note: req.body.note,
+            note: req.body.note
 
         });
 

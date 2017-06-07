@@ -178,7 +178,7 @@ module.exports = {
         Ticket.findOne({_id: req.params.id})
             .populate('created_by', 'name company email phone profile_picture')
             .populate('requested_by', 'name company email phone profile_picture')
-            .populate('assignee','name company email phone profile_picture')
+            .populate('assigned_to','name company email phone profile_picture')
             .exec(function (err, ticket) {
                 if (err) {
                     console.log('ERROR: ' + err);
@@ -261,15 +261,18 @@ module.exports = {
 
         var options  = {};
 
-        if(req.user.role == 'admin' && req.query.location){
-            options['location'] = req.query.location
+        if(req.user.role == 'admin'){
+            if(req.query.location){
+                options['location'] = req.query.location
+            }
         } else {
             options['location'] = req.user.location;
         }
 
 
         if(id){
-            options['_id'] = id;
+            var o_id = new ObjectId(id);
+            options['_id'] = o_id;
         }
 
         if(category){
@@ -305,6 +308,7 @@ module.exports = {
                         Ticket.find(options)
                         .populate('created_by', 'name company email phone profile_picture')
                         .populate('requested_by', 'name company email phone profile_picture')
+                        .populate('assigned_to', 'name company email phone profile_picture')
                         .sort({updated: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
@@ -316,10 +320,14 @@ module.exports = {
                                     });
                                     callback(null, tickets);
                                 }
-                                else if(req.query.requested_by){
-                                    var regexp = new RegExp(req.query.requested_by, 'i');
+                                else if(req.query.assigned_to){
+                                    var regexp = new RegExp(req.query.assigned_to, 'i');
+
+                                    function checkRegexp(u){
+                                        return regexp.test(u.name.first,'i');
+                                    };
                                     var tickets = t.filter( function(val){
-                                        return regexp.test(val.requested_by.name.first);
+                                        return val.assigned_to.some(checkRegexp);
                                     });
                                     callback(null, tickets);
                                 }else{
@@ -339,9 +347,7 @@ module.exports = {
                                 callback(null, count);
                             }
                         });
-
                     }
-
                 ], function (err, results) {
                     if (err) {
                         console.log('ERROR: ' + err);
@@ -351,9 +357,34 @@ module.exports = {
                         });
                     } else {
 
+                        // filter: requested_by
+                        if(req.user.role == 'admin'){
+                            if(req.query.requested_by){
+                                var regexp = new RegExp(req.query.requested_by, 'i');
+                                var tickets = results[0].filter( function(val){
+                                    return regexp.test(val.requested_by.name.first);
+                                });
+                            }else{
+                                var tickets = results[0];
+                            }
+                        }
+                        else{
+                            var tickets = results[0].filter( function(val){
+                                return (val.requested_by.id == req.user.id);
+                            });
+                        }
+
+                        // console.log('RESULTS************');
+                        // tickets.forEach(function(r) {
+                        //     console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
+                        //     console.log('***************');
+                        // });
+
+                        //console.log(results[0]);
+
                        return res.status(200).json({
                             error: false,
-                            tickets: results[0],
+                            tickets: tickets,
                             count: results[1],
                             page: parseInt(page)
                         });

@@ -1708,7 +1708,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .select.select-livinn {
     width: auto;
-    margin: 0px 3px;
+    margin: 11px 3px 0px;
     border: none;
     text-shadow: none;}
 }

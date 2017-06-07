@@ -326,6 +326,8 @@ module.exports = {
                     // url stored in db
                     var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
                     //local file deleted
+
+
                     fs.unlinkSync(filePath);
                 }
 

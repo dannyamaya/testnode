@@ -270,23 +270,28 @@ block scripts
                 assignedto = 'Not assigned';
             } else {
                 assignedto = '';
+
                 for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
-                    if( i==dataServer.ticket.assigned_to.length-1){
-                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
-                    } else {
-                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                    if (!data.tickets[key].assigned_to[i] == null) {
+                        if(dataServer.ticket.assigned_to[i]){
+                            if(i==dataServer.ticket.assigned_to.length-1){
+                                assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
+                            } else {
+                                assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                            }
+                        }
                     }
                 }
             }
 
             //Opened
-            if(dataServer.ticket.opened){
+            if(dataServer.ticket.opened_resident){
                 opened='opened';
             } else {
                 opened='';
             }
 
-            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ dataServer.ticket.requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category)+getCategory(dataServer.ticket.subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
+            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category)+getCategory(dataServer.ticket.subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
 
         });
 
@@ -318,63 +323,18 @@ block scripts
             var source = "";
             switch (status) {
                 case 0:
-                    source = '<div title="Pending" class="btn-exclamation-circle btn-status active" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></div><div title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></div><div title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></div>';
+                    source = '<ul class="list-inline"><li title="Pending" class="btn-exclamation-circle btn-status active" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></li><li title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></li><li title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></li></ul>';
                     break;
                 case 1:
-                    source = '<div title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></div><div type="button" title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></div><div type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></div>';
+                    source = '<ul class="list-inline"><li title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></li><li title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></li><li title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></li></ul>';
                     break;
                 case 2:
-                    source = '<div title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<ul class="list-inline"><li title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></li><li title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></li><li title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></li></ul>';
                     break;
             }
             ;
             return source;
         }
-
-        $("#searchinput").autocomplete({
-            source: function (request, response) {
-                $('#searchinput').css("cursor", "wait");
-                var url = "/api/users?page=" + 1 + "&search=" + $("#searchinput").val();
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    success: function (data) {
-                        $('#searchinput').css("cursor", "text");
-                        response(data.users);
-                    }
-                });
-
-            },
-            select: function( event, ui ) {
-                $( "#searchinput" ).append('<div><span><img class="img-circle user-disp-img" src="'+ui.item.profile_picture+'"></span></div>');
-                $("#searchinputHidden").val(ui.item._id);
-                return false;
-            },
-            minLength: 1
-        }).data("ui-autocomplete")._renderItem = function (ul, item) {
-            console.log(item);
-            return $("<li class='li-autocomplete li-user' data-id='" + item._id + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
-        };
-
-        $("#ticketasignee").autocomplete({
-            source: function (request, response) {
-                $('#ticketasignee').css("cursor", "wait");
-                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val()+'&role=resident';
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    success: function (data) {
-                        $('#ticketasignee').css("cursor", "text");
-                        response(data.users);
-                    }
-                });
-
-            },
-            minLength: 1
-        }).data("ui-autocomplete")._renderItem = function (ul, item) {
-            console.log(item);
-            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
-        };
 
         //----------------- CREATE ---------------------------
 
@@ -443,9 +403,6 @@ block scripts
                 }
             }
 
-            console.log("las options:");
-            console.log(options);
-
             $.ajax({
                 type: "GET",
                 url: '/api/users/#{user._id}/tickets?page=' + page + options,
@@ -481,17 +438,21 @@ block scripts
                             assignedto = 'Not assigned';
                         } else {
                             assignedto = '';
-                            for(i = 0; i < data.tickets[key].assigned_to.length;i++){
-                                if(i==data.tickets[key].assigned_to.length-1){
-                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
-                                } else {
-                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+
+                                    for(i = 0; i < data.tickets[key].assigned_to.length;i++){
+                                        if (!data.tickets[key].assigned_to[i] == null) {
+
+                                            if(i==data.tickets[key].assigned_to.length-1){
+                                        assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
+                                    } else {
+                                        assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+                                    }
                                 }
                             }
                         }
 
                         //Opened
-                        if(data.tickets[key].opened){
+                        if(data.tickets[key].opened_resident){
                             opened='opened';
                         } else {
                             opened='';
@@ -754,7 +715,7 @@ block scripts
 
             $.ajax({
                type: "PUT",
-               data: {"opened":true},
+               data: {"opened_resident":true},
                url: '/api/tickets/' + ticketid,
                success: function (response) {
                    $('.ticket[data-ticketid="'+ticketid+'"]').addClass('opened');
@@ -766,25 +727,6 @@ block scripts
            });
         }
 
-        $("#ticketasignee").autocomplete({
-            source: function (request, response) {
-                $('#ticketasignee').css("cursor", "wait");
-                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val()+'&role=resident';
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    success: function (data) {
-                        $('#ticketasignee').css("cursor", "text");
-                        response(data.users);
-                    }
-                });
-
-            },
-            minLength: 1
-        }).data("ui-autocomplete")._renderItem = function (ul, item) {
-            console.log(item);
-            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
-        };
         /*=== UPDATE: Update ticket ===*/
         $('.editopenticket').on('change', function () {
             updateticket(openticketid);

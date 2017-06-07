@@ -556,9 +556,6 @@ block scripts
                 }
             }
 
-            console.log("las options:");
-            console.log(options);
-
             $.ajax({
                 type: "GET",
                 url: '/api/users/#{user._id}/tickets?page=' + page + options,

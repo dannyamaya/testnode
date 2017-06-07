@@ -1145,6 +1145,7 @@ input[type="file"]::-webkit-file-upload-button {
   color:#C8D2D7;
 }
 
+li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 .btn-exclamation-circle:hover, .btn-clock-o:hover, .btn-check-circle:hover{
   color:#81939E;
 }

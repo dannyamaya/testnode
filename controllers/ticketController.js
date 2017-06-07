@@ -217,6 +217,14 @@ module.exports = {
 
                 }
 
+                if(req.body.opened_resident == "true"){
+                    ticket.opened_resident = true;
+                } else if(req.body.opened_resident == "false") {
+                    ticket.opened_resident = false;
+                } else {
+
+                }
+
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
 
                 if(!ticket.assigned_to.includes(req.body.assignee))

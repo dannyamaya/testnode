@@ -271,7 +271,7 @@ block scripts
             } else {
                 assignedto = '';
                 for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
-                    if(i==dataServer.ticket.assigned_to.length-1){
+                    if( i==dataServer.ticket.assigned_to.length-1){
                         assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
                     } else {
                         assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
@@ -318,13 +318,13 @@ block scripts
             var source = "";
             switch (status) {
                 case 0:
-                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status active" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<div title="Pending" class="btn-exclamation-circle btn-status active" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></div><div title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></div><div title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></div>';
                     break;
                 case 1:
-                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<div title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></div><div type="button" title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></div><div type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></div>';
                     break;
                 case 2:
-                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<div title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
             }
             ;

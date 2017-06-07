@@ -905,8 +905,8 @@ button:focus{
 .preview i {
   margin: 0px auto;
   position: absolute;
-  top: 84px;
-  left: 161px;
+  top: 85px;
+  left: 175px;
   color: #D51C5C;
 }
 
@@ -914,15 +914,18 @@ button:focus{
     position: relative;
     z-index: 5;
     display: block;
-    width: 250px;
+    width: 230px;
     height: 50px;
-    margin: 5px auto 70px;
+    margin: 5px auto 40px;
     border: 1px solid #E30056;
     padding: 10px 35px;
 }
 
-.file-upload-wrapper input[type="text"] {
+.file-upload-wrapper input[type="text"]::placeholder {
   color: #D51C5C;
+  font-family: 'BebasNeue-Book', sans-serif;
+  text-transform: uppercase;
+  font-size: 2rem;
 }
 
 .file-upload-native,
@@ -947,7 +950,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .file-upload-text {
     z-index: 10;
-    padding: 5px 15px 8px;
+    padding: 10px 15px 8px;
     overflow: hidden;
     font-size: 14px;
     line-height: 1.4;
@@ -1444,7 +1447,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .registrationModal .modal-dialog {
-  margin: 0px;
+  margin: 0px auto;
 }
 
 .registrationModal .modal-content {

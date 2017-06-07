@@ -962,6 +962,29 @@ block scripts
             });
         });
 
+        //Search Mobile
+        /*
+        $('#searchMobile').keypress(function () {
+            $('.tickets').fadeOut("fast", function () {
+                $('#loader').fadeIn("fast");
+                $('.tickets').html('');
+
+                getTickets(1, $("#searchMobile").val());
+            });
+        });
+
+        $('#searchMobile').keyup(function (e) {
+            if (e.keyCode == 8) {
+                $('.tickets').fadeOut("fast", function () {
+                    $('#loader').fadeIn("fast");
+                    $('.tickets').html('');
+
+                    getTickets(1, $("#searchMobile").val());
+                });
+            }
+        });
+        */
+
         $('body').on('click', '.li-autocomplete', function () {
             $('#searchinput').val($(this).text());
             $('#searchinputHidden').val($(this).attr('data-id'));

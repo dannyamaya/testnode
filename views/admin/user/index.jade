@@ -160,8 +160,9 @@ block modals
     .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.modal-lg
             .modal-content
-                .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                .modal-header.gradienteLivinn
+                    h3.text-center.white#titleRead
+                        button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1
@@ -1147,7 +1148,7 @@ block scripts
                 type: "GET",
                 url: 'api/users/' + id,
                 success: function (response) {
-                    $('.readModalTitle').html('<span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>');
+                    $('#titleRead').html('<span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>');
                     $('#readProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
 
                     $("#profilePicture").attr('src',response.user.profile_picture);

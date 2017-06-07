@@ -563,6 +563,7 @@ block scripts
                     $("#messageRead").text(response.ticket.message);
 
                     (function () {
+
                         var Message;
                         Message = function (arg) {
                             this.profile_pic = arg.profile_pic;
@@ -614,20 +615,7 @@ block scripts
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
                             };
                             $('.sendMessage').click(function (e) {
-
-                                var parent = $('.messages').children().last().attr('data-user');
-                                var prevside = $('.messages').children().last().attr('data-side');
                                 var ticket = response.ticket._id;
-
-                                if(parent == $(this).attr('data-current-user'))
-                                    var side = prevside;
-                                else{
-                                    if(prevside == 'left')
-                                        var side = 'right';
-                                    else
-                                        var side = 'left';
-                                }
-
 
                                 $.ajax({
                                     type: "POST",
@@ -641,18 +629,16 @@ block scripts
 
                                     },
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        var message = XMLHttpRequest.responseJSON.message;
-                                        warningAlert(message);
+
                                     }
                                 });
 
-                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
+                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),'left',$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
                             });
 
                             $('.sendNote').click(function (e) {
 
                                 var ticket = response.ticket._id;
-                                alert('aa');
 
                                 $.ajax({
                                     type: "POST",
@@ -666,8 +652,7 @@ block scripts
 
                                     },
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        var message = XMLHttpRequest.responseJSON.message;
-                                        warningAlert(message);
+
                                     }
                                 });
 
@@ -689,17 +674,7 @@ block scripts
                                     $.each(response.comment, function (index, value) {
 
                                         var parent = $('.messages').children().last().attr('data-user');
-                                        var prevside = $('.messages').children().last().attr('data-side');
-
-                                        if (parent == value.posted_by._id)
-                                            var side = prevside;
-                                        else {
-                                            if (prevside == 'left')
-                                                var side = 'right';
-                                            else
-                                                var side = 'left';
-                                        }
-                                        sendMessage(value.comment, value.posted_by._id, side, value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages');
+                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages');
                                     });
 
                                 },

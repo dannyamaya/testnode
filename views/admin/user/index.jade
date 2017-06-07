@@ -310,6 +310,8 @@ block modals
                                         label(for='email') Email
                                         span.requiredLivinn *
                                         input#email.form-control(type='text' placeholder='Email' name="email" required autofocus='')
+
+                                .col-xs-12.col-md-6.secondInputGroup
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -321,7 +323,6 @@ block modals
                                                 option(value="maintenance") Maintenance
                                                 option(value="client service") Customer Service
                                                 option(value="resident assistant") Resident Assistant
-                                .col-xs-12.col-md-6.secondInputGroup
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
@@ -338,7 +339,7 @@ block modals
                                         label(for='document') Document
                                         span.requiredLivinn *
                                         input#document.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
-                                    .form-group.no-padding
+                                    .form-group.no-padding.col-xs-12.col-sm-6
                                         label Location
                                         span.requiredLivinn *
                                         .select
@@ -352,7 +353,7 @@ block modals
                                                     option(value="Calle 21 Bogotá")  Bogotá - Calle 21
                                                     option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
                                                     option(value="Viña Del Mar") Viña Del Mar - Alvarez
-                                    .form-group.no-padding
+                                    .form-group.no-padding.col-xs-12.col-sm-6
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
@@ -370,6 +371,7 @@ block modals
                                     .form-group.differentResident
                                         label(for='skype') Skype
                                         input#skype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
+
                                     .form-group.residentFields
                                         label(for='birthdate') Birth Date
                                         input#birthdate.form-control(type='text' name='birth_date' placeholder='YYYY-MM-DD'  autofocus='')

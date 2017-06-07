@@ -77,52 +77,50 @@ block content
                 i.icon.ion-ios-search-strong
 
     .col-xs-12.no-padding.hidden-md.hidden-lg#userFilters.userFilters.userFiltersUp
-            .col-xs-12.no-padding.clearFilters
-              .col-xs-6.btnCloseFiltersMobile
-                button.btn.btn-default(onclick='collapseFilters()')
-                  span
-                    i.icon.ion-ios-arrow-up
-              .col-xs-6.btnClearFilters
-                button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
-            .col-xs-12.no-padding.search-filtersMobile
-              form.col-xs-12.navbar-left(action='' method='' type='')
-                .form-group
-                  input.form-control#searchMobile(type='text', placeholder='Search')
-              ul.col-xs-12.no-padding.nav.navbar-nav
-                li.col-xs-12.no-padding.dropdown
-                  a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
-                    span
-                      i.icon.ion-ios-arrow-down
-                  ul.col-xs-12.no-padding.dropdown-menu
-                    li
-                        a.locationSearch(href="#") Lord Cochrane Santiago
-                    li
-                        a.locationSearch(href="#") Viña del Mar
-                    li
-                        a.locationSearch(href="#") Calle 18 Bogotá
-                    li
-                        a.locationSearch(href="#") Calle 21 Bogotá
-                    li
-                        a.locationSearch(href="#") Villa campestre Barranquilla
-                li.col-xs-12.no-padding.dropdown
-                  a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
-                    span
-                      i.icon.ion-ios-arrow-down
-                  ul.col-xs-12.no-padding.dropdown-menu
-                    li
-                      a.roleSearch(href="#") Client Service
-                    li
-                        a.roleSearch(href="#") Maintenance
-                    li
-                        a.roleSearch(href="#") Marketing
-                    li
-                        a.roleSearch(href="#") Resident
-                    li
-                        a.roleSearch(href="#") Resident Assistant
-                    li
-                        a.roleSearch(href="#") Operation Manager
-
-
+      .col-xs-12.no-padding.clearFilters
+        .col-xs-6.btnCloseFiltersMobile
+          button.btn.btn-default(onclick='collapseFilters()')
+            span
+              i.icon.ion-ios-arrow-up
+        .col-xs-6.btnClearFilters
+          button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
+      .col-xs-12.no-padding.search-filtersMobile
+        form.col-xs-12.navbar-left(action='' method='' type='')
+          .form-group
+            input.form-control#searchMobile(type='text', placeholder='Search')
+        ul.col-xs-12.no-padding.nav.navbar-nav
+          li.col-xs-12.no-padding.dropdown
+            a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+              span
+                i.icon.ion-ios-arrow-down
+            ul.col-xs-12.no-padding.dropdown-menu
+              li
+                  a.locationSearch(href="#") Lord Cochrane Santiago
+              li
+                  a.locationSearch(href="#") Viña del Mar
+              li
+                  a.locationSearch(href="#") Calle 18 Bogotá
+              li
+                  a.locationSearch(href="#") Calle 21 Bogotá
+              li
+                  a.locationSearch(href="#") Villa campestre Barranquilla
+          li.col-xs-12.no-padding.dropdown
+            a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
+              span
+                i.icon.ion-ios-arrow-down
+            ul.col-xs-12.no-padding.dropdown-menu
+              li
+                a.roleSearch(href="#") Client Service
+              li
+                  a.roleSearch(href="#") Maintenance
+              li
+                  a.roleSearch(href="#") Marketing
+              li
+                  a.roleSearch(href="#") Resident
+              li
+                  a.roleSearch(href="#") Resident Assistant
+              li
+                  a.roleSearch(href="#") Operation Manager
 
     .col-xs-12.content
       .panel-default.col-xs-12.no-padding
@@ -288,7 +286,7 @@ block modals
                     button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
+                        .col-xs-12.col-md-10.col-md-offset-1.no-padding.formContainer
                             form#registrationForm(action="/api/users", method="post", role="form" enctype="multipart/form-data" data-parsley-validate)
                                 .col-xs-12.col-md-6
                                     .form-group
@@ -311,7 +309,7 @@ block modals
                                         label(for='email') Email
                                         span.requiredLivinn *
                                         input#email.form-control(type='text' placeholder='Email' name="email" required autofocus='')
-                                .col-xs-12.col-md-6
+                                .col-xs-12.col-md-6.secondInputGroup
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -352,7 +350,7 @@ block modals
                                                     option(value="Calle 21 Bogotá")  Bogotá - Calle 21
                                                     option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
                                                     option(value="Viña Del Mar") Viña Del Mar - Alvarez
-                                    .form-group.col-sm-6.no-padding
+                                    .form-group.col-md-6.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
@@ -375,26 +373,26 @@ block modals
                                         input#birthdate.form-control(type='text' name='birth_date' placeholder='YYYY-MM-DD'  autofocus='')
                                 .col-xs-12.no-padding.residentFields
                                     hr
-                                    .form-group.col-sm-4
+                                    .form-group.col-sm-6
                                         label(for='numcontract')
                                             |   Contract Number
                                             span.requiredLivinn *
                                         input#numcontract.form-control.inputResident(type='text' placeholder='Contract Number' required='' name="numcontract" autofocus='')
-                                    .form-group.col-sm-4
+                                    .form-group.col-sm-3
                                         label(for='start')
                                             |   Start
                                             span.requiredLivinn *
                                         input#start.form-control.inputResident(type='text' name='start' placeholder='YYYY-MM-DD' autofocus='' required='')
-                                    .form-group.col-sm-4
+                                    .form-group.col-sm-3
                                         label(for='finish')
                                             |   Finish
                                             span.requiredLivinn *
                                         input#finish.form-control.inputResident(type='text' name='finish' placeholder='YYYY-MM-DD'  autofocus='' required='')
-                                    .form-group.col-sm-8
+                                    .form-group.col-sm-6
                                             label(for='rate') Agent
                                             span.requiredLivinn *
                                             input#agent.form-control.inputResident(type='text' name='agent' placeholder='Agent'  autofocus='' required='')
-                                    .form-group.col-sm-4
+                                    .form-group.col-sm-6
                                         label Status
                                         .select
                                             select.inputResident(name="status")
@@ -402,12 +400,12 @@ block modals
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
                                     .col-xs-12.no-padding
-                                        .form-group.col-sm-4
+                                        .form-group.col-sm-6
                                             label(for='rate')
                                                 |   Amount
                                                 span.requiredLivinn *
                                             input#rate.form-control.inputResident(type='text' name='rate' placeholder='Rate' autofocus='' required='')
-                                        .form-group.col-sm-4
+                                        .form-group.col-sm-6
                                             label(for='currency')
                                                 |   Currency
                                                 span.requiredLivinn *
@@ -416,18 +414,19 @@ block modals
                                                   option(value="") Choose a currency
                                                   option(value="CLP") CLP
                                                   option(value="COP") COP
-                                        .form-group.col-sm-4
+                                        .form-group.col-sm-6
                                             label(for='rateusd') Amount USD
                                             input#rateusd.form-control.inputResident(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
-                                    hr.col-xs-12
-                                    .form-group.col-sm-6
-                                        label(for='apartment') Apartment
-                                        span.requiredLivinn *
-                                        input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
-                                    .form-group.col-sm-6
-                                        label(for='type') Apartment Type
-                                        span.requiredLivinn *
-                                        input#type.form-control.inputResident(type='text' name='apartmentType' placeholder='Type'  autofocus='' required='')
+                                    hr.col-xs-12.no-padding
+                                    .col-xs-12.no-padding
+                                      .form-group.col-sm-6
+                                          label(for='apartment') Apartment
+                                          span.requiredLivinn *
+                                          input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
+                                      .form-group.col-sm-6
+                                          label(for='type') Apartment Type
+                                          span.requiredLivinn *
+                                          input#type.form-control.inputResident(type='text' name='apartmentType' placeholder='Type'  autofocus='' required='')
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -441,14 +440,14 @@ block modals
                                     .col-sm-12
 
 
-                                hr.col-xs-12
-                                .form-group.col-xs-12.col-md-4.col-md-offset-8.btnsModal
+                                hr.col-xs-12.hidden-xs.hidden-sm
+                                .col-xs-12.col-md-10.col-md-offset-1.btnsModal
                                     .text-center
                                       button.col-xs-4.col-xs-offset-2.btn.btn-livinn(type='submit') Register
-                                      button.col-xs-4.btn.btn-white.btn-margin-right(data-dismiss="modal" aria-hidden="true") Cancel
+                                      button.col-xs-4.btn.btn-margin-right.btn-livinn4(data-dismiss="modal" aria-hidden="true") Cancel
 
     <!-- Update User Modal -->
-    .modal.fade#updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    .modal.fade#updateUserModal.updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header

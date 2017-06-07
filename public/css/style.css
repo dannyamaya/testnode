@@ -169,6 +169,16 @@ button:focus{
   font-weight: bold;
 }
 
+.btn-livinn4, .btn-livinn4:hover, .btn-livinn4:focus, .btn-livinn4:active {
+  padding: 4px 22px 1px;
+  border: 2px solid #D51C5C;
+  background-color: transparent;
+  margin-left: 5px;
+  font-size: 2.3rem;
+  font-family: 'BebasNeue-Regular' , sans-serif;
+  color: #D51C5C;
+}
+
 
 .btn-transparent, .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
   background-color: transparent;
@@ -527,6 +537,7 @@ button:focus{
   -ms-transform: translate3d(0,-100%,0);
   -o-transform: translate3d(0,-100%,0);
   transform: translate3d(0,-100%,0);
+  transition: transform 0.4s ease-in-out;
 }
 
 .userFiltersDown {
@@ -626,6 +637,18 @@ button:focus{
 
 .userFilters .search-filtersMobile .dropdown a span {
   float: right;
+}
+
+.userFilters.searchTicket {
+  padding-bottom: 10px;
+}
+
+.userFilters.searchTicket .search-filtersMobile {
+  margin-top: 25px;
+}
+
+.userFilters.searchTicket .search-filtersMobile form {
+  border: none;
 }
 
 .userSearch-Management .navbar-form {
@@ -1512,6 +1535,10 @@ input[type="file"]::-webkit-file-upload-button {
   font-size: 2.3rem;
 }
 
+.registrationModal .modal-body .formContainer {
+  margin-top: 40px;
+}
+
 .registrationModal .modal-body form .form-group {
   margin-left: -15px;
   margin-right: -15px;
@@ -1546,7 +1573,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .registrationModal .modal-body form .form-group .select,
 .registrationModal .modal-body form .form-group .select select {
-  height: 50px;
+  height: 48px;
   background-color: #DCDCDC;
   color: #9C9C9C;
   border-top: none;
@@ -1556,15 +1583,16 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .registrationModal .modal-body form .form-group .select:before {
-  top: 1em;
+  top: 0.55em;
 }
 
 .registrationModal .modal-body form .form-group.btnsModal {
   margin-left: 0px;
   margin-right: 0px;
+  margin-top: 10px;
 }
 
-.registrationModal .modal-body form .form-group.btnsModal button.btn-livinn {
+.registrationModal .modal-body form .btnsModal button.btn-livinn {
   font-size: 2.3rem;
   padding: 5px 22px 1px;
   font-family: 'BebasNeue-Regular' , sans-serif;
@@ -1661,6 +1689,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .icon--down:before, .select:before {
   content: "\e600";
+  font-size: 2rem;
 }
 
 .select.select-livinn {
@@ -2210,7 +2239,12 @@ textarea.parsley-error {
 
   .preview i {
     top: 85px;
-    left: 245px;
+    left: 295px;
+  }
+
+  .registrationModal .modal-body form .form-group {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 
@@ -2278,6 +2312,24 @@ textarea.parsley-error {
       height: 60px;
       margin-left: -30px;
       margin-top: 9px;
+  }
+
+  .preview i {
+    top: 85px;
+    left: 183px;
+  }
+
+  .registrationModal .modal-dialog {
+    margin: 70px auto;
+  }
+
+  .registrationModal .modal-body form .form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .registrationModal .modal-body form .secondInputGroup {
+    margin-top: 15px;
   }
 
 }

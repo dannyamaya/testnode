@@ -2,11 +2,56 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
+    .col-xs-12.no-padding.hidden-md.hidden-lg#searchTicket.userFilters.userFiltersUp.searchTicket
+      .col-xs-12.no-padding.clearFilters
+        .col-xs-6.btnCloseFiltersMobile
+          button.btn.btn-default(onclick='collapseFilters1()')
+            span
+              i.icon.ion-ios-arrow-up
+        .col-xs-6.btnClearFilters
+          button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
+      .col-xs-12.no-padding.search-filtersMobile
+        form.col-xs-12.navbar-left(action='' method='' type='')
+          .form-group
+            input.form-control#searchMobile(type='text', placeholder='Search')
+        ul.col-xs-12.no-padding.nav.navbar-nav.hidden
+          li.col-xs-12.no-padding.dropdown
+            a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+              span
+                i.icon.ion-ios-arrow-down
+            ul.col-xs-12.no-padding.dropdown-menu
+              li
+                  a.locationSearch(href="#") Lord Cochrane Santiago
+              li
+                  a.locationSearch(href="#") Viña del Mar
+              li
+                  a.locationSearch(href="#") Calle 18 Bogotá
+              li
+                  a.locationSearch(href="#") Calle 21 Bogotá
+              li
+                  a.locationSearch(href="#") Villa campestre Barranquilla
+          li.col-xs-12.no-padding.dropdown
+            a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
+              span
+                i.icon.ion-ios-arrow-down
+            ul.col-xs-12.no-padding.dropdown-menu
+              li
+                a.roleSearch(href="#") Client Service
+              li
+                  a.roleSearch(href="#") Maintenance
+              li
+                  a.roleSearch(href="#") Marketing
+              li
+                  a.roleSearch(href="#") Resident
+              li
+                  a.roleSearch(href="#") Resident Assistant
+              li
+                  a.roleSearch(href="#") Operation Manager
     .col-xs-12.userTools.has-feedbackc
         .col-xs-12.col-md-2.heading-title
             h2.col-xs-10.col-md-12.no-padding #{title}
             .pull-right.visible-xs.visible-sm
-                button.btn.btn-livinn#Filters(onclick="deployFilters()" style="padding: 2px 8px; margin-top: -2px;")
+                button.btn.btn-livinn#Filters(onclick="deployFilters1()" style="padding: 2px 8px; margin-top: -2px;")
                     span
                         i.icon.ion-ios-search-strong(style="font-size:2rem;")
         .col-xs-10.hidden-xs.hidden-sm
@@ -229,6 +274,20 @@ block scripts
     script(src="/js/jquery.bootpag.min.js")
     script(src="/js/parsley.min.js")
     script.
+
+        function deployFilters1() {
+          if ($("#searchTicket").hasClass("userFiltersUp")) {
+            $("#searchTicket").removeClass("userFiltersUp");
+            $("#searchTicket").addClass("userFiltersDown");
+          }
+        }
+
+        function collapseFilters1() {
+          if ($("#searchTicket").hasClass("userFiltersDown")) {
+            $("#searchTicket").removeClass("userFiltersDown");
+            $("#searchTicket").addClass("userFiltersUp");
+          }
+        }
 
         var openticketid = '';
 

@@ -288,15 +288,15 @@ block modals
                     button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1
+                        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
                             form#registrationForm(action="/api/users", method="post", role="form" enctype="multipart/form-data" data-parsley-validate)
-                                .col-xs-12.col-sm-6
+                                .col-xs-12.col-sm-6.no-padding
                                     .form-group
                                         .preview.img-wrapper
                                           i.icon.ion-plus
                                         .file-upload-wrapper
                                                 input.file-upload-native(type="file" name="image" accept="image/*" )
-                                                input.file-upload-text(type="text" disabled placeholder="Upload profile image")
+                                                input.file-upload-text(type="text" disabled placeholder="Upload profile photo")
                                     .form-group
                                         label(for='first')
                                             |   First Name
@@ -311,7 +311,7 @@ block modals
                                         label(for='email') Email
                                         span.requiredLivinn *
                                         input#email.form-control(type='text' placeholder='Email' name="email" required autofocus='')
-                                .col-xs-12.col-sm-6
+                                .col-xs-12.col-sm-6.no-padding
                                     .form-group
                                         label Role
                                         span.requiredLivinn *

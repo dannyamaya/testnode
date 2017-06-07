@@ -296,7 +296,7 @@ module.exports = {
      * @param {string} id - The user's id.
      */
     updateUser: function (req, res, next) {
-
+        console.log(req.body);
         var errorResident = false;
         User.findById(req.params.id, function (err, user) {
             if (err) {
@@ -384,6 +384,7 @@ module.exports = {
 
                     Resident.findOne({user_id: user._id}, function (err, resident) {
                         if (err) {
+
                             return res.status(500).json({message: 'Internal Server Error'});
                         }
 
@@ -441,7 +442,7 @@ module.exports = {
                                     console.log('Resident Updated')
                                 }
                                 else {
-                                    errorResident = true;
+                                    errorResident = err;
                                 }
                             });
                         }
@@ -451,7 +452,9 @@ module.exports = {
 
                 user.save(function (err, u) {
                     if (err || errorResident) {
-                       return res.status(500).json({message: 'Internal Server Error'});
+                        console.log(errorResident);
+
+                        return res.status(500).json({message: 'Internal Server Error'});
                     } else {
                        return res.status(200).json({
                             user: user

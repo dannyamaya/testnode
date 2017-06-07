@@ -427,7 +427,21 @@ block modals
                                       .form-group.col-sm-6
                                           label(for='type') Apartment Type
                                           span.requiredLivinn *
-                                          input#type.form-control.inputResident(type='text' name='apartmentType' placeholder='Type'  autofocus='' required='')
+                                          .select
+                                            select#type.inputResident(name='apartmentType' required)
+                                              option(value="") Apartment type
+                                              option(value="1A") 1A
+                                              option(value="1B") 1B
+                                              option(value="2A") 2A
+                                              option(value="2B") 2B
+                                              option(value="3A") 3A
+                                              option(value="3B") 3B
+                                              option(value="4A") 4A
+                                              option(value="4B") 4B
+                                              option(value="4C") 4C
+                                              option(value="4D") 4D
+                                              option(value="4E") 4E
+                                              option(value="4F") 4F
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -437,7 +451,15 @@ block modals
                                                 option(value="shared") Shared
                                     .form-group.col-sm-6
                                         label(for='bed') Bed
-                                        input#bed.form-control.inputResident(type='text' name='bed' placeholder='Bed' autofocus='')
+                                        .select
+                                          select#bed.inputResident(name='bed')
+                                            option(value="") Bed
+                                            option(value="A1") A1
+                                            option(value="A2") A2
+                                            option(value="B1") B1
+                                            option(value="B2") B2
+                                            option(value="C1") C1
+                                            option(value="D1") D1
                                     .col-sm-12
 
 
@@ -544,7 +566,7 @@ block modals
                                           .col-xs-12.no-padding
                                             .text-center
                                               button.col-xs-5.col-xs-offset-1.col-md-offset-0.btn.btn-livinn#updateUserButton  Update
-                                              button.col-xs-5.col-md-offset-2.btn.deleteBtn.btn-livinn4(data-dismiss="modal" aria-hidden="true") Cancel                  
+                                              button.col-xs-5.col-md-offset-2.btn.deleteBtn.btn-livinn4(data-dismiss="modal" aria-hidden="true") Cancel
                                     .form-group.residentFields
                                         label(for='inputUpdateBirthdate') Birth Date
                                         input#inputUpdateBirthdate.form-control(type='text' name='birthdate' placeholder='YYYY-MM-DD'  autofocus='')

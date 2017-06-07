@@ -56,7 +56,8 @@ block content
 
             #loader
             .col-xs-12.no-padding.tickets
-
+            .col-xs-12
+                .loading#loading(style="display:none; margin: -56px auto 0 auto;")
 
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed.hide
         .panel.panel-default.col-xs-12.no-padding
@@ -242,11 +243,13 @@ block scripts
 
         $(document).ready(function () {
 
-            $('#page-selection').bootpag({
-                total: 10,
-                maxVisible: 5,
-            }).on("page", function (event, num) {
-                filterTickets(num);
+            var count = 2;
+            $(window).scroll(function(){
+                if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+                   console.log('loading on scroll, page: ' + count);
+                   filterTickets(count);
+                   count++;
+                }
             });
 
             filterTickets(1);
@@ -393,8 +396,12 @@ block scripts
         //----------------- READ ---------------------------
         function getTickets(page, search) {
 
-            $('.tickets').hide();
-            $('#loader').fadeIn("slow");
+            if(page =='1') {
+                $('.tickets').hide().html("");
+                $('#loader').fadeIn("slow");
+            }else{
+                $('#loading').fadeIn("slow");
+            }
 
             var options = '';
 
@@ -417,8 +424,6 @@ block scripts
                     options+= '&id='+search;
                 }
             }
-
-            $('.tickets').html("");
 
             $.ajax({
                 type: "GET",
@@ -462,6 +467,7 @@ block scripts
                 }
             }).done(function (data) {
                 $('#loader').fadeOut("fast", function () {
+                    $('#loading').fadeOut("slow");
                     $('.tickets').removeClass("hidden").fadeIn();
                 });
             });

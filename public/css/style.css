@@ -969,6 +969,10 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 /* TICKETS */
+.tickets{
+    margin-bottom: 80px;
+}
+
 .ticket{
   border:1px solid #ccc;
   min-height:138px;
@@ -2164,6 +2168,10 @@ textarea.parsley-error {
     margin-top: 79px;
     height: 55px;
   }
+
+  .tickets{
+     margin-top:20px;
+   }
 
   .ticket-date {
       text-align: right;

@@ -374,12 +374,11 @@ module.exports = {
                             });
                         }
 
-                        //console.log('RESULTS************');
-                        tickets.forEach(function(r) {
-                            //console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
-                            //console.log('***************');
-
-                        });
+                        // console.log('RESULTS************');
+                        // tickets.forEach(function(r) {
+                        //     console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
+                        //     console.log('***************');
+                        // });
 
                         //console.log(results[0]);
 

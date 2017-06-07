@@ -213,4 +213,56 @@ exports.newTicket= function(ticket){
 
 
 
+    },
+
+    exports.newAssignedTo = function(user,ticket){
+
+
+        var locals = {
+            url: config.production.url,
+            user: user,
+            ticket: ticket
+        };
+
+
+        emailTemplates(templatesDir,locals, function(err, template) {
+
+            if (err) {
+                console.log('Error1: '+err);
+            } else {
+
+                template('new-assigned', locals, function(err, html, text) {
+                    if (err) {
+                        console.log('Error2: '+err);
+                    } else {
+                        var mailOptions = {
+
+                            from: 'Livinn'+' <contact@cannedhead.com>',
+                            to: locals.user.email,
+                            subject: 'A ticket has been assigned to you '+ locals.ticket._id,
+                            headers: {
+                                'X-Laziness-level': 1000
+                            },
+                            html: html
+
+                        };
+
+                        transport.sendMail(mailOptions, function(error, response){
+                            if(error){
+                                console.log(error);
+                            }else{
+                                console.log("Message sent!");
+                            }
+                            transport.close();
+                        });
+                    }
+
+                });
+            }
+
+        });
+
+
+
     }
+

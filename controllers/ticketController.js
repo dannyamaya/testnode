@@ -229,8 +229,23 @@ module.exports = {
 
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
 
-                if(!ticket.assigned_to.includes(req.body.assignee))
+                if(!ticket.assigned_to.includes(req.body.assignee)){
                     ticket.assigned_to.push(req.body.assignee);
+
+                    User.findOne({_id: req.body.assignee})
+                        .exec(function (err, user) {
+                            if (err) {
+                                console.log('Cant send email');
+                            }
+                            if (!ticket) {
+                                console.log('Cant send email');
+                            } else {
+                                mailer.newAssignedTo(user,ticket);
+                            }
+                        });
+
+
+                }
 
                 if(req.body.remove){
                     ticket.assigned_to.pull({_id:req.body.assignee});

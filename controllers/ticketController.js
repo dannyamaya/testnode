@@ -87,7 +87,7 @@ module.exports = {
                     if(!tpopulated){
                         res.status(404).json({ message: "User not found" });
                     }else {
-                        //mailer.newTicket(tpopulated);
+                        mailer.newTicket(tpopulated);
                         return res.status(200).json({ticket: tpopulated, message: "Work Order has been created"});
                     }
                 });

@@ -21,6 +21,8 @@ var TicketSchema   = new Schema({
 
   file_name: {type:String, default: ''},
 
+  opened: {type:Boolean, required:true, default:false},
+
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now }
 });

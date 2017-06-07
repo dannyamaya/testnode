@@ -589,7 +589,7 @@ block scripts
 
                     console.log(response);
                     $('#hiddenTicket').val(response.ticket._id);
-                    $('.readModalTitle').html('Ticket #' + response.ticket._id );
+                    $('.readModalTitle').html('Work Order #' + response.ticket._id );
                     $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.requested_by.profile_picture+"'</span>"+response.ticket.requested_by.name.first+" "+response.ticket.requested_by.name.last);
                     $("#ticketemail").text(response.ticket.requested_by.email);
                     if(response.ticket.requested_by.phone.number){

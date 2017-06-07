@@ -450,8 +450,9 @@ block modals
     .modal.fade#updateUserModal.updateUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
-                .modal-header
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                      i.icon.ion-android-close
                     h3.modal-sm-title.text-center#updateModal_h ¿Do you want to update this user?
                 .modal-body
                     .row
@@ -463,7 +464,7 @@ block modals
                                         .preview.img-wrapper.img-preloaded#updateProfileImage
                                         .file-upload-wrapper
                                             input.file-upload-native#inputUpdateImage(type="file" name="image" accept="image/*" )
-                                            input.file-upload-text(type="text" disabled placeholder="Change Profile Image")
+                                            input.file-upload-text(type="text" disabled placeholder="Change Profile Photo")
 
                                     .form-group
                                         label(for='inputUpdateFirstname') First Name
@@ -474,7 +475,6 @@ block modals
                                     .form-group.emailregistrationerror
                                         label(for='inputUpdateEmail') Email
                                         input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required='' autofocus='')
-                                .col-xs-12.col-sm-6
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -487,7 +487,7 @@ block modals
                                                 option(value="client service") Client Service
                                                 option(value="resident assistant") Resident Assistant
                                                 option(value="admin") Super Admin
-
+                                .col-xs-12.col-sm-6.secondInputGroup
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
@@ -517,7 +517,7 @@ block modals
                                                     option(value="Calle 21 Bogotá")  Bogotá - Calle 21
                                                     option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
                                                     option(value="Viña Del Mar") Viña Del Mar - Alvarez
-                                    .form-group.col-xs-12.col-sm-6.no-padding-right
+                                    .form-group.col-xs-12.col-sm-6.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
@@ -537,6 +537,12 @@ block modals
                                         label(for='inputUpdateSkype') Skype
                                         input#inputUpdateSkype.form-control(type='text' name='skype' placeholder='Skype' autofocus='')
 
+                                    .col-xs-12.no-padding
+                                      .form-group.col-xs-12.btnsModal.text-center.no-padding
+                                          .col-xs-12.no-padding
+                                            .text-center
+                                              button.col-xs-5.col-xs-offset-1.col-md-offset-0.btn.btn-livinn#updateUserButton  Update
+                                              button.col-xs-5.col-md-offset-2.btn.deleteBtn.btn-livinn4(data-dismiss="modal" aria-hidden="true") Cancel                  
                                     .form-group.residentFields
                                         label(for='inputUpdateBirthdate') Birth Date
                                         input#inputUpdateBirthdate.form-control(type='text' name='birthdate' placeholder='YYYY-MM-DD'  autofocus='')
@@ -607,11 +613,6 @@ block modals
                                     .col-sm-12
                                         hr
 
-                                .col-xs-12
-                                    .form-group.col-sm-12.col-md-4.col-md-offset-8.no-padding
-                                        .pull-right
-                                            button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
-                                            button.btn.btn-livinn#updateUserButton  Update
 
     <!-- Delete User Modal -->
     .modal.fade#deleteUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -926,7 +927,7 @@ block scripts
                     type: "GET",
                     url: 'api/users/' + id,
                     success: function (response) {
-                        $('#updateModal_h').html('¿Do you want to update the user <span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>?');
+                        $('#updateModal_h').html( response.user.name.first + ' ' + response.user.name.last );
                         $('#updateProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
                         $("#inputUpdateEmail").val(response.user.email);
                         $("#inputUpdateFirstname").val(response.user.name.first);

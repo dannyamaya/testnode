@@ -179,7 +179,6 @@ button:focus{
   color: #D51C5C;
 }
 
-
 .btn-transparent, .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
   background-color: transparent;
   color:#fff;
@@ -955,7 +954,7 @@ button:focus{
   margin: 0px auto;
   position: absolute;
   top: 85px;
-  left: 180px;
+  left: 177px;
   color: #D51C5C;
 }
 
@@ -970,7 +969,8 @@ button:focus{
     padding: 10px 35px;
 }
 
-.registrationModal .modal-body form .form-group .file-upload-wrapper input[type="text"] {
+.registrationModal .modal-body form .form-group .file-upload-wrapper input[type="text"],
+.updateUserModal .modal-body form .form-group .file-upload-wrapper input[type="text"] {
   background-color: #FFF;
 }
 
@@ -1566,11 +1566,13 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   border-radius: 25px;
 }
 
-.registrationModal .modal-dialog {
+.registrationModal .modal-dialog,
+.updateUserModal .modal-dialog {
   margin: 0px auto;
 }
 
-.registrationModal .modal-content {
+.registrationModal .modal-content,
+.updateUserModal .modal-content {
   border: none;
 }
 
@@ -1595,14 +1597,16 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   margin-right: -15px;
 }
 
-.registrationModal .modal-body form .form-group label {
+.registrationModal .modal-body form .form-group label,
+.updateUserModal .modal-body form .form-group label {
   color: #D51C5C;
   margin-left: 30px;
   font-family: 'Open Sans', sans-serif;
   font-size: 1.3rem;
 }
 
-.registrationModal .modal-body form .form-group input {
+.registrationModal .modal-body form .form-group input,
+.updateUserModal .modal-body form .form-group input {
   padding: 24px 12px;
   background-color: #DCDCDC;
   border-top: none;
@@ -1611,7 +1615,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   border-left: 2px solid #FFF;
 }
 
-.registrationModal .modal-body form .form-group .form-control {
+.registrationModal .modal-body form .form-group .form-control,
+.updateUserModal .modal-body form .form-group .form-control {
   border-top: none;
   border-bottom: none;
   border-right: 2px solid #FFF;
@@ -1623,7 +1628,9 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .registrationModal .modal-body form .form-group .select,
-.registrationModal .modal-body form .form-group .select select {
+.registrationModal .modal-body form .form-group .select select,
+.updateUserModal .modal-body form .form-group .select,
+.updateUserModal .modal-body form .form-group .select select {
   height: 48px;
   background-color: #DCDCDC;
   color: #9C9C9C;
@@ -1643,12 +1650,38 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   margin-top: 10px;
 }
 
-.registrationModal .modal-body form .btnsModal button.btn-livinn {
+.registrationModal .modal-body form .btnsModal button.btn-livinn,
+.updateUserModal .modal-body form .btnsModal button.btn-livinn {
   font-size: 2.3rem;
   padding: 5px 22px 1px;
   font-family: 'BebasNeue-Regular' , sans-serif;
   text-transform: uppercase;
   box-shadow: none;
+}
+
+.updateUserModal {
+  padding-left: 0px !important; 
+}
+
+.updateUserModal .modal-header button {
+  padding: 4px 9px;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  font-size: 2.7rem;
+  margin-top: 10px;
+  color: #FFF;
+  opacity: 1;
+}
+
+.updateUserModal .modal-header h3 {
+  text-transform: uppercase;
+  color: #FFF;
+  font-family: 'BebasNeue-Bold', sans-serif;
+  font-size: 2.3rem;
+}
+
+.updateUserModal .modal-body form .secondInputGroup {
+  margin-top: 14px;
 }
 
 /* ---- select ---*/
@@ -2046,15 +2079,9 @@ textarea.parsley-error {
   box-shadow: none;
 }
 
-.btnsManageUsers {
-  margin-left: 3px;
-  margin-top: 5px;
-  border: none;
-}
-
 .btnsManageUsers2 {
   margin-left: 22px;
-  margin-top: 5px;
+  margin-top: 11px;
   border: none;
 }
 
@@ -2098,6 +2125,12 @@ textarea.parsley-error {
   box-shadow: none;
   text-transform: uppercase;
   font-family: 'BebasNeue-Regular', sans-serif;
+}
+
+.btnsManageUsers {
+  margin-left: 3px;
+  margin-top: 11px;
+  border: none;
 }
 
 .cleanRoleSearch, .cleanLocationSearch{
@@ -2301,6 +2334,17 @@ textarea.parsley-error {
 }
 
 @media screen and (min-width: 992px) {
+
+  .btn-livinn4, .btn-livinn4:hover, .btn-livinn4:focus, .btn-livinn4:active {
+    padding: 4px 22px 1px;
+    border: 2px solid #D51C5C;
+    background-color: transparent;
+    font-size: 2.3rem;
+    font-family: 'BebasNeue-Regular' , sans-serif;
+    color: #D51C5C;
+    float: right;
+  }
+  
   .form-login {
     position: relative;
     top: 50%;
@@ -2396,6 +2440,10 @@ textarea.parsley-error {
 
   .registrationModal .modal-body form .secondInputGroup {
     margin-top: 15px;
+  }
+
+  .updateUserModal .modal-dialog {
+    margin: 70px auto;
   }
 
 }

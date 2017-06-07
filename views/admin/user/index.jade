@@ -309,7 +309,6 @@ block modals
                                         label(for='email') Email
                                         span.requiredLivinn *
                                         input#email.form-control(type='text' placeholder='Email' name="email" required autofocus='')
-                                .col-xs-12.col-md-6.secondInputGroup
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -321,6 +320,7 @@ block modals
                                                 option(value="maintenance") Maintenance
                                                 option(value="client service") Customer Service
                                                 option(value="resident assistant") Resident Assistant
+                                .col-xs-12.col-md-6.secondInputGroup
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
@@ -337,7 +337,7 @@ block modals
                                         label(for='document') Document
                                         span.requiredLivinn *
                                         input#document.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
-                                    .form-group.col-md-6.no-padding
+                                    .form-group.no-padding
                                         label Location
                                         span.requiredLivinn *
                                         .select
@@ -351,7 +351,7 @@ block modals
                                                     option(value="Calle 21 Bogotá")  Bogotá - Calle 21
                                                     option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
                                                     option(value="Viña Del Mar") Viña Del Mar - Alvarez
-                                    .form-group.col-md-6.no-padding
+                                    .form-group.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
@@ -544,7 +544,7 @@ block modals
                                           .col-xs-12.no-padding
                                             .text-center
                                               button.col-xs-5.col-xs-offset-1.col-md-offset-0.btn.btn-livinn#updateUserButton  Update
-                                              button.col-xs-5.col-md-offset-2.btn.deleteBtn.btn-livinn4(data-dismiss="modal" aria-hidden="true") Cancel                  
+                                              button.col-xs-5.col-md-offset-2.btn.deleteBtn.btn-livinn5(data-dismiss="modal" aria-hidden="true") Cancel                  
                                     .form-group.residentFields
                                         label(for='inputUpdateBirthdate') Birth Date
                                         input#inputUpdateBirthdate.form-control(type='text' name='birthdate' placeholder='YYYY-MM-DD'  autofocus='')

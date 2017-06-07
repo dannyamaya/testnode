@@ -126,7 +126,7 @@ button:focus{
 }
 
 .form-control{
-  height: 37px;
+  height: 48px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
@@ -843,7 +843,7 @@ button:focus{
   }*/
 
   .form-control {
-    height: 32px;
+    height: 48px;
   }
 
   .logo-dashboard{
@@ -975,7 +975,7 @@ button:focus{
 }
 
 .file-upload-wrapper input[type="text"]::placeholder {
-  color: #D51C5C;
+  color: #D51C5C !important;
   font-family: 'BebasNeue-Book', sans-serif;
   text-transform: uppercase;
   font-size: 2rem;
@@ -1607,12 +1607,13 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 
 .registrationModal .modal-body form .form-group input,
 .updateUserModal .modal-body form .form-group input {
-  padding: 24px 12px;
+  padding: 3px 12px;
   background-color: #DCDCDC;
   border-top: none;
   border-bottom: none;
   border-right: 2px solid #FFF;
   border-left: 2px solid #FFF;
+  text-transform: capitalize;
 }
 
 .registrationModal .modal-body form .form-group .form-control,
@@ -1682,6 +1683,10 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 
 .updateUserModal .modal-body form .secondInputGroup {
   margin-top: 14px;
+}
+
+.updateUserModal .modal-body form .btnsModal {
+  margin-top: 29px;
 }
 
 /* ---- select ---*/
@@ -2342,6 +2347,16 @@ textarea.parsley-error {
     font-size: 2.3rem;
     font-family: 'BebasNeue-Regular' , sans-serif;
     color: #D51C5C;
+    float: left;
+  }
+
+  .btn-livinn5, .btn-livinn5:hover, .btn-livinn5:focus, .btn-livinn5:active {
+    padding: 4px 22px 1px;
+    border: 2px solid #D51C5C;
+    background-color: transparent;
+    font-size: 2.3rem;
+    font-family: 'BebasNeue-Regular' , sans-serif;
+    color: #D51C5C;
     float: right;
   }
   
@@ -2385,6 +2400,10 @@ textarea.parsley-error {
   .userTools {
     margin-top: 79px;
     height: 55px;
+  }
+
+  .userTools form .search input {
+    height: 32px;
   }
 
   .userTools.ticketTools form .search {
@@ -2439,7 +2458,7 @@ textarea.parsley-error {
   }
 
   .registrationModal .modal-body form .secondInputGroup {
-    margin-top: 15px;
+    margin-top: 100px;
   }
 
   .updateUserModal .modal-dialog {

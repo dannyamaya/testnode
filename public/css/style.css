@@ -166,7 +166,7 @@ button:focus{
 }
 
 .btn-livinn3{
-    font-weight: bold;
+  font-weight: bold;
 }
 
 
@@ -906,7 +906,7 @@ button:focus{
   margin: 0px auto;
   position: absolute;
   top: 85px;
-  left: 175px;
+  left: 180px;
   color: #D51C5C;
 }
 
@@ -919,6 +919,10 @@ button:focus{
     margin: 5px auto 40px;
     border: 1px solid #E30056;
     padding: 10px 35px;
+}
+
+.registrationModal .modal-body form .form-group .file-upload-wrapper input[type="text"] {
+  background-color: #FFF;
 }
 
 .file-upload-wrapper input[type="text"]::placeholder {
@@ -1021,6 +1025,13 @@ input[type="file"]::-webkit-file-upload-button {
   margin-top: 8px;
   left: 50%;
   position: relative;
+}
+
+.ticket-profile-img-two img {
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+    position: relative;
 }
 
 .ticket-profile-img-2 img{
@@ -1135,8 +1146,9 @@ input[type="file"]::-webkit-file-upload-button {
 
 .ticket-navbar h3{
     margin-top: 14px;
-    font-size: 1.4em;
+    font-size: 2.0em;
     margin-left: 15px;
+
 }
 
 .ticket-navbar h3 span{
@@ -1170,6 +1182,12 @@ input[type="file"]::-webkit-file-upload-button {
     left:0;
 }
 
+.readModalTitle{
+    text-align: center;
+    font-family: 'BebasNeue-Regular';
+    color: white;
+}
+
 .ticket-navbar button span::before {
     transform: rotate(45deg);
 }
@@ -1193,9 +1211,16 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ticketsubject{
-    font-size: 1.5em;
-    margin-top: 20px;
+    font-size: 1.2em;
+    color: #606470;
+    margin-top: 5px;
+}
+
+.ticketrequestby{
+    font-size: 1.2em;
+    margin-top: 38px;
     font-weight: bold;
+    color: #606470;
 }
 
 .nav-tabs-comments-wrapper{
@@ -1448,10 +1473,8 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .full-width.modal-dialog {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  width: 70%;
+  height: 90%;
 }
 
 .full-width .modal-content {
@@ -1487,6 +1510,66 @@ input[type="file"]::-webkit-file-upload-button {
   margin-bottom: 10px;
   color: #FFF;
   font-size: 2.3rem;
+}
+
+.registrationModal .modal-body form .form-group {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.registrationModal .modal-body form .form-group label {
+  color: #D51C5C;
+  margin-left: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.3rem;
+}
+
+.registrationModal .modal-body form .form-group input {
+  padding: 24px 12px;
+  background-color: #DCDCDC;
+  border-top: none;
+  border-bottom: none;
+  border-right: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group .form-control {
+  border-top: none;
+  border-bottom: none;
+  border-right: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group input::placeholder {
+  color: #9C9C9C;
+}
+
+.registrationModal .modal-body form .form-group .select,
+.registrationModal .modal-body form .form-group .select select {
+  height: 50px;
+  background-color: #DCDCDC;
+  color: #9C9C9C;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px solid #FFF;
+  border-left: 1px solid #FFF;
+}
+
+.registrationModal .modal-body form .form-group .select:before {
+  top: 1em;
+}
+
+.registrationModal .modal-body form .form-group.btnsModal {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.registrationModal .modal-body form .form-group.btnsModal button.btn-livinn {
+  font-size: 2.3rem;
+  padding: 5px 22px 1px;
+  font-family: 'BebasNeue-Regular' , sans-serif;
+  text-transform: uppercase;
+  box-shadow: none;
 }
 
 /* ---- select ---*/
@@ -2124,6 +2207,11 @@ textarea.parsley-error {
   .ticket {
     min-height: 120px;
   }
+
+  .preview i {
+    top: 85px;
+    left: 245px;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -2179,6 +2267,13 @@ textarea.parsley-error {
   }
 
   .ticket-profile-img img {
+      width: 60px;
+      height: 60px;
+      margin-left: -30px;
+      margin-top: 9px;
+  }
+
+  .ticket-profile-img-3 img{
       width: 60px;
       height: 60px;
       margin-left: -30px;

@@ -400,24 +400,6 @@ block modals
                                                 option(value="") Choose a status
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
-                                    .col-xs-12.no-padding
-                                        .form-group.col-sm-6
-                                            label(for='rate')
-                                                |   Amount
-                                                span.requiredLivinn *
-                                            input#rate.form-control.inputResident(type='text' name='rate' placeholder='Rate' autofocus='' required='')
-                                        .form-group.col-sm-6
-                                            label(for='currency')
-                                                |   Currency
-                                                span.requiredLivinn *
-                                            .select
-                                                select.inputResident(name="currency" required='')
-                                                  option(value="") Choose a currency
-                                                  option(value="CLP") CLP
-                                                  option(value="COP") COP
-                                        .form-group.col-sm-6
-                                            label(for='rateusd') Amount USD
-                                            input#rateusd.form-control.inputResident(type='text' name='rateusd' placeholder='Rate USD' autofocus='')
                                     hr.col-xs-12.no-padding
                                     .col-xs-12.no-padding
                                       .form-group.col-sm-6
@@ -596,24 +578,6 @@ block modals
                                                 option(value="") Choose a status
                                                 option(value="Booked") Booked
                                                 option(value="In-house") In-house
-
-                                .col-xs-12.no-padding.residentFields
-                                    .form-group.col-sm-4
-                                        label(for='inputUpdateRate') Amount
-                                        span.requiredLivinn *
-                                        input#inputUpdateRate.form-control.inputResidentUpdate(type='text' name='rate' placeholder='Rate' autofocus='' required='')
-                                    .form-group.col-sm-4
-                                        label(for='inputUpdateCurrency')
-                                            |   Currency
-                                            span.requiredLivinn *
-                                        .select
-                                            select#inputUpdateCurrency.inputResidentUpdate(name="currency" required='')
-                                                option(value="") Choose a currency
-                                                option(value="CLP") CLP
-                                                option(value="COP") COP
-                                    .form-group.col-sm-4
-                                        label(for='inputUpdateRateusd') Amount USD
-                                        input#inputUpdateRateusd.form-control.inputResidentUpdate(type='text' name='rateusd' placeholder='Rate USD' autofocus='' required='')
                                 .col-xs-12.no-padding.residentFields
                                     hr
                                     .form-group.col-sm-6
@@ -981,10 +945,7 @@ block scripts
                                         $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
                                     $("#inputUpdateApartment").val(response.resident.apartment);
                                     $("#inputUpdateApartmentType").val(response.resident.apartment_type);
-                                    $("#inputUpdateRate").val(response.resident.rate);
                                     $("#inputUpdateBed").val(response.resident.bed);
-                                    $("#inputUpdateCurrency").val(response.resident.currency);
-                                    $("#inputUpdateRateusd").val(response.resident.rateusd);
                                     $("#inputUpdateAgent").val(response.resident.agent);
                                     $("#inputUpdateFinish").val(response.resident.finish.substr(0,10));
                                     $("#inputUpdateStart").val(response.resident.start.substr(0,10));
@@ -1203,11 +1164,8 @@ block scripts
                                 $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
                                 $("#apartmentRead").text(response.resident.apartment);
                                 $("#typeRead").text(response.resident.apartment_type);
-                                $("#rateRead").text(response.resident.rate);
                                 $("#bathroomRead").text(response.resident.bathroom);
                                 $("#bedRead").text(response.resident.bed);
-                                $("#currencyRead").text(response.resident.currency);
-                                $("#rateusdRead").text(response.resident.rateusd);
                                 $("#agentRead").text(response.resident.agent);
                                 $("#finishRead").text(response.resident.finish.substr(0, 10));
                                 $("#startRead").text(response.resident.start.substr(0, 10));

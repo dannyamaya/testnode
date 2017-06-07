@@ -582,22 +582,22 @@ block modals
                                         input#inputUpdateApartment.form-control.inputResidentUpdate(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
                                     .form-group.col-sm-6
                                         label(for='type') Apartment Type
-                                            span.requiredLivinn *
-                                            .select
-                                                select#inputUpdateApartmentType.inputResidentUpdate(name='apartmentType' required)
-                                                    option(value="") Apartment type
-                                                    option(value="1A") 1A
-                                                    option(value="1B") 1B
-                                                    option(value="2A") 2A
-                                                    option(value="2B") 2B
-                                                    option(value="3A") 3A
-                                                    option(value="3B") 3B
-                                                    option(value="4A") 4A
-                                                    option(value="4B") 4B
-                                                    option(value="4C") 4C
-                                                    option(value="4D") 4D
-                                                    option(value="4E") 4E
-                                                    option(value="4F") 4F
+                                        span.requiredLivinn *
+                                        .select
+                                            select#inputUpdateApartmentType.inputResidentUpdate(name='apartmentType' required)
+                                                option(value="") Apartment type
+                                                option(value="1A") 1A
+                                                option(value="1B") 1B
+                                                option(value="2A") 2A
+                                                option(value="2B") 2B
+                                                option(value="3A") 3A
+                                                option(value="3B") 3B
+                                                option(value="4A") 4A
+                                                option(value="4B") 4B
+                                                option(value="4C") 4C
+                                                option(value="4D") 4D
+                                                option(value="4E") 4E
+                                                option(value="4F") 4F
 
                                 .col-xs-12.no-padding.residentFields
 
@@ -619,7 +619,7 @@ block modals
                                                     option(value="B2") B2
                                                     option(value="C1") C1
                                                     option(value="D1") D1
-                                    .col-sm-12
+                                .col-sm-12
 
                                 hr
                                 .col-xs-12.hidden-xs.hidden-sm
@@ -978,6 +978,9 @@ block scripts
                                     $("#inputUpdateFinish").val(response.resident.finish.substr(0,10));
                                     $("#inputUpdateStart").val(response.resident.start.substr(0,10));
                                     $("#inputUpdateDuration").val(response.resident.duration);
+                                    $("#inputUpdateBathroom").val(response.resident.bathroom);
+
+
 
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1047,9 +1050,9 @@ block scripts
                     });
 
                     var tdPic = userr.children("td:nth-child(2)");
-                    var tdEmail = userr.children("td:nth-child(3)");
-                    var tdFirst = userr.children("td:nth-child(4)");
-                    var tdLast = userr.children("td:nth-child(5)");
+                    var tdEmail = userr.children("td:nth-child(5)");
+                    var tdFirst = userr.children("td:nth-child(3)");
+                    var tdLast = userr.children("td:nth-child(4)");
                     var tdTypeDoc = userr.children("td:nth-child(6)");
                     var tdDoc = userr.children("td:nth-child(7)");
                     var tdCellphone = userr.children("td:nth-child(8)");

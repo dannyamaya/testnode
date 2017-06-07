@@ -1,14 +1,14 @@
 extend ../layout
 block content
     include settings-menu.jade
-    .col-xs-12.col-sm-7.content
+    .col-xs-12.col-sm-7
         .page-header
             h2
                 |   Personal information
                 br
                 small This information is private.
         .col-xs-12.col-sm-4.col-sm-offset-1.form-group
-            img.img-responsive.img-circle(src="#{user.gravatar}")
+            img.img-responsive.img-circle(src="#{user.profile_picture}")
         form.col-xs-12.col-sm-10.col-sm-offset-1#updateinfoform(method="put" action="/api/users/#{user._id}")
             .form-group
                 label Document

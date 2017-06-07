@@ -185,7 +185,7 @@ module.exports = {
                     res.status(500).json({err: err, message: "Internal Server Error"});
                 }
                 if (!ticket) {
-                    res.status(404).json({message: "BoardDoc not found"});
+                    res.status(404).json({message: "Work Order not found"});
                 } else {
                     res.status(200).json({ticket: ticket});
                 }
@@ -229,10 +229,10 @@ module.exports = {
 
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
 
-                if(!req.body.assignee && !ticket.assigned_to.includes(req.body.assignee)){
+                if(req.body.assignee && !ticket.assigned_to.includes(req.body.assignee)){
                     console.log(req.body.assignee);
                     ticket.assigned_to.push(req.body.assignee);
-                    /*User.findOne({_id: req.body.assignee})
+                    User.findOne({_id: req.body.assignee})
                         .exec(function (err, user) {
                             if (err) {
                                 console.log('Cant send email');
@@ -242,8 +242,7 @@ module.exports = {
                             } else {
                                 mailer.newAssignedTo(user,ticket);
                             }
-                        });*/
-
+                        });
                 }
 
                 if(req.body.remove){

@@ -47,7 +47,7 @@ block content
                   a.roleSearch(href="#") Resident Assistant
               li
                   a.roleSearch(href="#") Operation Manager
-    .col-xs-12.userTools.has-feedbackc
+    .col-xs-12.userTools.has-feedbackc.ticketTools
         .col-xs-12.col-md-2.heading-title
             h2.col-xs-10.col-md-12.no-padding #{title}
             .pull-right.visible-xs.visible-sm
@@ -59,15 +59,15 @@ block content
                     .pull-right
                        .col-xs-4.no-padding
                             .input-group.search
+                                .col-xs-8.no-padding
+                                    input.form-control#search(type="text" name="name" placeholder="Search")
                                 .col-xs-4.no-padding
                                     .select
                                         select#searchby
                                             option(value="requested_by") Requested by
                                             option(value="created_by" selected="true") Created by
                                             option(value="assigned_to") Assigned to
-                                            option(value="id") Work Order ID
-                                .col-xs-8.no-padding
-                                    input.form-control#search(type="text" name="name" placeholder="Search")
+                                            option(value="id") Work Order ID                                
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#categoryselect
                                 option(value="" selected) Category

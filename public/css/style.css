@@ -2403,6 +2403,16 @@ textarea.parsley-error {
     border: 1px solid #D51C5C;
   }
 
+  .userTools.ticketTools form .search .select::before {
+    top: 0.4em;
+  }
+
+  .userTools.ticketTools form .search .select select,
+  .userTools.ticketTools form .search .select select:hover {
+    font-size: 0.7em;
+  }
+
+
   .menuManageUser >li>button {
     padding: 7px 45px 5px 7px;
     margin-left: 0px;

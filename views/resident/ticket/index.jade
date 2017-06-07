@@ -239,59 +239,62 @@ block scripts
             console.log("socket: new-ticket received");
             console.log(dataServer);
 
-            var today = moment();
-            var createddate = '';
-            var formatedDate = '';
-            var priority = 'four';
-            var assignedto = '';
-            var opened = '';
+            if(dataServer.ticket.requested_by._id == "#{user._id}"){
 
-            //Date
-            createddate = moment(dataServer.ticket.created);
-            if (today.isSame(createddate, 'd')) {
-                formatedDate = createddate.format('LT');
-            } else {
-                formatedDate = createddate.format('MMM D');
-            }
+                var today = moment();
+                var createddate = '';
+                var formatedDate = '';
+                var priority = 'four';
+                var assignedto = '';
+                var opened = '';
 
-            //Priority
-            if(dataServer.ticket.priority == 1){
-                priority = 'one';
-            } else if(dataServer.ticket.priority == 2){
-                priority = 'two';
-            } else if(dataServer.ticket.priority == 3){
-                priority = 'three';
-            } else {
-                priority = 'four';
-            }
+                //Date
+                createddate = moment(dataServer.ticket.created);
+                if (today.isSame(createddate, 'd')) {
+                    formatedDate = createddate.format('LT');
+                } else {
+                    formatedDate = createddate.format('MMM D');
+                }
 
-            //Assigned to
-            if(!dataServer.ticket.assigned_to || dataServer.ticket.assigned_to.length==0){
-                assignedto = 'Not assigned';
-            } else {
-                assignedto = '';
+                //Priority
+                if(dataServer.ticket.priority == 1){
+                    priority = 'one';
+                } else if(dataServer.ticket.priority == 2){
+                    priority = 'two';
+                } else if(dataServer.ticket.priority == 3){
+                    priority = 'three';
+                } else {
+                    priority = 'four';
+                }
 
-                for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
-                    if (!data.tickets[key].assigned_to[i] == null) {
-                        if(dataServer.ticket.assigned_to[i]){
-                            if(i==dataServer.ticket.assigned_to.length-1){
-                                assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
-                            } else {
-                                assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                //Assigned to
+                if(!dataServer.ticket.assigned_to || dataServer.ticket.assigned_to.length==0){
+                    assignedto = 'Not assigned';
+                } else {
+                    assignedto = '';
+
+                    for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
+                        if (!data.tickets[key].assigned_to[i] == null) {
+                            if(dataServer.ticket.assigned_to[i]){
+                                if(i==dataServer.ticket.assigned_to.length-1){
+                                    assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
+                                } else {
+                                    assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            //Opened
-            if(dataServer.ticket.opened_resident){
-                opened='opened';
-            } else {
-                opened='';
-            }
+                //Opened
+                if(dataServer.ticket.opened_resident){
+                    opened='opened';
+                } else {
+                    opened='';
+                }
 
-            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket resident-ticket '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
+                $('.tickets').prepend('<div class="col-xs-12 no-padding ticket resident-ticket '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
+            }
 
         });
 

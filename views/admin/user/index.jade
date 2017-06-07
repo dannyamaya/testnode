@@ -9,7 +9,7 @@ block content
               .input-group.search
                   input.form-control#search(type="text" aria-label="Search users" placeholder="Search")
                   span.input-group-addon
-                      i.fa.fa-search            
+                      i.fa.fa-search
           if user.role == 'admin'
               .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                   button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
@@ -64,7 +64,7 @@ block content
           button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
               i.fa.fa-pencil-square-o
           a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
-              i.fa.fa-download               
+              i.fa.fa-download
           button.btn.btn-main.btn-livinn.hidden-xs.hidden-sm.btnsManageUsers(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
            span.hidden-xs Add User
               i.visible-xs.fa.fa-plus

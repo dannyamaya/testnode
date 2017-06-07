@@ -270,11 +270,15 @@ block scripts
                 assignedto = 'Not assigned';
             } else {
                 assignedto = '';
-                for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
-                    if(i==dataServer.ticket.assigned_to.length-1){
-                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
-                    } else {
-                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+
+                        for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
+                            if (!data.tickets[key].assigned_to[i] == null) {
+
+                                if(i==dataServer.ticket.assigned_to.length-1){
+                            assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
+                        } else {
+                            assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                        }
                     }
                 }
             }
@@ -481,11 +485,15 @@ block scripts
                             assignedto = 'Not assigned';
                         } else {
                             assignedto = '';
-                            for(i = 0; i < data.tickets[key].assigned_to.length;i++){
-                                if(i==data.tickets[key].assigned_to.length-1){
-                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
-                                } else {
-                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+
+                                    for(i = 0; i < data.tickets[key].assigned_to.length;i++){
+                                        if (!data.tickets[key].assigned_to[i] == null) {
+
+                                            if(i==data.tickets[key].assigned_to.length-1){
+                                        assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
+                                    } else {
+                                        assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+                                    }
                                 }
                             }
                         }

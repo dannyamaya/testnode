@@ -440,12 +440,12 @@ block scripts
                             assignedto = '';
 
                                     for(i = 0; i < data.tickets[key].assigned_to.length;i++){
-                                        if (!data.tickets[key].assigned_to[i] == null) {
+                                        if (typeof data.tickets[key].assigned_to[i].name.first !== 'undefined') {
 
                                             if(i==data.tickets[key].assigned_to.length-1){
-                                        assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
-                                    } else {
-                                        assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+                                                assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
+                                             } else {
+                                                assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
                                     }
                                 }
                             }

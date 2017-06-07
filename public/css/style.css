@@ -950,9 +950,26 @@ input[type="file"]::-webkit-file-upload-button {
   border:1px solid #ccc;
   min-height:138px;
   margin-bottom: -1px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  border-left:4px solid #CECECE;
+}
+
+.ticket.one{
+    border-left-color: #FF0000;
+}
+
+.ticket.two{
+    border-left-color: #808080;
+}
+
+.ticket.three{
+    border-left-color: #B8B8B8;
+}
+
+.ticket.four{
+    border-left-color: #CECECE;
 }
 
 .ticket-up{
@@ -973,8 +990,10 @@ input[type="file"]::-webkit-file-upload-button {
 .ticket-profile-img img{
   width: 40px;
   height: 40px;
-  margin-left: 7px;
+  margin-left: -20px;
   margin-top: 8px;
+  left: 50%;
+  position: relative;
 }
 
 .ticket-profile-img-2 img{
@@ -2111,7 +2130,7 @@ textarea.parsley-error {
   .ticket-profile-img img {
       width: 60px;
       height: 60px;
-      margin-left: 7px;
+      margin-left: -30px;
       margin-top: 9px;
   }
 

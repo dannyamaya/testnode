@@ -208,6 +208,8 @@ module.exports = {
                 ticket.subject = req.body.subject || ticket.subject;
                 ticket.message = req.body.message || ticket.message;
                 ticket.priority = req.body.priority || ticket.priority;
+                ticket.category = req.body.category || ticket.category;
+                ticket.subcategory = req.body.subcategory || ticket.subcategory;
 
                 if(req.body.opened == "true"){
                     ticket.opened = true;

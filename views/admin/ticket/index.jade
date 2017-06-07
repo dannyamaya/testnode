@@ -35,7 +35,28 @@ block content
         .col-xs-12
           .select.select-livinn.col-xs-2
               select.form-control.filter#subcategoryselectmobile
-                  option(value="" selected) Subcategory
+                  option(value="" selected) Subcategories
+                  optgroup(label="Zona de BBQ" style="color:#000;")
+                  optgroup(label="Reservación" style="margin-left:15px;")
+                     option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                     option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                  option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+                  option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                  optgroup(label="Limpieza" style="margin-left:15px;")
+                      option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+                      option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+                      option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+                      option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+                  optgroup(label="Cuarto de Billar" style="color:#000;")
+                      optgroup(label="Reservación" style="margin-left:15px;")
+                          option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+                          option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+                      option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+                      option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
+                      optgroup(label="Limpieza" style="margin-left:15px;")
+                          option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+                          option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+                          option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
         .col-xs-12
           .select.select-livinn.col-xs-2
               select.form-control.filter#statusselectmobile
@@ -116,7 +137,31 @@ block content
                                 option(value="others") Others
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#subcategoryselect
-                                option(value="" selected) Subcategory
+                                option(value="" selected) Subcategories
+                                optgroup(label="Zona de BBQ" style="color:#000;")
+                                optgroup(label="Reservación" style="margin-left:15px;")
+                                   option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                                   option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                                option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+                                option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                                optgroup(label="Limpieza" style="margin-left:15px;")
+                                    option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+                                    option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+                                    option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+                                    option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+                                optgroup(label="Cuarto de Billar" style="color:#000;")
+                                    optgroup(label="Reservación" style="margin-left:15px;")
+                                        option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+                                        option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+                                    option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+                                    option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
+                                    optgroup(label="Limpieza" style="margin-left:15px;")
+                                        option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+                                        option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+                                        option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+
+
+
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#statusselect
                                 option(value="" selected) Status
@@ -224,6 +269,28 @@ block modals
                                 .form-group
                                     .select
                                         select.editopenticket#openticketsubcategory(name="subcategory")
+                                            option(value="" selected) Subcategories
+                                            optgroup(label="Zona de BBQ" style="color:#000;")
+                                            optgroup(label="Reservación" style="margin-left:15px;")
+                                               option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                                               option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                                            option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+                                            option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                                            optgroup(label="Limpieza" style="margin-left:15px;")
+                                                option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+                                                option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+                                                option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+                                                option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+                                            optgroup(label="Cuarto de Billar" style="color:#000;")
+                                                optgroup(label="Reservación" style="margin-left:15px;")
+                                                    option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+                                                    option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+                                                option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+                                                option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
+                                                optgroup(label="Limpieza" style="margin-left:15px;")
+                                                    option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+                                                    option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+                                                    option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
                                 .form-group
                                     .select
                                         select.editopenticket#openticketpriority(name="priority")

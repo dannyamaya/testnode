@@ -236,8 +236,8 @@ block scripts
 
         socket.on('new-ticket', function (dataServer) {
 
-            console.log("socket: new-ticket received");
-            console.log(dataServer);
+            //- console.log("socket: new-ticket received");
+            //- console.log(dataServer);
 
             if(dataServer.ticket.requested_by._id == "#{user._id}"){
 
@@ -833,7 +833,7 @@ block scripts
             });
         });
 
-        
+
 
 
 

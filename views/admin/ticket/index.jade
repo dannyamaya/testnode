@@ -56,7 +56,8 @@ block content
 
             #loader
             .col-xs-12.no-padding.tickets
-            .col-xs-12.loading#loading(style="display:none")
+            .col-xs-12
+                .loading#loading(style="display:none; margin: -56px auto 0 auto;")
 
                 //- //------------- TICKET EXAMPLE ---------------
                 //- .col-xs-12.no-padding.ticket
@@ -424,7 +425,7 @@ block scripts
         function getTickets(page, search) {
 
             if(page =='1') {
-                $('.tickets').hide();
+                $('.tickets').hide().html("");
                 $('#loader').fadeIn("slow");
             }else{
                 $('#loading').fadeIn("slow");
@@ -452,9 +453,6 @@ block scripts
                 }
             }
 
-            if(page =='1') {
-                $('.tickets').html("");
-            }
             $.ajax({
                 type: "GET",
                 url: '/api/users/#{user._id}/tickets?page=' + page + options,

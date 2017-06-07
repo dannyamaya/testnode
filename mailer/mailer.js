@@ -142,7 +142,7 @@ exports.newTicket= function(ticket){
 
                   from: 'Livinn'+' <contact@cannedhead.com>',
                   to: locals.ticket.requested_by.email,
-                  subject: 'New Ticket '+ticket._id,
+                  subject: 'New Work Order #'+ticket._id,
                   headers: {
                       'X-Laziness-level': 1000
                   },

@@ -301,7 +301,7 @@ module.exports = {
         }
 
 
-        //console.log(options);
+        console.log(options);
 
 
         User.findById(req.params.id, function (err, user) {

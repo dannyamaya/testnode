@@ -2,63 +2,116 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
-    .col-xs-12.content
-        .panel.panel-default.col-xs-12
-            form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
+    .col-xs-12.no-padding.hidden-md.hidden-lg#searchTicket.userFilters.userFiltersUp.searchTicket
+      .col-xs-12.no-padding.clearFilters
+        .col-xs-6.btnCloseFiltersMobile
+          button.btn.btn-default(onclick='collapseFilters1()')
+            span
+              i.icon.ion-ios-arrow-up
+        .col-xs-6.btnClearFilters
+          button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
+      .col-xs-12.no-padding.search-filtersMobile
+        form.col-xs-12.navbar-left(action='' method='' type='')
+            .input-group.search
+                .col-xs-8.no-padding
+                    input.form-control#searchmobile(type="text" name="name" placeholder="Search")
                 .col-xs-4.no-padding
-                    .input-group.search
-                        .col-xs-4.no-padding
-                            .select
-                                select#searchby
-                                    option(value="created_by" selected="true") Created by
-                                    option(value="assigned_to") Assigned to
-                                    option(value="id") Work Order ID
-                        .col-xs-8.no-padding
-                            input.form-control#search(type="text" name="name" placeholder="Search")
-                .pull-right
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#categoryselect
-                            option(value="" selected) Category
-                            option(value="cleaning services") Cleaning Services
-                            option(value="customer service") Customer Service
-                            option(value="support") IT Support
-                            option(value="maintenance") Maintenance
-                            option(value="visits") Visits
-                            option(value="others") Others
-                    .select.select-livinn.col-xs-2
-                        select.form-control.filter#statusselect
-                            option(value="" selected) Status
-                            option(value="0") Open
-                            option(value="1") Pending
-                            option(value="2") Resolved
+                    .select
+                        select#searchby
+                            option(value="created_by" selected="true") Created by
+                            option(value="assigned_to") Assigned to
+                            option(value="id") Work Order ID
+        .col-xs-12
+         .select.select-livinn
+            select.form-control.filter#categoryselectmobile
+                option(value="" selected) Category
+                option(value="cleaning services") Cleaning Services
+                option(value="customer service") Customer Service
+                option(value="support") IT Support
+                option(value="maintenance") Maintenance
+                option(value="visits") Visits
+                option(value="others") Others
+        .col-xs-12
+          .select.select-livinn.col-xs-2
+              select.form-control.filter#statusselectmobile
+                  option(value="" selected) Status
+                  option(value="0") Open
+                  option(value="1") Pending
+                  option(value="2") Resolved
+    .col-xs-12.userTools.has-feedbackc.ticketTools
+        .col-xs-12.col-md-2.heading-title
+            h2.col-xs-10.col-md-12.no-padding #{title}
+            .pull-right.visible-xs.visible-sm
+                button.btn.btn-livinn#Filters(onclick="deployFilters1()" style="padding: 2px 8px; margin-top: -2px;")
+                    span
+                        i.icon.ion-ios-search-strong(style="font-size:2rem;")
+        .col-xs-10.hidden-xs.hidden-sm
+            form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
+                    .pull-right
+                        .col-xs-6.no-padding
+                            .input-group.search
+                                .col-xs-4.no-padding
+                                    .select
+                                        select#searchby
+                                            option(value="created_by" selected="true") Created by
+                                            option(value="assigned_to") Assigned to
+                                            option(value="id") Work Order ID
+                                .col-xs-8.no-padding
+                                    input.form-control#search(type="text" name="name" placeholder="Search")
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#categoryselect
+                                option(value="" selected) Category
+                                option(value="cleaning services") Cleaning Services
+                                option(value="customer service") Customer Service
+                                option(value="support") IT Support
+                                option(value="maintenance") Maintenance
+                                option(value="visits") Visits
+                                option(value="others") Others
+                        .select.select-livinn.col-xs-2
+                            select.form-control.filter#statusselect
+                                option(value="" selected) Status
+                                option(value="0") Open
+                                option(value="1") Pending
+                                option(value="2") Resolved
             .col-xs-1.no-padding
-                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal")
-                    i.fa.fa-plus
-            .clearfix(style="margin-bottom:15px;")
+                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
+    input#hiddenHelper(value=0)
+    .col-xs-12.content
+        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
+
             #loader
             .col-xs-12.no-padding.tickets
+            .col-xs-12
+                .loading#loading(style="display:none; margin: -50px auto 0 auto;")
 
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed.hide
         .panel.panel-default.col-xs-12.no-padding
             h2 activity feed
-
-    <!-- New Ticket Modal -->
+block modals
+    <!-- New Work Order Modal -->
     .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
                     button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-header
-                    h2.modal-title.text-center Create Ticket
+                    h2.modal-title.text-center Create Work Order
                 .modal-body
 
                     .row
-                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form")
+                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
+                            if user.role != 'resident'
+                                .form-group
+                                    label
+                                        |   Requested by
+                                        span  (optional)
+                                    input.form-control.tagarea#searchinput(type="search")
+                                    input.form-control#searchinputHidden(type="hidden" name="requested_by")
                             input(type="hidden" name="location" value="#{user.location}")
                             .form-group
                                 label Category
                                 .select
-                                    select.form-control(name="category")
+                                    select.form-control(name="category" required)
                                         option(value="") Please choose a category
                                         option(value="cleaning services") Cleaning Services
                                         option(value="customer service") Customer Service
@@ -68,13 +121,15 @@ block content
                                         option(value="others") Others
                             .form-group
                                 label Subject
-                                input.form-control#subject(type="text" placeholder="Subject" name="subject")
+                                input.form-control#subject(type="text" placeholder="Subject" name="subject" required)
                             .form-group
                                 label Message
-                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5")
+                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5" required)
 
                             .form-group
-                                label Attachment
+                                label
+                                    |   Attachment
+                                    span (optional)
                                 input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
                             .modal-footer
                                 .pull-right.form-group-end
@@ -82,34 +137,29 @@ block content
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
-    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
-        .modal-dialog.modal-lg
+    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+        .modal-dialog.full-width
             .modal-content
                 .modal-body
                     .row
                         .col-xs-12(style="height:100%;")
-                            .col-xs-12.no-padding.ticket-navbar.has-feedback
+                            .col-xs-12.no-padding.ticket-navbar.has-feedback.gradienteLivinn
                                 h3.col-xs-12.readModalTitle
                                 button.btn(type="button", data-dismiss="modal", aria-hidden="true")
                                     span
                             .col-xs-12.ticket-right
                                 .col-xs-12.has-feedback
+                                     p.ticketrequestby#ticketrequestby
                                      p.ticketsubject#ticketsubject
                                      p.ticketcategory#ticketcategory
                                      p.ticketdate#ticketdate
-                                     .buttons-status(style="position: absolute; right: 10px; top:10px;")
-                                         button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus" data-status="0" data-id="1")
-                                            i(class="fa fa-exclamation-circle")
-                                         button#dos(type="button" title="Open" class="btn-clock-o btn-status classStatus" data-status="1" data-id="2")
-                                            i(class="fa fa-clock-o")
-                                         button#tres(type="button" title="Resolved" class="btn-check-circle btn-status classStatus" data-status="2" data-id="3")
-                                            i(class="fa fa-check-circle")
 
                                 .col-xs-12
                                     // Nav tabs
-                                    ul.col-xs-12.nav.nav-tabs(role='tablist')
+                                    ul.col-xs-12.nav.nav-tabs.comment-section(role='tablist')
                                         li.active(role='presentation')
-                                            a(href='#comment', aria-controls='comment', role='tab', data-toggle='tab') Comment
+                                            a.gray(href='#comment', aria-controls='comment', role='tab', data-toggle='tab') Comment
+
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         #comment.tab-pane.active(role='tabpanel')
@@ -122,9 +172,9 @@ block content
                                 .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
 
-                                    ul.col-xs-12.nav.nav-tabs.nav-tabs-comments(role='tablist')
+                                    ul.col-xs-12.nav.nav-tabs.nav-tabs-comments.comment-section(role='tablist')
                                         li.active(role='presentation')
-                                            a(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
+                                            a.gray(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
                                                 |   All Comments
                                                 span.badge#commentslength -
 
@@ -136,31 +186,43 @@ block content
                                             .message_template
                                                 li(class="message" data-id="" data-user="")
                                                     input#hiddenPhoto(type="hidden")
-                                                    .ticket-profile-img
+                                                    .ticket-profile-img-2
                                                         img.img-user-conversation(src="" class="img-circle img-responsive")
                                                     .text_wrapper
                                                         .text
-
-
-
-
-
-
 
 
 block scripts
     script(src="/plugins/summernote/summernote.min.js")
     script(src="/plugins/summernote/lang/summernote-es-ES.js")
     script(src="/js/jquery.bootpag.min.js")
+    script(src="/js/parsley.min.js")
     script.
 
-        $(document).ready(function () {
+        function deployFilters1() {
+          if ($("#searchTicket").hasClass("userFiltersUp")) {
+            $("#searchTicket").removeClass("userFiltersUp");
+            $("#searchTicket").addClass("userFiltersDown");
+          }
+        }
 
-            $('#page-selection').bootpag({
-                total: 10,
-                maxVisible: 5,
-            }).on("page", function (event, num) {
-                filterTickets(num);
+        function collapseFilters1() {
+          if ($("#searchTicket").hasClass("userFiltersDown")) {
+            $("#searchTicket").removeClass("userFiltersDown");
+            $("#searchTicket").addClass("userFiltersUp");
+          }
+        }
+
+        var openticketid = '';
+
+        $(document).ready(function () {
+            var count = 2;
+            $(window).scroll(function(){
+                if  (($(window).scrollTop() == $(document).height() - $(window).height())&& $('#loading').length){
+                   //console.log('loading on scroll, page: ' + count);
+                   filterTickets(count);
+                   count++;
+                }
             });
 
             filterTickets(1);
@@ -170,9 +232,61 @@ block scripts
         //----------------- SOCKET.IO ---------------------------
 
         var socket = io('/superadmin');
+        var attachment = '';
+
         socket.on('new-ticket', function (dataServer) {
 
-            $('.tickets').prepend("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-profile-img'><img src='" + dataServer.ticket.filed_by.profile_picture + "' class='img-circle img-responsive'></div><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(dataServer.ticket.category) + getCategory(dataServer.ticket.subcategory) + " " + moment(dataServer.ticket.created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + dataServer.ticket.subject + "</p></div><div class='ticket-btn-group'>" + getStatus(dataServer.ticket.status, dataServer.ticket._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + dataServer.ticket._id + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick=\'openTicket(\'" + dataServer.ticket._id + "\')\'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
+            console.log("socket: new-ticket received");
+            console.log(dataServer);
+
+            var today = moment();
+            var createddate = '';
+            var formatedDate = '';
+            var priority = 'four';
+            var assignedto = '';
+            var opened = '';
+
+            //Date
+            createddate = moment(dataServer.ticket.created);
+            if (today.isSame(createddate, 'd')) {
+                formatedDate = createddate.format('LT');
+            } else {
+                formatedDate = createddate.format('MMM D');
+            }
+
+            //Priority
+            if(dataServer.ticket.priority == 1){
+                priority = 'one';
+            } else if(dataServer.ticket.priority == 2){
+                priority = 'two';
+            } else if(dataServer.ticket.priority == 3){
+                priority = 'three';
+            } else {
+                priority = 'four';
+            }
+
+            //Assigned to
+            if(!dataServer.ticket.assigned_to || dataServer.ticket.assigned_to.length==0){
+                assignedto = 'Not assigned';
+            } else {
+                assignedto = '';
+                for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
+                    if(i==dataServer.ticket.assigned_to.length-1){
+                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
+                    } else {
+                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                    }
+                }
+            }
+
+            //Opened
+            if(dataServer.ticket.opened){
+                opened='opened';
+            } else {
+                opened='';
+            }
+
+            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ dataServer.ticket.requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(dataServer.ticket.category)+getCategory(dataServer.ticket.subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
 
         });
 
@@ -194,7 +308,7 @@ block scripts
                 } else if (category == 'others') {
                     value = "<span class='label label-other'>OTHERS</span>";
                 } else {
-                    value = "";
+                    value = "<span class='label label-default text-uppercase'>"+category+"</span>";
                 }
             }
             return value;
@@ -204,18 +318,63 @@ block scripts
             var source = "";
             switch (status) {
                 case 0:
-                    source = '<i class="fa fa-exclamation-circle"></i>';
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status active" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
                 case 1:
-                    source = '<i class="fa fa-clock-o"></i>';
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
                 case 2:
-                    source = '<i class="fa fa-check-circle"></i>';
+                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
             }
             ;
             return source;
         }
+
+        $("#searchinput").autocomplete({
+            source: function (request, response) {
+                $('#searchinput').css("cursor", "wait");
+                var url = "/api/users?page=" + 1 + "&search=" + $("#searchinput").val();
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        $('#searchinput').css("cursor", "text");
+                        response(data.users);
+                    }
+                });
+
+            },
+            select: function( event, ui ) {
+                $( "#searchinput" ).append('<div><span><img class="img-circle user-disp-img" src="'+ui.item.profile_picture+'"></span></div>');
+                $("#searchinputHidden").val(ui.item._id);
+                return false;
+            },
+            minLength: 1
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            console.log(item);
+            return $("<li class='li-autocomplete li-user' data-id='" + item._id + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
+        };
+
+        $("#ticketasignee").autocomplete({
+            source: function (request, response) {
+                $('#ticketasignee').css("cursor", "wait");
+                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val()+'&role=resident';
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        $('#ticketasignee').css("cursor", "text");
+                        response(data.users);
+                    }
+                });
+
+            },
+            minLength: 1
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            console.log(item);
+            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
+        };
 
         //----------------- CREATE ---------------------------
 
@@ -233,26 +392,23 @@ block scripts
                 contentType: false,
                 success: function (response) {
                     console.log(response);
-                    if (response.message == 'Ticket has been created') {
+                    if (response.message == 'Work Order has been created') {
                         socket.emit('new-ticket', {ticket: response.ticket});
                         $('#newticketModal').modal('hide');
                         $('#subject').val("");
                         $('#summernote').summernote("reset");
+                        $('#ticketForm').parsley().reset();
+                        document.getElementById('ticketForm').reset();
                         successAlert(response.message);
                     } else {
-                        warningAlert('Error al crear la solicitud');
+                        warningAlert('Error creating work order');
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;
-                    if (message == 'password and password confirmation mismatch') {
-                        $('#inputConfPasswordr').focus();
-                        $('.emailregistrationerror').removeClass('has-error');
-                        $('.passwordregistrationerror').addClass('has-error');
-                        warningAlert('Las contraseñas no coinciden');
-                    } else {
-                        warningAlert(message);
-                    }
+                    console.log(XMLHttpRequest);
+                    warningAlert(message);
+
                 }
             });
         });
@@ -260,8 +416,12 @@ block scripts
         //----------------- READ ---------------------------
         function getTickets(page, search) {
 
-            $('.tickets').hide();
-            $('#loader').fadeIn("slow");
+            if(page =='1') {
+                $('.tickets').hide().html("");
+                $('#loader').fadeIn("slow");
+            }else{
+                $('#loading').fadeIn("slow");
+            }
 
             var options = '';
 
@@ -276,33 +436,78 @@ block scripts
                     options+= '&created_by='+search;
                 } else if(searchby == 'assigned_to'){
                     options+= '&assigned_to='+search;
+                } else if(searchby == 'requested_by'){
+                    options+= '&requested_by='+search;
                 } else {
                     options+= '&id='+search;
                 }
             }
 
-            $('.tickets').html("");
+            console.log("las options:");
+            console.log(options);
 
             $.ajax({
                 type: "GET",
-                url: '/api/users/#{user._id}/tickets?page=' + page +"&filed_by="+ options,
+                url: '/api/users/#{user._id}/tickets?page=' + page + options,
                 success: function (data) {
+
+                    console.log(data);
 
                     var count = data.count;
                     var category = "";
 
+                    var today = moment();
+                    var createddate = '';
+                    var formatedDate = '';
+                    var assignedto = '';
+                    var opened = '';
+
+                    if(data.tickets.length == 0){
+                        $('#loading').remove();
+                    };
                     for (key = 0; key < data.tickets.length; key++) {
-                        $('.tickets').append("<div class='col-xs-12 no-padding ticket'><div class='col-xs-12 no-padding ticket-up'><div class='ticket-up-info'><div class='col-xs-12 has-feedback'><p class='ticket-subtitle'>" + getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) + " " + moment(data.tickets[key].created).format('MMMM Do YYYY, h:mm:ss a') + "</p></div><p class='col-xs-12 ticket-title'>" + data.tickets[key].subject + "</p></div><div class='ticket-btn-group'>" + getStatus(data.tickets[key].status, data.tickets[key]._id) + "</div></div><div class='col-xs-12 no-padding ticket-down'><div class='col-xs-11'><p>REFERENCE:<strong class='reference'>#" + data.tickets[key]._id + "</strong>CREATED BY:<strong class='created-by text-uppercase'>" + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + "</strong>ASSIGNED TO:<strong class='assigned-to'>-</strong></p></div><div class='col-xs-1 no-padding'><button class='pull-right btn-more-ticket' onclick='openTicket(" + "\"" + data.tickets[key]._id + "\"" + ", " + "\"" + data.tickets[key].filed_by.profile_picture + "\")'><i class='fa fa-ellipsis-h'></i></button></div></div></div>");
-                    }
+
+                        //Date
+                        createddate = moment(data.tickets[key].created);
+                        if (today.isSame(createddate, 'd')) {
+                            formatedDate = createddate.format('LT');
+                        } else {
+                            formatedDate = createddate.format('MMM D');
+                        }
+
+
+                        //Assigned to
+                        if(!data.tickets[key].assigned_to || data.tickets[key].assigned_to.length==0){
+                            assignedto = 'Not assigned';
+                        } else {
+                            assignedto = '';
+                            for(i = 0; i < data.tickets[key].assigned_to.length;i++){
+                                if(i==data.tickets[key].assigned_to.length-1){
+                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+'.';
+                                } else {
+                                    assignedto+=' '+data.tickets[key].assigned_to[i].name.first+' '+data.tickets[key].assigned_to[i].name.last+', ';
+                                }
+                            }
+                        }
+
+                        //Opened
+                        if(data.tickets[key].opened){
+                            opened='opened';
+                        } else {
+                            opened='';
+                        }
+
+                        $('.tickets').append('<div class="col-xs-12 no-padding ticket '+opened+'" data-ticketid="'+data.tickets[key]._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding">'+ getCategory(data.tickets[key].category)+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');
+
+                    };
                 }
             }).done(function (data) {
                 $('#loader').fadeOut("fast", function () {
+                    $('#loading').fadeOut("slow");
                     $('.tickets').removeClass("hidden").fadeIn();
                 });
             });
         }
-
-
 
         $('#search').on({
             focus: function () {
@@ -331,16 +536,14 @@ block scripts
 
 
 
-
-
-
-
-
         /*=== READ: Open ticket ===*/
 
         function openTicket(ticketid,img) {
 
+            openticketid = ticketid;
+
             $('.messages').empty();
+            $('.notes').empty();
             $("#ticketasigneeGroup").empty();
             $('.send_message').attr('data-current-user','#{user._id}');
             $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
@@ -353,7 +556,18 @@ block scripts
 
                     console.log(response);
                     $('#hiddenTicket').val(response.ticket._id);
-                    $('.readModalTitle').html('Ticket #<span class="text-capitalize">' + response.ticket._id + '</span>');
+                    $('.readModalTitle').html('Work Order #' + response.ticket._id );
+                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.requested_by.profile_picture+"'</span>"+response.ticket.requested_by.name.first+" "+response.ticket.requested_by.name.last);
+                    $("#ticketemail").text(response.ticket.requested_by.email);
+                    if(response.ticket.requested_by.phone.number){
+                        $("#ticketphone").text(response.ticket.requested_by.phone.number);
+                    } else {
+                        $("#ticketphone").text("N/A");
+                    }
+                    $("#openticketcategory").val(response.ticket.category);
+                    $("#openticketsubcategory").val(response.ticket.subcategory);
+                    $("#openticketpriority").val(response.ticket.priority);
+                    $("#ticketrequestby").html("<span class='text'><img class='img-circle user-disp-img' src='"+response.ticket.created_by.profile_picture+"'</span>"+response.ticket.created_by.name.first+" "+response.ticket.created_by.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
                     $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
                     $('#uno').attr('data-id',response.ticket._id);
@@ -372,26 +586,27 @@ block scripts
                         $('#tres').addClass('active');
                     }
 
-
-                    $.each(response.ticket.assignee, function (key, value) {
+                    $.each(response.ticket.assigned_to, function (key, value) {
                         $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" +value.profile_picture +"'</span><span class='label label-default'>" + value.name.first + " "+ value.name.last + "  <a><i data-assignee='"+value._id +"' data-ticket-id='"+response.ticket._id+"' id='assignee"+value._id +"' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
                     });
 
                     $("#ticketdate").html(moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
-
-
                     $("#messageRead").text(response.ticket.message);
 
 
                     (function () {
+
                         var Message;
                         Message = function (arg) {
                             this.profile_pic = arg.profile_pic;
                             this.user = arg.user;
-                            this.text = arg.text, this.message_side = arg.message_side;
+                            this.text = arg.text;
+                            this.message_side = arg.message_side;
                             this.user = arg.user;
                             this.name = arg.name;
                             this.section = arg.section;
+                            this.created = arg.created;
+
                             this.draw = function (_this) {
                                 return function () {
                                     var $message;
@@ -400,7 +615,7 @@ block scripts
                                     $message.attr('data-side',_this.message_side);
                                     $message.attr('data-name',_this.name);
                                     $message.addClass(_this.message_side).find('.text').append('<label class="label-message">'+_this.name +'</label><br>');
-                                    $message.addClass(_this.message_side).find('.text').append(_this.text);
+                                    $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">'+_this.created+'</p><p class="comment-chat">' + _this.text + '</p>');
                                     $message.find('.img-user-conversation').attr('src',_this.profile_pic);
                                     $('.'+_this.section).append($message);
                                         return $message.addClass('appeared');
@@ -415,7 +630,7 @@ block scripts
                                 $message_input = $('.message_input');
                                 return $message_input.val();
                             };
-                            sendMessage = function (text, user, side, profile_pic, name, section) {
+                            sendMessage = function (text, user, side, profile_pic, name, section, created) {
                                 var $messages, message;
                                 if (text.trim() === '') {
                                     return;
@@ -428,79 +643,64 @@ block scripts
                                     profile_pic: profile_pic,
                                     user:user,
                                     name: name,
-                                    section:section
+                                    section:section,
+                                    created:created
                                 });
                                 message.draw();
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
                             };
-                            $('.sendMessage').click(function (e) {
 
-                                var parent = $('.messages').children().last().attr('data-user');
-                                var prevside = $('.messages').children().last().attr('data-side');
-                                var ticket = response.ticket._id;
+                            if ($('#hiddenHelper').val() == 0) {
+                                $('#hiddenHelper').val(1);
 
-                                if(parent == $(this).attr('data-current-user'))
-                                    var side = prevside;
-                                else{
-                                    if(prevside == 'left')
-                                        var side = 'right';
-                                    else
-                                        var side = 'left';
-                                }
+                                $('.sendNote').click(function (e) {
+                                    var ticket = response.ticket._id;
 
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/api/notes',
+                                        data: {
+                                            discussion_id: ticket,
+                                            posted_by: $(this).attr('data-current-user'),
+                                            note: $('#textareaNotes').val()
+                                        },
+                                        success: function (response) {
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/api/comments',
-                                    data: {
-                                        discussion_id: ticket,
-                                        posted_by: $(this).attr('data-current-user'),
-                                        comment: getMessageText()
-                                    },
-                                    success: function (response) {
+                                        },
+                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                                    },
-                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        var message = XMLHttpRequest.responseJSON.message;
-                                        warningAlert(message);
-                                    }
+                                        }
+                                    });
+
+                                    return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'notes',moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'));
                                 });
 
+                                $('.sendMessage').click(function (e) {
+                                    var ticket = response.ticket._id;
 
-                                return sendMessage(getMessageText(),$(this).attr('data-current-user'),side,$(this).attr('data-current-user-image'),$(this).attr('data-name'),'messages');
-                            });
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/api/comments',
+                                        data: {
+                                            discussion_id: ticket,
+                                            posted_by: $(this).attr('data-current-user'),
+                                            comment: getMessageText()
+                                        },
+                                        success: function (response) {
 
-                            $('.sendNote').click(function (e) {
+                                        },
+                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                                var parent = $('.messages').children().last().attr('data-user');
-                                var ticket = response.ticket._id;
+                                        }
+                                    });
 
-
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/api/notes',
-                                    data: {
-                                        discussion_id: ticket,
-                                        posted_by: $(this).attr('data-current-user'),
-                                        note: $('#textareaNotes').val()
-                                    },
-                                    success: function (response) {
-
-                                    },
-                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        var message = XMLHttpRequest.responseJSON.message;
-                                        warningAlert(message);
-                                    }
+                                    return sendMessage(getMessageText(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'));
                                 });
 
-
-                                return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'),'notes');
-                            });
-
+                            }
 
                             //First Messages
-                            sendMessage(response.ticket.message, response.ticket.filed_by, 'left',img, response.ticket.filed_by.name.first + ' ' + response.ticket.filed_by.name.last,'messages' );
-
+                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages',moment(response.ticket.created ).format('YYYY-MM-DD h:mm:ss a'));
 
                             //Another Messages
                             $.ajax({
@@ -508,21 +708,12 @@ block scripts
                                 url: '/api/comments/discussion?ticket='+response.ticket._id,
                                 success: function (response) {
 
+                                console.log(response);
+
                                     $("#commentslength").text(response.comment.length+1);
                                     $.each(response.comment, function (index, value) {
-
                                         var parent = $('.messages').children().last().attr('data-user');
-                                        var prevside = $('.messages').children().last().attr('data-side');
-
-                                        if (parent == value.posted_by._id)
-                                            var side = prevside;
-                                        else {
-                                            if (prevside == 'left')
-                                                var side = 'right';
-                                            else
-                                                var side = 'left';
-                                        }
-                                        sendMessage(value.comment, value.posted_by._id, side, value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages');
+                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages',moment(value.created).format('YYYY-MM-DD h:mm:ss a'));
                                     });
 
                                 },
@@ -537,10 +728,10 @@ block scripts
                                 type: "GET",
                                 url: '/api/notes/discussion?ticket=' + response.ticket._id,
                                 success: function (response) {
-                                    console.log(response);
+                                    $('.notes').empty();
                                     $("#noteslength").text(response.note.length);
                                     $.each(response.note, function (index, value) {
-                                        sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes');
+                                        sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes',moment(value.created).format('YYYY-MM-DD h:mm:ss a'));
                                     });
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -548,8 +739,6 @@ block scripts
                                     warningAlert(message);
                                 }
                             });
-
-
                         });
                     }.call(this));
 
@@ -562,11 +751,72 @@ block scripts
             });
 
             $('#readModal').modal('show');
+
+            $.ajax({
+               type: "PUT",
+               data: {"opened":true},
+               url: '/api/tickets/' + ticketid,
+               success: function (response) {
+                   $('.ticket[data-ticketid="'+ticketid+'"]').addClass('opened');
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   var message = XMLHttpRequest.responseJSON.message;
+                   warningAlert(message);
+               }
+           });
         }
 
+        $("#ticketasignee").autocomplete({
+            source: function (request, response) {
+                $('#ticketasignee').css("cursor", "wait");
+                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val()+'&role=resident';
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        $('#ticketasignee').css("cursor", "text");
+                        response(data.users);
+                    }
+                });
 
+            },
+            minLength: 1
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            console.log(item);
+            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
+        };
         /*=== UPDATE: Update ticket ===*/
+        $('.editopenticket').on('change', function () {
+            updateticket(openticketid);
+        });
 
+        function updateticket(ticketid){
+
+            var category = $('#openticketcategory').val();
+            var subcategory = $('#openticketsubcategory').val();
+            var priority = $('#openticketpriority').val();
+
+            var dataJSON = {
+                'category' : category,
+                'subcategory' : subcategory,
+                'priority' : priority
+            };
+
+            $.ajax({
+
+                type: "PUT",
+                data: dataJSON,
+                url: '/api/tickets/' + ticketid,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
+
+        }
 
         /*=== SEARCH: Search ticket ===*/
         $('#searchform').submit(function (event) {
@@ -611,7 +861,6 @@ block scripts
                     warningAlert(message);
                 }
             });
-
         });
 
         $('body').on('click', '.removeAssignee', function () {
@@ -637,12 +886,7 @@ block scripts
                     warningAlert(message);
                 }
             });
-
-
         });
-
-
-
 
         //Updates Status
         $('body').on('click', '.btn-status', function () {
@@ -667,8 +911,6 @@ block scripts
             });
 
             $(this).addClass('active');
-
-
         });
 
 

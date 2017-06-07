@@ -1033,8 +1033,14 @@ input[type="file"]::-webkit-file-upload-button {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
-  border-left:4px solid #CECECE;
   background-color: #ededed;
+}
+
+.ticket.one,
+.ticket.two,
+.ticket.three,
+.ticket.four{
+  border-left:4px solid #CECECE;
 }
 
 

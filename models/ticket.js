@@ -14,7 +14,7 @@ var TicketSchema   = new Schema({
   subcategory: {type: String},
 
   message: { type: String, required: true},
-  priority: { type: Number, required: true, default:1},
+  priority: { type: Number, required: true, default:4},
   status: { type: Number, required: true, default:0},
   replies: [{ type: Schema.Types.ObjectId, ref: 'Ticket'}],
   attachments: { type: String, default:'' },

@@ -22,8 +22,8 @@ function getContentTypeByFile(fileName) {
   else if (fileNameLowerCase.indexOf('.png') >= 0) rc = 'image/png';
   else if (fileNameLowerCase.indexOf('.jpg') >= 0) rc = 'image/jpg';
   else if (fileNameLowerCase.indexOf('.jpeg') >= 0) rc = 'image/jpeg';
-  else if (fileNameLowerCase.indexOf('.svg') >= 0) rc = 'image/svg+xml';  
-  
+  else if (fileNameLowerCase.indexOf('.svg') >= 0) rc = 'image/svg+xml';
+
   return rc;
 }
 
@@ -37,6 +37,8 @@ module.exports = {
       var metaData = getContentTypeByFile(fileName);
       var remote = remoteName;
 
+      console.log(remote);
+
       return s3.putObject({
         ACL: 'public-read',
         Bucket: BUCKET_NAME + folder + user,
@@ -44,15 +46,15 @@ module.exports = {
         Body: buffer,
         ContentType: metaData
       }, function(error, response) {
-        if(error){          
+        if(error){
           console.log('error uploading image: ' + error);
           return false;
         }
-        else{          
+        else{
           console.log('uploaded image [' + fileName + ']');
           return true;
         }
-        
+
       });
     }
     catch (e){

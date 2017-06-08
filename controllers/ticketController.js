@@ -194,6 +194,8 @@ module.exports = {
 
     updateTicket: function (req, res, next) {
 
+        let assigned_helper = true;
+
         if(!req.params.id)
             return res.status(404).json({message: 'No ticket found'});
 
@@ -229,8 +231,7 @@ module.exports = {
 
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
 
-                if(req.body.assignee && !ticket.assigned_to.includes(req.body.assignee)){
-                    console.log(req.body.assignee);
+                if(req.body.assignee && !(ticket.assigned_to.indexOf(req.body.assignee) > -1)){
                     ticket.assigned_to.push(req.body.assignee);
                     User.findOne({_id: req.body.assignee})
                         .exec(function (err, user) {
@@ -244,6 +245,9 @@ module.exports = {
                             }
                         });
                 }
+                else{
+                    assigned_helper = false;
+                }
 
                 if(req.body.remove){
                     ticket.assigned_to.pull({_id:req.body.assignee});
@@ -255,13 +259,12 @@ module.exports = {
 
                 ticket.save(function (err) {
                     if (!err) {
-                        return res.status(200).json({message: "Ticket has been updated",ticket:ticket});
+                        return res.status(200).json({message: "Ticket has been updated",ticket:ticket,assigned_helper:assigned_helper});
                     } else {
                         console.log('ERROR: ' + err);
                         return res.status(500).json({err: err});
                     }
                 });
-
             }
         });
     },
@@ -322,10 +325,6 @@ module.exports = {
         if(priority){
             options['priority'] = priority;
         }
-
-
-        console.log(options);
-
 
         User.findById(req.params.id, function (err, user) {
             if (err) {
@@ -405,14 +404,6 @@ module.exports = {
                                 return (val.requested_by.id == req.user.id);
                             });
                         }
-
-                        // console.log('RESULTS************');
-                        // tickets.forEach(function(r) {
-                        //     console.log('SUBJECT:' + r.subject, '- CATEGORY: ' + r.category, '- LOCATION: ' + r.location, '- REQUESTED_BY: ' + r.requested_by.name.first, '- CREATED BY: ' + r.created_by.name.first, r.assigned_to);
-                        //     console.log('***************');
-                        // });
-
-                        //console.log(results[0]);
 
                        return res.status(200).json({
                             error: false,

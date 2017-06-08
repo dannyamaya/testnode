@@ -106,15 +106,15 @@ block content
               li
                   a.roleSearch(href="#") Operation Manager
     .col-xs-12.userTools.has-feedbackc.ticketTools
-        .col-xs-12.col-md-2.heading-title
+        .col-xs-12.col-md-2.heading-title.hidden
             h2.col-xs-10.col-md-12.no-padding #{title}
             .pull-right.visible-xs.visible-sm
                 button.btn.btn-livinn#Filters(onclick="deployFilters1()" style="padding: 2px 8px; margin-top: -2px;")
                     span
                         i.icon.ion-ios-search-strong(style="font-size:2rem;")
-        .col-xs-10.hidden-xs.hidden-sm
+        .col-xs-12.hidden-xs.hidden-sm.no-padding
             form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-                    .pull-right
+                    .pull-left
                        .col-xs-4.no-padding
                             .input-group.search
                                 .col-xs-5.no-padding

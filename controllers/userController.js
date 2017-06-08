@@ -91,7 +91,7 @@ module.exports = {
                 return res.status(404).json({message: 'Error uploading file!'});
 
             // url stored in db
-            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
+            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + capitalizeFirstLetter(fileName.split(' ').join('+'));
             //local file deleted
             fs.unlinkSync(filePath);
         }
@@ -296,7 +296,7 @@ module.exports = {
      * @param {string} id - The user's id.
      */
     updateUser: function (req, res, next) {
-        console.log(req.body);
+        //console.log(req.body);
         var errorResident = false;
         User.findById(req.params.id, function (err, user) {
             if (err) {
@@ -323,9 +323,13 @@ module.exports = {
                     if(!upload)
                         return res.status(404).json({message: 'Error uploading file!'});
 
+
+
                     // url stored in db
-                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
+                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + capitalizeFirstLetter(fileName).split(' ').join('+');
                     //local file deleted
+                    console.log(imagenUrl);
+
 
 
                     fs.unlinkSync(filePath);
@@ -748,3 +752,8 @@ module.exports = {
 
     },
 };
+
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

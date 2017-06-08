@@ -13,8 +13,6 @@ block content
       .col-xs-12.no-padding.search-filtersMobile
         form.col-xs-12.navbar-left(action='' method='' type='')
             .input-group.search
-                .col-xs-8.no-padding
-                    input.form-control#searchmobile(type="text" name="name" placeholder="Search")
                 .col-xs-4.no-padding
                     .select
                         select#searchby
@@ -22,6 +20,9 @@ block content
                             option(value="created_by" selected="true") Created by
                             option(value="assigned_to") Assigned to
                             option(value="id") Work Order ID
+                .col-xs-8.no-padding
+                    input.form-control#searchmobile(type="text" name="name" placeholder="Search")
+
         .col-xs-12
          .select.select-livinn
             select.form-control.filter#categoryselectmobile
@@ -113,29 +114,30 @@ block content
                     span
                         i.icon.ion-ios-search-strong(style="font-size:2rem;")
         .col-xs-12.hidden-xs.hidden-sm.no-padding
-            form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-              .pull-right.no-padding
-                .col-xs-4.col-md-5.col-lg-4.no-padding
+            form.form.col-xs-12.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
+              h2.workordertitle#workordertitle Work Orders
+              .pull-right
+                .col-xs-4.no-padding
                     .input-group.search
-                        .col-xs-5.no-padding
+                        .col-md-6.no-padding
                             .select
                                 select#searchby
                                     option(value="requested_by") Requested by
                                     option(value="created_by" selected="true") Created by
                                     option(value="assigned_to") Assigned to
                                     option(value="id") Work Order ID
-                        .col-xs-7.no-padding
+                        .col-xs-6.no-padding
                             input.form-control#search(type="text" name="name" placeholder="Search")
-                .select.select-livinn.col-xs-2
-                    select.form-control.filter#categoryselect
-                        option(value="" selected) Category
-                        option(value="cleaning services") Cleaning Services
-                        option(value="customer service") Customer Service
-                        option(value="support") IT Support
-                        option(value="maintenance") Maintenance
-                        option(value="visits") Visits
-                        option(value="others") Others
-                .select.select-livinn.col-xs-2
+                .select.select-livinn
+                      select.form-control.filter#categoryselect
+                          option(value="" selected) Category
+                          option(value="cleaning services") Cleaning Services
+                          option(value="customer service") Customer Service
+                          option(value="support") IT Support
+                          option(value="maintenance") Maintenance
+                          option(value="visits") Visits
+                          option(value="others") Others
+                .select.select-livinn
                     select.form-control.filter#subcategoryselect
                         option(value="" selected) Subcategories
                         optgroup(label="Zona de BBQ" style="color:#000;")
@@ -159,20 +161,20 @@ block content
                                 option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
                                 option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                 option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-                .select.select-livinn.col-xs-2
-                    select.form-control.filter#statusselect
-                        option(value="" selected) Status
-                        option(value="0") Open
-                        option(value="1") Pending
-                        option(value="2") Resolved
-                .select.select-livinn.col-xs-2.hidden-md
+                .select.select-livinn
+                  select.form-control.filter#statusselect
+                      option(value="" selected) Status
+                      option(value="0") Open
+                      option(value="1") Pending
+                      option(value="2") Resolved
+
+                .select.select-livinn
                     select.form-control.filter#priorityselect
                         option(value="" selected) Priority
                         option(value="1") 1 High
                         option(value="2") 2 Medium
                         option(value="3") 3 Low
                         option(value="4") 4 To PLan
-            .col-xs-1.no-padding
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
     input#hiddenHelper(value=0)
     .col-xs-12.content
@@ -469,6 +471,10 @@ block scripts
         });
 
         //----------------- HELPERS ---------------------------
+        $("#btn-mobileMenu").click(function() {
+
+          $("#workordertitle").toggleClass("hidden-lg");
+        });
 
         function getCategory(category) {
             var value = '';

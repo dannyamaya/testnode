@@ -69,10 +69,10 @@ block content
           .select.select-livinn.col-xs-2
               select.form-control.filter#priorityselectmobile
                   option(value="" selected) Priority
-                  option(value="1") 1 High
-                  option(value="2") 2 Medium
-                  option(value="3") 3 Low
-                  option(value="4") 4 To PLan
+                  option(value="1") 1 / High Priority / 24H
+                  option(value="2") 2 / Medium Priority / 48H
+                  option(value="3") 3 / Low Priority / 72H
+                  option(value="4") 4 / To plan / To schedule
         ul.col-xs-12.no-padding.nav.navbar-nav.hidden
           li.col-xs-12.no-padding.dropdown
             a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
@@ -128,7 +128,7 @@ block content
                                     option(value="id") Work Order ID
                         .col-xs-6.no-padding
                             input.form-control#search(type="text" name="name" placeholder="Search")
-                .select.select-livinn
+                .select.select-livinn(style="width:100px;")
                       select.form-control.filter#categoryselect
                           option(value="" selected) Category
                           option(value="cleaning services") Cleaning Services
@@ -138,7 +138,7 @@ block content
                           option(value="visits") Visits
                           option(value="others") Others
                 .select.select-livinn
-                    select.form-control.filter#subcategoryselect
+                    select.form-control.filter#subcategoryselect(style="width:130px;")
                         option(value="" selected) Subcategories
                         optgroup(label="Zona de BBQ" style="color:#000;")
                         optgroup(label="Reservación" style="margin-left:15px;")
@@ -161,6 +161,15 @@ block content
                                 option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
                                 option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                 option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+                        optgroup(label="Gimnasio" style="color:#000;")
+                          optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
+                            option(value="Gimnasio/Limpieza/Ventanas") Ventanas
+                            option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
+                            option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
+                            option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
+                            option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
+                            option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
+
                 .select.select-livinn
                   select.form-control.filter#statusselect
                       option(value="" selected) Status
@@ -169,12 +178,12 @@ block content
                       option(value="2") Resolved
 
                 .select.select-livinn
-                    select.form-control.filter#priorityselect
+                    select.form-control.filter#priorityselect(style="width:100px;")
                         option(value="" selected) Priority
-                        option(value="1") 1 High
-                        option(value="2") 2 Medium
-                        option(value="3") 3 Low
-                        option(value="4") 4 To PLan
+                        option(value="1") 1 / High Priority / 24H
+                        option(value="2") 2 / Medium Priority / 48H
+                        option(value="3") 3 / Low Priority / 72H
+                        option(value="4") 4 / To plan / To schedule
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
     input#hiddenHelper(value=0)
     .col-xs-12.content
@@ -293,14 +302,23 @@ block modals
                                                     option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
                                                     option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                                     option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+                                            optgroup(label="Gimnasio" style="color:#000;")
+                                              optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
+                                                option(value="Gimnasio/Limpieza/Ventanas") Ventanas
+                                                option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
+                                                option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
+                                                option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
+                                                option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
+                                                option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
                                 .form-group
                                     label Priority
                                     .select
                                         select.editopenticket#openticketpriority(name="priority")
-                                            option(value="1") 1 High
-                                            option(value="2") 2 Medium
-                                            option(value="3") 3 Low
-                                            option(value="4") 4 To PLan
+                                            option(value="" selected) Priority
+                                            option(value="1") 1 / High Priority / 24H
+                                            option(value="2") 2 / Medium Priority / 48H
+                                            option(value="3") 3 / Low Priority / 72H
+                                            option(value="4") 4 / To plan / To schedule
 
                             .col-xs-12.col-sm-9.ticket-right
                                 .col-xs-12.has-feedback

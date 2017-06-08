@@ -169,6 +169,16 @@ block content
                             option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
                             option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
                             option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
+                        optgroup(label="Salón de Juegos" style="color:#000;")
+                          optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
+                            option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
+                            option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
+                            option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
+                          option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
+                          option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
+                          option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
+                          option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
+
 
                 .select.select-livinn
                   select.form-control.filter#statusselect
@@ -215,6 +225,8 @@ block modals
                                     label
                                         |   Requested by
                                         span  (optional)
+                                        button.btn(type="button" data-tooltip="true" data-placement="right" title="In case you want to file a Work Order as someone else, leave it blank if you want to file it as yours." style="background-color:#fff; padding: 0px 4px; position: relative; top: -1px;")
+                                          i.fa.fa-question-circle(aria-hidden="true")
                                     input.form-control.tagarea#searchinput(type="search")
                                     input.form-control#searchinputHidden(type="hidden" name="requested_by")
                             input(type="hidden" name="location" value="#{user.location}")
@@ -310,6 +322,15 @@ block modals
                                                 option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
                                                 option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
                                                 option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
+                                            optgroup(label="Salón de Juegos" style="color:#000;")
+                                              optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
+                                                option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
+                                                option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
+                                                option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
+                                              option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
+                                              option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
+                                              option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
+                                              option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
                                 .form-group
                                     label Priority
                                     .select
@@ -413,6 +434,11 @@ block scripts
         var openticketid = '';
 
         $(document).ready(function () {
+
+            $(function() {
+              $('[data-tooltip="true"]').tooltip();
+            });
+
             var count = 2;
             $(window).scroll(function(){
                 if  (($(window).scrollTop() == $(document).height() - $(window).height())&& $('#loading').length){

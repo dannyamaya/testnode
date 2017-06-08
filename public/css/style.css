@@ -858,8 +858,8 @@ button:focus{
 
 .preview {
     display: block;
-    width: 145px;
-    height: 145px;
+    width: 210px;
+    height: 210px;
     margin: 20px auto;
     border: 2px solid #E30056;
     border-radius: 50%;

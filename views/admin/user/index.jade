@@ -1081,13 +1081,13 @@ block scripts
             if (len == 0) {
                 warningAlert('No has seleccionado ningun elemento para eliminar.');
             } else if (len == 1) {
-                $('#deleteModal_h').html('').html('¿Desea eliminar este usuario?')
-                $('#deleteModal_p').html('').html('Toda la información de este usuario será eliminada del sistema.');
+                $('#deleteModal_h').html('').html('Are you sure you want to delete this user?')
+                $('#deleteModal_p').html('').html('All information will be lost.');
                 $('#deleteUserModal').modal('show');
             }
             else {
-                $('#deleteModal_h').html('').html('¿Desea eliminar estos usuarios?')
-                $('#deleteModal_p').html('').html('Toda la información de los usuarios seleccionados será eliminada del sistema.');
+                $('#deleteModal_h').html('').html('Are you sure you want to delete this users?')
+                $('#deleteModal_p').html('').html('All information will be lost.');
                 $('#deleteUserModal').modal('show');
             }
         }

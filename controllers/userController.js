@@ -91,7 +91,7 @@ module.exports = {
                 return res.status(404).json({message: 'Error uploading file!'});
 
             // url stored in db
-            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + capitalizeFirstLetter(fileName.split(' ').join('+'));
+            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName.split(' ').join('+');
             //local file deleted
             fs.unlinkSync(filePath);
         }
@@ -326,7 +326,7 @@ module.exports = {
 
 
                     // url stored in db
-                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + capitalizeFirstLetter(fileName).split(' ').join('+');
+                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName.split(' ').join('+');
                     //local file deleted
                     console.log(imagenUrl);
 
@@ -754,6 +754,3 @@ module.exports = {
 };
 
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}

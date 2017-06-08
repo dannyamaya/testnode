@@ -2412,11 +2412,6 @@ textarea.parsley-error {
     top: 0.4em;
   }
 
-  .userTools.ticketTools form .search .select select,
-  .userTools.ticketTools form .search .select select:hover {
-    font-size: 0.7em;
-  }
-
 
   .menuManageUser >li>button {
     padding: 7px 45px 5px 7px;

@@ -68,10 +68,10 @@ block content
           .select.select-livinn.col-xs-2
               select.form-control.filter#priorityselectmobile
                   option(value="" selected) Priority
-                  option(value="1") 1
-                  option(value="2") 2
-                  option(value="3") 3
-                  option(value="4") 4
+                  option(value="1") 1 High
+                  option(value="2") 2 Medium
+                  option(value="3") 3 Low
+                  option(value="4") 4 To PLan
         ul.col-xs-12.no-padding.nav.navbar-nav.hidden
           li.col-xs-12.no-padding.dropdown
             a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
@@ -106,7 +106,7 @@ block content
               li
                   a.roleSearch(href="#") Operation Manager
     .col-xs-12.userTools.has-feedbackc.ticketTools
-        .col-xs-12.col-md-2.heading-title.hidden
+        .col-xs-12.col-md-2.heading-title.hidden-md.hidden-lg
             h2.col-xs-10.col-md-12.no-padding #{title}
             .pull-right.visible-xs.visible-sm
                 button.btn.btn-livinn#Filters(onclick="deployFilters1()" style="padding: 2px 8px; margin-top: -2px;")
@@ -114,67 +114,64 @@ block content
                         i.icon.ion-ios-search-strong(style="font-size:2rem;")
         .col-xs-12.hidden-xs.hidden-sm.no-padding
             form.form.col-xs-12.col-sm-11.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
-                    .pull-left
-                       .col-xs-4.no-padding
-                            .input-group.search
-                                .col-xs-5.no-padding
-                                    .select
-                                        select#searchby
-                                            option(value="requested_by") Requested by
-                                            option(value="created_by" selected="true") Created by
-                                            option(value="assigned_to") Assigned to
-                                            option(value="id") Work Order ID
-                                .col-xs-7.no-padding
-                                    input.form-control#search(type="text" name="name" placeholder="Search")
-                        .select.select-livinn.col-xs-2
-                            select.form-control.filter#categoryselect
-                                option(value="" selected) Category
-                                option(value="cleaning services") Cleaning Services
-                                option(value="customer service") Customer Service
-                                option(value="support") IT Support
-                                option(value="maintenance") Maintenance
-                                option(value="visits") Visits
-                                option(value="others") Others
-                        .select.select-livinn.col-xs-2
-                            select.form-control.filter#subcategoryselect
-                                option(value="" selected) Subcategories
-                                optgroup(label="Zona de BBQ" style="color:#000;")
-                                optgroup(label="Reservación" style="margin-left:15px;")
-                                   option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-                                   option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
-                                option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
-                                option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
-                                optgroup(label="Limpieza" style="margin-left:15px;")
-                                    option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
-                                    option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
-                                    option(value="Zona de BBQ/Limpieza/Mesa") Mesa
-                                    option(value="Zona de BBQ/Limpieza/Parilla") Parilla
-                                optgroup(label="Cuarto de Billar" style="color:#000;")
-                                    optgroup(label="Reservación" style="margin-left:15px;")
-                                        option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
-                                        option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
-                                    option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
-                                    option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
-                                    optgroup(label="Limpieza" style="margin-left:15px;")
-                                        option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
-                                        option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
-                                        option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-
-
-
-                        .select.select-livinn.col-xs-2
-                            select.form-control.filter#statusselect
-                                option(value="" selected) Status
-                                option(value="0") Open
-                                option(value="1") Pending
-                                option(value="2") Resolved
-                        .select.select-livinn.col-xs-2
-                            select.form-control.filter#priorityselect
-                                option(value="" selected) Priority
-                                option(value="1") 1(Muy Urgente)
-                                option(value="2") 2(Urgente)
-                                option(value="3") 3
-                                option(value="4") 4
+              .pull-right.no-padding
+                .col-xs-4.col-md-5.col-lg-4.no-padding
+                    .input-group.search
+                        .col-xs-5.no-padding
+                            .select
+                                select#searchby
+                                    option(value="requested_by") Requested by
+                                    option(value="created_by" selected="true") Created by
+                                    option(value="assigned_to") Assigned to
+                                    option(value="id") Work Order ID
+                        .col-xs-7.no-padding
+                            input.form-control#search(type="text" name="name" placeholder="Search")
+                .select.select-livinn.col-xs-2
+                    select.form-control.filter#categoryselect
+                        option(value="" selected) Category
+                        option(value="cleaning services") Cleaning Services
+                        option(value="customer service") Customer Service
+                        option(value="support") IT Support
+                        option(value="maintenance") Maintenance
+                        option(value="visits") Visits
+                        option(value="others") Others
+                .select.select-livinn.col-xs-2
+                    select.form-control.filter#subcategoryselect
+                        option(value="" selected) Subcategories
+                        optgroup(label="Zona de BBQ" style="color:#000;")
+                        optgroup(label="Reservación" style="margin-left:15px;")
+                           option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                           option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                        option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+                        option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                        optgroup(label="Limpieza" style="margin-left:15px;")
+                            option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+                            option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+                            option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+                            option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+                        optgroup(label="Cuarto de Billar" style="color:#000;")
+                            optgroup(label="Reservación" style="margin-left:15px;")
+                                option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+                                option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+                            option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+                            option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
+                            optgroup(label="Limpieza" style="margin-left:15px;")
+                                option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+                                option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+                                option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+                .select.select-livinn.col-xs-2
+                    select.form-control.filter#statusselect
+                        option(value="" selected) Status
+                        option(value="0") Open
+                        option(value="1") Pending
+                        option(value="2") Resolved
+                .select.select-livinn.col-xs-2.hidden-md
+                    select.form-control.filter#priorityselect
+                        option(value="" selected) Priority
+                        option(value="1") 1 High
+                        option(value="2") 2 Medium
+                        option(value="3") 3 Low
+                        option(value="4") 4 To PLan
             .col-xs-1.no-padding
                 button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
     input#hiddenHelper(value=0)
@@ -298,11 +295,10 @@ block modals
                                     label Priority
                                     .select
                                         select.editopenticket#openticketpriority(name="priority")
-                                            option(value="1") 1
-                                            option(value="2") 2
-                                            option(value="3") 3
-                                            option(value="4") 4
-
+                                            option(value="1") 1 High
+                                            option(value="2") 2 Medium
+                                            option(value="3") 3 Low
+                                            option(value="4") 4 To PLan
 
                             .col-xs-12.col-sm-9.ticket-right
                                 .col-xs-12.has-feedback

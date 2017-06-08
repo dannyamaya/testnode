@@ -52,7 +52,7 @@ block content
               span(class="glyphicon glyphicon-option-vertical")
             ul.dropdown-menu.menuManageUser.col-xs-12.no-padding(aria-labelledby='dropdownMenu1')
               li
-                button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()') 
+                button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
                   i.fa.fa-trash
                   span Eliminar
               li
@@ -60,7 +60,7 @@ block content
                   i.fa.fa-pencil-square-o
                   span Editar
               li
-                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download") 
+                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
                   i.fa.fa-download
                   span Descargar
           button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
@@ -248,21 +248,6 @@ block modals
                                         label Status
                                         p#statusRead
 
-                                    .col-xs-12.no-padding
-                                        .form-group.col-sm-4
-                                            label
-                                                |   Amount
-                                                span.requiredLivinn *
-                                            p#rateRead
-                                        .form-group.col-sm-4
-                                            label
-                                                |   Currency
-                                            span.requiredLivinn *
-                                            p#currencyRead
-
-                                        .form-group.col-sm-4
-                                            label Amount USD
-                                            p#rateusdRead
                                     hr.col-xs-12
                                     .form-group.col-sm-6
                                         label(for='apartment') Apartment

@@ -93,7 +93,8 @@ module.exports = {
                 return res.status(404).json({message: 'Error uploading file!'});
 
             // url stored in db
-            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName.split(' ').join('+');
+            fileName = fileName.split(' ').join('+');
+            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
             //local file deleted
             fs.unlinkSync(filePath);
         }
@@ -328,7 +329,8 @@ module.exports = {
 
 
                     // url stored in db
-                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName.split(' ').join('+');
+                    fileName = fileName.split(' ').join('+');
+                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
                     //local file deleted
                     console.log(imagenUrl);
 

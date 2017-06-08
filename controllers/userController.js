@@ -79,8 +79,10 @@ module.exports = {
             var fileName =  req.files.image.name;
             var filePath = './uploads/' + fileName;
             file.mv(filePath, function (err) {
-                if (err)
+                if(err){
+                    console.log(err);
                     return res.status(500).send(err);
+                }
             });
 
             var upload = true;

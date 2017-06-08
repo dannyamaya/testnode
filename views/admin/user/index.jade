@@ -52,14 +52,17 @@ block content
               span(class="glyphicon glyphicon-option-vertical")
             ul.dropdown-menu.menuManageUser.col-xs-12.no-padding(aria-labelledby='dropdownMenu1')
               li
-                button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()') Eliminar
+                button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()') 
                   i.fa.fa-trash
+                  span Eliminar
               li
-                button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()') Editar
+                button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
                   i.fa.fa-pencil-square-o
+                  span Editar
               li
-                a.col-xs-8.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download") Descargar
+                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download") 
                   i.fa.fa-download
+                  span Descargar
           button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
               i.fa.fa-trash
           button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')

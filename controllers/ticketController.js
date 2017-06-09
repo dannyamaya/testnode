@@ -40,12 +40,13 @@ module.exports = {
         }
 
         var file = req.files.attachments;
+        let file_name = '';
+
 
         if (file) {
 
-            var fileName = req.files.attachments.name;
-
-            var filePath = './uploads/' + fileName;
+            file_name = req.files.attachments.name;
+            var filePath = './uploads/' + file_name;
 
             file.mv(filePath, function (err) {
                 if (err)
@@ -54,6 +55,8 @@ module.exports = {
             });
             var folder = 'attachments/';
             var upload = true;
+
+            fileName = file_name.replace(/[^a-zA-Z0-9.]/g, "");
             upload = s3deploy.uploadFiles(filePath, fileName, req.user._id, file.data, folder);
 
             if (!upload)
@@ -73,7 +76,7 @@ module.exports = {
             message: req.body.message,
             attachments: imagenUrl || '',
             category: req.body.category,
-            file_name: fileName,
+            file_name: file_name,
             location: req.body.location
         });
 

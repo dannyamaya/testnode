@@ -34,18 +34,50 @@ module.exports = {
             return res.status(404).json({message: 'Note not found'});
         }
 
+        let file = req.files.attachments;
+        let file_name = '';
 
-        var note = new Note({
+        if (file) {
+
+            file_name = req.files.attachments.name;
+            let filePath = './uploads/' + file_name;
+
+            file.mv(filePath, function (err) {
+                console.log(err);
+                if (err)
+                    return res.status(500).json({message: 'Error uploading file!'});
+            });
+            let folder = 'attachments/';
+            var upload = true;
+
+            fileName = file_name.replace(/[^a-zA-Z0-9.]/g, "");
+            upload = s3deploy.uploadFiles(filePath, fileName, req.user._id, file.data, folder);
+
+            if (!upload)
+                return res.status(404).json({message: 'Error uploading file!'});
+
+            // url stored in db
+            var imagenUrl = AWS_PREFIX + folder + req.user._id + '/' + fileName;
+
+            //local file deleted
+            fs.unlinkSync(filePath);
+        }
+
+
+        let note = new Note({
             discussion_id: req.body.discussion_id,
             posted_by: req.body.posted_by,
-            note: req.body.note
+            note: req.body.note,
+            attachments: imagenUrl || '',
+            file_name: file_name
 
         });
 
 
         note.save(function (err, t) {
             if (!err) {
-                console.log('New note has been created')
+                console.log('New note has been created');
+                return res.status(200).json({note:t, message: "Note has been created"});
             }
             else {
                 console.log(err);
@@ -67,7 +99,6 @@ module.exports = {
                 if (!note) {
                     return res.status(404).json({message: "Note not found"});
                 } else {
-                    console.log(note);
                     return res.status(200).json({note: note});
                 }
             });

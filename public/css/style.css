@@ -1528,6 +1528,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   border-right: 2px solid #FFF;
   border-left: 2px solid #FFF;
   text-transform: capitalize;
+  color: #555;
 }
 
 .registrationModal .modal-body form .form-group input[type="email"],
@@ -1553,7 +1554,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 .updateUserModal .modal-body form .form-group .select select {
   height: 48px;
   background-color: #DCDCDC;
-  color: #9C9C9C;
+  color: #555;
   border-top: none;
   border-bottom: none;
   border-right: 1px solid #FFF;

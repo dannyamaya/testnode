@@ -29,11 +29,11 @@ block content
             //-     .select.select-livinn
             //-         select.form-control.filter#categoryselectmobile
             //-             option(value="" selected) Category
-            //-             option(value="cleaning services") 
-            //-             option(value="customer service") 
-            //-             option(value="support") 
+            //-             option(value="cleaning services")
+            //-             option(value="customer service")
+            //-             option(value="support")
             //-             option(value="maintenance") Maintenance
-            //-             option(value="visits") 
+            //-             option(value="visits")
             //-             option(value="others") Others
 
             ul.col-xs-12.no-padding.nav.navbar-nav
@@ -97,7 +97,7 @@ block content
                                   option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
                                   option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                   option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-              
+
               li.col-xs-12.no-padding.dropdown
                   a.col-xs-12.dropdown-toggle.statusDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Status
                       span
@@ -115,19 +115,19 @@ block content
                     i.icon.ion-ios-arrow-down
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 1 / High Priority / 24H
                       | High
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 2 / Medium Priority / 48H
                       | Medium
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 3 / Low Priority / 72H
                       | Low
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 4 / To plan / To schedule
                       | To PLan
               //- .col-xs-12
@@ -138,8 +138,8 @@ block content
               //-             option(value="2") 2 / Medium Priority / 48H
               //-             option(value="3") 3 / Low Priority / 72H
               //-             option(value="4") 4 / To plan / To schedule
-            
-           
+
+
 
     //-DESKTOP!
     .col-xs-12.userTools.has-feedbackc.ticketTools
@@ -163,7 +163,7 @@ block content
                                         option(value="assigned_to") Assigned to
                                         option(value="id") Work Order ID
                             .col-xs-6.no-padding
-                                input.form-control#search(type="text" name="name" placeholder="Search")                   
+                                input.form-control#search(type="text" name="name" placeholder="Search")
 
                     .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                       button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#categoryDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Categoty
@@ -181,7 +181,7 @@ block content
                               a.categorySearch(href="#") Visits
                           li
                               a.categorySearch(href="#") Others
-                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear 
+                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
 
                     .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                       button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
@@ -332,16 +332,16 @@ block modals
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
-    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+    .modal.fade.ticket-modal.readModal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.full-width
             .modal-content
+                .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                        i.icon.ion-android-close
+                    h3.text-center.readModalTitle
                 .modal-body
                     .row
                         .col-xs-12(style="height:100%;")
-                            .col-xs-12.no-padding.ticket-navbar.has-feedback.gradienteLivinn
-                                h3.col-xs-12.readModalTitle
-                                button.btn(type="button", data-dismiss="modal", aria-hidden="true")
-                                    span
                             .col-xs-12.col-sm-3.ticket-left
                                 input#hiddenTicket(type="hidden")
                                 .form-group

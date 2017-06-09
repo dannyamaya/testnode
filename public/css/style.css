@@ -1212,7 +1212,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 
 .ticket-left{
     background-color:#fcfcfc;
-    height:calc(100% - 50px);
+    height:calc(100% - 86px);
     overflow-y:auto;
     padding-right: 20px;
     padding-left: 30px;
@@ -1609,7 +1609,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .updateUserModal .modal-header button,
-.registrationModal .modal-header button {
+.registrationModal .modal-header button,
+.readModal .modal-header button{
   padding: 3px 9px 4px;
   border-radius: 50%;
   border: 2px solid #FFF;
@@ -1620,7 +1621,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .updateUserModal .modal-header h3,
-.registrationModal .modal-header h3 {
+.registrationModal .modal-header h3,
+.readModal .modal-header h3 {
   text-transform: uppercase;
   color: #FFF;
   font-family: 'BebasNeue-Regular', sans-serif;

@@ -1557,8 +1557,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   color: #555;
   border-top: none;
   border-bottom: none;
-  border-right: 1px solid #FFF;
-  border-left: 1px solid #FFF;
+  border-right: 1px solid #DCDCDC;
+  border-left: 1px solid #DCDCDC;
 }
 
 .registrationModal .modal-body form .form-group .select:before,

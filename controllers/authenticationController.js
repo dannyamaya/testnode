@@ -1,6 +1,8 @@
 var oauth2orize = require('oauth2orize');
 var url = require('url');
 var passport = require('passport');
+var userController = require('./userController.js')
+
 
 module.exports = {
 
@@ -36,6 +38,7 @@ module.exports = {
                     console.log(err);
                     return res.status(500).json({message: err.message});
                 } else {
+                    userController.updateLastLogin(req.user.id);
                     return res.json(
                         {
                             user: {

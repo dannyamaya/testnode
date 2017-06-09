@@ -742,6 +742,30 @@ module.exports = {
         }
     },
 
+    /**
+     * Updates user last login.
+     * @param {string} id - The user's id.
+     */
+    updateLastLogin: function(id) {
+        User.findById(id, function(err, user) {
+            if(err){
+                console.log('ERROR: ' + err);
+            }
+            if (!user) {
+                console.log('User not found!');
+            } else {
+                user.lastlogin = moment() || user.lastlogin;
+                user.save(function(err){
+                    if(!err) {
+
+                    } else {
+                        console.log('ERROR: ' + err);
+                    }
+                });
+          }
+        });
+    },
+
     autocompleteUsers: function(req, res, next) {
 
 

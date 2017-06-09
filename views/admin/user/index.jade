@@ -890,6 +890,10 @@ block scripts
                     var banned;
                     $("#userstable tbody tr").remove();
                     var location = '';
+                    var createddate = '';
+                    var today = moment();
+                    var formatedDate = '';
+
                     for (key = 0; key < response.users.length; key++) {
 
                         if (response.users[key].banned) {
@@ -897,14 +901,21 @@ block scripts
                         } else {
                             banned = "";
                         }
-                        var usd = ((response.users[key].usd) ? response.users[key].usd : 0);
-                        var clp = ((response.users[key].clp) ? response.users[key].clp : 0);
+
                         if(showLocation){
                             location = "<td>" + response.users[key].location + "</td>";
                         } else {
                             location = "";
                         }
-                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td class='hidden-xs hidde-sm'><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td class='text-lowercase'>" + response.users[key].email + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td class='text-capitalize'>" + response.users[key].role + "</td>"+location+"<td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].lastlogin).format('YYYY-DD-MM') + "</td></tr>");
+
+                        createddate = moment(response.users[key].lastlogin);
+                        if (today.isSame(createddate, 'd')) {
+                            formatedDate = createddate.format('LT');
+                        } else {
+                            formatedDate = createddate.format('YYYY-DD-MM');
+                        }
+
+                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td class='hidden-xs hidde-sm'><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td class='text-lowercase'>" + response.users[key].email + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td class='text-capitalize'>" + response.users[key].role + "</td>"+location+"<td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + formatedDate + "</td></tr>");
                     }
 
                     $('#loader').fadeOut("slow", function () {

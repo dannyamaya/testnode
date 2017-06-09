@@ -1744,6 +1744,10 @@ textarea.parsley-success {
   border: 1px solid #468847;
 }
 
+textarea.form-control{
+    width: 98.3%;
+}
+
 input.parsley-error,
 select.parsley-error,
 textarea.parsley-error {
@@ -2533,9 +2537,8 @@ textarea.parsley-error {
 
 .bottom_wrapper .send_message {
   width: 140px;
-  height: 50px;
+  height: 42px;
   display: inline-block;
-  border-radius: 50px;
   background-color: #E30056;
   border: 2px solid #E30056;
   color: #fff;
@@ -2549,10 +2552,11 @@ textarea.parsley-error {
   background-color: #fff;
 }
 .bottom_wrapper .send_message .text {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 300;
   display: inline-block;
-  line-height: 48px;
+  line-height: 43px;
+  font-family: 'BebasNeue-Regular';
 }
 
 .message_template {
@@ -2567,6 +2571,7 @@ textarea.parsley-error {
 .label-message{
     font-weight: 400;
     color: #606470;
+    margin-bottom: 0px;
 }
 
 .comment-chat{
@@ -2578,6 +2583,7 @@ textarea.parsley-error {
 .comment-chat-date{
     color: #606470;
     margin-bottom: -2px;
+    margin-top: -4px;
     font-size: 12px;
 
 }
@@ -2589,14 +2595,18 @@ textarea.parsley-error {
 .comment-attachment{
     color: #E30056;
     cursor: pointer;
-    font-size: 14px;
-
+    margin-right: 6%;
+    margin-top: -0.6%;
 }
 
 .comment-attachment a {
     color: #E30056;
-    font-size: 12px;
+    font-size: 11px;
 
+}
+
+.ion-paperclip{
+    font-size: 19px;
 }
 
 .gray{
@@ -2606,5 +2616,9 @@ textarea.parsley-error {
 .mt-15{
     margin-bottom: 5px;
 }
+
+
+
+
 
 

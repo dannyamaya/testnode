@@ -365,32 +365,32 @@ block modals
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         form.tab-pane.active#comment(method="post" enctype="multipart/form-data" role='tabpanel')
-                                            textarea.form-control.message_input(rows="5" placeholder="Type your comment here...")
+                                            textarea.form-control.message_input(rows="4" placeholder="Type your comment here...")
 
                                             .bottom_wrapper.clearfix
                                                 .send_message.sendMessage.btn-livinn(data-current-user="" data-current-user-image="")
                                                     .icon
-                                                    .text Send
+                                                    .text SEND
                                                 input#attachmentFile(type="file" style="display:none" name='attachments')
-                                                a#attachFile.comment-attachment
-                                                    i.fa.fa-paperclip(aria-hidden='true')
-                                                    |  Attach a file
+                                                a#attachFile.comment-attachment.pull-right
+                                                    i.icon.ion-paperclip(aria-hidden='true')
+                                                    |   Attach a file
 
 
 
                                         form.tab-pane#note(role='tabpanel' method="post" enctype="multipart/form-data")
-                                            textarea.form-control#textareaNotes(rows="5" placeholder="Type your notes here...")
+                                            textarea.form-control#textareaNotes(rows="4" placeholder="Type your notes here...")
                                             .bottom_wrapper.clearfix
-                                                .send_message.sendNote(data-current-user="" data-current-user-image="")
+                                                .send_message.sendNote.btn-livinn(data-current-user="" data-current-user-image="")
                                                     .icon
-                                                    .text Send
+                                                    .text SEND
                                                 input#attachmentFileNote(type="file" style="display:none" name='attachments')
-                                                a#attachFileNote.comment-attachment
-                                                    i.fa.fa-paperclip(aria-hidden='true')
-                                                    |  Attach a file
+                                                a#attachFileNote.comment-attachment.pull-right
+                                                    i.icon.ion-paperclip(aria-hidden='true')
+                                                    |   Attach a file
+
                                 .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
-
                                     ul.col-xs-12.nav.nav-tabs.nav-tabs-comments.comment-section(role='tablist')
                                         li.active(role='presentation')
                                             a.gray(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
@@ -642,6 +642,7 @@ block scripts
                         socket.emit('new-ticket', {ticket: response.ticket});
                         $('#newticketModal').modal('hide');
                         $('#subject').val("");
+                        $('#searchinputHidden').val("");
                         $('#summernote').summernote("reset");
                         $('#ticketForm').parsley().reset();
                         document.getElementById('ticketForm').reset();
@@ -814,7 +815,8 @@ block scripts
             $('.notes').empty();
             $("#ticketasigneeGroup").empty();
             $('#ticketasignee').val('');
-            $('#attachFileNote').html('<i class="fa fa-paperclip" aria-hidden="true"></i> Attach a file')
+            $('#attachFileNote').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
+            $('#attachFile').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
             $('.send_message').attr('data-current-user', '#{user._id}');
             $('.send_message').attr('data-current-user-image', '#{user.profile_picture}');
             $('.send_message').attr('data-name', '#{user.name.first}  #{user.name.last}');
@@ -947,6 +949,11 @@ block scripts
                                         processData: false,
                                         contentType: false,
                                         success: function (response) {
+
+                                            $('#attachFileNote').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file');
+                                            $('#attachmentFileNote').val('');
+                                            var count = $('#noteslength').text();
+                                            $('#noteslength').text(parseFloat(count) + 1);
                                             return sendMessage($('#textareaNotes').val(), $('.sendNote').attr('data-current-user'), 'left', $('.sendNote').attr('data-current-user-image'), $('.sendNote').attr('data-name'), 'notes', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'), response.note.attachments, response.note.file_name);
 
                                         },
@@ -972,6 +979,10 @@ block scripts
                                         processData: false,
                                         contentType: false,
                                         success: function (response) {
+                                            $('#attachFile').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file');
+                                            $('#attachmentFile').val('');
+                                            var count = $('#commentslength').text();
+                                            $('#commentslength').text(parseFloat(count) + 1);
                                             return sendMessage(getMessageText(), $('.sendMessage').attr('data-current-user'), 'left', $('.sendMessage').attr('data-current-user-image'), $('.sendMessage').attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'), response.comment.attachments, response.comment.file_name);
                                         },
                                         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1116,27 +1127,27 @@ block scripts
         });
 
         //Search Mobile
-        /*
-        $('#searchMobile').keypress(function () {
+
+        $('#searchmobile').keypress(function () {
             $('.tickets').fadeOut("fast", function () {
                 $('#loader').fadeIn("fast");
                 $('.tickets').html('');
 
-                getTickets(1, $("#searchMobile").val());
+                getTickets(1, $("#searchmobile").val());
             });
         });
 
-        $('#searchMobile').keyup(function (e) {
+        $('#searchmobile').keyup(function (e) {
             if (e.keyCode == 8) {
                 $('.tickets').fadeOut("fast", function () {
                     $('#loader').fadeIn("fast");
                     $('.tickets').html('');
 
-                    getTickets(1, $("#searchMobile").val());
+                    getTickets(1, $("#searchmobile").val());
                 });
             }
         });
-        */
+
 
         $('#attachFileNote').click(function () {
             $('#attachmentFileNote').trigger('click');

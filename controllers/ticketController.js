@@ -244,7 +244,8 @@ module.exports = {
                             if (!ticket && !user) {
                                 console.log('Cant send email');
                             } else {
-                                mailer.newAssignedTo(user,ticket);
+                                //Envia correo al asignado
+                                //mailer.newAssignedTo(user,ticket);
                             }
                         });
                 }

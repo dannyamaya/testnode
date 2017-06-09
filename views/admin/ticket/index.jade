@@ -50,11 +50,11 @@ block content
                   li
                     a.categorySearch(href="#") Customer Service
                   li
-                    a.categorySearch(href="#") IT Support
-                  li
                     a.categorySearch(href="#") Maintenance
                   li
                     a.categorySearch(href="#") Visits
+                  li
+                    a.categorySearch(href="#") IT Support
                   li
                     a.categorySearch(href="#") Others
 
@@ -169,11 +169,11 @@ block content
                           li
                               a.categorySearch(href="#") Customer Service
                           li
-                              a.categorySearch(href="#") IT Support
-                          li
                               a.categorySearch(href="#") Maintenance
                           li
                               a.categorySearch(href="#") Visits
+                          li
+                              a.categorySearch(href="#") IT Support
                           li
                               a.categorySearch(href="#") Others
                           li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
@@ -239,19 +239,19 @@ block content
                           li
                             a.prioritySearch(href="#") 
                               span.visible-lg 1 / High Priority / 24H
-                              | High
+                              span.hidden-lg| High
                           li
                             a.prioritySearch(href="#") 
                               span.visible-lg 2 / Medium Priority / 48H
-                              | Medium
+                              span.hidden-lg| Medium
                           li
                             a.prioritySearch(href="#") 
                               span.visible-lg 3 / Low Priority / 72H
-                              | Low
+                              span.hidden-lg| Low
                           li
                             a.prioritySearch(href="#")
                               span.visible-lg 4 / To plan / To schedule
-                              | To Plan
+                              span.hidden-lg| To Plan
                           li.dropdown-header.cleanPrioritySearch.pull-right(style="color:#D51C5C;") Clear
                     button.btn.btn-main.btn-livinn(type="button" data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
     input#hiddenHelper(value=0)
@@ -296,9 +296,9 @@ block modals
                                         option(value="") Please choose a category
                                         option(value="cleaning services") Cleaning Services
                                         option(value="customer service") Customer Service
-                                        option(value="support") IT Support
                                         option(value="maintenance") Maintenance
                                         option(value="visits") Visits
+                                        option(value="it support") IT Support
                                         option(value="others") Others
                             .form-group
                                 label Subject
@@ -343,9 +343,9 @@ block modals
                                         select.editopenticket#openticketcategory(name="category")
                                             option(value="cleaning services") Cleaning Services
                                             option(value="customer service") Customer Service
-                                            option(value="support") IT Support
                                             option(value="maintenance") Maintenance
                                             option(value="visits") Visits
+                                            option(value="it support") IT Support
                                             option(value="others") Others
                                 .form-group
                                     label Subcategory

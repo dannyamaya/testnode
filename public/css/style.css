@@ -2586,6 +2586,19 @@ textarea.parsley-error {
     background-color: white ;
 }
 
+.comment-attachment{
+    color: #E30056;
+    cursor: pointer;
+    font-size: 14px;
+
+}
+
+.comment-attachment a {
+    color: #E30056;
+    font-size: 12px;
+
+}
+
 .gray{
     color: #606470 !important;
 }

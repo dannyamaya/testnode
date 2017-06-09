@@ -867,11 +867,12 @@ button:focus{
 }
 
 .preview i {
-  margin: 0px auto;
   position: absolute;
-  top: 85px;
-  left: 177px;
+  top: 50%;
+  left: 50%;
   color: #D51C5C;
+  margin-top: -10.5px;
+  margin-left: -5px;
 }
 
 .file-upload-wrapper {
@@ -1492,10 +1493,6 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   border: none;
 }
 
-.registrationModal .modal-header {
-  padding: 10px 0px;
-}
-
 .registrationModal .modal-header h3 {
   font-family: 'BebasNeue-Bold', sans-serif;
   margin-top: 10px;
@@ -1504,7 +1501,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   font-size: 2.3rem;
 }
 
-.registrationModal .modal-body .formContainer {
+.registrationModal .modal-body .formContainer,
+.updateUserModal .modal-body .formContainer {
   margin-top: 40px;
 }
 
@@ -1532,6 +1530,11 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   text-transform: capitalize;
 }
 
+.registrationModal .modal-body form .form-group input[type="email"],
+.updateUserModal .modal-body form .form-group input[type="email"] {
+  text-transform: none;
+}
+
 .registrationModal .modal-body form .form-group .form-control,
 .updateUserModal .modal-body form .form-group .form-control {
   border-top: none;
@@ -1557,7 +1560,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   border-left: 1px solid #FFF;
 }
 
-.registrationModal .modal-body form .form-group .select:before {
+.registrationModal .modal-body form .form-group .select:before,
+.updateUserModal .modal-body form .form-group .select:before {
   top: 1.05em;
 }
 
@@ -1580,8 +1584,9 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   padding-left: 0px !important;
 }
 
-.updateUserModal .modal-header button {
-  padding: 4px 9px;
+.updateUserModal .modal-header button,
+.registrationModal .modal-header button {
+  padding: 3px 9px 4px;
   border-radius: 50%;
   border: 2px solid #FFF;
   font-size: 2.7rem;
@@ -1590,15 +1595,19 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   opacity: 1;
 }
 
-.updateUserModal .modal-header h3 {
+.updateUserModal .modal-header h3,
+.registrationModal .modal-header h3 {
   text-transform: uppercase;
   color: #FFF;
-  font-family: 'BebasNeue-Bold', sans-serif;
-  font-size: 2.3rem;
+  font-family: 'BebasNeue-Regular', sans-serif;
+  font-size: 2.9rem;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
+.registrationModal .modal-body form .secondInputGroup.
 .updateUserModal .modal-body form .secondInputGroup {
-  margin-top: 14px;
+  margin-top: -8px;
 }
 
 .updateUserModal .modal-body form .btnsModal {
@@ -2237,11 +2246,6 @@ textarea.parsley-error {
     min-height: 120px;
   }
 
-  .preview i {
-    top: 85px;
-    left: 295px;
-  }
-
   .registrationModal .modal-body form .form-group {
     margin-left: 0px;
     margin-right: 0px;
@@ -2251,8 +2255,8 @@ textarea.parsley-error {
 @media screen and (min-width: 992px) {
 
   .btn-livinn4, .btn-livinn4:hover, .btn-livinn4:focus, .btn-livinn4:active {
-    padding: 4px 22px 1px;
-    border: 2px solid #D51C5C;
+    padding: 5px 22px 1px;
+    border: 1px solid #D51C5C;
     background-color: transparent;
     font-size: 2.3rem;
     font-family: 'BebasNeue-Regular' , sans-serif;
@@ -2328,7 +2332,6 @@ textarea.parsley-error {
     top: 0.4em;
   }
 
-
   .menuManageUser >li>button {
     padding: 7px 45px 5px 7px;
     margin-left: 0px;
@@ -2362,11 +2365,6 @@ textarea.parsley-error {
       margin-top: 9px;
   }
 
-  .preview i {
-    top: 85px;
-    left: 183px;
-  }
-
   .registrationModal .modal-dialog {
     margin: 70px auto;
   }
@@ -2376,8 +2374,9 @@ textarea.parsley-error {
     margin-right: 0px;
   }
 
-  .registrationModal .modal-body form .secondInputGroup {
-    margin-top: 12px;
+  .registrationModal .modal-body form .secondInputGroup,
+  .updateUserModal .modal-body form .secondInputGroup {
+    margin-top: 80px;
   }
 
   .updateUserModal .modal-dialog {

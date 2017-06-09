@@ -623,11 +623,30 @@ button:focus{
   padding-top: 8px;
 }
 
-.userFilters .search-filtersMobile ul .dropdown a {
+.userFilters .search-filtersMobile ul .dropdown .dropdown-menu {
+  border: none;
+  background-color: #E1E1E1;
+  box-shadow: none;
+}
+
+.userFilters .search-filtersMobile ul .dropdown a,
+.userFilters.searchTicket .search-filtersMobile ul .dropdown a {
   color: #9f9fa0;
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: 1.5rem;
+}
+
+.userFilters .search-filtersMobile ul .dropdown button,
+.userFilters.searchTicket .search-filtersMobile ul .dropdown button {
+  text-align: left;
+  color: #9f9fa0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 1.5rem;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
 }
 
 .userFilters .search-filtersMobile .dropdown:nth-child(1) {
@@ -635,6 +654,10 @@ button:focus{
 }
 
 .userFilters .search-filtersMobile .dropdown a span {
+  float: right;
+}
+
+.userFilters .search-filtersMobile .dropdown button span {
   float: right;
 }
 

@@ -1,5 +1,6 @@
 extend ../layout
 block content
+    //- DESKTOP FORM 
     .col-xs-12.userTools.has-feedback
       .col-md-12.no-padding.userMaganementDesktop
         .titleUserManagement.no-padding
@@ -80,6 +81,7 @@ block content
               span
                 i.icon.ion-ios-search-strong
 
+    //- MOBILE FORM
     .col-xs-12.no-padding.hidden-md.hidden-lg#userFilters.userFilters.userFiltersUp
       .col-xs-12.no-padding.clearFilters
         .col-xs-6.btnCloseFiltersMobile
@@ -95,7 +97,8 @@ block content
         ul.col-xs-12.no-padding.nav.navbar-nav
           li.col-xs-12.no-padding.dropdown
             a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
-              i.icon.ion-ios-arrow-down
+              span
+                i.icon.ion-ios-arrow-down
             ul.col-xs-12.no-padding.dropdown-menu
               li
                   a.locationSearch(href="#") Lord Cochrane Santiago
@@ -1237,7 +1240,7 @@ block scripts
 
             var selectedLocation = $(this).html();
             $("#dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>');
-            $(".dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>');
+            $(".dropdownLocation").html(selectedLocation+'<span><i class="fa fa-angle-down"></i><span>');
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");

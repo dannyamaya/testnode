@@ -1609,7 +1609,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .updateUserModal .modal-header button,
-.registrationModal .modal-header button {
+.registrationModal .modal-header button{
   padding: 3px 9px 4px;
   border-radius: 50%;
   border: 2px solid #FFF;

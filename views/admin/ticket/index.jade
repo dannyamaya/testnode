@@ -3,114 +3,9 @@ block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
     .col-xs-12.no-padding.hidden-md.hidden-lg#searchTicket.userFilters.userFiltersUp.searchTicket
-      .col-xs-12.no-padding.clearFilters
-        .col-xs-6.btnCloseFiltersMobile
-          button.btn.btn-default(onclick='collapseFilters1()')
-            span
-              i.icon.ion-ios-arrow-up
-        .col-xs-6.btnClearFilters
-          button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
-      .col-xs-12.no-padding.search-filtersMobile
-        form.col-xs-12.navbar-left(action='' method='' type='')
-            .input-group.search
-                .col-xs-4.no-padding
-                    .select
-                        select#searchby
-                            option(value="requested_by") Requested by
-                            option(value="created_by" selected="true") Created by
-                            option(value="assigned_to") Assigned to
-                            option(value="id") Work Order ID
-                .col-xs-8.no-padding
-                    input.form-control#searchmobile(type="text" name="name" placeholder="Search")
-
-        .col-xs-12
-         .select.select-livinn
-            select.form-control.filter#categoryselectmobile
-                option(value="" selected) Category
-                option(value="cleaning services") Cleaning Services
-                option(value="customer service") Customer Service
-                option(value="support") IT Support
-                option(value="maintenance") Maintenance
-                option(value="visits") Visits
-                option(value="others") Others
-        .col-xs-12
-          .select.select-livinn.col-xs-2
-              select.form-control.filter#subcategoryselectmobile
-                  option(value="" selected) Subcategories
-                  optgroup(label="Zona de BBQ" style="color:#000;")
-                  optgroup(label="Reservación" style="margin-left:15px;")
-                     option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-                     option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
-                  option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
-                  option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
-                  optgroup(label="Limpieza" style="margin-left:15px;")
-                      option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
-                      option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
-                      option(value="Zona de BBQ/Limpieza/Mesa") Mesa
-                      option(value="Zona de BBQ/Limpieza/Parilla") Parilla
-                  optgroup(label="Cuarto de Billar" style="color:#000;")
-                      optgroup(label="Reservación" style="margin-left:15px;")
-                          option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
-                          option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
-                      option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
-                      option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
-                      optgroup(label="Limpieza" style="margin-left:15px;")
-                          option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
-                          option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
-                          option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-        .col-xs-12
-          .select.select-livinn.col-xs-2
-              select.form-control.filter#statusselectmobile
-                  option(value="" selected) Status
-                  option(value="0") Open
-                  option(value="1") Pending
-                  option(value="2") Resolved
-        .col-xs-12
-          .select.select-livinn.col-xs-2
-              select.form-control.filter#priorityselectmobile
-                  option(value="" selected) Priority
-                  option(value="1") 1 / High Priority / 24H
-                  option(value="2") 2 / Medium Priority / 48H
-                  option(value="3") 3 / Low Priority / 72H
-                  option(value="4") 4 / To plan / To schedule
-        ul.col-xs-12.no-padding.nav.navbar-nav.hidden
-          li.col-xs-12.no-padding.dropdown
-            a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
-              span
-                i.icon.ion-ios-arrow-down
-            ul.col-xs-12.no-padding.dropdown-menu
-              li
-                  a.locationSearch(href="#") Lord Cochrane Santiago
-              li
-                  a.locationSearch(href="#") Viña del Mar
-              li
-                  a.locationSearch(href="#") Calle 18 Bogotá
-              li
-                  a.locationSearch(href="#") Calle 21 Bogotá
-              li
-                  a.locationSearch(href="#") Villa campestre Barranquilla
-          li.col-xs-12.no-padding.dropdown
-            a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
-              span
-                i.icon.ion-ios-arrow-down
-            ul.col-xs-12.no-padding.dropdown-menu
-              li
-                a.roleSearch(href="#") Client Service
-              li
-                  a.roleSearch(href="#") Maintenance
-              li
-                  a.roleSearch(href="#") Marketing
-              li
-                  a.roleSearch(href="#") Resident
-              li
-                  a.roleSearch(href="#") Resident Assistant
-              li
-                  a.roleSearch(href="#") Operation Manager
-    .col-xs-12.userTools.has-feedbackc.ticketTools
-        .col-xs-12.col-md-2.heading-title.hidden-md.hidden-lg
-            h2.col-xs-10.col-md-12.no-padding #{title}
-            .pull-right.visible-xs.visible-sm
-                button.btn.btn-livinn#Filters(onclick="deployFilters1()" style="padding: 2px 8px; margin-top: -2px;")
+        .col-xs-12.no-padding.clearFilters
+            .col-xs-6.btnCloseFiltersMobile
+                button.btn.btn-default(onclick='collapseFilters1()')
                     span
                         i.icon.ion-ios-search-strong(style="font-size:2rem;")
         .col-xs-12.hidden-xs.hidden-sm.no-padding
@@ -154,17 +49,40 @@ block content
                       li
                           a.locationSearch(href="#") Villa campestre Barranquilla
                       li.dropdown-header.cleanLocationSearch.pull-right(style="color:#D51C5C;") Clear
+                        i.icon.ion-ios-arrow-up
+            .col-xs-6.btnClearFilters
+                button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
+        .col-xs-12.no-padding.search-filtersMobile
+            form.col-xs-12.navbar-left(action='' method='' type='')
+                .input-group.search
+                    .col-xs-4.no-padding
+                        .select
+                            select#searchby
+                                option(value="requested_by") Requested by
+                                option(value="created_by" selected="true") Created by
+                                option(value="assigned_to") Assigned to
+                                option(value="id") Work Order ID
+                    .col-xs-8.no-padding
+                        input.form-control#searchmobile(type="text" name="name" placeholder="Search")
 
-
-
-
+            .col-xs-12
                 .select.select-livinn
-                    select.form-control.filter#subcategoryselect(style="width:130px;")
+                    select.form-control.filter#categoryselectmobile
+                        option(value="" selected) Category
+                        option(value="cleaning services") Cleaning Services
+                        option(value="customer service") Customer Service
+                        option(value="support") IT Support
+                        option(value="maintenance") Maintenance
+                        option(value="visits") Visits
+                        option(value="others") Others
+            .col-xs-12
+                .select.select-livinn.col-xs-2
+                    select.form-control.filter#subcategoryselectmobile
                         option(value="" selected) Subcategories
                         optgroup(label="Zona de BBQ" style="color:#000;")
                         optgroup(label="Reservación" style="margin-left:15px;")
-                           option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-                           option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                            option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                            option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
                         option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
                         option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
                         optgroup(label="Limpieza" style="margin-left:15px;")
@@ -182,40 +100,143 @@ block content
                                 option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
                                 option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                 option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-                        optgroup(label="Gimnasio" style="color:#000;")
-                          optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
-                            option(value="Gimnasio/Limpieza/Ventanas") Ventanas
-                            option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
-                            option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
-                            option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
-                            option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
-                            option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
-                        optgroup(label="Salón de Juegos" style="color:#000;")
-                          optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
-                            option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
-                            option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
-                            option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
-                          option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
-                          option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
-                          option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
-                          option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
-
-
-                .select.select-livinn
-                  select.form-control.filter#statusselect
-                      option(value="" selected) Status
-                      option(value="0") Open
-                      option(value="1") Pending
-                      option(value="2") Resolved
-
-                .select.select-livinn
-                    select.form-control.filter#priorityselect(style="width:100px;")
+            .col-xs-12
+                .select.select-livinn.col-xs-2
+                    select.form-control.filter#statusselectmobile
+                        option(value="" selected) Status
+                        option(value="0") Open
+                        option(value="1") Pending
+                        option(value="2") Resolved
+            .col-xs-12
+                .select.select-livinn.col-xs-2
+                    select.form-control.filter#priorityselectmobile
                         option(value="" selected) Priority
                         option(value="1") 1 / High Priority / 24H
                         option(value="2") 2 / Medium Priority / 48H
                         option(value="3") 3 / Low Priority / 72H
                         option(value="4") 4 / To plan / To schedule
-                button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
+            ul.col-xs-12.no-padding.nav.navbar-nav.hidden
+                li.col-xs-12.no-padding.dropdown
+                    a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+                        span
+                            i.icon.ion-ios-arrow-down
+                    ul.col-xs-12.no-padding.dropdown-menu
+                        li
+                            a.locationSearch(href="#") Lord Cochrane Santiago
+                        li
+                            a.locationSearch(href="#") Viña del Mar
+                        li
+                            a.locationSearch(href="#") Calle 18 Bogotá
+                        li
+                            a.locationSearch(href="#") Calle 21 Bogotá
+                        li
+                            a.locationSearch(href="#") Villa campestre Barranquilla
+                li.col-xs-12.no-padding.dropdown
+                    a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
+                        span
+                            i.icon.ion-ios-arrow-down
+                    ul.col-xs-12.no-padding.dropdown-menu
+                        li
+                            a.roleSearch(href="#") Client Service
+                        li
+                            a.roleSearch(href="#") Maintenance
+                        li
+                            a.roleSearch(href="#") Marketing
+                        li
+                            a.roleSearch(href="#") Resident
+                        li
+                            a.roleSearch(href="#") Resident Assistant
+                        li
+                            a.roleSearch(href="#") Operation Manager
+    .col-xs-12.userTools.has-feedbackc.ticketTools
+        .col-xs-12.col-md-2.heading-title.hidden-md.hidden-lg
+            h2.col-xs-10.col-md-12.no-padding #{title}
+            .pull-right.visible-xs.visible-sm
+                button.btn.btn-livinn#Filters(onclick="deployFilters1()" style="padding: 2px 8px; margin-top: -2px;")
+                    span
+                        i.icon.ion-ios-search-strong(style="font-size:2rem;")
+        .col-xs-12.hidden-xs.hidden-sm.no-padding
+            form.form.col-xs-12.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
+                h2.workordertitle#workordertitle Work Orders
+                .pull-right
+                    .col-xs-4.no-padding
+                        .input-group.search
+                            .col-md-6.no-padding
+                                .select
+                                    select#searchby
+                                        option(value="requested_by") Requested by
+                                        option(value="created_by" selected="true") Created by
+                                        option(value="assigned_to") Assigned to
+                                        option(value="id") Work Order ID
+                            .col-xs-6.no-padding
+                                input.form-control#search(type="text" name="name" placeholder="Search")
+                    .select.select-livinn(style="width:100px;")
+                        select.form-control.filter#categoryselect
+                            option(value="" selected) Category
+                            option(value="cleaning services") Cleaning Services
+                            option(value="customer service") Customer Service
+                            option(value="support") IT Support
+                            option(value="maintenance") Maintenance
+                            option(value="visits") Visits
+                            option(value="others") Others
+                    .select.select-livinn
+                        select.form-control.filter#subcategoryselect(style="width:130px;")
+                            option(value="" selected) Subcategories
+                            optgroup(label="Zona de BBQ" style="color:#000;")
+                            optgroup(label="Reservación" style="margin-left:15px;")
+                                option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                                option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                            option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+                            option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                            optgroup(label="Limpieza" style="margin-left:15px;")
+                                option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+                                option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+                                option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+                                option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+                            optgroup(label="Cuarto de Billar" style="color:#000;")
+                                optgroup(label="Reservación" style="margin-left:15px;")
+                                    option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+                                    option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+                                option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+                                option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
+                                optgroup(label="Limpieza" style="margin-left:15px;")
+                                    option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+                                    option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+                                    option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+                            optgroup(label="Gimnasio" style="color:#000;")
+                                optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
+                                    option(value="Gimnasio/Limpieza/Ventanas") Ventanas
+                                    option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
+                                    option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
+                                    option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
+                                    option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
+                                    option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
+                            optgroup(label="Salón de Juegos" style="color:#000;")
+                                optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
+                                    option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
+                                    option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
+                                    option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
+                                option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
+                                option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
+                                option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
+                                option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
+
+
+                    .select.select-livinn
+                        select.form-control.filter#statusselect
+                            option(value="" selected) Status
+                            option(value="0") Open
+                            option(value="1") Pending
+                            option(value="2") Resolved
+
+                    .select.select-livinn
+                        select.form-control.filter#priorityselect(style="width:100px;")
+                            option(value="" selected) Priority
+                            option(value="1") 1 / High Priority / 24H
+                            option(value="2") 2 / Medium Priority / 48H
+                            option(value="3") 3 / Low Priority / 72H
+                            option(value="4") 4 / To plan / To schedule
+                    button.btn.btn-main.btn-livinn(data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
     input#hiddenHelper(value=0)
     .col-xs-12.content
         .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
@@ -247,7 +268,7 @@ block modals
                                         |   Requested by
                                         span  (optional)
                                         button.btn(type="button" data-tooltip="true" data-placement="right" title="In case you want to file a Work Order as someone else, leave it blank if you want to file it as yours." style="background-color:#fff; padding: 0px 4px; position: relative; top: -1px;")
-                                          i.fa.fa-question-circle(aria-hidden="true")
+                                            i.fa.fa-question-circle(aria-hidden="true")
                                     input.form-control.tagarea#searchinput(type="search")
                                     input.form-control#searchinputHidden(type="hidden" name="requested_by")
                             input(type="hidden" name="location" value="#{user.location}")
@@ -316,8 +337,8 @@ block modals
                                             option(value="" selected) Subcategories
                                             optgroup(label="Zona de BBQ" style="color:#000;")
                                             optgroup(label="Reservación" style="margin-left:15px;")
-                                               option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-                                               option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                                                option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                                                option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
                                             option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
                                             option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
                                             optgroup(label="Limpieza" style="margin-left:15px;")
@@ -336,22 +357,22 @@ block modals
                                                     option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                                     option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
                                             optgroup(label="Gimnasio" style="color:#000;")
-                                              optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
-                                                option(value="Gimnasio/Limpieza/Ventanas") Ventanas
-                                                option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
-                                                option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
-                                                option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
-                                                option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
-                                                option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
+                                                optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
+                                                    option(value="Gimnasio/Limpieza/Ventanas") Ventanas
+                                                    option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
+                                                    option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
+                                                    option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
+                                                    option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
+                                                    option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
                                             optgroup(label="Salón de Juegos" style="color:#000;")
-                                              optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
-                                                option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
-                                                option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
-                                                option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
-                                              option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
-                                              option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
-                                              option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
-                                              option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
+                                                optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
+                                                    option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
+                                                    option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
+                                                    option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
+                                                option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
+                                                option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
+                                                option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
+                                                option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
                                 .form-group
                                     label Priority
                                     .select
@@ -364,16 +385,16 @@ block modals
 
                             .col-xs-12.col-sm-9.ticket-right
                                 .col-xs-12.has-feedback
-                                     p.ticketrequestby.text-capitalize#ticketrequestby
-                                     p.ticketsubject#ticketsubject
-                                     p.ticketcategory#ticketcategory
-                                     p.ticketdate#ticketdate
-                                     .buttons-status(style="")
-                                         button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus no-padding" data-status="0" data-id="1")
+                                    p.ticketrequestby.text-capitalize#ticketrequestby
+                                    p.ticketsubject#ticketsubject
+                                    p.ticketcategory#ticketcategory
+                                    p.ticketdate#ticketdate
+                                    .buttons-status(style="")
+                                        button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus no-padding" data-status="0" data-id="1")
                                             i(class="fa fa-exclamation-circle")
-                                         button#dos(type="button" title="Open" class="btn-clock-o btn-status classStatus " data-status="1" data-id="2")
+                                        button#dos(type="button" title="Open" class="btn-clock-o btn-status classStatus " data-status="1" data-id="2")
                                             i(class="fa fa-clock-o")
-                                         button#tres(type="button" title="Resolved" class="btn-check-circle btn-status classStatus no-padding" data-status="2" data-id="3")
+                                        button#tres(type="button" title="Resolved" class="btn-check-circle btn-status classStatus no-padding" data-status="2" data-id="3")
                                             i(class="fa fa-check-circle")
 
                                 .col-xs-12
@@ -385,18 +406,30 @@ block modals
                                             a.gray(href='#note', aria-controls='note', role='tab', data-toggle='tab') Note
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
-                                        #comment.tab-pane.active(role='tabpanel')
+                                        form.tab-pane.active#comment(method="post" enctype="multipart/form-data" role='tabpanel')
                                             textarea.form-control.message_input(rows="5" placeholder="Type your comment here...")
+
                                             .bottom_wrapper.clearfix
-                                                .send_message.sendMessage(data-current-user="" data-current-user-image="")
+                                                .send_message.sendMessage.btn-livinn(data-current-user="" data-current-user-image="")
                                                     .icon
                                                     .text Send
-                                        #note.tab-pane(role='tabpanel')
+                                                input#attachmentFile(type="file" style="display:none" name='attachments')
+                                                a#attachFile.comment-attachment
+                                                    i.fa.fa-paperclip(aria-hidden='true')
+                                                    |  Attach a file
+
+
+
+                                        form.tab-pane#note(role='tabpanel' method="post" enctype="multipart/form-data")
                                             textarea.form-control#textareaNotes(rows="5" placeholder="Type your notes here...")
                                             .bottom_wrapper.clearfix
                                                 .send_message.sendNote(data-current-user="" data-current-user-image="")
                                                     .icon
                                                     .text Send
+                                                input#attachmentFileNote(type="file" style="display:none" name='attachments')
+                                                a#attachFileNote.comment-attachment
+                                                    i.fa.fa-paperclip(aria-hidden='true')
+                                                    |  Attach a file
                                 .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
 
@@ -413,7 +446,6 @@ block modals
                                     .col-xs-12.no-padding.tab-content
                                         #allcomments.tab-pane.active(role='tabpanel')
                                             ul.messages.styleMessage
-
                                             .message_template
                                                 li(class="message" data-id="" data-user="")
                                                     input#hiddenPhoto(type="hidden")
@@ -439,17 +471,17 @@ block scripts
     script.
 
         function deployFilters1() {
-          if ($("#searchTicket").hasClass("userFiltersUp")) {
-            $("#searchTicket").removeClass("userFiltersUp");
-            $("#searchTicket").addClass("userFiltersDown");
-          }
+            if ($("#searchTicket").hasClass("userFiltersUp")) {
+                $("#searchTicket").removeClass("userFiltersUp");
+                $("#searchTicket").addClass("userFiltersDown");
+            }
         }
 
         function collapseFilters1() {
-          if ($("#searchTicket").hasClass("userFiltersDown")) {
-            $("#searchTicket").removeClass("userFiltersDown");
-            $("#searchTicket").addClass("userFiltersUp");
-          }
+            if ($("#searchTicket").hasClass("userFiltersDown")) {
+                $("#searchTicket").removeClass("userFiltersDown");
+                $("#searchTicket").addClass("userFiltersUp");
+            }
         }
 
         $('.locationSearch').click(function(){ 
@@ -463,16 +495,16 @@ block scripts
 
         $(document).ready(function () {
 
-            $(function() {
-              $('[data-tooltip="true"]').tooltip();
+            $(function () {
+                $('[data-tooltip="true"]').tooltip();
             });
 
             var count = 2;
-            $(window).scroll(function(){
-                if  (($(window).scrollTop() == $(document).height() - $(window).height())&& $('#loading').length){
-                   //console.log('loading on scroll, page: ' + count);
-                   filterTickets(count);
-                   count++;
+            $(window).scroll(function () {
+                if (($(window).scrollTop() == $(document).height() - $(window).height()) && $('#loading').length) {
+                    //console.log('loading on scroll, page: ' + count);
+                    filterTickets(count);
+                    count++;
                 }
             });
 
@@ -506,51 +538,51 @@ block scripts
             }
 
             //Priority
-            if(dataServer.ticket.priority == 1){
+            if (dataServer.ticket.priority == 1) {
                 priority = 'one';
-            } else if(dataServer.ticket.priority == 2){
+            } else if (dataServer.ticket.priority == 2) {
                 priority = 'two';
-            } else if(dataServer.ticket.priority == 3){
+            } else if (dataServer.ticket.priority == 3) {
                 priority = 'three';
             } else {
                 priority = 'four';
             }
 
             //Assigned to
-            if(!dataServer.ticket.assigned_to || dataServer.ticket.assigned_to.length==0 ){
+            if (!dataServer.ticket.assigned_to || dataServer.ticket.assigned_to.length == 0) {
                 assignedto = 'Not assigned';
             } else {
 
                 assignedto = '';
-                for(i = 0; i < dataServer.ticket.assigned_to.length;i++){
-                    if(i==dataServer.ticket.assigned_to.length-1){
-                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+'.';
+                for (i = 0; i < dataServer.ticket.assigned_to.length; i++) {
+                    if (i == dataServer.ticket.assigned_to.length - 1) {
+                        assignedto += ' ' + dataServer.ticket.assigned_to[i].name.first + ' ' + dataServer.ticket.assigned_to[i].name.last + '.';
                     } else {
-                        assignedto+=' '+dataServer.ticket.assigned_to[i].name.first+' '+dataServer.ticket.assigned_to[i].name.last+', ';
+                        assignedto += ' ' + dataServer.ticket.assigned_to[i].name.first + ' ' + dataServer.ticket.assigned_to[i].name.last + ', ';
                     }
                 }
             }
 
             //Opened
-            if(dataServer.ticket.opened){
-                opened='opened';
+            if (dataServer.ticket.opened) {
+                opened = 'opened';
             } else {
-                opened='';
+                opened = '';
             }
 
-            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+dataServer.ticket._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ dataServer.ticket.requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ dataServer.ticket.subject +'</button><p class="col-xs-12 no-padding reference">#'+ dataServer.ticket._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">'+ getCategory(dataServer.ticket.category)+'<br class="visible-xs">'+getCategory(dataServer.ticket.subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(dataServer.ticket.status, dataServer.ticket._id) +'</div></div>');
+            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + dataServer.ticket._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + dataServer.ticket.requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + dataServer.ticket.subject + '</button><p class="col-xs-12 no-padding reference">#' + dataServer.ticket._id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(dataServer.ticket.category) + '<br class="visible-xs">' + getCategory(dataServer.ticket.subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(dataServer.ticket.status, dataServer.ticket._id) + '</div></div>');
 
         });
 
         //----------------- HELPERS ---------------------------
-        $("#btn-mobileMenu").click(function() {
+        $("#btn-mobileMenu").click(function () {
 
-          $("#workordertitle").toggleClass("hidden-lg");
+            $("#workordertitle").toggleClass("hidden-lg");
         });
 
         function getCategory(category) {
             var value = '';
-            if( category ){
+            if (category) {
                 if (category == 'cleaning services') {
                     value = "<span class='label label-cleaning'>CLEANING SERVICES</span>";
                 } else if (category == 'customer service') {
@@ -564,7 +596,7 @@ block scripts
                 } else if (category == 'others') {
                     value = "<span class='label label-other'>OTHERS</span>";
                 } else {
-                    value = "<span class='label label-default text-uppercase'>"+category+"</span>";
+                    value = "<span class='label label-default text-uppercase'>" + category + "</span>";
                 }
             }
             return value;
@@ -601,21 +633,21 @@ block scripts
                 });
 
             },
-            select: function( event, ui ) {
-                $( "#searchinput" ).append('<div><span><img class="img-circle user-disp-img" src="'+ui.item.profile_picture+'"></span></div>');
+            select: function (event, ui) {
+                $("#searchinput").append('<div><span><img class="img-circle user-disp-img" src="' + ui.item.profile_picture + '"></span></div>');
                 $("#searchinputHidden").val(ui.item._id);
                 return false;
             },
             minLength: 1
         }).data("ui-autocomplete")._renderItem = function (ul, item) {
             console.log(item);
-            return $("<li class='li-autocomplete li-user' data-id='" + item._id + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
+            return $("<li class='li-autocomplete li-user' data-id='" + item._id + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="' + item.profile_picture + '"></span>' + item.name.first + ' ' + item.name.last).appendTo(ul);
         };
 
         $("#ticketasignee").autocomplete({
             source: function (request, response) {
                 $('#ticketasignee').css("cursor", "wait");
-                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val()+'&role=resident';
+                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val() + '&role=resident';
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -629,7 +661,7 @@ block scripts
             minLength: 1
         }).data("ui-autocomplete")._renderItem = function (ul, item) {
             console.log(item);
-            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
+            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="' + item.profile_picture + '"></span>' + item.name.first + ' ' + item.name.last).appendTo(ul);
         };
 
         //----------------- CREATE ---------------------------
@@ -672,32 +704,32 @@ block scripts
         //----------------- READ ---------------------------
         function getTickets(page, search) {
 
-            if(page =='1') {
+            if (page == '1') {
                 $('.tickets').hide().html("");
                 $('#loader').fadeIn("slow");
-            }else{
+            } else {
                 $('#loading').fadeIn("slow");
             }
 
             var options = '';
 
-            $("#categoryselect").val() != '' ? options+= '&category='+$("#categoryselect").val():null;
-            $("#subcategoryselect").val() != '' ? options+= '&subcategory='+$("#subcategoryselect").val():null;
-            $("#statusselect").val() != ''? options+= '&status='+$("#statusselect").val():null;
-            $("#priorityselect").val() != ''? options+= '&priority='+$("#priorityselect").val():null;
+            $("#categoryselect").val() != '' ? options += '&category=' + $("#categoryselect").val() : null;
+            $("#subcategoryselect").val() != '' ? options += '&subcategory=' + $("#subcategoryselect").val() : null;
+            $("#statusselect").val() != '' ? options += '&status=' + $("#statusselect").val() : null;
+            $("#priorityselect").val() != '' ? options += '&priority=' + $("#priorityselect").val() : null;
 
             var searchby = $("#searchby").val();
             var searchtext = $('#search').val().trim();
 
-            if( searchtext != '' ){
-                if(searchby == 'created_by'  ){
-                    options+= '&created_by='+search;
-                } else if(searchby == 'assigned_to'){
-                    options+= '&assigned_to='+search;
-                } else if(searchby == 'requested_by'){
-                    options+= '&requested_by='+search;
+            if (searchtext != '') {
+                if (searchby == 'created_by') {
+                    options += '&created_by=' + search;
+                } else if (searchby == 'assigned_to') {
+                    options += '&assigned_to=' + search;
+                } else if (searchby == 'requested_by') {
+                    options += '&requested_by=' + search;
                 } else {
-                    options+= '&id='+search;
+                    options += '&id=' + search;
                 }
             }
 
@@ -718,9 +750,10 @@ block scripts
                     var assignedto = '';
                     var opened = '';
 
-                    if(data.tickets.length == 0){
+                    if (data.tickets.length == 0) {
                         $('#loading').remove();
-                    };
+                    }
+                    ;
                     for (key = 0; key < data.tickets.length; key++) {
 
                         //Date
@@ -732,11 +765,11 @@ block scripts
                         }
 
                         //Priority
-                        if(data.tickets[key].priority == 1){
+                        if (data.tickets[key].priority == 1) {
                             priority = 'one';
-                        } else if(data.tickets[key].priority == 2){
+                        } else if (data.tickets[key].priority == 2) {
                             priority = 'two';
-                        } else if(data.tickets[key].priority == 3){
+                        } else if (data.tickets[key].priority == 3) {
                             priority = 'three';
                         } else {
                             priority = 'four';
@@ -745,15 +778,14 @@ block scripts
                         //Assigned to
 
 
-                        if(!data.tickets[key].assigned_to || data.tickets[key].assigned_to.length==0 ){
+                        if (!data.tickets[key].assigned_to || data.tickets[key].assigned_to.length == 0) {
                             assignedto = 'Not assigned';
                         } else {
                             assignedto = '';
-                            for(i = 0; i < data.tickets[key].assigned_to.length;i++){
+                            for (i = 0; i < data.tickets[key].assigned_to.length; i++) {
 
 
-
-                                if(typeof data.tickets[key].assigned_to[i].name.first !== 'undefined'){
+                                if (typeof data.tickets[key].assigned_to[i].name.first !== 'undefined') {
 
                                     if (i == data.tickets[key].assigned_to.length - 1) {
                                         assignedto += ' ' + data.tickets[key].assigned_to[i].name.first + ' ' + data.tickets[key].assigned_to[i].name.last + '.';
@@ -767,16 +799,17 @@ block scripts
                         }
 
                         //Opened
-                        if(data.tickets[key].opened){
-                            opened='opened';
+                        if (data.tickets[key].opened) {
+                            opened = 'opened';
                         } else {
-                            opened='';
+                            opened = '';
                         }
 
                         //console.log(assignedto);
-                        $('.tickets').append('<div class="col-xs-12 no-padding ticket '+priority+' '+opened+'" data-ticketid="'+data.tickets[key]._id+'"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="'+ data.tickets[key].requested_by.profile_picture +'" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\''+ data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture +'\')" class="col-xs-12 col-md-10 no-padding ticket-title">'+ data.tickets[key].subject +'</button><p class="col-xs-12 no-padding reference">#'+ data.tickets[key]._id +'</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">'+assignedto+'</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> '+ data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last +'</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">'+ getCategory(data.tickets[key].category)+'<br class="visible-xs">'+getCategory(data.tickets[key].subcategory) +'</div><div class="col-xs-6 no-padding"><p class="ticket-date">'+formatedDate +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">'+ getStatus(data.tickets[key].status, data.tickets[key]._id) +'</div></div>');
+                        $('.tickets').append('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + data.tickets[key]._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + data.tickets[key].requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + data.tickets[key].subject + '</button><p class="col-xs-12 no-padding reference">#' + data.tickets[key]._id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(data.tickets[key].category) + '<br class="visible-xs">' + getCategory(data.tickets[key].subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(data.tickets[key].status, data.tickets[key]._id) + '</div></div>');
 
-                    };
+                    }
+                    ;
                 }
             }).done(function (data) {
                 $('#loader').fadeOut("fast", function () {
@@ -815,16 +848,18 @@ block scripts
 
         /*=== READ: Open ticket ===*/
 
-        function openTicket(ticketid,img) {
+        function openTicket(ticketid, img) {
 
             openticketid = ticketid;
 
             $('.messages').empty();
             $('.notes').empty();
             $("#ticketasigneeGroup").empty();
-            $('.send_message').attr('data-current-user','#{user._id}');
-            $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
-            $('.send_message').attr('data-name','#{user.name.first}  #{user.name.last}');
+            $('#ticketasignee').val('');
+            $('#attachFileNote').html('<i class="fa fa-paperclip" aria-hidden="true"></i> Attach a file')
+            $('.send_message').attr('data-current-user', '#{user._id}');
+            $('.send_message').attr('data-current-user-image', '#{user.profile_picture}');
+            $('.send_message').attr('data-name', '#{user.name.first}  #{user.name.last}');
 
             $.ajax({
                 type: "GET",
@@ -833,10 +868,10 @@ block scripts
 
                     console.log(response);
                     $('#hiddenTicket').val(response.ticket._id);
-                    $('.readModalTitle').html('Work Order #' + response.ticket._id );
-                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='"+response.ticket.requested_by.profile_picture+"'</span>"+response.ticket.requested_by.name.first+" "+response.ticket.requested_by.name.last);
+                    $('.readModalTitle').html('Work Order #' + response.ticket._id);
+                    $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='" + response.ticket.requested_by.profile_picture + "'</span>" + response.ticket.requested_by.name.first + " " + response.ticket.requested_by.name.last);
                     $("#ticketemail").text(response.ticket.requested_by.email);
-                    if(response.ticket.requested_by.phone.number){
+                    if (response.ticket.requested_by.phone.number) {
                         $("#ticketphone").text(response.ticket.requested_by.phone.number);
                     } else {
                         $("#ticketphone").text("N/A");
@@ -844,27 +879,27 @@ block scripts
                     $("#openticketcategory").val(response.ticket.category);
                     $("#openticketsubcategory").val(response.ticket.subcategory);
                     $("#openticketpriority").val(response.ticket.priority);
-                    $("#ticketrequestby").html("<span class='text'><img class='img-circle user-disp-img' src='"+response.ticket.created_by.profile_picture+"'</span>"+response.ticket.created_by.name.first+" "+response.ticket.created_by.name.last);
+                    $("#ticketrequestby").html("<span class='text'><img class='img-circle user-disp-img' src='" + response.ticket.requested_by.profile_picture + "'</span>" + response.ticket.requested_by.name.first + " " + response.ticket.requested_by.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
-                    $("#ticketcategory").html(getCategory(response.ticket.category)+getCategory(response.ticket.subcategory));
-                    $('#uno').attr('data-id',response.ticket._id);
-                    $('#dos').attr('data-id',response.ticket._id);
-                    $('#tres').attr('data-id',response.ticket._id);
-                    if(response.ticket.status == 0){
+                    $("#ticketcategory").html(getCategory(response.ticket.category) + getCategory(response.ticket.subcategory));
+                    $('#uno').attr('data-id', response.ticket._id);
+                    $('#dos').attr('data-id', response.ticket._id);
+                    $('#tres').attr('data-id', response.ticket._id);
+                    if (response.ticket.status == 0) {
                         $('.classStatus').removeClass('active');
                         $('#uno').addClass('active');
                     }
-                        if(response.ticket.status == 1){
+                    if (response.ticket.status == 1) {
                         $('.classStatus').removeClass('active');
                         $('#dos').addClass('active');
                     }
-                        if(response.ticket.status == 2){
+                    if (response.ticket.status == 2) {
                         $('.classStatus').removeClass('active');
                         $('#tres').addClass('active');
                     }
 
                     $.each(response.ticket.assigned_to, function (key, value) {
-                        $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" +value.profile_picture +"'</span><span class='label label-default'>" + value.name.first + " "+ value.name.last + "  <a><i data-assignee='"+value._id +"' data-ticket-id='"+response.ticket._id+"' id='assignee"+value._id +"' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
+                        $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" + value.profile_picture + "'</span><span class='label label-default'>" + value.name.first + " " + value.name.last + "  <a><i data-assignee='" + value._id + "' data-ticket-id='" + response.ticket._id + "' id='assignee" + value._id + "' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
                     });
 
                     $("#ticketdate").html(moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
@@ -883,19 +918,26 @@ block scripts
                             this.name = arg.name;
                             this.section = arg.section;
                             this.created = arg.created;
+                            this.file = arg.file;
+                            this.filename = arg.filename;
 
                             this.draw = function (_this) {
                                 return function () {
                                     var $message;
                                     $message = $($('.message_template').clone().html());
-                                    $message.attr('data-user',_this.user);
-                                    $message.attr('data-side',_this.message_side);
-                                    $message.attr('data-name',_this.name);
-                                    $message.addClass(_this.message_side).find('.text').append('<label class="label-message">'+_this.name +'</label><br>');
-                                    $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">'+_this.created+'</p><p class="comment-chat">' + _this.text + '</p>');
-                                    $message.find('.img-user-conversation').attr('src',_this.profile_pic);
-                                    $('.'+_this.section).append($message);
-                                        return $message.addClass('appeared');
+                                    $message.attr('data-user', _this.user);
+                                    $message.attr('data-side', _this.message_side);
+                                    $message.attr('data-name', _this.name);
+                                    $message.addClass(_this.message_side).find('.text').append('<label class="label-message">' + _this.name + '</label><br>');
+                                    if (_this.file !== '')
+                                        $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">' + _this.created + '</p><p class="comment-chat">' + _this.text + '</p>' + '<p class="comment-attachment"><a href="' + _this.file + '" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i> ' + _this.filename + '</a></p>');
+                                    else
+                                        $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">' + _this.created + '</p><p class="comment-chat">' + _this.text + '</p>');
+
+
+                                    $message.find('.img-user-conversation').attr('src', _this.profile_pic);
+                                    $('.' + _this.section).append($message);
+                                    return $message.addClass('appeared');
                                 };
                             }(this);
                             return this;
@@ -907,7 +949,7 @@ block scripts
                                 $message_input = $('.message_input');
                                 return $message_input.val();
                             };
-                            sendMessage = function (text, user, side, profile_pic, name, section, created) {
+                            sendMessage = function (text, user, side, profile_pic, name, section, created, file, filename) {
                                 var $messages, message;
                                 if (text.trim() === '') {
                                     return;
@@ -919,10 +961,12 @@ block scripts
                                     text: text,
                                     message_side: 'left',
                                     profile_pic: profile_pic,
-                                    user:user,
+                                    user: user,
                                     name: name,
-                                    section:section,
-                                    created:created
+                                    section: section,
+                                    created: created,
+                                    file: file,
+                                    filename: filename
                                 });
                                 message.draw();
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
@@ -933,16 +977,19 @@ block scripts
 
                                 $('.sendNote').click(function (e) {
                                     var ticket = response.ticket._id;
+                                    var formData = new FormData($('#note')[0]);
+                                    formData.append('discussion_id', ticket);
+                                    formData.append('posted_by', $(this).attr('data-current-user'));
+                                    formData.append('note', $('#textareaNotes').val());
 
                                     $.ajax({
                                         type: "POST",
                                         url: '/api/notes',
-                                        data: {
-                                            discussion_id: ticket,
-                                            posted_by: $(this).attr('data-current-user'),
-                                            note: $('#textareaNotes').val()
-                                        },
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
                                         success: function (response) {
+                                            return sendMessage($('#textareaNotes').val(), $('.sendNote').attr('data-current-user'), 'left', $('.sendNote').attr('data-current-user-image'), $('.sendNote').attr('data-name'), 'notes', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'), response.note.attachments, response.note.file_name);
 
                                         },
                                         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -950,48 +997,47 @@ block scripts
                                         }
                                     });
 
-                                    return sendMessage($('#textareaNotes').val(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'notes',moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'));
                                 });
 
                                 $('.sendMessage').click(function (e) {
                                     var ticket = response.ticket._id;
+                                    var formData = new FormData($('#comment')[0]);
+                                    formData.append('discussion_id', ticket);
+                                    formData.append('posted_by', $(this).attr('data-current-user'));
+                                    formData.append('comment', getMessageText());
+
 
                                     $.ajax({
                                         type: "POST",
                                         url: '/api/comments',
-                                        data: {
-                                            discussion_id: ticket,
-                                            posted_by: $(this).attr('data-current-user'),
-                                            comment: getMessageText()
-                                        },
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
                                         success: function (response) {
-
+                                            return sendMessage(getMessageText(), $('.sendMessage').attr('data-current-user'), 'left', $('.sendMessage').attr('data-current-user-image'), $('.sendMessage').attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'), response.comment.attachments, response.comment.file_name);
                                         },
                                         error: function (XMLHttpRequest, textStatus, errorThrown) {
 
                                         }
                                     });
 
-                                    return sendMessage(getMessageText(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'));
                                 });
 
                             }
 
                             //First Messages
-                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages',moment(response.ticket.created ).format('YYYY-MM-DD h:mm:ss a'));
+                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left', img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last, 'messages', moment(response.ticket.created).format('YYYY-MM-DD h:mm:ss a'), response.ticket.attachments, response.ticket.file_name);
 
                             //Another Messages
                             $.ajax({
                                 type: "GET",
-                                url: '/api/comments/discussion?ticket='+response.ticket._id,
+                                url: '/api/comments/discussion?ticket=' + response.ticket._id,
                                 success: function (response) {
 
-                                console.log(response);
-
-                                    $("#commentslength").text(response.comment.length+1);
+                                    $("#commentslength").text(response.comment.length + 1);
                                     $.each(response.comment, function (index, value) {
                                         var parent = $('.messages').children().last().attr('data-user');
-                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages',moment(value.created).format('YYYY-MM-DD h:mm:ss a'));
+                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'messages', moment(value.created).format('YYYY-MM-DD h:mm:ss a'), value.attachments, value.file_name);
                                     });
 
                                 },
@@ -1009,7 +1055,7 @@ block scripts
                                     $('.notes').empty();
                                     $("#noteslength").text(response.note.length);
                                     $.each(response.note, function (index, value) {
-                                        sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes',moment(value.created).format('YYYY-MM-DD h:mm:ss a'));
+                                        sendMessage(value.note, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'notes', moment(value.created).format('YYYY-MM-DD h:mm:ss a'), value.attachments, value.file_name);
                                     });
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1031,23 +1077,23 @@ block scripts
             $('#readModal').modal('show');
 
             $.ajax({
-               type: "PUT",
-               data: {"opened":true},
-               url: '/api/tickets/' + ticketid,
-               success: function (response) {
-                   $('.ticket[data-ticketid="'+ticketid+'"]').addClass('opened');
-               },
-               error: function (XMLHttpRequest, textStatus, errorThrown) {
-                   var message = XMLHttpRequest.responseJSON.message;
-                   warningAlert(message);
-               }
-           });
+                type: "PUT",
+                data: {"opened": true},
+                url: '/api/tickets/' + ticketid,
+                success: function (response) {
+                    $('.ticket[data-ticketid="' + ticketid + '"]').addClass('opened');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    warningAlert(message);
+                }
+            });
         }
 
         $("#ticketasignee").autocomplete({
             source: function (request, response) {
                 $('#ticketasignee').css("cursor", "wait");
-                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val()+'&role=resident';
+                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val() + '&role=resident';
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -1061,23 +1107,23 @@ block scripts
             minLength: 1
         }).data("ui-autocomplete")._renderItem = function (ul, item) {
             console.log(item);
-            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="'+item.profile_picture+'"></span>'+item.name.first + ' ' + item.name.last).appendTo(ul);
+            return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="' + item.profile_picture + '"></span>' + item.name.first + ' ' + item.name.last).appendTo(ul);
         };
         /*=== UPDATE: Update ticket ===*/
         $('.editopenticket').on('change', function () {
             updateticket(openticketid);
         });
 
-        function updateticket(ticketid){
+        function updateticket(ticketid) {
 
             var category = $('#openticketcategory').val();
             var subcategory = $('#openticketsubcategory').val();
             var priority = $('#openticketpriority').val();
 
             var dataJSON = {
-                'category' : category,
-                'subcategory' : subcategory,
-                'priority' : priority
+                'category': category,
+                'subcategory': subcategory,
+                'priority': priority
             };
 
             $.ajax({
@@ -1086,9 +1132,9 @@ block scripts
                 data: dataJSON,
                 url: '/api/tickets/' + ticketid,
                 success: function (response) {
-                    var cat = getCategory(response.ticket.category)+'<br class="visible-xs">'+getCategory(response.ticket.subcategory);
+                    var cat = getCategory(response.ticket.category) + '<br class="visible-xs">' + getCategory(response.ticket.subcategory);
                     $("#ticketcategory").html(cat);
-                    $('.ticket[data-ticketid="'+ticketid+'"] .catsubcat').html(cat);
+                    $('.ticket[data-ticketid="' + ticketid + '"] .catsubcat').html(cat);
                     console.log(response);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1134,6 +1180,24 @@ block scripts
         });
         */
 
+        $('#attachFileNote').click(function () {
+            $('#attachmentFileNote').trigger('click');
+        });
+
+        $("#attachmentFileNote").change(function () {
+            var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+            $("#attachFileNote").text(fileName);
+        });
+
+        $('#attachFile').click(function () {
+            $('#attachmentFile').trigger('click');
+        });
+
+        $("#attachmentFile").change(function () {
+            var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+            $("#attachFile").text(fileName);
+        });
+
         $('body').on('click', '.li-autocomplete', function () {
             $('#searchinput').val($(this).text());
             $('#searchinputHidden').val($(this).attr('data-id'));
@@ -1144,8 +1208,8 @@ block scripts
 
             $('#ticketasignee').val($(this).text());
             $('#ticketasigneeHidden').val($(this).attr('data-id'));
-            $('#ticketasigneeHidden').attr('data-pic',$(this).attr('data-pic'));
-            $('#ticketasigneeHidden').attr('data-name',$(this).attr('data-name'));
+            $('#ticketasigneeHidden').attr('data-pic', $(this).attr('data-pic'));
+            $('#ticketasigneeHidden').attr('data-name', $(this).attr('data-name'));
 
             $.ajax({
 
@@ -1155,10 +1219,14 @@ block scripts
                 },
                 url: '/api/tickets/' + $('#hiddenTicket').val(),
                 success: function (response) {
-                    var pic = $('#ticketasigneeHidden').attr('data-pic');
-                    var name = $('#ticketasigneeHidden').attr('data-name');
-                    $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='"+$('#ticketasigneeHidden').attr('data-pic')+"'</span><span class='label label-default'>"+$('#ticketasigneeHidden').attr('data-name')+"  <a><i data-assignee='" + $('#ticketasigneeHidden').val() + "' data-ticket-id='" + response.ticket._id + "' id='assignee" +$('#ticketasigneeHidden').val() + "' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
-
+                    if (response.assigned_helper) {
+                        var pic = $('#ticketasigneeHidden').attr('data-pic');
+                        var name = $('#ticketasigneeHidden').attr('data-name');
+                        $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" + $('#ticketasigneeHidden').attr('data-pic') + "'</span><span class='label label-default'>" + $('#ticketasigneeHidden').attr('data-name') + "  <a><i data-assignee='" + $('#ticketasigneeHidden').val() + "' data-ticket-id='" + response.ticket._id + "' id='assignee" + $('#ticketasigneeHidden').val() + "' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
+                    }
+                    else {
+                        warningAlert('This user has already been assigned this ticket')
+                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;
@@ -1183,7 +1251,7 @@ block scripts
                 url: '/api/tickets/' + ticket,
                 success: function (response) {
                     console.log(response);
-                    $('#'+ $('#ticketassigneeHiddenRemove').val()).parent().parent().parent().remove();
+                    $('#' + $('#ticketassigneeHiddenRemove').val()).parent().parent().parent().remove();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;
@@ -1216,15 +1284,3 @@ block scripts
 
             $(this).addClass('active');
         });
-
-
-
-
-
-
-
-
-
-
-
-

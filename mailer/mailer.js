@@ -173,7 +173,6 @@ exports.newTicket= function(ticket){
             comment: comment
         };
 
-
         emailTemplates(templatesDir,locals, function(err, template) {
 
             if (err) {
@@ -187,7 +186,7 @@ exports.newTicket= function(ticket){
                         var mailOptions = {
 
                             from: 'Livinn'+' <contact@cannedhead.com>',
-                            to: locals.comment.discussion_id.filed_by.email,
+                            to: locals.comment.discussion_id.requested_by.email,
                             subject: 'New Comment '+ locals.comment.discussion_id._id,
                             headers: {
                                 'X-Laziness-level': 1000

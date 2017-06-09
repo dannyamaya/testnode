@@ -87,13 +87,13 @@ module.exports = {
 
             var upload = true;
             var folder = 'profile_pictures/';
+            fileName = fileName.replace(/[^a-zA-Z0-9.]/g, "");
             upload = s3deploy.uploadFiles(filePath, fileName, req.body.document, file.data, folder);
 
             if(!upload)
                 return res.status(404).json({message: 'Error uploading file!'});
 
             // url stored in db
-            fileName = fileName.split(' ').join('+');
             var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
             //local file deleted
             fs.unlinkSync(filePath);
@@ -321,15 +321,14 @@ module.exports = {
 
                     var upload = true;
                     var folder = 'profile_pictures/';
+                    fileName = fileName.replace(/[^a-zA-Z0-9.]/g, "");
                     upload = s3deploy.uploadFiles(filePath, fileName, req.body.document, file.data, folder);
 
                     if(!upload)
                         return res.status(404).json({message: 'Error uploading file!'});
 
-
-
                     // url stored in db
-                    fileName = fileName.split(' ').join('+');
+                    ;
                     var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
                     //local file deleted
                     console.log(imagenUrl);
@@ -430,7 +429,6 @@ module.exports = {
                             resident.contract_number = req.body.numcontract || resident.contract_number;
 
                             if(req.body.birthdate == ''){
-                                console.log('aquiiii')
                                 resident.birth_date = resident.birth_date;
                             }else{
                                 console.log('allaaaa')

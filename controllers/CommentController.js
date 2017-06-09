@@ -22,8 +22,6 @@ module.exports = {
 
     createComment: function (req, res, next) {
 
-        //console.log(req.body);
-
         if (req.body.discussion_id === undefined) {
             return res.status(404).json({message: 'Ticket not found'});
         }
@@ -36,19 +34,52 @@ module.exports = {
             return res.status(404).json({message: 'comment not found'});
         }
 
+        let file = req.files.attachments;
+        let file_name = '';
 
-        var comment = new Comment({
+        if (file) {
+
+            file_name = req.files.attachments.name;
+            var filePath = './uploads/' + file_name;
+
+            file.mv(filePath, function (err) {
+                if (err)
+                    return res.status(500).json({message: 'Error uploading file!'});
+
+            });
+            var folder = 'attachments/';
+            var upload = true;
+
+            fileName = file_name.replace(/[^a-zA-Z0-9.]/g, "");
+            upload = s3deploy.uploadFiles(filePath, fileName, req.user._id, file.data, folder);
+
+            if (!upload)
+                return res.status(404).json({message: 'Error uploading file!'});
+
+            // url stored in db
+            var imagenUrl = AWS_PREFIX + folder + req.user._id + '/' + fileName;
+
+            //local file deleted
+            fs.unlinkSync(filePath);
+        }
+
+
+        let comment = new Comment({
             discussion_id: req.body.discussion_id,
             posted_by: req.body.posted_by,
-            comment: req.body.comment
+            comment: req.body.comment,
+            attachments: imagenUrl || '',
+            file_name: file_name
+
         });
 
         comment.save(function (err, t) {
             if (!err) {
-                Comment.populate(t,{ path:'discussion_id',populate:{path:'filed_by'} },function(error,tpopulated){
-                    //mailer.newComment(tpopulated);
+                Comment.populate(t,{ path:'discussion_id',populate:{path:'requested_by'} },function(error,tpopulated){
+                    mailer.newComment(tpopulated);
                     console.log('New comment has been created');
                 });
+                return res.status(200).json({comment:t, message: "Comment has been created"});
             }
             else {
                 console.log(err);

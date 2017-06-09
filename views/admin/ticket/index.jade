@@ -85,7 +85,7 @@ block content
                                   option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
                                   option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
                                   option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-              
+
               li.col-xs-12.no-padding.dropdown
                   a.col-xs-12.dropdown-toggle.statusDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Status
                       span
@@ -103,21 +103,22 @@ block content
                     i.icon.ion-ios-arrow-down
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 1 / High Priority / 24H
                       | High
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 2 / Medium Priority / 48H
                       | Medium
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 3 / Low Priority / 72H
                       | Low
                   li
-                    a.prioritySearch(href="#") 
+                    a.prioritySearch(href="#")
                       span.visible-lg 4 / To plan / To schedule
-                      | To PLan          
+                      | To PLan
+                      
 
     //-DESKTOP!
     .col-xs-12.userTools.has-feedbackc.ticketTools
@@ -142,21 +143,22 @@ block content
                                         option(value="id") Work Order ID
                             .col-xs-6.no-padding
                                 input.form-control#search(type="text" name="name" placeholder="Search")
+
                     .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                       button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
                           i.fa.fa-angle-down
                       ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                           li
-                              a.locationSearch(href="#") Lord Cochrane Santiago
+                            a.locationSearch(href="#") Lord Cochrane Santiago
                           li
-                              a.locationSearch(href="#") Viña del Mar
+                            a.locationSearch(href="#") Viña del Mar
                           li
-                              a.locationSearch(href="#") Calle 18 Bogotá
+                            a.locationSearch(href="#") Calle 18 Bogotá
                           li
-                              a.locationSearch(href="#") Calle 21 Bogotá
+                            a.locationSearch(href="#") Calle 21 Bogotá
                           li
-                              a.locationSearch(href="#") Villa campestre Barranquilla
-                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear                 
+                            a.locationSearch(href="#") Villa campestre Barranquilla
+                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
 
                     .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                       button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#categoryDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Categoty
@@ -316,16 +318,16 @@ block modals
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
-    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+    .modal.fade.ticket-modal.readModal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.full-width
             .modal-content
+                .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                        i.icon.ion-android-close
+                    h3.text-center.readModalTitle
                 .modal-body
                     .row
                         .col-xs-12(style="height:100%;")
-                            .col-xs-12.no-padding.ticket-navbar.has-feedback.gradienteLivinn
-                                h3.col-xs-12.readModalTitle
-                                button.btn(type="button", data-dismiss="modal", aria-hidden="true")
-                                    span
                             .col-xs-12.col-sm-3.ticket-left
                                 input#hiddenTicket(type="hidden")
                                 .form-group

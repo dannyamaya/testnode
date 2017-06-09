@@ -1,6 +1,6 @@
 extend ../layout
 block content
-    //- DESKTOP FORM 
+    //- DESKTOP FORM
     .col-xs-12.userTools.has-feedback
       .col-md-12.no-padding.userMaganementDesktop
         .titleUserManagement.no-padding
@@ -161,7 +161,7 @@ block modals
 
 
     <!-- User Read Modal -->
-    .modal.fade#readModal.(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+    .modal.fade#readModal.readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn
@@ -273,7 +273,7 @@ block modals
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn
-                  button.close(type="button", data-dismiss="modal", aria-hidden="true") 
+                  button.close(type="button", data-dismiss="modal", aria-hidden="true")
                     i.icon.ion-android-close
                   h3.text-center New User
                 .modal-body

@@ -129,7 +129,7 @@ block content
                         .col-xs-6.no-padding
                             input.form-control#search(type="text" name="name" placeholder="Search")
                 .select.select-livinn(style="width:100px;")
-                      select.form-control.filter#categoryselect
+                      select.form-control.filter
                           option(value="" selected) Category
                           option(value="cleaning services") Cleaning Services
                           option(value="customer service") Customer Service
@@ -137,6 +137,27 @@ block content
                           option(value="maintenance") Maintenance
                           option(value="visits") Visits
                           option(value="others") Others
+
+
+                .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
+                      i.fa.fa-angle-down
+                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                      li
+                          a.locationSearch(href="#") Lord Cochrane Santiago
+                      li
+                          a.locationSearch(href="#") Viña del Mar
+                      li
+                          a.locationSearch(href="#") Calle 18 Bogotá
+                      li
+                          a.locationSearch(href="#") Calle 21 Bogotá
+                      li
+                          a.locationSearch(href="#") Villa campestre Barranquilla
+                      li.dropdown-header.cleanLocationSearch.pull-right(style="color:#D51C5C;") Clear
+
+
+
+
                 .select.select-livinn
                     select.form-control.filter#subcategoryselect(style="width:130px;")
                         option(value="" selected) Subcategories
@@ -430,6 +451,13 @@ block scripts
             $("#searchTicket").addClass("userFiltersUp");
           }
         }
+
+        $('.locationSearch').click(function(){ 
+
+          var selLocationTicket = $(this).html();
+          $('#locationDropdownTicket').html(selLocationTicket+'<i class="fa fa-angle-down"></i>');
+
+        });
 
         var openticketid = '';
 

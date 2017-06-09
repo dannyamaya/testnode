@@ -95,8 +95,7 @@ block content
         ul.col-xs-12.no-padding.nav.navbar-nav
           li.col-xs-12.no-padding.dropdown
             a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
-              span
-                i.icon.ion-ios-arrow-down
+              i.icon.ion-ios-arrow-down
             ul.col-xs-12.no-padding.dropdown-menu
               li
                   a.locationSearch(href="#") Lord Cochrane Santiago
@@ -265,21 +264,21 @@ block modals
                                         label(for='bed') Bed
                                         p#bedRead
 
-
     <!-- User Registration Modal -->
     .modal.fade#registrationModal.registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn
+                  button.close(type="button", data-dismiss="modal", aria-hidden="true") 
+                    i.icon.ion-android-close
                   h3.text-center New User
-                    button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
                         .col-xs-12.col-md-10.col-md-offset-1.no-padding.formContainer
                             form#registrationForm(action="/api/users", method="post", role="form" enctype="multipart/form-data" data-parsley-validate)
                                 .col-xs-12.col-md-6
                                     .form-group
-                                        .preview.img-wrapper
+                                        .preview.img-wrapper.has-feedback
                                           i.icon.ion-plus
                                         .file-upload-wrapper
                                                 input.file-upload-native(type="file" name="image" accept="image/*" )
@@ -297,9 +296,7 @@ block modals
                                     .form-group.emailregistrationerror
                                         label(for='email') Email
                                         span.requiredLivinn *
-                                        input#email.form-control(type='text' placeholder='Email' name="email" required autofocus='')
-
-                                .col-xs-12.col-md-6.secondInputGroup
+                                        input#email.form-control(type='email' placeholder='Email' name="email" required autofocus='')
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -311,6 +308,8 @@ block modals
                                                 option(value="maintenance") Maintenance
                                                 option(value="client service") Customer Service
                                                 option(value="resident assistant") Resident Assistant
+
+                                .col-xs-12.col-md-6.secondInputGroup
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
@@ -327,7 +326,7 @@ block modals
                                         label(for='document') Document
                                         span.requiredLivinn *
                                         input#document.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
-                                    .form-group.no-padding.col-xs-12.col-sm-6
+                                    .form-group.no-padding
                                         label Location
                                         span.requiredLivinn *
                                         .select
@@ -341,7 +340,7 @@ block modals
                                                     option(value="Calle 21 Bogotá")  Bogotá - Calle 21
                                                     option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
                                                     option(value="Viña Del Mar") Viña Del Mar - Alvarez
-                                    .form-group.no-padding.col-xs-12.col-sm-6
+                                    .form-group.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
@@ -449,10 +448,10 @@ block modals
                 .modal-header.gradienteLivinn
                     button.close(type="button", data-dismiss="modal", aria-hidden="true")
                       i.icon.ion-android-close
-                    h3.modal-sm-title.text-center#updateModal_h ¿Do you want to update this user?
+                    h3.modal-sm-title.text-center#updateModal_h
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1
+                        .col-xs-12.col-sm-10.col-sm-offset-1.formContainer
                             form#updateForm(action="" method="" role="form" enctype="multipart/form-data" data-parsley-validate)
 
                                 .col-xs-12.col-sm-6
@@ -471,8 +470,6 @@ block modals
                                     .form-group.emailregistrationerror
                                         label(for='inputUpdateEmail') Email
                                         input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required='' autofocus='')
-
-                                .col-xs-12.col-sm-6.secondInputGroup
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -485,6 +482,8 @@ block modals
                                                 option(value="client service") Client Service
                                                 option(value="resident assistant") Resident Assistant
                                                 option(value="admin") Super Admin
+
+                                .col-xs-12.col-sm-6.secondInputGroup
                                     .form-group
                                         label Document Type
                                         span.requiredLivinn *
@@ -501,7 +500,7 @@ block modals
                                         label(for='inputUpdateDoc') Document
                                         span.requiredLivinn *
                                         input#inputUpdateDoc.form-control(type='text' name='document' placeholder='Document' required='' autofocus='')
-                                    .form-group.col-xs-12.col-sm-6.no-padding
+                                    .form-group.no-padding
                                         label Location
                                         span.requiredLivinn *
                                         .select
@@ -515,7 +514,7 @@ block modals
                                                     option(value="Calle 21 Bogotá")  Bogotá - Calle 21
                                                     option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
                                                     option(value="Viña Del Mar") Viña Del Mar - Alvarez
-                                    .form-group.col-xs-12.col-sm-6.no-padding
+                                    .form-group.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
                                         .select
@@ -618,8 +617,6 @@ block modals
                                         .text-center
                                             button.col-xs-4.col-xs-offset-2.btn.btn-livinn#updateUserButton Update
                                             button.col-xs-4.btn.btn-margin-right.btn-livinn4(data-dismiss="modal" aria-hidden="true") Cancel
-
-
 
     <!-- Delete User Modal -->
     .modal.fade#deleteUserModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -1229,7 +1226,7 @@ block scripts
 
             var selectedLocation = $(this).html();
             $("#dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>');
-            $(".dropdownLocation").html(selectedLocation+'<span><i class="fa fa-angle-down"></i></span>');
+            $(".dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>');
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");
@@ -1256,7 +1253,7 @@ block scripts
         $('.cleanLocationSearch').click(function(){
 
             $("#dropdownLocation").html('Location<i class="fa fa-angle-down"></i>')
-            $(".dropdownLocation").html('Location<span><i class="fa fa-angle-down"></i></span>');
+            $(".dropdownLocation").html('Location<i class="fa fa-angle-down"></i>');
 
             $('#loader').fadeOut("slow", function () {
                $('#userstable').addClass("hidden").fadeIn("slow");

@@ -823,6 +823,11 @@ button:focus{
     width: 80%;
   }
 
+  .searchInputTicket {
+    width: 180px;
+    display: inline-block;
+  }  
+
 }
 
 .userTools h2.workordertitle{
@@ -831,14 +836,18 @@ button:focus{
     }
 
 @media screen and (min-width: 1095px) {
-    .userTools h2.workordertitle{
-        display: inline-block ;
-        margin-top: 17px;
-    }
+  .userTools h2.workordertitle{
+      display: inline-block ;
+      margin-top: 17px;
+  }
 
-    .userTools h2.workordertitle.hidden-lg{
-        display: none ;
-    }
+  .userTools h2.workordertitle.hidden-lg{
+      display: none ;
+  }
+
+  .searchInputTicket {
+    width: 250px;
+  }  
 }
 
 @media screen and (min-width: 1200px) {
@@ -850,6 +859,10 @@ button:focus{
   .userTools .userMaganementDesktop form {
     width: 250px;
   }
+
+  .searchInputTicket {
+    width: 350px;
+  } 
 
 
 }
@@ -1507,13 +1520,19 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   border-radius: 25px;
 }
 
+.readModal {
+  padding-left: 0px !important;
+}
+
 .registrationModal .modal-dialog,
-.updateUserModal .modal-dialog {
+.updateUserModal .modal-dialog,
+.readModal .modal-dialog {
   margin: 0px auto;
 }
 
 .registrationModal .modal-content,
-.updateUserModal .modal-content {
+.updateUserModal .modal-content,
+.readModal .modal-content {
   border: none;
 }
 
@@ -1526,18 +1545,20 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .registrationModal .modal-body .formContainer,
-.updateUserModal .modal-body .formContainer {
+.updateUserModal .modal-body .formContainer,
+.readModal .modal-body .formContainer {
   margin-top: 40px;
 }
 
-.registrationModal .modal-body form .form-group {
+.registrationModal .modal-body form .form-group,
+.readModal .modal-body .form-group {
   margin-left: -15px;
   margin-right: -15px;
 }
 
 .registrationModal .modal-body form .form-group label,
 .updateUserModal .modal-body form .form-group label,
-.readModal .modal-body form .form-group label {
+.readModal .modal-body .form-group label {
   color: #D51C5C;
   margin-left: 30px;
   font-family: 'Open Sans', sans-serif;
@@ -1545,7 +1566,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .registrationModal .modal-body form .form-group input,
-.updateUserModal .modal-body form .form-group input {
+.updateUserModal .modal-body form .form-group input,
+.readModal .modal-body .form-group p {
   padding: 3px 12px;
   background-color: #DCDCDC;
   border-top: none;
@@ -1556,13 +1578,19 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   color: #555;
 }
 
+.readModal .modal-body .form-group p {
+  height: 48px;
+  padding: 13px 12px 3px;
+}
+
 .registrationModal .modal-body form .form-group input[type="email"],
 .updateUserModal .modal-body form .form-group input[type="email"] {
   text-transform: none;
 }
 
 .registrationModal .modal-body form .form-group .form-control,
-.updateUserModal .modal-body form .form-group .form-control {
+.updateUserModal .modal-body form .form-group .form-control,
+.readModal .modal-body form .form-group p {
   border-top: none;
   border-bottom: none;
   border-right: 2px solid #FFF;
@@ -1582,8 +1610,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   color: #555;
   border-top: none;
   border-bottom: none;
-  border-right: 1px solid #DCDCDC;
-  border-left: 1px solid #DCDCDC;
+  border-right: 1px solid #FFF;
+  border-left: 1px solid #FFF;
 }
 
 .registrationModal .modal-body form .form-group .select:before,
@@ -1612,7 +1640,6 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 
 .updateUserModal .modal-header button,
 .registrationModal .modal-header button,
-
 .readModal .modal-header button {
   padding: 3px 9px 4px;
   border-radius: 50%;
@@ -2090,7 +2117,8 @@ textarea.parsley-error {
   border: none;
 }
 
-.cleanRoleSearch, .cleanLocationSearch{
+.cleanRoleSearch, .cleanLocationSearch, .cleanLocationTicket, 
+.cleanCategorySearch, .cleanStatusSearch, cleanPrioritySearch {
     cursor:pointer;
 }
 

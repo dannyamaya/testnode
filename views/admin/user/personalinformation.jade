@@ -17,9 +17,6 @@ block content
                 .col-xs-12.col-sm-4
 
                 .form-group
-
-
-
                     form.col-xs-12.col-sm-12#updateinfoform(method="put" action="/api/users/#{user._id}" role="form" enctype="multipart/form-data")
                         .preview.img-wrapper.has-feedback.img-preloaded(style="background-image: url(\"#{user.profile_picture}\")")
                             i.icon.ion-plus
@@ -52,7 +49,7 @@ block content
                             label Cellphone
                             input.form-control(type="text" value="#{user.phone.number || '' }" placeholder="Teléfono" name="phone")
                         .form-group-end
-                            input.btn.btn-livinn(type="submit" value="Update information" style="margin-bottom:30px;")
+                            input.btn.btn-livinn.form-control.btn-personal-information(type="submit" value="UPDATE INFORMATION" style="margin-bottom:30px;")
 
 
         .col-xs-12.col-sm-9.update-password
@@ -70,18 +67,19 @@ block content
                                 small New password should have at least 5 characters.
                         .form-group.col-xs-12.no-padding.old-password-error
                             label.col-sm-12.no-padding(for="oldpassword") Old password
-                            .col-sm-8.no-padding
+                            .col-sm-12.no-padding
                                 input.form-control#oldpassword(type="password" , name="oldpassword")
                         .form-group.col-xs-12.no-padding.new-password-error.mismatch-error
                             label.col-sm-12.no-padding(for="password") New password
-                            .col-sm-8.no-padding
+                            .col-sm-12.no-padding
                                 input.form-control#newpassword(type="password", name="password")
                         .form-group.col-xs-12.no-padding.new-password-confirmation-error.mismatch-error
                             label.col-sm-12.no-padding(for="passwordconfirmation") Confirm new password
-                            .col-sm-8.no-padding
+                            .col-sm-12.no-padding
                                 input.form-control#newpasswordconfirmation(type="password" data-equals="newpassword" name="passwordconfirmation")
                         .form-group.col-xs-12.no-padding
-                            input.btn.btn-livinn#guardarContrasena(type="submit" value="Update password")
+                            .col-sm-12.no-padding
+                                input.btn.btn-livinn.form-control.btn-personal-information#guardarContrasena(type="submit" value="UPDATE PASSWORD")
 
 
 

@@ -203,6 +203,12 @@ button:focus{
   margin-right:5px;
 }
 
+.btn-personal-information{
+    font-family: 'BebasNeue-Regular' , sans-serif;
+    font-size: 22px;
+}
+
+
 .btn-addUserMobile {
   position: fixed;
   right: 20px;
@@ -848,7 +854,7 @@ button:focus{
   .searchInputTicket {
     width: 180px;
     display: inline-block;
-  }  
+  }
 
 }
 
@@ -869,7 +875,7 @@ button:focus{
 
   .searchInputTicket {
     width: 250px;
-  }  
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -884,7 +890,7 @@ button:focus{
 
   .searchInputTicket {
     width: 350px;
-  } 
+  }
 
 
 }
@@ -2139,7 +2145,7 @@ textarea.parsley-error {
   border: none;
 }
 
-.cleanRoleSearch, .cleanLocationSearch, .cleanLocationTicket, 
+.cleanRoleSearch, .cleanLocationSearch, .cleanLocationTicket,
 .cleanCategorySearch, .cleanStatusSearch, cleanPrioritySearch {
     cursor:pointer;
 }

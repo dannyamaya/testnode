@@ -653,7 +653,8 @@ button:focus{
   border-bottom: 1px solid #D5D4D6;
 }
 
-.userFilters .search-filtersMobile .dropdown a span {
+.userFilters .search-filtersMobile .dropdown a span,
+.userFilters .search-filtersMobile .dropdown ai {
   float: right;
 }
 

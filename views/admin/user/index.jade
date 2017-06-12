@@ -161,13 +161,13 @@ block modals
 
 
     <!-- User Read Modal -->
-    .modal.fade#readModal.readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" style="padding-left: 0px!important")
+
+    .modal.fade#readModal.readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") 
-                      i.icon.ion-android-close
                     h3.text-center.white#titleRead
+                        button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
                         .col-xs-12.col-md-10.col-md-offset-1.no-padding.formContainer
@@ -188,7 +188,8 @@ block modals
                               .form-group
                                   label Role
                                   p.text-capitalize#roleRead
-                          .col-xs-12.col-md-6.secondInputGroup 
+                                    
+                          .col-xs-12.col-md-6.secondInputGroup
                             .form-group
                                 label Document Type
                                 p#doctypeRead
@@ -382,28 +383,29 @@ block modals
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
                                     hr.col-xs-12.no-padding
-                                    .form-group.col-sm-6
-                                        label(for='apartment') Apartment
-                                        span.requiredLivinn *
-                                        input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
-                                    .form-group.col-sm-6
-                                        label(for='type') Apartment Type
-                                        span.requiredLivinn *
-                                        .select
-                                          select#type.inputResident(name='apartmentType' required)
-                                            option(value="") Apartment type
-                                            option(value="1A") 1A
-                                            option(value="1B") 1B
-                                            option(value="2A") 2A
-                                            option(value="2B") 2B
-                                            option(value="3A") 3A
-                                            option(value="3B") 3B
-                                            option(value="4A") 4A
-                                            option(value="4B") 4B
-                                            option(value="4C") 4C
-                                            option(value="4D") 4D
-                                            option(value="4E") 4E
-                                            option(value="4F") 4F
+                                    .col-xs-12.no-padding
+                                      .form-group.col-sm-6
+                                          label(for='apartment') Apartment
+                                          span.requiredLivinn *
+                                          input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
+                                      .form-group.col-sm-6
+                                          label(for='type') Apartment Type
+                                          span.requiredLivinn *
+                                          .select
+                                            select#type.inputResident(name='apartmentType' required)
+                                              option(value="") Apartment type
+                                              option(value="1A") 1A
+                                              option(value="1B") 1B
+                                              option(value="2A") 2A
+                                              option(value="2B") 2B
+                                              option(value="3A") 3A
+                                              option(value="3B") 3B
+                                              option(value="4A") 4A
+                                              option(value="4B") 4B
+                                              option(value="4C") 4C
+                                              option(value="4D") 4D
+                                              option(value="4E") 4E
+                                              option(value="4F") 4F
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select

@@ -297,7 +297,6 @@ module.exports = {
             priority = req.query.priority,
             location = req.user.location;
 
-console.log(req.query.priority);
         var options  = {};
 
         if(req.user.role == 'admin'){

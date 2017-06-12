@@ -154,7 +154,7 @@ block content
                         a.prioritySearch(href="#")
                           span.visible-lg 4 / To plan / To schedule
                           span.hidden-lg| To Plan
-                      li.dropdown-header.cleanPrioritySearch.pull-right(style="color:#D51C5C;") Clear
+                      li.dropdown-header.cleanPrioritySearch.pull-right(style="cursor:pointer; color:#D51C5C;") Clear
 
                 .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                   button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#statusDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Status
@@ -540,6 +540,7 @@ block scripts
           tcategory = '';
           $('#categoryDropdownTicket').html('Category<i class="fa fa-angle-down">');
           $('.categoryDropdownTicket').html('Category<span><i class="fa fa-angle-down"></span>');
+          filterTickets(1);
         });
 
         //- Filter Status Tickets
@@ -555,6 +556,7 @@ block scripts
           tstatus = '';
           $('#statusDropdownTicket').html('Status<i class="fa fa-angle-down">');
           $('.statusDropdownTicket').html('Status<span><i class="fa fa-angle-down"></span>');
+          filterTickets(1);
         });
 
         //- Filter Priority Tickets
@@ -570,6 +572,7 @@ block scripts
           tpriority = '';
           $('#priorityDropdownTicket').html('Priority<i class="fa fa-angle-down">');
           $('.priorityDropdownTicket').html('Priority<span><i class="fa fa-angle-down"></span>');
+          filterTickets(1);
         });
 
         $('.filter').on('change', function () {

@@ -206,6 +206,12 @@ module.exports = {
             query['location'] =req.query.location;
         }
 
+        if(req.query.role){
+            //query = '$and: [ {role: $nin: ["admin"]} , { role: \''+req.query.role+'\' }]';
+        }
+
+        console.log(query);
+
         async.parallel([
 
             function (callback) {

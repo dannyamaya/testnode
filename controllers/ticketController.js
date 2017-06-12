@@ -297,7 +297,7 @@ module.exports = {
             priority = req.query.priority,
             location = req.user.location;
 
-
+console.log(req.query.priority);
         var options  = {};
 
         if(req.user.role == 'admin'){
@@ -315,20 +315,40 @@ module.exports = {
         }
 
         if(category){
-            options['category'] = category;
+            options['category'] = new RegExp(category, 'i');
         }
 
         if(subcategory){
-            options['subcategory'] = subcategory;
+            options['subcategory'] = new RegExp(subcategory, 'i');
         }
 
         if(status){
-            options['status'] = status;
+            if(status == 'Open'){
+                options['status'] = '0';
+            } else if(status == 'Pending' ){
+                options['status'] = '1';
+            } else if (status == 'Resolved'){
+                options['status'] = '2';
+            } else {
+                //options['status'] = '0';
+            }
         }
 
         if(priority){
-            options['priority'] = priority;
+            if(priority == '<span class="visible-lg">1 / High Priority / 24H</span><span class="hidden-lg">High</span>' || priority =='1'){
+                options['priority'] = '1';
+            } else if( priority == '<span class="visible-lg">2 / Medium Priority / 48H</span><span class="hidden-lg">Medium</span>' || priority =='2'){
+                options['priority'] = '2';
+            } else if( priority == '<span class="visible-lg">3 / Low Priority / 72H</span><span class="hidden-lg">Low</span>' || priority =='3') {
+                options['priority'] = '3';
+            } else if( priority == '<span class="visible-lg">4 / To plan / To schedule</span><span class="hidden-lg">To Plan</span>' || priority =='4'){
+                options['priority'] = '4';
+            } else {
+
+            }
         }
+
+        console.log(options);
 
         User.findById(req.params.id, function (err, user) {
             if (err) {

@@ -1634,7 +1634,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .registrationModal .modal-body form .btnsModal button.btn-livinn,
-.updateUserModal .modal-body form .btnsModal button.btn-livinn {
+.updateUserModal .modal-body form .btnsModal button.btn-livinn,
+.readModal .modal-body .btnsModal button.btn-livinn {
   font-size: 2.3rem;
   padding: 5px 22px 1px;
   font-family: 'BebasNeue-Regular' , sans-serif;
@@ -1674,7 +1675,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   margin-top: -8px;
 }
 
-.updateUserModal .modal-body form .btnsModal {
+.updateUserModal .modal-body form .btnsModal,
+.readModal .modal-body .btnsModal {
   margin-top: 29px;
 }
 
@@ -2315,7 +2317,8 @@ textarea.parsley-error {
     min-height: 120px;
   }
 
-  .registrationModal .modal-body form .form-group {
+  .registrationModal .modal-body form .form-group,
+  .readModal .modal-body .form-group {
     margin-left: 0px;
     margin-right: 0px;
   }
@@ -2434,11 +2437,17 @@ textarea.parsley-error {
       margin-top: 9px;
   }
 
-  .registrationModal .modal-dialog {
+  .readModal .modal-body .secondInputGroup {
+    margin-top: -11px;
+  }
+
+  .registrationModal .modal-dialog,
+  .readModal .modal-dialog {
     margin: 70px auto;
   }
 
-  .registrationModal .modal-body form .form-group {
+  .registrationModal .modal-body form .form-group,
+  .readModal .modal-body .form-group {
     margin-left: 0px;
     margin-right: 0px;
   }

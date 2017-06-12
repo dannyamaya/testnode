@@ -170,8 +170,8 @@ block modals
                     h3.text-center.white#titleRead
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding.formContainer
-                          .col-xs-12.col-sm-6
+                        .col-xs-12.col-md-10.col-md-offset-1.no-padding.formContainer
+                          .col-xs-12.col-md-6
                               .form-group
                                   .preview.img-wrapper.img-preloaded#readProfileImage
                               .form-group
@@ -188,19 +188,18 @@ block modals
                               .form-group
                                   label Role
                                   p.text-capitalize#roleRead
-                          .col-xs-12.col-sm-6 
+                          .col-xs-12.col-md-6.secondInputGroup 
                             .form-group
                                 label Document Type
                                 p#doctypeRead
-
                             .form-group
                                 label(for='document') Document
                                 p#documentRead
-                            .form-group.col-sm-6.no-padding
+                            .form-group.no-padding
                                 label Location
                                 p#locationRead
 
-                            .form-group.col-sm-6.no-padding
+                            .form-group.no-padding
                                 label Time Zone
                                 p#timezoneRead
 
@@ -252,8 +251,8 @@ block modals
                                   label(for='bed') Bed
                                   p#bedRead
 
-                          .col-xs-12
-                            button.col-xs-6.col-xs-offset-3.btn-livinn Cerrar
+                          .col-xs-12.btnsModal
+                            button.col-xs-6.col-xs-offset-3.col-md-4.col-md-offset-4.btn.btn-livinn(data-dismiss="modal") Close
 
 
     <!-- User Registration Modal -->

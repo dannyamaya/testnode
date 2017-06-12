@@ -1607,7 +1607,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 
 .readModal .modal-body .form-group p {
   height: 48px;
-  padding: 13px 12px 3px;
+  padding: 0px 27px 3px;
+  background-color: transparent;
 }
 
 .registrationModal .modal-body form .form-group input[type="email"],

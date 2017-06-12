@@ -622,19 +622,15 @@ module.exports = {
         }
 
         var query = {};
+        query['role'] = {$nin: ["admin"]};
         query['active'] = true;
 
-        //Filter role
-        if( req.query.role ){
-            query['role'] = {$nin: ["admin"]};
-        } else {
-            query['role'] = {$nin: ["admin",req.query.role]};
-        }
-
-        //Filter location
         if(req.user.role != 'admin'){
             query['location'] = req.user.location;
         }
+
+        console.log(req.user.role);
+        console.log(query);
 
         User.find(query)
             .or([
@@ -767,8 +763,6 @@ module.exports = {
     },
 
     autocompleteUsers: function(req, res, next) {
-
-
 
         User.find({}, function (err, user) {
             return res.status(200).json({ user: user});

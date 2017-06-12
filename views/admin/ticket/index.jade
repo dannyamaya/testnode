@@ -227,7 +227,7 @@ block content
                       li
                           a.categorySearch(href="#") Others
                       li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
-
+                if user.role == 'admin'
                 .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                   button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
                       i.fa.fa-angle-down
@@ -243,7 +243,7 @@ block content
                       li
                         a.locationSearch(href="#") Villa campestre Barranquilla
                       li.dropdown-header.cleanLocationTicket.pull-right(style="color:#D51C5C;") Clear
-                
+
                 .pull-right.no-padding.searchInputTicket(style="display: inline-block;")
                     .input-group.search
                         .col-md-6.no-padding
@@ -254,9 +254,10 @@ block content
                                     option(value="assigned_to") Assigned to
                                     option(value="id") Work Order ID
                         .col-xs-6.no-padding
-                            input.form-control#search(type="text" name="name" placeholder="Search")    
-                
-    input#hiddenHelper(value=0)
+                            input.form-control#search(type="text" name="name" placeholder="Search")
+
+    input#hiddenHelper.hidden(value=0)
+
     .col-xs-12.content
         .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
 
@@ -489,7 +490,11 @@ block scripts
     script(src="/js/parsley.min.js")
     script.
 
-        var ticketLocation = '';
+        var tlocation = '',
+            tcategory = '',
+            tsubcategory = '',
+            tstatus = '';
+            tpriority = '';
 
         function deployFilters1() {
           if ($("#searchTicket").hasClass("userFiltersUp")) {
@@ -509,33 +514,30 @@ block scripts
         $('.locationSearch').click(function() {
 
           var selLocationTicket = $(this).html();
-          ticketLocation = selLocationTicket;
-          console.log(ticketLocation);
+          tlocation = selLocationTicket;
           $('#locationDropdownTicket').html(selLocationTicket+'<i class="fa fa-angle-down"></i>');
           $('.locationDropdownTicket').html(selLocationTicket+'<span><i class="icon ion-ios-arrow-down"></span>');
-
           filterTickets(1);
         });
 
         $('.cleanLocationTicket').click(function() {
-          console.log('algo');
+          tlocation = '';
           $('#locationDropdownTicket').html('Location<i class="fa fa-angle-down"></i>');
           $('.locationDropdownTicket').html('Location<span><i class="icon ion-ios-arrow-down"></span>');
-
           filterTickets(1);
         });
 
         //- Filter Category Tickets
         $('.categorySearch').click(function() {
           var selectedCategory = $(this).html();
-          console.log(selectedCategory);
+          tcategory = selectedCategory;
           $('#categoryDropdownTicket').html(selectedCategory+'<i class="fa fa-angle-down">');
           $('.categoryDropdownTicket').html(selectedCategory+'<span><i class="fa fa-angle-down"></span>');
-
           filterTickets(1);
         });
 
         $('.cleanCategorySearch').click(function() {
+          tcategory = '';
           $('#categoryDropdownTicket').html('Category<i class="fa fa-angle-down">');
           $('.categoryDropdownTicket').html('Category<span><i class="fa fa-angle-down"></span>');
         });
@@ -543,14 +545,14 @@ block scripts
         //- Filter Status Tickets
         $('.statusSearch').click(function() {
           var selectedStatus = $(this).html();
-          console.log(selectedStatus);
+          tstatus = selectedStatus;
           $('#statusDropdownTicket').html(selectedStatus+'<i class="fa fa-angle-down">');
           $('.statusDropdownTicket').html(selectedStatus+'<span><i class="fa fa-angle-down"></span>');
-
           filterTickets(1);
         });
 
         $('.cleanStatusSearch').click(function() {
+          tstatus = '';
           $('#statusDropdownTicket').html('Status<i class="fa fa-angle-down">');
           $('.statusDropdownTicket').html('Status<span><i class="fa fa-angle-down"></span>');
         });
@@ -558,18 +560,21 @@ block scripts
         //- Filter Priority Tickets
         $('.prioritySearch').click(function() {
           var selectedPriority = $(this).html();
-          console.log(selectedPriority);
+          tpriority = selectedPriority;
           $('#priorityDropdownTicket').html(selectedPriority+'<i class="fa fa-angle-down">');
           $('.priorityDropdownTicket').html(selectedPriority+'<span><i class="fa fa-angle-down"></span>');
-
           filterTickets(1);
         });
 
         $('.cleanPrioritySearch').click(function() {
+          tpriority = '';
           $('#priorityDropdownTicket').html('Priority<i class="fa fa-angle-down">');
           $('.priorityDropdownTicket').html('Priority<span><i class="fa fa-angle-down"></span>');
         });
 
+        $('.filter').on('change', function () {
+            filterTickets(1);
+        });
 
         var openticketid = '';
 
@@ -796,10 +801,12 @@ block scripts
             var valor = $('#categoryDropdownTicket').val();
             console.log(valor);
 
-            ticketLocation != '' ? options += '&location='+ticketLocation : null;
-            //- $("#subcategoryselect").val() != '' ? options += '&subcategory=' + $("#subcategoryselect").val() : null;
-            //- $("#statusselect").val() != '' ? options += '&status=' + $("#statusselect").val() : null;
-            //- $("#priorityselect").val() != '' ? options += '&priority=' + $("#priorityselect").val() : null;
+            (tlocation != '') ? options += '&location='+tlocation : null;
+            (tcategory != '')? options += '&category=' + tcategory : null;
+            (tsubcategory != '')? options += '&subcategory=' + tsubcategory : null;
+            (tstatus != '')? options += '&status=' + tstatus : null;
+            (tpriority != '')? options += '&priority=' + tpriority : null;
+
 
             var searchby = $("#searchby").val();
             var searchtext = $('#search').val().trim();
@@ -922,11 +929,6 @@ block scripts
             evt.preventDefault();
             filterTickets(1);
         });
-
-        $('.filter').on('change', function () {
-            filterTickets(1);
-        });
-
 
 
         /*=== READ: Open ticket ===*/

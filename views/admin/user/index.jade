@@ -161,7 +161,8 @@ block modals
 
 
     <!-- User Read Modal -->
-    .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+
+    .modal.fade#readModal.readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn
@@ -169,106 +170,94 @@ block modals
                         button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1
-                                .col-xs-12.col-sm-6
-                                    .form-group
-                                        .preview.img-wrapper.img-preloaded#readProfileImage
-                                    .form-group
-                                        label(for='first')
-                                            |   First Name
-                                            span.requiredLivinn *
-                                        p.text-capitalize#firstRead
-                                    .form-group
-                                        label(for='last')
-                                            |   Last Name
-                                            span.requiredLivinn *
-                                        p.text-capitalize#lastRead
-                                    .form-group.emailregistrationerror
-                                        label(for='email') Email
-                                        span.requiredLivinn *
-                                        p#emailRead
-                                .col-xs-12.col-sm-6
-                                    .form-group
-                                        label Role
-                                        span.requiredLivinn *
-                                        p.text-capitalize#roleRead
+                        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding.formContainer
+                          .col-xs-12.col-sm-6
+                              .form-group
+                                  .preview.img-wrapper.img-preloaded#readProfileImage
+                              .form-group
+                                  label(for='first')
+                                      |   First Name
+                                  p.text-capitalize#firstRead
+                              .form-group
+                                  label(for='last')
+                                      |   Last Name
+                                  p.text-capitalize#lastRead
+                              .form-group.emailregistrationerror
+                                  label(for='email') Email
+                                  p#emailRead
+                              .form-group
+                                  label Role
+                                  p.text-capitalize#roleRead
+                          .col-xs-12.col-sm-6
+                            .form-group
+                                label Document Type
+                                p#doctypeRead
 
-                                    .form-group
-                                        label Document Type
-                                        span.requiredLivinn *
-                                        p#doctypeRead
+                            .form-group
+                                label(for='document') Document
+                                p#documentRead
+                            .form-group.col-sm-6.no-padding
+                                label Location
+                                p#locationRead
 
-                                    .form-group
-                                        label(for='document') Document
-                                        span.requiredLivinn *
-                                        p#documentRead
-                                    .form-group.col-xs-12.col-sm-6.no-padding
-                                        label Location
-                                        span.requiredLivinn *
-                                        p#locationRead
+                            .form-group.col-sm-6.no-padding
+                                label Time Zone
+                                p#timezoneRead
 
-                                    .form-group.col-xs-12.col-sm-6.no-padding-right
-                                        label Time Zone
-                                        span.requiredLivinn *
-                                        p#timezoneRead
+                            .form-group.no-padding
+                                label(for='phone') Phone
+                                p#phoneRead
+                            .form-group.differentResident
+                                label(for='occupation') Ocuppation
+                                p#occupationRead
+                            .form-group.differentResident
+                                label(for='skype') Skype
+                                p#skypeRead
+                            .form-group.residentFields
+                                label(for='birthdate') Birth Date
+                                p#birthdateRead
+                          .col-xs-12.no-padding.residentFields
+                              hr
+                              .form-group.col-sm-4
+                                  label(for='numcontract')
+                                      |   Contract Number
+                                  p#numcontractRead
+                              .form-group.col-sm-4
+                                  label(for='start')
+                                      |   Start
+                                  p#startRead
+                              .form-group.col-sm-4
+                                  label(for='finish')
+                                      |   Finish
+                                  p#finishRead
+                              .form-group.col-sm-8
+                                  label Agent
+                                  p#agentRead
+                              .form-group.col-sm-4
+                                  label Status
+                                  p#statusRead
 
-                                    .form-group.col-xs-12.no-padding
-                                        label(for='phone') Phone
-                                        span.requiredLivinn *
-                                        p#phoneRead
-                                    .form-group.differentResident
-                                        label(for='occupation') Ocuppation
-                                        p#occupationRead
-                                    .form-group.differentResident
-                                        label(for='skype') Skype
-                                        p#skypeRead
-                                    .form-group.residentFields
-                                        label(for='birthdate') Birth Date
-                                        p#birthdateRead
-                                .col-xs-12.no-padding.residentFields
-                                    hr
-                                    .form-group.col-sm-4
-                                        label(for='numcontract')
-                                            |   Contract Number
-                                        span.requiredLivinn *
-                                        p#numcontractRead
-                                    .form-group.col-sm-4
-                                        label(for='start')
-                                            |   Start
-                                            span.requiredLivinn *
-                                        p#startRead
-                                    .form-group.col-sm-4
-                                        label(for='finish')
-                                            |   Finish
-                                            span.requiredLivinn *
-                                        p#finishRead
-                                    .form-group.col-sm-8
-                                        label Agent
-                                        span.requiredLivinn *
-                                        p#agentRead
-                                    .form-group.col-sm-4
-                                        label Status
-                                        p#statusRead
+                              hr.col-xs-12
+                              .form-group.col-sm-6
+                                  label(for='apartment') Apartment
+                                  p#apartmentRead
+                              .form-group.col-sm-6
+                                  label(for='type') Apartment Type
+                                  p#typeRead
+                              .form-group.col-sm-6
+                                  label Bathroom
+                                  p#bathroomRead(name="bathroom" )
 
-                                    hr.col-xs-12
-                                    .form-group.col-sm-6
-                                        label(for='apartment') Apartment
-                                        span.requiredLivinn *
-                                        p#apartmentRead
-                                    .form-group.col-sm-6
-                                        label(for='type') Apartment Type
-                                        span.requiredLivinn *
-                                        p#typeRead
-                                    .form-group.col-sm-6
-                                        label Bathroom
-                                        p#bathroomRead(name="bathroom" )
+                              .form-group.col-sm-6
+                                  label(for='bed') Bed
+                                  p#bedRead
 
-                                    .form-group.col-sm-6
-                                        label(for='bed') Bed
-                                        p#bedRead
+                          .col-xs-12
+                            button.col-xs-6.col-xs-offset-3.btn-livinn Cerrar
+
 
     <!-- User Registration Modal -->
-    .modal.fade#registrationModal.registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+    .modal.fade#registrationModal.registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn

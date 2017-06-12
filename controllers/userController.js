@@ -202,6 +202,10 @@ module.exports = {
             query['location'] = req.user.location;
         }
 
+        if(req.user.role == 'admin' && req.query.location){
+            query['location'] =req.query.location;
+        }
+
         async.parallel([
 
             function (callback) {
@@ -215,12 +219,6 @@ module.exports = {
                         },
                         {
                             email: new RegExp(search, 'i')
-                        },
-                        {
-                            location: new RegExp(search, 'i')
-                        },
-                        {
-                            role: new RegExp(search, 'i')
                         },
                         {
                             doc: new RegExp(search, 'i')

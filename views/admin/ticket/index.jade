@@ -131,129 +131,141 @@ block content
         .col-xs-12.hidden-xs.hidden-sm.no-padding
             form.form.col-xs-12.no-padding#searchform(method="post" action="/api/user/#{user._id}/tickets/search")
                 h2.workordertitle#workordertitle Work Orders
-                .pull-right
-                    .col-xs-4.no-padding
-                        .input-group.search
-                            .col-md-6.no-padding
-                                .select
-                                    select#searchby
-                                        option(value="requested_by") Requested by
-                                        option(value="created_by" selected="true") Created by
-                                        option(value="assigned_to") Assigned to
-                                        option(value="id") Work Order ID
-                            .col-xs-6.no-padding
-                                input.form-control#search(type="text" name="name" placeholder="Search")
 
-                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
-                          i.fa.fa-angle-down
-                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                          li
-                            a.locationSearch(href="#") Lord Cochrane Santiago
-                          li
-                            a.locationSearch(href="#") Viña del Mar
-                          li
-                            a.locationSearch(href="#") Calle 18 Bogotá
-                          li
-                            a.locationSearch(href="#") Calle 21 Bogotá
-                          li
-                            a.locationSearch(href="#") Villa campestre Barranquilla
-                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
+                button.btn.btn-main.btn-livinn.pull-right(type="button" data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
 
-                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#categoryDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Categoty
-                          i.fa.fa-angle-down
-                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                          li
-                              a.categorySearch(href="#") Cleaning Services
-                          li
-                              a.categorySearch(href="#") Customer Service
-                          li
-                              a.categorySearch(href="#") Maintenance
-                          li
-                              a.categorySearch(href="#") Visits
-                          li
-                              a.categorySearch(href="#") IT Support
-                          li
-                              a.categorySearch(href="#") Others
-                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
+                .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#priorityDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Priority
+                      i.fa.fa-angle-down
+                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                      li
+                        a.prioritySearch(href="#")
+                          span.visible-lg 1 / High Priority / 24H
+                          span.hidden-lg| High
+                      li
+                        a.prioritySearch(href="#")
+                          span.visible-lg 2 / Medium Priority / 48H
+                          span.hidden-lg| Medium
+                      li
+                        a.prioritySearch(href="#")
+                          span.visible-lg 3 / Low Priority / 72H
+                          span.hidden-lg| Low
+                      li
+                        a.prioritySearch(href="#")
+                          span.visible-lg 4 / To plan / To schedule
+                          span.hidden-lg| To Plan
+                      li.dropdown-header.cleanPrioritySearch.pull-right(style="color:#D51C5C;") Clear
 
-                    .select.select-livinn
-                        select.form-control.filter#subcategoryselect(style="width:130px;")
-                            option(value="" selected) Subcategories
-                            optgroup(label="Zona de BBQ" style="color:#000;")
+                .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#statusDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Status
+                      i.fa.fa-angle-down
+                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                      li
+                          a.statusSearch(href="#") Open
+                      li
+                          a.statusSearch(href="#") Pending
+                      li
+                          a.statusSearch(href="#") Resolved
+                      li.dropdown-header.cleanStatusSearch.pull-right(style="color:#D51C5C;") Clear
+
+                .pull-right.select.select-livinn
+                    select.form-control.filter#subcategoryselect(style="width:130px;")
+                        option(value="" selected) Subcategories
+                        optgroup(label="Zona de BBQ" style="color:#000;")
+                        optgroup(label="Reservación" style="margin-left:15px;")
+                            option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                            option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                        option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+                        option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                        optgroup(label="Limpieza" style="margin-left:15px;")
+                            option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+                            option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+                            option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+                            option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+                        optgroup(label="Cuarto de Billar" style="color:#000;")
                             optgroup(label="Reservación" style="margin-left:15px;")
-                                option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-                                option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
-                            option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
-                            option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                                option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+                                option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+                            option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+                            option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
                             optgroup(label="Limpieza" style="margin-left:15px;")
-                                option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
-                                option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
-                                option(value="Zona de BBQ/Limpieza/Mesa") Mesa
-                                option(value="Zona de BBQ/Limpieza/Parilla") Parilla
-                            optgroup(label="Cuarto de Billar" style="color:#000;")
-                                optgroup(label="Reservación" style="margin-left:15px;")
-                                    option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
-                                    option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
-                                option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
-                                option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
-                                optgroup(label="Limpieza" style="margin-left:15px;")
-                                    option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
-                                    option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
-                                    option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-                            optgroup(label="Gimnasio" style="color:#000;")
-                                optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
-                                    option(value="Gimnasio/Limpieza/Ventanas") Ventanas
-                                    option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
-                                    option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
-                                    option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
-                                    option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
-                                    option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
-                            optgroup(label="Salón de Juegos" style="color:#000;")
-                                optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
-                                    option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
-                                    option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
-                                    option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
-                                option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
-                                option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
-                                option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
-                                option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
+                                option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+                                option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+                                option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+                        optgroup(label="Gimnasio" style="color:#000;")
+                            optgroup(label="Gimnasio/Limpieza" style="margin-left:15px;")
+                                option(value="Gimnasio/Limpieza/Ventanas") Ventanas
+                                option(value="Gimnasio/Limpieza/Espejo en cuarto de yoga") Espejo en cuarto de yoga
+                                option(value="Gimnasio/Limpieza/Espejo en la área de pesas") Espejo en la área de pesas
+                                option(value="Gimnasio/Limpieza/Piso PVC") Piso PVC
+                                option(value="Gimnasio/Limpieza/Maquinas de ejercicio") Maquinas de ejercicio
+                                option(value="Gimnasio/Limpieza/Baño del gimnasio") Baño del gimnasio
+                        optgroup(label="Salón de Juegos" style="color:#000;")
+                            optgroup(label="Salón de Juegos/Reservaciones" style="margin-left:15px;")
+                                option(value="Salón de Juegos/Reservaciones/Mesa de Ping Pong") Mesa de Ping Pong
+                                option(value="Salón de Juegos/Reservaciones/PlayStation") PlayStation
+                                option(value="Salón de Juegos/Reservaciones/Xbox") Xbox
+                            option(value="Salón de Juegos/Cancelaciones" style="margin-left:15px;") Cancelaciones
+                            option(value="Salón de Juegos/Cambios" style="margin-left:15px;") Cambios
+                            option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
+                            option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
 
-                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#statusDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Status
-                          i.fa.fa-angle-down
-                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                          li
-                              a.statusSearch(href="#") Open
-                          li
-                              a.statusSearch(href="#") Pending
-                          li
-                              a.statusSearch(href="#") Resolved
-                          li.dropdown-header.cleanStatusSearch.pull-right(style="color:#D51C5C;") Clear
+                .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#categoryDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Category
+                      i.fa.fa-angle-down
+                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                      li
+                          a.categorySearch(href="#") Cleaning Services
+                      li
+                          a.categorySearch(href="#") Customer Service
+                      li
+                          a.categorySearch(href="#") Maintenance
+                      li
+                          a.categorySearch(href="#") Visits
+                      li
+                          a.categorySearch(href="#") IT Support
+                      li
+                          a.categorySearch(href="#") Others
+                      li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
 
-                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#priorityDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Priority
-                          i.fa.fa-angle-down
-                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                          li
-                            a.prioritySearch(href="#")
-                              span.visible-lg 1 / High Priority / 24H
-                              span.hidden-lg| High
-                          li
-                            a.prioritySearch(href="#")
-                              span.visible-lg 2 / Medium Priority / 48H
-                              span.hidden-lg| Medium
-                          li
-                            a.prioritySearch(href="#")
-                              span.visible-lg 3 / Low Priority / 72H
-                              span.hidden-lg| Low
-                          li
-                            a.prioritySearch(href="#")
-                              span.visible-lg 4 / To plan / To schedule
-                              span.hidden-lg| To Plan
-                          li.dropdown-header.cleanPrioritySearch.pull-right(style="color:#D51C5C;") Clear
-                    button.btn.btn-main.btn-livinn(type="button" data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
+                .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
+                      i.fa.fa-angle-down
+                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                      li
+                        a.locationSearch(href="#") Lord Cochrane Santiago
+                      li
+                        a.locationSearch(href="#") Viña del Mar
+                      li
+                        a.locationSearch(href="#") Calle 18 Bogotá
+                      li
+                        a.locationSearch(href="#") Calle 21 Bogotá
+                      li
+                        a.locationSearch(href="#") Villa campestre Barranquilla
+                      li.dropdown-header.cleanLocationTicket.pull-right(style="color:#D51C5C;") Clear
+                
+                .pull-right.no-padding.searchInputTicket(style="display: inline-block;")
+                    .input-group.search
+                        .col-md-6.no-padding
+                            .select
+                                select#searchby
+                                    option(value="requested_by") Requested by
+                                    option(value="created_by" selected="true") Created by
+                                    option(value="assigned_to") Assigned to
+                                    option(value="id") Work Order ID
+                        .col-xs-6.no-padding
+                            input.form-control#search(type="text" name="name" placeholder="Search")
+
+                
+
+                
+
+                
+
+                
+
+                
+                
     input#hiddenHelper(value=0)
     .col-xs-12.content
         .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
@@ -512,8 +524,6 @@ block scripts
           $('#locationDropdownTicket').html(selLocationTicket+'<i class="fa fa-angle-down"></i>');
           $('.locationDropdownTicket').html(selLocationTicket+'<span><i class="icon ion-ios-arrow-down"></span>');
 
-
-
           filterTickets(1);
         });
 
@@ -521,6 +531,8 @@ block scripts
           console.log('algo');
           $('#locationDropdownTicket').html('Location<i class="fa fa-angle-down"></i>');
           $('.locationDropdownTicket').html('Location<span><i class="icon ion-ios-arrow-down"></span>');
+
+          filterTickets(1);
         });
 
         //- Filter Category Tickets
@@ -529,6 +541,8 @@ block scripts
           console.log(selectedCategory);
           $('#categoryDropdownTicket').html(selectedCategory+'<i class="fa fa-angle-down">');
           $('.categoryDropdownTicket').html(selectedCategory+'<span><i class="fa fa-angle-down"></span>');
+
+          filterTickets(1);
         });
 
         $('.cleanCategorySearch').click(function() {
@@ -542,6 +556,8 @@ block scripts
           console.log(selectedStatus);
           $('#statusDropdownTicket').html(selectedStatus+'<i class="fa fa-angle-down">');
           $('.statusDropdownTicket').html(selectedStatus+'<span><i class="fa fa-angle-down"></span>');
+
+          filterTickets(1);
         });
 
         $('.cleanStatusSearch').click(function() {
@@ -555,6 +571,8 @@ block scripts
           console.log(selectedPriority);
           $('#priorityDropdownTicket').html(selectedPriority+'<i class="fa fa-angle-down">');
           $('.priorityDropdownTicket').html(selectedPriority+'<span><i class="fa fa-angle-down"></span>');
+
+          filterTickets(1);
         });
 
         $('.cleanPrioritySearch').click(function() {

@@ -95,6 +95,11 @@ button:focus{
   padding-right: 0px;
 }
 
+.content-no-menu{
+    padding-top: 47px;
+}
+
+
 .img-responsive {
   width: 100%;
 }
@@ -520,6 +525,15 @@ button:focus{
   font-family: 'BebasNeue-Regular', sans-serif;
   font-size: 2rem;
 }
+
+.livinn-h2{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #D51C5C;
+    font-family: 'BebasNeue-Regular', sans-serif;
+    font-size: 2.2rem;
+}
+
 
 .userFilters {
   background-color: #E1E1E1;
@@ -2643,6 +2657,15 @@ textarea.parsley-error {
 
 .mt-15{
     margin-bottom: 5px;
+}
+
+.link-livinn{
+    cursor: pointer;
+    color:#E30056;
+}
+
+.link-livinn.active{
+    font-weight: bolder;
 }
 
 

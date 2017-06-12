@@ -118,7 +118,7 @@ block content
                     a.prioritySearch(href="#")
                       span.visible-lg 4 / To plan / To schedule
                       | To PLan
-                      
+
 
     //-DESKTOP!
     .col-xs-12.userTools.has-feedbackc.ticketTools
@@ -237,15 +237,15 @@ block content
                           i.fa.fa-angle-down
                       ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                           li
-                            a.prioritySearch(href="#") 
+                            a.prioritySearch(href="#")
                               span.visible-lg 1 / High Priority / 24H
                               span.hidden-lg| High
                           li
-                            a.prioritySearch(href="#") 
+                            a.prioritySearch(href="#")
                               span.visible-lg 2 / Medium Priority / 48H
                               span.hidden-lg| Medium
                           li
-                            a.prioritySearch(href="#") 
+                            a.prioritySearch(href="#")
                               span.visible-lg 3 / Low Priority / 72H
                               span.hidden-lg| Low
                           li
@@ -512,7 +512,7 @@ block scripts
           $('#locationDropdownTicket').html(selLocationTicket+'<i class="fa fa-angle-down"></i>');
           $('.locationDropdownTicket').html(selLocationTicket+'<span><i class="icon ion-ios-arrow-down"></span>');
 
-                
+
 
           filterTickets(1);
         });
@@ -936,6 +936,7 @@ block scripts
             $('.send_message').attr('data-current-user', '#{user._id}');
             $('.send_message').attr('data-current-user-image', '#{user.profile_picture}');
             $('.send_message').attr('data-name', '#{user.name.first}  #{user.name.last}');
+            $('.send_message').attr('data-name', '#{user.name.first}  #{user.name.last}');
 
             $.ajax({
                 type: "GET",
@@ -1052,7 +1053,7 @@ block scripts
                                 $('#hiddenHelper').val(1);
 
                                 $('.sendNote').click(function (e) {
-                                    var ticket = response.ticket._id;
+                                    var ticket = $('#hiddenTicket').val();
                                     var formData = new FormData($('#note')[0]);
                                     formData.append('discussion_id', ticket);
                                     formData.append('posted_by', $(this).attr('data-current-user'));
@@ -1081,7 +1082,7 @@ block scripts
                                 });
 
                                 $('.sendMessage').click(function (e) {
-                                    var ticket = response.ticket._id;
+                                    var ticket = $('#hiddenTicket').val();
                                     var formData = new FormData($('#comment')[0]);
                                     formData.append('discussion_id', ticket);
                                     formData.append('posted_by', $(this).attr('data-current-user'));

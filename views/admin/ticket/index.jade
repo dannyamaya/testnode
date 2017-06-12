@@ -2,13 +2,16 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
+    //- MOBILE FORM
     .col-xs-12.no-padding.hidden-md.hidden-lg#searchTicket.userFilters.userFiltersUp.searchTicket
         .col-xs-12.no-padding.clearFilters
             .col-xs-6.btnCloseFiltersMobile
-                button.btn.btn-default(onclick='collapseFilters1()')
-                    span
-                        i.icon.ion-ios-arrow-up(style="font-size:2rem;")
-        //- MOBILE FORM
+              button.btn.btn-default(onclick='collapseFilters1()')
+                span
+                  i.icon.ion-ios-arrow-up(style="font-size:2rem;")
+            .col-xs-6.btnClearFilters
+               button.btn.btn-default.Ticket.cleanLocationTicket.cleanCategorySearch.cleanStatusSearch.cleanPrioritySearch Clear All
+
         .col-xs-12.no-padding.search-filtersMobile
             form.col-xs-12.navbar-left(action='' method='' type='')
                 .input-group.search
@@ -21,91 +24,103 @@ block content
                                 option(value="id") Work Order ID
                     .col-xs-8.no-padding
                         input.form-control#searchmobile(type="text" name="name" placeholder="Search")
+            ul.col-xs-12.no-padding.nav.navbar-nav
+              li.col-xs-12.no-padding.dropdown
+                button.btn.col-xs-12.dropdown-toggle.locationDropdownTicket( data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+                  span
+                    i.icon.ion-ios-arrow-down
+                ul.col-xs-12.no-padding.dropdown-menu
+                  li
+                    a.locationSearch(href="#") Lord Cochrane Santiago
+                  li
+                    a.locationSearch(href="#") Viña del Mar
+                  li
+                    a.locationSearch(href="#") Calle 18 Bogotá
+                  li
+                    a.locationSearch(href="#") Calle 21 Bogotá
+                  li
+                    a.locationSearch(href="#") Villa campestre Barranquilla
+              li.col-xs-12.no-padding.dropdown
+                button.btn.col-xs-12.dropdown-toggle.categoryDropdownTicket( data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Category
+                  span
+                    i.icon.ion-ios-arrow-down
+                ul.col-xs-12.no-padding.dropdown-menu
+                  li
+                    a.categorySearch(href="#") Cleaning Services
+                  li
+                    a.categorySearch(href="#") Customer Service
+                  li
+                    a.categorySearch(href="#") Maintenance
+                  li
+                    a.categorySearch(href="#") Visits
+                  li
+                    a.categorySearch(href="#") IT Support
+                  li
+                    a.categorySearch(href="#") Others
 
-            .col-xs-12
-                .select.select-livinn
-                    select.form-control.filter#categoryselectmobile
-                        option(value="" selected) Category
-                        option(value="cleaning services") Cleaning Services
-                        option(value="customer service") Customer Service
-                        option(value="support") IT Support
-                        option(value="maintenance") Maintenance
-                        option(value="visits") Visits
-                        option(value="others") Others
-            .col-xs-12
-                .select.select-livinn.col-xs-2
-                    select.form-control.filter#subcategoryselectmobile
-                        option(value="" selected) Subcategories
-                        optgroup(label="Zona de BBQ" style="color:#000;")
-                        optgroup(label="Reservación" style="margin-left:15px;")
-                            option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-                            option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
-                        option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
-                        option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
-                        optgroup(label="Limpieza" style="margin-left:15px;")
-                            option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
-                            option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
-                            option(value="Zona de BBQ/Limpieza/Mesa") Mesa
-                            option(value="Zona de BBQ/Limpieza/Parilla") Parilla
-                        optgroup(label="Cuarto de Billar" style="color:#000;")
-                            optgroup(label="Reservación" style="margin-left:15px;")
-                                option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
-                                option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
-                            option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
-                            option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
-                            optgroup(label="Limpieza" style="margin-left:15px;")
-                                option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
-                                option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
-                                option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-            .col-xs-12
-                .select.select-livinn.col-xs-2
-                    select.form-control.filter#statusselectmobile
-                        option(value="" selected) Status
-                        option(value="0") Open
-                        option(value="1") Pending
-                        option(value="2") Resolved
-            .col-xs-12
-                .select.select-livinn.col-xs-2
-                    select.form-control.filter#priorityselectmobile
-                        option(value="" selected) Priority
-                        option(value="1") 1 / High Priority / 24H
-                        option(value="2") 2 / Medium Priority / 48H
-                        option(value="3") 3 / Low Priority / 72H
-                        option(value="4") 4 / To plan / To schedule
-            ul.col-xs-12.no-padding.nav.navbar-nav.hidden
-                li.col-xs-12.no-padding.dropdown
-                    a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
-                        span
-                            i.icon.ion-ios-arrow-down
-                    ul.col-xs-12.no-padding.dropdown-menu
-                        li
-                            a.locationSearch(href="#") Lord Cochrane Santiago
-                        li
-                            a.locationSearch(href="#") Viña del Mar
-                        li
-                            a.locationSearch(href="#") Calle 18 Bogotá
-                        li
-                            a.locationSearch(href="#") Calle 21 Bogotá
-                        li
-                            a.locationSearch(href="#") Villa campestre Barranquilla
-                li.col-xs-12.no-padding.dropdown
-                    a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
-                        span
-                            i.icon.ion-ios-arrow-down
-                    ul.col-xs-12.no-padding.dropdown-menu
-                        li
-                            a.roleSearch(href="#") Client Service
-                        li
-                            a.roleSearch(href="#") Maintenance
-                        li
-                            a.roleSearch(href="#") Marketing
-                        li
-                            a.roleSearch(href="#") Resident
-                        li
-                            a.roleSearch(href="#") Resident Assistant
-                        li
-                            a.roleSearch(href="#") Operation Manager
-    //-DESKTOP?
+
+
+              .col-xs-12
+                  .select.select-livinn.col-xs-2
+                      select.form-control.filter#subcategoryselectmobile
+                          option(value="" selected) Subcategories
+                          optgroup(label="Zona de BBQ" style="color:#000;")
+                          optgroup(label="Reservación" style="margin-left:15px;")
+                              option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+                              option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+                          option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+                          option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+                          optgroup(label="Limpieza" style="margin-left:15px;")
+                              option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+                              option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+                              option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+                              option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+                          optgroup(label="Cuarto de Billar" style="color:#000;")
+                              optgroup(label="Reservación" style="margin-left:15px;")
+                                  option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+                                  option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+                              option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+                              option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
+                              optgroup(label="Limpieza" style="margin-left:15px;")
+                                  option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+                                  option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+                                  option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+
+              li.col-xs-12.no-padding.dropdown
+                  a.col-xs-12.dropdown-toggle.statusDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Status
+                      span
+                          i.icon.ion-ios-arrow-down
+                  ul.col-xs-12.no-padding.dropdown-menu
+                      li
+                          a.statusSearch(href="#") Open
+                      li
+                          a.statusSearch(href="#") Pending
+                      li
+                          a.statusSearch(href="#") Resolved
+              li.col-xs-12.no-padding.dropdown
+                a.col-xs-12.dropdown-toggle.priorityDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Priority
+                  span
+                    i.icon.ion-ios-arrow-down
+                ul.col-xs-12.no-padding.dropdown-menu
+                  li
+                    a.prioritySearch(href="#")
+                      span.visible-lg 1 / High Priority / 24H
+                      | High
+                  li
+                    a.prioritySearch(href="#")
+                      span.visible-lg 2 / Medium Priority / 48H
+                      | Medium
+                  li
+                    a.prioritySearch(href="#")
+                      span.visible-lg 3 / Low Priority / 72H
+                      | Low
+                  li
+                    a.prioritySearch(href="#")
+                      span.visible-lg 4 / To plan / To schedule
+                      | To PLan
+
+
+    //-DESKTOP!
     .col-xs-12.userTools.has-feedbackc.ticketTools
         .col-xs-12.col-md-2.heading-title.hidden-md.hidden-lg
             h2.col-xs-10.col-md-12.no-padding #{title}
@@ -128,15 +143,41 @@ block content
                                         option(value="id") Work Order ID
                             .col-xs-6.no-padding
                                 input.form-control#search(type="text" name="name" placeholder="Search")
-                    .select.select-livinn(style="width:100px;")
-                        select.form-control.filter#categoryselect
-                            option(value="" selected) Category
-                            option(value="cleaning services") Cleaning Services
-                            option(value="customer service") Customer Service
-                            option(value="support") IT Support
-                            option(value="maintenance") Maintenance
-                            option(value="visits") Visits
-                            option(value="others") Others
+
+                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
+                          i.fa.fa-angle-down
+                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                          li
+                            a.locationSearch(href="#") Lord Cochrane Santiago
+                          li
+                            a.locationSearch(href="#") Viña del Mar
+                          li
+                            a.locationSearch(href="#") Calle 18 Bogotá
+                          li
+                            a.locationSearch(href="#") Calle 21 Bogotá
+                          li
+                            a.locationSearch(href="#") Villa campestre Barranquilla
+                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
+
+                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#categoryDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Categoty
+                          i.fa.fa-angle-down
+                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                          li
+                              a.categorySearch(href="#") Cleaning Services
+                          li
+                              a.categorySearch(href="#") Customer Service
+                          li
+                              a.categorySearch(href="#") Maintenance
+                          li
+                              a.categorySearch(href="#") Visits
+                          li
+                              a.categorySearch(href="#") IT Support
+                          li
+                              a.categorySearch(href="#") Others
+                          li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
+
                     .select.select-livinn
                         select.form-control.filter#subcategoryselect(style="width:130px;")
                             option(value="" selected) Subcategories
@@ -179,21 +220,39 @@ block content
                                 option(value="Salón de Juegos/Aseo" style="margin-left:15px;") Aseo
                                 option(value="Salón de Juegos/Limpieza del baño" style="margin-left:15px;") Limpieza del baño
 
+                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#statusDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Status
+                          i.fa.fa-angle-down
+                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                          li
+                              a.statusSearch(href="#") Open
+                          li
+                              a.statusSearch(href="#") Pending
+                          li
+                              a.statusSearch(href="#") Resolved
+                          li.dropdown-header.cleanStatusSearch.pull-right(style="color:#D51C5C;") Clear
 
-                    .select.select-livinn
-                        select.form-control.filter#statusselect
-                            option(value="" selected) Status
-                            option(value="0") Open
-                            option(value="1") Pending
-                            option(value="2") Resolved
-
-                    .select.select-livinn
-                        select.form-control.filter#priorityselect(style="width:100px;")
-                            option(value="" selected) Priority
-                            option(value="1") 1 / High Priority / 24H
-                            option(value="2") 2 / Medium Priority / 48H
-                            option(value="3") 3 / Low Priority / 72H
-                            option(value="4") 4 / To plan / To schedule
+                    .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
+                      button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#priorityDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Priority
+                          i.fa.fa-angle-down
+                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                          li
+                            a.prioritySearch(href="#")
+                              span.visible-lg 1 / High Priority / 24H
+                              span.hidden-lg| High
+                          li
+                            a.prioritySearch(href="#")
+                              span.visible-lg 2 / Medium Priority / 48H
+                              span.hidden-lg| Medium
+                          li
+                            a.prioritySearch(href="#")
+                              span.visible-lg 3 / Low Priority / 72H
+                              span.hidden-lg| Low
+                          li
+                            a.prioritySearch(href="#")
+                              span.visible-lg 4 / To plan / To schedule
+                              span.hidden-lg| To Plan
+                          li.dropdown-header.cleanPrioritySearch.pull-right(style="color:#D51C5C;") Clear
                     button.btn.btn-main.btn-livinn(type="button" data-toggle="modal", data-target="#newticketModal", href="/#",data-dismiss="modal") New
     input#hiddenHelper(value=0)
     .col-xs-12.content
@@ -237,9 +296,9 @@ block modals
                                         option(value="") Please choose a category
                                         option(value="cleaning services") Cleaning Services
                                         option(value="customer service") Customer Service
-                                        option(value="support") IT Support
                                         option(value="maintenance") Maintenance
                                         option(value="visits") Visits
+                                        option(value="it support") IT Support
                                         option(value="others") Others
                             .form-group
                                 label Subject
@@ -259,16 +318,16 @@ block modals
                                     input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
-    .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+    .modal.fade.ticket-modal.readModal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.full-width
             .modal-content
+                .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                        i.icon.ion-android-close
+                    h3.text-center.readModalTitle
                 .modal-body
                     .row
                         .col-xs-12(style="height:100%;")
-                            .col-xs-12.no-padding.ticket-navbar.has-feedback.gradienteLivinn
-                                h3.col-xs-12.readModalTitle
-                                button.btn(type="button", data-dismiss="modal", aria-hidden="true")
-                                    span
                             .col-xs-12.col-sm-3.ticket-left
                                 input#hiddenTicket(type="hidden")
                                 .form-group
@@ -284,9 +343,9 @@ block modals
                                         select.editopenticket#openticketcategory(name="category")
                                             option(value="cleaning services") Cleaning Services
                                             option(value="customer service") Customer Service
-                                            option(value="support") IT Support
                                             option(value="maintenance") Maintenance
                                             option(value="visits") Visits
+                                            option(value="it support") IT Support
                                             option(value="others") Others
                                 .form-group
                                     label Subcategory
@@ -365,32 +424,32 @@ block modals
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
                                         form.tab-pane.active#comment(method="post" enctype="multipart/form-data" role='tabpanel')
-                                            textarea.form-control.message_input(rows="5" placeholder="Type your comment here...")
+                                            textarea.form-control.message_input(rows="4" placeholder="Type your comment here...")
 
                                             .bottom_wrapper.clearfix
                                                 .send_message.sendMessage.btn-livinn(data-current-user="" data-current-user-image="")
                                                     .icon
-                                                    .text Send
+                                                    .text SEND
                                                 input#attachmentFile(type="file" style="display:none" name='attachments')
-                                                a#attachFile.comment-attachment
-                                                    i.fa.fa-paperclip(aria-hidden='true')
-                                                    |  Attach a file
+                                                a#attachFile.comment-attachment.pull-right
+                                                    i.icon.ion-paperclip(aria-hidden='true')
+                                                    |   Attach a file
 
 
 
                                         form.tab-pane#note(role='tabpanel' method="post" enctype="multipart/form-data")
-                                            textarea.form-control#textareaNotes(rows="5" placeholder="Type your notes here...")
+                                            textarea.form-control#textareaNotes(rows="4" placeholder="Type your notes here...")
                                             .bottom_wrapper.clearfix
-                                                .send_message.sendNote(data-current-user="" data-current-user-image="")
+                                                .send_message.sendNote.btn-livinn(data-current-user="" data-current-user-image="")
                                                     .icon
-                                                    .text Send
+                                                    .text SEND
                                                 input#attachmentFileNote(type="file" style="display:none" name='attachments')
-                                                a#attachFileNote.comment-attachment
-                                                    i.fa.fa-paperclip(aria-hidden='true')
-                                                    |  Attach a file
+                                                a#attachFileNote.comment-attachment.pull-right
+                                                    i.icon.ion-paperclip(aria-hidden='true')
+                                                    |   Attach a file
+
                                 .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
-
                                     ul.col-xs-12.nav.nav-tabs.nav-tabs-comments.comment-section(role='tablist')
                                         li.active(role='presentation')
                                             a.gray(href='#allcomments', aria-controls='allcomments', role='tab', data-toggle='tab')
@@ -428,26 +487,81 @@ block scripts
     script(src="/js/parsley.min.js")
     script.
 
+        var ticketLocation = '';
+
         function deployFilters1() {
-            if ($("#searchTicket").hasClass("userFiltersUp")) {
-                $("#searchTicket").removeClass("userFiltersUp");
-                $("#searchTicket").addClass("userFiltersDown");
-            }
+          if ($("#searchTicket").hasClass("userFiltersUp")) {
+              $("#searchTicket").removeClass("userFiltersUp");
+              $("#searchTicket").addClass("userFiltersDown");
+          }
         }
 
         function collapseFilters1() {
-            if ($("#searchTicket").hasClass("userFiltersDown")) {
-                $("#searchTicket").removeClass("userFiltersDown");
-                $("#searchTicket").addClass("userFiltersUp");
-            }
+          if ($("#searchTicket").hasClass("userFiltersDown")) {
+              $("#searchTicket").removeClass("userFiltersDown");
+              $("#searchTicket").addClass("userFiltersUp");
+          }
         }
 
-        $('.locationSearch').click(function(){
+        //- Filter Location Tickets
+        $('.locationSearch').click(function() {
 
           var selLocationTicket = $(this).html();
+          ticketLocation = selLocationTicket;
+          console.log(ticketLocation);
           $('#locationDropdownTicket').html(selLocationTicket+'<i class="fa fa-angle-down"></i>');
+          $('.locationDropdownTicket').html(selLocationTicket+'<span><i class="icon ion-ios-arrow-down"></span>');
 
+
+
+          filterTickets(1);
         });
+
+        $('.cleanLocationTicket').click(function() {
+          console.log('algo');
+          $('#locationDropdownTicket').html('Location<i class="fa fa-angle-down"></i>');
+          $('.locationDropdownTicket').html('Location<span><i class="icon ion-ios-arrow-down"></span>');
+        });
+
+        //- Filter Category Tickets
+        $('.categorySearch').click(function() {
+          var selectedCategory = $(this).html();
+          console.log(selectedCategory);
+          $('#categoryDropdownTicket').html(selectedCategory+'<i class="fa fa-angle-down">');
+          $('.categoryDropdownTicket').html(selectedCategory+'<span><i class="fa fa-angle-down"></span>');
+        });
+
+        $('.cleanCategorySearch').click(function() {
+          $('#categoryDropdownTicket').html('Category<i class="fa fa-angle-down">');
+          $('.categoryDropdownTicket').html('Category<span><i class="fa fa-angle-down"></span>');
+        });
+
+        //- Filter Status Tickets
+        $('.statusSearch').click(function() {
+          var selectedStatus = $(this).html();
+          console.log(selectedStatus);
+          $('#statusDropdownTicket').html(selectedStatus+'<i class="fa fa-angle-down">');
+          $('.statusDropdownTicket').html(selectedStatus+'<span><i class="fa fa-angle-down"></span>');
+        });
+
+        $('.cleanStatusSearch').click(function() {
+          $('#statusDropdownTicket').html('Status<i class="fa fa-angle-down">');
+          $('.statusDropdownTicket').html('Status<span><i class="fa fa-angle-down"></span>');
+        });
+
+        //- Filter Priority Tickets
+        $('.prioritySearch').click(function() {
+          var selectedPriority = $(this).html();
+          console.log(selectedPriority);
+          $('#priorityDropdownTicket').html(selectedPriority+'<i class="fa fa-angle-down">');
+          $('.priorityDropdownTicket').html(selectedPriority+'<span><i class="fa fa-angle-down"></span>');
+        });
+
+        $('.cleanPrioritySearch').click(function() {
+          $('#priorityDropdownTicket').html('Priority<i class="fa fa-angle-down">');
+          $('.priorityDropdownTicket').html('Priority<span><i class="fa fa-angle-down"></span>');
+        });
+
 
         var openticketid = '';
 
@@ -642,6 +756,7 @@ block scripts
                         socket.emit('new-ticket', {ticket: response.ticket});
                         $('#newticketModal').modal('hide');
                         $('#subject').val("");
+                        $('#searchinputHidden').val("");
                         $('#summernote').summernote("reset");
                         $('#ticketForm').parsley().reset();
                         document.getElementById('ticketForm').reset();
@@ -670,11 +785,13 @@ block scripts
             }
 
             var options = '';
+            var valor = $('#categoryDropdownTicket').val();
+            console.log(valor);
 
-            $("#categoryselect").val() != '' ? options += '&category=' + $("#categoryselect").val() : null;
-            $("#subcategoryselect").val() != '' ? options += '&subcategory=' + $("#subcategoryselect").val() : null;
-            $("#statusselect").val() != '' ? options += '&status=' + $("#statusselect").val() : null;
-            $("#priorityselect").val() != '' ? options += '&priority=' + $("#priorityselect").val() : null;
+            ticketLocation != '' ? options += '&location='+ticketLocation : null;
+            //- $("#subcategoryselect").val() != '' ? options += '&subcategory=' + $("#subcategoryselect").val() : null;
+            //- $("#statusselect").val() != '' ? options += '&status=' + $("#statusselect").val() : null;
+            //- $("#priorityselect").val() != '' ? options += '&priority=' + $("#priorityselect").val() : null;
 
             var searchby = $("#searchby").val();
             var searchtext = $('#search').val().trim();
@@ -814,9 +931,11 @@ block scripts
             $('.notes').empty();
             $("#ticketasigneeGroup").empty();
             $('#ticketasignee').val('');
-            $('#attachFileNote').html('<i class="fa fa-paperclip" aria-hidden="true"></i> Attach a file')
+            $('#attachFileNote').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
+            $('#attachFile').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
             $('.send_message').attr('data-current-user', '#{user._id}');
             $('.send_message').attr('data-current-user-image', '#{user.profile_picture}');
+            $('.send_message').attr('data-name', '#{user.name.first}  #{user.name.last}');
             $('.send_message').attr('data-name', '#{user.name.first}  #{user.name.last}');
 
             $.ajax({
@@ -934,7 +1053,7 @@ block scripts
                                 $('#hiddenHelper').val(1);
 
                                 $('.sendNote').click(function (e) {
-                                    var ticket = response.ticket._id;
+                                    var ticket = $('#hiddenTicket').val();
                                     var formData = new FormData($('#note')[0]);
                                     formData.append('discussion_id', ticket);
                                     formData.append('posted_by', $(this).attr('data-current-user'));
@@ -947,6 +1066,11 @@ block scripts
                                         processData: false,
                                         contentType: false,
                                         success: function (response) {
+
+                                            $('#attachFileNote').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file');
+                                            $('#attachmentFileNote').val('');
+                                            var count = $('#noteslength').text();
+                                            $('#noteslength').text(parseFloat(count) + 1);
                                             return sendMessage($('#textareaNotes').val(), $('.sendNote').attr('data-current-user'), 'left', $('.sendNote').attr('data-current-user-image'), $('.sendNote').attr('data-name'), 'notes', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'), response.note.attachments, response.note.file_name);
 
                                         },
@@ -958,7 +1082,7 @@ block scripts
                                 });
 
                                 $('.sendMessage').click(function (e) {
-                                    var ticket = response.ticket._id;
+                                    var ticket = $('#hiddenTicket').val();
                                     var formData = new FormData($('#comment')[0]);
                                     formData.append('discussion_id', ticket);
                                     formData.append('posted_by', $(this).attr('data-current-user'));
@@ -972,6 +1096,10 @@ block scripts
                                         processData: false,
                                         contentType: false,
                                         success: function (response) {
+                                            $('#attachFile').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file');
+                                            $('#attachmentFile').val('');
+                                            var count = $('#commentslength').text();
+                                            $('#commentslength').text(parseFloat(count) + 1);
                                             return sendMessage(getMessageText(), $('.sendMessage').attr('data-current-user'), 'left', $('.sendMessage').attr('data-current-user-image'), $('.sendMessage').attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'), response.comment.attachments, response.comment.file_name);
                                         },
                                         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1116,27 +1244,27 @@ block scripts
         });
 
         //Search Mobile
-        /*
-        $('#searchMobile').keypress(function () {
+
+        $('#searchmobile').keypress(function () {
             $('.tickets').fadeOut("fast", function () {
                 $('#loader').fadeIn("fast");
                 $('.tickets').html('');
 
-                getTickets(1, $("#searchMobile").val());
+                getTickets(1, $("#searchmobile").val());
             });
         });
 
-        $('#searchMobile').keyup(function (e) {
+        $('#searchmobile').keyup(function (e) {
             if (e.keyCode == 8) {
                 $('.tickets').fadeOut("fast", function () {
                     $('#loader').fadeIn("fast");
                     $('.tickets').html('');
 
-                    getTickets(1, $("#searchMobile").val());
+                    getTickets(1, $("#searchmobile").val());
                 });
             }
         });
-        */
+
 
         $('#attachFileNote').click(function () {
             $('#attachmentFileNote').trigger('click');

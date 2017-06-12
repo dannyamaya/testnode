@@ -1,5 +1,6 @@
 extend ../layout
 block content
+    //- DESKTOP FORM
     .col-xs-12.userTools.has-feedback
       .col-md-12.no-padding.userMaganementDesktop
         .titleUserManagement.no-padding
@@ -80,6 +81,7 @@ block content
               span
                 i.icon.ion-ios-search-strong
 
+    //- MOBILE FORM
     .col-xs-12.no-padding.hidden-md.hidden-lg#userFilters.userFilters.userFiltersUp
       .col-xs-12.no-padding.clearFilters
         .col-xs-6.btnCloseFiltersMobile
@@ -159,12 +161,13 @@ block content
 block modals
 
     <!-- User Read Modal -->
-    .modal.fade#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+    .modal.fade#readModal.readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                      i.icon.ion-android-close
                     h3.text-center.white#titleRead
-                        button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
                         .col-xs-12.col-sm-10.col-sm-offset-1
@@ -174,45 +177,36 @@ block modals
                                     .form-group
                                         label(for='first')
                                             |   First Name
-                                            span.requiredLivinn *
                                         p.text-capitalize#firstRead
                                     .form-group
                                         label(for='last')
                                             |   Last Name
-                                            span.requiredLivinn *
                                         p.text-capitalize#lastRead
                                     .form-group.emailregistrationerror
                                         label(for='email') Email
-                                        span.requiredLivinn *
                                         p#emailRead
                                 .col-xs-12.col-sm-6
                                     .form-group
                                         label Role
-                                        span.requiredLivinn *
                                         p.text-capitalize#roleRead
 
                                     .form-group
                                         label Document Type
-                                        span.requiredLivinn *
                                         p#doctypeRead
 
                                     .form-group
                                         label(for='document') Document
-                                        span.requiredLivinn *
                                         p#documentRead
                                     .form-group.col-xs-12.col-sm-6.no-padding
                                         label Location
-                                        span.requiredLivinn *
                                         p#locationRead
 
                                     .form-group.col-xs-12.col-sm-6.no-padding-right
                                         label Time Zone
-                                        span.requiredLivinn *
                                         p#timezoneRead
 
                                     .form-group.col-xs-12.no-padding
                                         label(for='phone') Phone
-                                        span.requiredLivinn *
                                         p#phoneRead
                                     .form-group.differentResident
                                         label(for='occupation') Ocuppation
@@ -228,21 +222,17 @@ block modals
                                     .form-group.col-sm-4
                                         label(for='numcontract')
                                             |   Contract Number
-                                        span.requiredLivinn *
                                         p#numcontractRead
                                     .form-group.col-sm-4
                                         label(for='start')
                                             |   Start
-                                            span.requiredLivinn *
                                         p#startRead
                                     .form-group.col-sm-4
                                         label(for='finish')
                                             |   Finish
-                                            span.requiredLivinn *
                                         p#finishRead
                                     .form-group.col-sm-8
                                         label Agent
-                                        span.requiredLivinn *
                                         p#agentRead
                                     .form-group.col-sm-4
                                         label Status
@@ -251,11 +241,9 @@ block modals
                                     hr.col-xs-12
                                     .form-group.col-sm-6
                                         label(for='apartment') Apartment
-                                        span.requiredLivinn *
                                         p#apartmentRead
                                     .form-group.col-sm-6
                                         label(for='type') Apartment Type
-                                        span.requiredLivinn *
                                         p#typeRead
                                     .form-group.col-sm-6
                                         label Bathroom
@@ -392,29 +380,28 @@ block modals
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
                                     hr.col-xs-12.no-padding
-                                    .col-xs-12.no-padding
-                                      .form-group.col-sm-6
-                                          label(for='apartment') Apartment
-                                          span.requiredLivinn *
-                                          input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
-                                      .form-group.col-sm-6
-                                          label(for='type') Apartment Type
-                                          span.requiredLivinn *
-                                          .select
-                                            select#type.inputResident(name='apartmentType' required)
-                                              option(value="") Apartment type
-                                              option(value="1A") 1A
-                                              option(value="1B") 1B
-                                              option(value="2A") 2A
-                                              option(value="2B") 2B
-                                              option(value="3A") 3A
-                                              option(value="3B") 3B
-                                              option(value="4A") 4A
-                                              option(value="4B") 4B
-                                              option(value="4C") 4C
-                                              option(value="4D") 4D
-                                              option(value="4E") 4E
-                                              option(value="4F") 4F
+                                    .form-group.col-sm-6
+                                        label(for='apartment') Apartment
+                                        span.requiredLivinn *
+                                        input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
+                                    .form-group.col-sm-6
+                                        label(for='type') Apartment Type
+                                        span.requiredLivinn *
+                                        .select
+                                          select#type.inputResident(name='apartmentType' required)
+                                            option(value="") Apartment type
+                                            option(value="1A") 1A
+                                            option(value="1B") 1B
+                                            option(value="2A") 2A
+                                            option(value="2B") 2B
+                                            option(value="3A") 3A
+                                            option(value="3B") 3B
+                                            option(value="4A") 4A
+                                            option(value="4B") 4B
+                                            option(value="4C") 4C
+                                            option(value="4D") 4D
+                                            option(value="4E") 4E
+                                            option(value="4F") 4F
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -1216,3 +1203,106 @@ block scripts
           var search = $('#search').val().trim();
           window.open('/api/users/export?search='+search,'_blank');
       }
+
+
+      /* MISSING REFACTOR */
+
+      $('#roleCreate').on('change', function (e) {
+         var optionSelected = $("option:selected", this).val();
+         if(optionSelected != 'resident'){
+             $('.inputResident').prop('disabled', true);
+             $('#occupation').prop('disabled', false);
+
+         }else{
+             $('#occupation').prop('disabled',true);
+             $('.inputResident').prop('disabled', false);
+         }
+      });
+
+      $('#inputUpdateRole').on('change', function (e) {
+         var optionSelected = $("option:selected", this).val();
+         if (optionSelected != 'resident') {
+             $('.inputResidentUpdate').prop('disabled', true);
+             $('#inputUpdateOccupation').prop('disabled', false);
+
+         } else {
+             $('#inputUpdateOccupation').prop('disabled', true);
+             $('.inputResidentUpdate').prop('disabled', false);
+         }
+      });
+
+      $('.differentResident').hide();
+      $('#occupation').prop('disabled',true);
+
+      $('#registrationForm').parsley({
+         excluded: ' :disabled'
+      });
+
+
+      function filterUsers(page) {
+         var search = $('#search').val().trim();
+         readUsers(page, search);
+      }
+
+
+
+      $('.differentResident').hide();
+
+      $('.roleSelect').on('change', function () {
+         if (this.value != 'resident') {
+             $('.differentResident').show();
+             $('.residentFields').hide();
+         }
+         else {
+             $('.differentResident').hide();
+             $('.residentFields').show();
+         }
+      });
+
+
+      $('#search').on({
+         focus: function () {
+             $("#searchform .input-group-addon").addClass('focused');
+         },
+
+         blur: function () {
+             $("#searchform .input-group-addon").removeClass('focused');
+         }
+      });
+
+
+
+      //Search Mobi
+      $('#searchMobile').keypress(function(){
+         $('#userstable').fadeOut("fast", function () {
+             $('#loader').fadeIn("fast");
+             readUsers(1, $("#searchMobile").val());
+         });
+      });
+
+      $('#searchMobile').keyup(function (e) {
+         if(e.keyCode == 8){
+             $('#userstable').fadeOut("fast", function () {
+                 $('#loader').fadeIn("fast");
+                 readUsers(1, $("#searchMobile").val());
+             });
+         };
+      });
+
+
+      //Enables datepicker select in modal
+      var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;
+      $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+      $confModal.on('hidden', function() {
+       $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
+      });
+      $confModal.modal({ backdrop : false });
+
+
+
+
+
+
+
+
+

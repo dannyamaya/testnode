@@ -623,18 +623,42 @@ button:focus{
   padding-top: 8px;
 }
 
-.userFilters .search-filtersMobile ul .dropdown a {
+.userFilters .search-filtersMobile ul .dropdown .dropdown-menu {
+  border: none;
+  background-color: #E1E1E1;
+  box-shadow: none;
+}
+
+.userFilters .search-filtersMobile ul .dropdown a,
+.userFilters.searchTicket .search-filtersMobile ul .dropdown a {
   color: #9f9fa0;
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: 1.5rem;
 }
 
+.userFilters .search-filtersMobile ul .dropdown button,
+.userFilters.searchTicket .search-filtersMobile ul .dropdown button {
+  text-align: left;
+  color: #9f9fa0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 1.5rem;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+}
+
 .userFilters .search-filtersMobile .dropdown:nth-child(1) {
   border-bottom: 1px solid #D5D4D6;
 }
 
-.userFilters .search-filtersMobile .dropdown a span {
+.userFilters .search-filtersMobile .dropdown a span,
+.userFilters .search-filtersMobile .dropdown ai {
+  float: right;
+}
+
+.userFilters .search-filtersMobile .dropdown button span {
   float: right;
 }
 
@@ -1189,7 +1213,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 
 .ticket-left{
     background-color:#fcfcfc;
-    height:calc(100% - 50px);
+    height:calc(100% - 86px);
     overflow-y:auto;
     padding-right: 20px;
     padding-left: 30px;
@@ -1512,7 +1536,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .registrationModal .modal-body form .form-group label,
-.updateUserModal .modal-body form .form-group label {
+.updateUserModal .modal-body form .form-group label,
+.readModal .modal-body form .form-group label {
   color: #D51C5C;
   margin-left: 30px;
   font-family: 'Open Sans', sans-serif;
@@ -1586,7 +1611,9 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .updateUserModal .modal-header button,
-.registrationModal .modal-header button {
+.registrationModal .modal-header button,
+
+.readModal .modal-header button {
   padding: 3px 9px 4px;
   border-radius: 50%;
   border: 2px solid #FFF;
@@ -1597,7 +1624,8 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 
 .updateUserModal .modal-header h3,
-.registrationModal .modal-header h3 {
+.registrationModal .modal-header h3,
+.readModal .modal-header h3 {
   text-transform: uppercase;
   color: #FFF;
   font-family: 'BebasNeue-Regular', sans-serif;
@@ -1742,6 +1770,10 @@ select.parsley-success,
 textarea.parsley-success {
   color: #468847;
   border: 1px solid #468847;
+}
+
+textarea.form-control{
+    width: 98.3%;
 }
 
 input.parsley-error,
@@ -2533,9 +2565,8 @@ textarea.parsley-error {
 
 .bottom_wrapper .send_message {
   width: 140px;
-  height: 50px;
+  height: 42px;
   display: inline-block;
-  border-radius: 50px;
   background-color: #E30056;
   border: 2px solid #E30056;
   color: #fff;
@@ -2549,10 +2580,11 @@ textarea.parsley-error {
   background-color: #fff;
 }
 .bottom_wrapper .send_message .text {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 300;
   display: inline-block;
-  line-height: 48px;
+  line-height: 43px;
+  font-family: 'BebasNeue-Regular';
 }
 
 .message_template {
@@ -2567,6 +2599,7 @@ textarea.parsley-error {
 .label-message{
     font-weight: 400;
     color: #606470;
+    margin-bottom: 0px;
 }
 
 .comment-chat{
@@ -2578,6 +2611,7 @@ textarea.parsley-error {
 .comment-chat-date{
     color: #606470;
     margin-bottom: -2px;
+    margin-top: -4px;
     font-size: 12px;
 
 }
@@ -2589,14 +2623,18 @@ textarea.parsley-error {
 .comment-attachment{
     color: #E30056;
     cursor: pointer;
-    font-size: 14px;
-
+    margin-right: 6%;
+    margin-top: -0.6%;
 }
 
 .comment-attachment a {
     color: #E30056;
-    font-size: 12px;
+    font-size: 11px;
 
+}
+
+.ion-paperclip{
+    font-size: 19px;
 }
 
 .gray{
@@ -2606,5 +2644,9 @@ textarea.parsley-error {
 .mt-15{
     margin-bottom: 5px;
 }
+
+
+
+
 
 

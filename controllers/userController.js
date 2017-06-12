@@ -299,7 +299,7 @@ module.exports = {
      * @param {string} id - The user's id.
      */
     updateUser: function (req, res, next) {
-        //console.log(req.body);
+        console.log(req.body);
         var errorResident = false;
         User.findById(req.params.id, function (err, user) {
             if (err) {
@@ -557,12 +557,14 @@ module.exports = {
      */
     updatePassword: function (req, res, next) {
 
+        console.log(req.body);
+
         if (req.body.password === undefined) {
-            res.status(404).json({message: 'password not found'});
+            return res.status(404).json({message: 'password not found'});
         }
 
         if (req.body.passwordconfirmation === undefined) {
-            res.status(404).json({message: 'password confirmation not found'});
+            return res.status(404).json({message: 'password confirmation not found'});
         }
 
         if (req.body.password == req.body.passwordconfirmation) {
@@ -604,7 +606,7 @@ module.exports = {
             });
 
         } else {
-            res.status(400).json({message: 'password and password confirmation mismatch'});
+            return res.status(400).json({message: 'password and password confirmation mismatch'});
         }
     },
 

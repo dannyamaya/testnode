@@ -26,9 +26,9 @@ block content
                         input.form-control#searchmobile(type="text" name="name" placeholder="Search")
             ul.col-xs-12.no-padding.nav.navbar-nav
               li.col-xs-12.no-padding.dropdown
-                button.btn.col-xs-12.dropdown-toggle.locationDropdownTicket( data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+                a.col-xs-12.dropdown-toggle.locationDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
                   span
-                    i.icon.ion-ios-arrow-down
+                    i.icon.ion-ios-arrow-down                  
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
                     a.locationSearch(href="#") Lord Cochrane Santiago
@@ -41,9 +41,9 @@ block content
                   li
                     a.locationSearch(href="#") Villa campestre Barranquilla
               li.col-xs-12.no-padding.dropdown
-                button.btn.col-xs-12.dropdown-toggle.categoryDropdownTicket( data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Category
+                a.col-xs-12.dropdown-toggle.categoryDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Category
                   span
-                    i.icon.ion-ios-arrow-down
+                      i.icon.ion-ios-arrow-down
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
                     a.categorySearch(href="#") Cleaning Services
@@ -58,33 +58,73 @@ block content
                   li
                     a.categorySearch(href="#") Others
 
+              li.col-xs-12.no-padding.dropdown
+                a.col-xs-12.dropdown-toggle.subcategoryDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Subcategories
+                    span
+                        i.icon.ion-ios-arrow-down
+                ul.col-xs-12.no-padding.dropdown-menu
+                  li.dropdown-header Zona BBQ
+                  li.dropdown-header Reservación
+                  li
+                    a.subcategorySearch(href="#") Parrilla
+                  li
+                    a.subcategorySearch(href="#") Utensilios de Cocinar
+                  li
+                    a.subcategorySearch(href="#") Cancelación
+                  li
+                    a.subcategorySearch(href="#") Cambios
+                  li.dropdown-header Limpieza
+                  li
+                    a.subcategorySearch(href="#") Piso Deck
+                  li
+                    a.subcategorySearch(href="#") Lava Platos
+                  li
+                    a.subcategorySearch(href="#") Mesa
+                  li
+                    a.subcategorySearch(href="#") Parrilla
+
+                  li.dropdown-header Cuarto de Billar
+                  li.dropdown-header Reservación
+                  li
+                    a.subcategorySearch(href="#") Mesa de Billar
+                  li
+                    a.subcategorySearch(href="#") Mesa Pool
+                  li.dropdown-header Limpieza
+                  li
+                    a.subcategorySearch(href="#") Ventanas
+                  li
+                    a.subcategorySearch(href="#") Piso PVC
+                  li
+                    a.subcategorySearch(href="#") Lámparas
+
+              
 
 
-              .col-xs-12
-                  .select.select-livinn.col-xs-2
-                      select.form-control.filter#subcategoryselectmobile
-                          option(value="" selected) Subcategories
-                          optgroup(label="Zona de BBQ" style="color:#000;")
-                          optgroup(label="Reservación" style="margin-left:15px;")
-                              option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-                              option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
-                          option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
-                          option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
-                          optgroup(label="Limpieza" style="margin-left:15px;")
-                              option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
-                              option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
-                              option(value="Zona de BBQ/Limpieza/Mesa") Mesa
-                              option(value="Zona de BBQ/Limpieza/Parilla") Parilla
-                          optgroup(label="Cuarto de Billar" style="color:#000;")
-                              optgroup(label="Reservación" style="margin-left:15px;")
-                                  option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
-                                  option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
-                              option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
-                              option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
-                              optgroup(label="Limpieza" style="margin-left:15px;")
-                                  option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
-                                  option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
-                                  option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
+              //- .col-xs-12
+              //-     .select.select-livinn.col-xs-2
+              //-         select.form-control.filter#subcategoryselectmobile
+              //-             option(value="" selected) Subcategories
+              //-             optgroup(label="Zona de BBQ" style="color:#000;")
+              //-             optgroup(label="Reservación" style="margin-left:15px;")
+              //-                 option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
+              //-                 option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
+              //-             option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
+              //-             option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
+              //-             optgroup(label="Limpieza" style="margin-left:15px;")
+              //-                 option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
+              //-                 option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
+              //-                 option(value="Zona de BBQ/Limpieza/Mesa") Mesa
+              //-                 option(value="Zona de BBQ/Limpieza/Parilla") Parilla
+              //-             optgroup(label="Cuarto de Billar" style="color:#000;")
+              //-                 optgroup(label="Reservación" style="margin-left:15px;")
+              //-                     option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
+              //-                     option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
+              //-                 option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
+              //-                 option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
+              //-                 optgroup(label="Limpieza" style="margin-left:15px;")
+              //-                     option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
+              //-                     option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
+              //-                     option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
 
               li.col-xs-12.no-padding.dropdown
                   a.col-xs-12.dropdown-toggle.statusDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Status
@@ -140,19 +180,19 @@ block content
                   ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                       li
                         a.prioritySearch(href="#")
-                          span.visible-lg 1 / High Priority / 24H
+                          span.hidden-xs.hidden-sm.hidden-md 1 / High Priority / 12H
                           span.hidden-lg| High
                       li
                         a.prioritySearch(href="#")
-                          span.visible-lg 2 / Medium Priority / 48H
+                          span.hidden-xs.hidden-sm.hidden-md 2 / Medium Priority / 48H
                           span.hidden-lg| Medium
                       li
                         a.prioritySearch(href="#")
-                          span.visible-lg 3 / Low Priority / 72H
+                          span.hidden-xs.hidden-sm.hidden-md 3 / Low Priority / 72H
                           span.hidden-lg| Low
                       li
                         a.prioritySearch(href="#")
-                          span.visible-lg 4 / To plan / To schedule
+                          span.hidden-xs.hidden-sm.hidden-md 4 / To plan / To schedule
                           span.hidden-lg| To Plan
                       li.dropdown-header.cleanPrioritySearch.pull-right(style="color:#D51C5C;") Clear
 

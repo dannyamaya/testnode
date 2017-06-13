@@ -669,8 +669,12 @@ button:focus{
   background-color: transparent;
 }
 
-.userFilters .search-filtersMobile .dropdown:nth-child(1) {
+.userFilters .search-filtersMobile .dropdown {
   border-bottom: 1px solid #D5D4D6;
+}
+
+.userFilters .search-filtersMobile .dropdown:last-child {
+  border-bottom: none;
 }
 
 .userFilters .search-filtersMobile .dropdown a span,
@@ -680,10 +684,6 @@ button:focus{
 
 .userFilters .search-filtersMobile .dropdown button span {
   float: right;
-}
-
-.userFilters.searchTicket {
-  padding-bottom: 10px;
 }
 
 .userFilters.searchTicket .search-filtersMobile {
@@ -827,6 +827,10 @@ button:focus{
 
 @media screen and (min-width: 992px) {
 
+  .logoHeading a {
+    width: 120px;
+  }
+
   .userTools .titleUserManagement {
     margin-top: 11px;
   }
@@ -840,6 +844,10 @@ button:focus{
   }
 
   .userTools.ticketTools .select {
+    height: 34px;
+  }
+
+  .userTools.ticketTools .search .select, .search .select:hover {
     height: 34px;
   }
 
@@ -879,10 +887,6 @@ button:focus{
 }
 
 @media screen and (min-width: 1200px) {
-
-  .logoHeading a {
-    width: 120px;
-  }
 
   .userTools .userMaganementDesktop form {
     width: 250px;
@@ -2413,7 +2417,7 @@ textarea.parsley-error {
   }
 
   .userTools.ticketTools form .search input {
-    height: 32px;
+    height: 34px;
   }
 
   .userTools.ticketTools form .search {

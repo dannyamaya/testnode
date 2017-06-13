@@ -1,6 +1,6 @@
 /*** Fonts ***/
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
 
 @font-face {
   font-family: 'BebasNeue';
@@ -382,6 +382,10 @@ button:focus{
   margin-bottom:25px;
 }
 
+.logoHeading a {
+  width: 125px;
+}
+
 .dashboard-menu li.inactive {
   margin: 15px 0 5px;
   font-size: 82%;
@@ -657,6 +661,14 @@ button:focus{
   font-size: 1.5rem;
 }
 
+.userFilters.searchTicket .search-filtersMobile ul .dropdown a.option {
+  padding-left: 50px;
+}
+
+.userFilters.searchTicket .search-filtersMobile ul li.open a.dropdown-toggle {
+  border-bottom: 1px solid #D5D4D6;
+}
+
 .userFilters .search-filtersMobile ul .dropdown button,
 .userFilters.searchTicket .search-filtersMobile ul .dropdown button {
   text-align: left;
@@ -670,6 +682,10 @@ button:focus{
 }
 
 .userFilters .search-filtersMobile .dropdown {
+  border-bottom: 1px solid #D5D4D6;
+}
+
+.userFilters .search-filtersMobile .dropdown.subcategoriesTickets.open .subcategoryDropdownTicket {
   border-bottom: 1px solid #D5D4D6;
 }
 
@@ -688,11 +704,37 @@ button:focus{
 
 .userFilters.searchTicket .search-filtersMobile {
   margin-top: 25px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .userFilters.searchTicket .search-filtersMobile form {
   border: none;
 }
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu {
+  margin-top: 45px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu li.dropdown-header.subtitle {
+  padding-left: 35px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu .dropdown-header.title {
+  font-size: 1.5rem;  
+  font-weight: 800;
+  border-bottom: 1px solid #D5D4D6;
+  padding-top: 15px;
+  padding-bottom: 11px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu .dropdown-header.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom: 1px solid #D5D4D6;
+  padding-top: 15px;
+  padding-bottom: 11px;
+}
+
 
 .userFilters.searchTicket .search-filtersMobile form .search {
   border: 1px solid  #D51C5C;
@@ -828,7 +870,7 @@ button:focus{
 @media screen and (min-width: 992px) {
 
   .logoHeading a {
-    width: 120px;
+    width: 125px;
   }
 
   .userTools .titleUserManagement {
@@ -837,10 +879,6 @@ button:focus{
 
   .userTools .userMaganementDesktop form {
     width: 195px;
-  }
-
-  .dashboard-menu {
-    width: 20%;
   }
 
   .userTools.ticketTools .select {
@@ -2333,8 +2371,13 @@ textarea.parsley-error {
     padding-top: 0px;
   }
 
-  .dashboard-menu{
+  .dashboard-menu {
     position: fixed;
+    width: 24.5%;
+  }
+
+  .userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu {
+    margin-top: 0px;
   }
 
   .ticket {
@@ -2407,6 +2450,10 @@ textarea.parsley-error {
     margin-top: 75px;
   }
 
+  .dashboard-menu {
+    width: 20%;
+  }
+
   .userTools {
     margin-top: 79px;
     height: 55px;
@@ -2415,6 +2462,31 @@ textarea.parsley-error {
   .userTools form .search input {
     height: 34px;
   }
+
+  .userTools.ticketTools form {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .userTools.ticketTools form .subcatDesktop .dropdown-menu  li {
+    
+  } 
+
+  .userTools.ticketTools form .subcatDesktop .dropdown-menu .dropdown-header.title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    border-bottom: 1px solid #D5D4D6;
+  }
+
+  .userTools.ticketTools form .subcatDesktop .dropdown-menu .dropdown-header.subtitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-bottom: 1px solid #D5D4D6;
+    padding-left: 30px;
+  }
+
+   .userTools.ticketTools form .subcatDesktop .dropdown-menu li a.option {
+      padding-left: 40px;
+   }
 
   .userTools.ticketTools form .search input {
     height: 34px;

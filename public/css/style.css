@@ -122,6 +122,195 @@ button:focus{
 }
 
 
+/* LOADER PLATFORM*/
+
+.wdt-loading-screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 999998;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.wdt-loading-phrases {
+  width: 300px;
+  margin: 0 auto;
+  height: 116px;
+  overflow: hidden;
+  position: relative;
+  padding: 28px 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wdt-loading-phrases:before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+}
+
+.wdt-loading-phrase {
+  position: relative;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  transform: translateY(30px);
+  line-height: 30px;
+  height: 30px;
+  color: #FFF;
+}
+
+.wdt-loading-phrase:before {
+  content: " ";
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 6px;
+  left: 0;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+
+.wdt-loading-phrase:after {
+  opacity: 0;
+  height: 11px;
+  width: 7px;
+  -webkit-transform-origin: left top;
+  -moz-transform-origin: left top;
+  -ms-transform-origin: left top;
+  -o-transform-origin: left top;
+  transform-origin: left top;
+  border-right: 3px solid #FFF;
+  border-top: 3px solid #FFF;
+  border-radius: 2.5px !important;
+  content: '';
+  left: 3px;
+  top: 16px;
+  position: absolute;
+  -webkit-transform: scaleX(-1) rotate(135deg);
+  -moz-transform: scaleX(-1) rotate(135deg);
+  -ms-transform: scaleX(-1) rotate(135deg);
+  -o-transform: scaleX(-1) rotate(135deg);
+  transform: scaleX(-1) rotate(135deg);
+}
+
+.wdt-loading-phrase.wdt-checked:after {
+  -webkit-animation-delay: 100ms;
+  -moz-animation-delay: 100ms;
+  animation-delay: 100ms;
+  -webkit-animation-duration: 200ms;
+  -moz-animation-duration: 200ms;
+  animation-duration: 200ms;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-name: checkmark;
+  -moz-animation-name: checkmark;
+  animation-name: checkmark;
+  -webkit-transform: scaleX(-1) rotate(135deg);
+  -moz-transform: scaleX(-1) rotate(135deg);
+  -ms-transform: scaleX(-1) rotate(135deg);
+  -o-transform: scaleX(-1) rotate(135deg);
+  transform: scaleX(-1) rotate(135deg);
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes checkmark {
+  0% {
+    height: 0;
+    width: 7px;
+    opacity: 1;
+  }
+  20% {
+    height: 2px;
+    width: 7px;
+    opacity: 1;
+  }
+  40% {
+    height: 5px;
+    width: 7px;
+    opacity: 1;
+  }
+  100% {
+    height: 11px;
+    width: 7px;
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes checkmark {
+  0% {
+    height: 0;
+    width: 7px;
+    opacity: 1;
+  }
+  20% {
+    height: 2px;
+    width: 7px;
+    opacity: 1;
+  }
+  40% {
+    height: 5px;
+    width: 7px;
+    opacity: 1;
+  }
+  100% {
+    height: 11px;
+    width: 7px;
+    opacity: 1;
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 7px;
+    opacity: 1;
+  }
+  20% {
+    height: 2px;
+    width: 7px;
+    opacity: 1;
+  }
+  40% {
+    height: 5px;
+    width: 7px;
+    opacity: 1;
+  }
+  100% {
+    height: 11px;
+    width: 7px;
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* BUTTONS & INPUTS */
 
 .form-control, .btn, .panel{
@@ -663,6 +852,8 @@ button:focus{
 
 .userFilters.searchTicket .search-filtersMobile ul .dropdown a.option {
   padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 .userFilters.searchTicket .search-filtersMobile ul li.open a.dropdown-toggle {
@@ -694,8 +885,12 @@ button:focus{
 }
 
 .userFilters .search-filtersMobile .dropdown a span,
-.userFilters .search-filtersMobile .dropdown ai {
+.userFilters .search-filtersMobile .dropdown a i {
   float: right;
+}
+
+.userFilters.searchTicket .search-filtersMobile .dropdown a span.opcion {
+  float: left;
 }
 
 .userFilters .search-filtersMobile .dropdown button span {
@@ -731,10 +926,14 @@ button:focus{
   font-size: 1.5rem;
   font-weight: 600;
   border-bottom: 1px solid #D5D4D6;
+  border-top: 1px solid #D5D4D6;
   padding-top: 15px;
   padding-bottom: 11px;
 }
 
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu .dropdown-header.subtitle:nth-child(1) {
+  border-top: none;
+}
 
 .userFilters.searchTicket .search-filtersMobile form .search {
   border: 1px solid  #D51C5C;
@@ -2190,7 +2389,8 @@ textarea.parsley-error {
 }
 
 .cleanRoleSearch, .cleanLocationSearch, .cleanLocationTicket,
-.cleanCategorySearch, .cleanStatusSearch, cleanPrioritySearch {
+.cleanCategorySearch, .cleanStatusSearch, .cleanPrioritySearch,
+.cleanSubcategoriesSearch {
     cursor:pointer;
 }
 

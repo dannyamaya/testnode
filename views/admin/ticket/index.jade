@@ -97,67 +97,31 @@ block content
                   li
                     a.subcategorySearch.option(href="#") Lámparas
 
-              
-
-
-              //- .col-xs-12
-              //-     .select.select-livinn.col-xs-2
-              //-         select.form-control.filter#subcategoryselectmobile
-              //-             option(value="" selected) Subcategories
-              //-             optgroup(label="Zona de BBQ" style="color:#000;")
-              //-             optgroup(label="Reservación" style="margin-left:15px;")
-              //-                 option(value="Zona de BBQ/Reservación/Parrilla") Parrilla
-              //-                 option(value="Zona de BBQ/Reservación/Utensilios de Cocinar") Utensilios de Cocinar
-              //-             option(value="Zona de BBQ/Cancelación" style="margin-left:15px;") Cancelación
-              //-             option(value="Zona de BBQ/Cambios" style="margin-left:15px;") Cambios
-              //-             optgroup(label="Limpieza" style="margin-left:15px;")
-              //-                 option(value="Zona de BBQ/Limpieza/Piso Deck") Piso Deck
-              //-                 option(value="Zona de BBQ/Limpieza/Lava Platos") Lava Platos
-              //-                 option(value="Zona de BBQ/Limpieza/Mesa") Mesa
-              //-                 option(value="Zona de BBQ/Limpieza/Parilla") Parilla
-              //-             optgroup(label="Cuarto de Billar" style="color:#000;")
-              //-                 optgroup(label="Reservación" style="margin-left:15px;")
-              //-                     option(value="Cuarto de Billar/Reservación/Mesa de billar") Mesa de billar
-              //-                     option(value="Cuarto de Billar/Reservación/Mesa Pool") Mesa Pool
-              //-                 option(value="Cuarto de Billar/Cancelación" style="margin-left:15px;") Cancelación
-              //-                 option(value="Cuarto de Billar/Cambios" style="margin-left:15px;") Cambios
-              //-                 optgroup(label="Limpieza" style="margin-left:15px;")
-              //-                     option(value="Cuarto de Billar/Limpieza/Ventanas") Ventanas
-              //-                     option(value="Cuarto de Billar/Limpieza/Piso PVC") Piso PVC
-              //-                     option(value="Cuarto de Billar/Limpieza/Lámparas") Lámparas
-
               li.col-xs-12.no-padding.dropdown
                   a.col-xs-12.dropdown-toggle.statusDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Status
                       span
                           i.icon.ion-ios-arrow-down
                   ul.col-xs-12.no-padding.dropdown-menu
                       li
-                          a.statusSearch(href="#") Open
+                        a.statusSearch(href="#") Open
                       li
-                          a.statusSearch(href="#") Pending
+                        a.statusSearch(href="#") Pending
                       li
-                          a.statusSearch(href="#") Resolved
+                        a.statusSearch(href="#") Resolved
               li.col-xs-12.no-padding.dropdown
                 a.col-xs-12.dropdown-toggle.priorityDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Priority
                   span
                     i.icon.ion-ios-arrow-down
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
-                    a.prioritySearch(href="#")
-                      span.visible-lg 1 / High Priority / 24H
-                      | High
+                    a.prioritySearch(href="#") 1 / High Priority / 12H
                   li
-                    a.prioritySearch(href="#")
-                      span.visible-lg 2 / Medium Priority / 48H
-                      | Medium
+                    a.prioritySearch(href="#") 2 / Medium Priority / 48H
                   li
-                    a.prioritySearch(href="#")
-                      span.visible-lg 3 / Low Priority / 72H
-                      | Low
+                    a.prioritySearch(href="#") 3 / Low Priority / 72H
                   li
-                    a.prioritySearch(href="#")
-                      span.visible-lg 4 / To plan / To schedule
-                      | To PLan
+                    a.prioritySearch(href="#") 4 / To plan / To schedule
+
 
 
     //-DESKTOP!
@@ -180,19 +144,19 @@ block content
                   ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                       li
                         a.prioritySearch(href="#")
-                          span.hidden-xs.hidden-sm.hidden-md 1 / High Priority / 12H
+                          span.hidden-md 1 / High Priority / 12H
                           span.hidden-lg| High
                       li
                         a.prioritySearch(href="#")
-                          span.hidden-xs.hidden-sm.hidden-md 2 / Medium Priority / 48H
+                          span.hidden-md 2 / Medium Priority / 48H
                           span.hidden-lg| Medium
                       li
                         a.prioritySearch(href="#")
-                          span.hidden-xs.hidden-sm.hidden-md 3 / Low Priority / 72H
+                          span.hidden-md 3 / Low Priority / 72H
                           span.hidden-lg| Low
                       li
                         a.prioritySearch(href="#")
-                          span.hidden-xs.hidden-sm.hidden-md 4 / To plan / To schedule
+                          span.hidden-md 4 / To plan / To schedule
                           span.hidden-lg| To Plan
                       li.dropdown-header.cleanPrioritySearch.pull-right(style="color:#D51C5C;") Clear
 
@@ -435,7 +399,7 @@ block modals
                                     .select
                                         select.editopenticket#openticketpriority(name="priority")
                                             option(value="" selected) Priority
-                                            option(value="1") 1 / High Priority / 24H
+                                            option(value="1") 1 / High Priority / 12H
                                             option(value="2") 2 / Medium Priority / 48H
                                             option(value="3") 3 / Low Priority / 72H
                                             option(value="4") 4 / To plan / To schedule
@@ -612,6 +576,7 @@ block scripts
         //- Filter Priority Tickets
         $('.prioritySearch').click(function() {
           var selectedPriority = $(this).html();
+          //- console.log(selectedPriority);
           tpriority = selectedPriority;
           $('#priorityDropdownTicket').html(selectedPriority+'<i class="fa fa-angle-down">');
           $('.priorityDropdownTicket').html(selectedPriority+'<span><i class="fa fa-angle-down"></span>');

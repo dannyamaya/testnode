@@ -1,5 +1,22 @@
 extend ../layout
+block header
+
+  link(herf="/css/wdtLoading.css" rel="stylesheet")
+
 block content
+    //- LOADER
+    .wdt-loading-screen.gradienteLivinn#loaderPlatform
+      .wdt-loading-phrases
+        .wdt-loading-phrase-category(data-category='default')          
+          .wdt-loading-phrase Getting New Users...
+          .wdt-loading-phrase Updating Users...
+          .wdt-loading-phrase Fetching up Databases...
+          .wdt-loading-phrase Loading DOM...
+          .wdt-loading-phrase Loading Tickets...
+          .wdt-loading-phrase Looking for managers...
+      .col-xs-6.col-xs-offset-3.col-sm-5.col-md-4.col-lg-3.navbar-brand.logoHeading(style="position: absolute; bottom: 0px; height:100px;")
+        img(class="img-responsive" src="../img/logolivinn-blanco.svg")
+
     //- DESKTOP FORM
     .col-xs-12.userTools.has-feedback
       .col-md-12.no-padding.userMaganementDesktop
@@ -383,29 +400,28 @@ block modals
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
                                     hr.col-xs-12.no-padding
-                                    .col-xs-12.no-padding
-                                      .form-group.col-sm-6
-                                          label(for='apartment') Apartment
-                                          span.requiredLivinn *
-                                          input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
-                                      .form-group.col-sm-6
-                                          label(for='type') Apartment Type
-                                          span.requiredLivinn *
-                                          .select
-                                            select#type.inputResident(name='apartmentType' required)
-                                              option(value="") Apartment type
-                                              option(value="1A") 1A
-                                              option(value="1B") 1B
-                                              option(value="2A") 2A
-                                              option(value="2B") 2B
-                                              option(value="3A") 3A
-                                              option(value="3B") 3B
-                                              option(value="4A") 4A
-                                              option(value="4B") 4B
-                                              option(value="4C") 4C
-                                              option(value="4D") 4D
-                                              option(value="4E") 4E
-                                              option(value="4F") 4F
+                                    .form-group.col-sm-6
+                                        label(for='apartment') Apartment
+                                        span.requiredLivinn *
+                                        input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
+                                    .form-group.col-sm-6
+                                        label(for='type') Apartment Type
+                                        span.requiredLivinn *
+                                        .select
+                                          select#type.inputResident(name='apartmentType' required)
+                                            option(value="") Apartment type
+                                            option(value="1A") 1A
+                                            option(value="1B") 1B
+                                            option(value="2A") 2A
+                                            option(value="2B") 2B
+                                            option(value="3A") 3A
+                                            option(value="3B") 3B
+                                            option(value="4A") 4A
+                                            option(value="4B") 4B
+                                            option(value="4C") 4C
+                                            option(value="4D") 4D
+                                            option(value="4E") 4E
+                                            option(value="4F") 4F
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -461,7 +477,7 @@ block modals
                                         input#inputUpdateLastname.form-control(type='text' name='last' placeholder='Last Name' required='' autofocus='')
                                     .form-group.emailregistrationerror
                                         label(for='inputUpdateEmail') Email
-                                        input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required='' autofocus='')
+                                        input#inputUpdateEmail.form-control(type='email' placeholder='Email' name="email" required='' autofocus='')
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -628,6 +644,13 @@ block modals
                     button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
 
 block scripts
+    script(src="/js/wdtLoading.js")
+    script.
+      wdtLoading.start({
+          speed: 1000
+      });
+
+
     script(src="/js/jquery.bootpag.min.js")
     script(src="/js/parsley.min.js")
     script.
@@ -696,6 +719,15 @@ block scripts
               changeYear: true,
               yearRange: '1917:2000'
           });
+
+          setTimeout(function(){ 
+            $('#loaderPlatform').fadeOut("slow", function(){
+                wdtLoading.done();
+            });
+           }, 4000);
+
+          
+            
 
       });
 

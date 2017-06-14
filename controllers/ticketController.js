@@ -210,6 +210,11 @@ module.exports = {
             if (!ticket) {
                 return res.status(404).json({message: 'message not found'});
             } else {
+
+                if( ticket.status!=2 && (ticket.priority != req.body.priority || ticket.category != req.body.category  || ticket.subcategory != req.body.subcategory) ){
+                    ticket.status = 1;
+                }
+
                 ticket.subject = req.body.subject || ticket.subject;
                 ticket.message = req.body.message || ticket.message;
                 ticket.priority = req.body.priority || ticket.priority;
@@ -245,6 +250,7 @@ module.exports = {
                                 console.log('Cant send email');
                             } else {
                                 //Envia correo al asignado
+                                ticket.status = 1;
                                 //mailer.newAssignedTo(user,ticket);
                             }
                         });

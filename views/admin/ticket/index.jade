@@ -29,7 +29,7 @@ block content
               li.col-xs-12.no-padding.dropdown
                 a.col-xs-12.dropdown-toggle.locationDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
                   span
-                    i.icon.ion-ios-arrow-down                  
+                    i.icon.ion-ios-arrow-down
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
                     a.locationSearch(href="#") Lord Cochrane Santiago
@@ -98,7 +98,7 @@ block content
                   li
                     a.subcategorySearch(href="#") Lámparas
 
-              
+
 
 
               //- .col-xs-12
@@ -460,13 +460,13 @@ block modals
 
                                 .col-xs-12
                                     // Nav tabs
-                                    ul.col-xs-12.nav.nav-tabs.comment-section(role='tablist')
+                                    ul.col-xs-12.nav.nav-tabs.comment-section.edit-ticket(role='tablist')
                                         li.active(role='presentation')
                                             a.gray(href='#comment', aria-controls='comment', role='tab', data-toggle='tab') Comment
                                         li(role='presentation')
                                             a.gray(href='#note', aria-controls='note', role='tab', data-toggle='tab') Note
                                     // Tab panes
-                                    .col-xs-12.no-padding.tab-content
+                                    .col-xs-12.no-padding.tab-content.edit-ticket
                                         form.tab-pane.active#comment(method="post" enctype="multipart/form-data" role='tabpanel')
                                             textarea.form-control.message_input(rows="4" placeholder="Type your comment here...")
 
@@ -998,6 +998,21 @@ block scripts
                 success: function (response) {
 
                     console.log(response);
+
+                    if(response.ticket.status == 2){
+                      $(".ticket-left").hide();
+                      $(".ticket-right").addClass("col-sm-offset-1");
+                      $(".ticket-right").removeClass("col-sm-9");
+                      $(".ticket-right").addClass("col-sm-10");
+                      $(".edit-ticket").hide();
+                    }else{
+                      $(".ticket-left").show();
+                      $(".ticket-right").removeClass("col-sm-offset-1");
+                      $(".ticket-right").addClass("col-sm-9");
+                      $(".ticket-right").removeClass("col-sm-10");
+                      $(".edit-ticket").show();
+                    }
+
                     $('#hiddenTicket').val(response.ticket._id);
                     $('.readModalTitle').html('Work Order #' + response.ticket._id);
                     $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='" + response.ticket.requested_by.profile_picture + "'</span>" + response.ticket.requested_by.name.first + " " + response.ticket.requested_by.name.last);

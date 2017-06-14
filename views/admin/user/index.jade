@@ -62,14 +62,14 @@ block content
                   i.fa.fa-pencil-square-o
                   span Editar
               li
-                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="#" onclick="exportUsers()" data-toggle="tooltip" data-placement="top" title="Download")
                   i.fa.fa-download
                   span Descargar
           button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
               i.fa.fa-trash
           button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
               i.fa.fa-pencil-square-o
-          a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+          a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(href="#" onclick="exportUsers()" data-toggle="tooltip" data-placement="top" title="Download")
               i.fa.fa-download
           button.btn.btn-main.btn-livinn.hidden-xs.hidden-sm.btnsManageUsers(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
            span.hidden-xs Add User
@@ -189,7 +189,7 @@ block modals
                               .form-group
                                   label Role
                                   p.text-capitalize#roleRead
-                                    
+
                           .col-xs-12.col-md-6.secondInputGroup
                             .form-group
                                 label Document Type
@@ -1204,8 +1204,28 @@ block scripts
 
       /*=== EXPORT USERS ===*/
       function exportUsers(){
-          var search = $('#search').val().trim();
-          window.open('/api/users/export?search='+search,'_blank');
+          var query = '';
+
+          if(usersearch && userlocation && userrole){
+            query = 'search='+usersearch+'&location='+userlocation+'&role='+userrole;
+          } else if(!usersearch && userlocation && userrole){
+            query = 'location='+userlocation+'&role='+userrole;
+          } else if(usersearch && !userlocation && userrole){
+            query = 'search='+usersearch+'&role='+userrole;
+          } else if(usersearch && userlocation && !userrole){
+            query = 'search='+usersearch+'&location='+userlocation;
+          } else if(usersearch && !userlocation && !userrole){
+            query = 'search='+usersearch;
+          } else if(!usersearch && userlocation && !userrole){
+            query = 'location='+userlocation;
+          } else if(!usersearch && !userlocation && userrole){
+            query = 'role='+userrole;
+          } else {
+
+          }
+          console.log(query);
+
+          window.open('/api/users/export?'+query,'_blank');
       }
 
 

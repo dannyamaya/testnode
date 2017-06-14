@@ -207,7 +207,7 @@ module.exports = {
         }
 
         if(req.query.role && req.query.role != 'admin'){
-            query['role'] = req.query.role;
+            query['role'] = new RegExp(req.query.role, 'i');
         }
 
         async.parallel([
@@ -633,8 +633,14 @@ module.exports = {
             query['location'] = req.user.location;
         }
 
-        console.log(req.user.role);
-        console.log(query);
+        if(req.user.role == 'admin' && req.query.location){
+            query['location'] =req.query.location;
+        }
+
+        if(req.query.role && req.query.role != 'admin'){
+            query['role'] = new RegExp(req.query.role, 'i');
+        }
+
 
         User.find(query)
             .or([

@@ -507,7 +507,7 @@ module.exports = {
             if (!user) {
                 res.status(404).json({message: 'User not found'});
             } else {
-                user.reset_password_token = crypto.randomBytes(48).toString('base64').replace(/\//g, '_').replace(/\+/g, '-')
+                user.reset_password_token = crypto.randomBytes(48).toString('base64').replace(/\//g, '_').replace(/\+/g, '-');
                 user.reset_password_sent_at = Date.now();
                 user.save(function (err) {
                     if (!err) {

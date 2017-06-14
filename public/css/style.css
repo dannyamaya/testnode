@@ -1,6 +1,5 @@
 /*** Fonts ***/
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
 
 @font-face {
   font-family: 'BebasNeue';
@@ -60,7 +59,7 @@
 html,body{
   height: 100%;
   width:100%;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a,
@@ -120,6 +119,195 @@ button:focus{
   background: linear-gradient(to right, #bc215d 0%,#bc215d 14%,#333d62 94%,#333d62 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc215d', endColorstr='#333d62',GradientType=1 ); /* IE6-9 */
 }
+
+
+/* LOADER PLATFORM*/
+
+.wdt-loading-screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 999998;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.wdt-loading-phrases {
+  width: 300px;
+  margin: 0 auto;
+  height: 116px;
+  overflow: hidden;
+  position: relative;
+  padding: 28px 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wdt-loading-phrases:before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+}
+
+.wdt-loading-phrase {
+  position: relative;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  transform: translateY(30px);
+  line-height: 30px;
+  height: 30px;
+  color: #FFF;
+}
+
+.wdt-loading-phrase:before {
+  content: " ";
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 6px;
+  left: 0;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+
+.wdt-loading-phrase:after {
+  opacity: 0;
+  height: 11px;
+  width: 7px;
+  -webkit-transform-origin: left top;
+  -moz-transform-origin: left top;
+  -ms-transform-origin: left top;
+  -o-transform-origin: left top;
+  transform-origin: left top;
+  border-right: 3px solid #FFF;
+  border-top: 3px solid #FFF;
+  border-radius: 2.5px !important;
+  content: '';
+  left: 3px;
+  top: 16px;
+  position: absolute;
+  -webkit-transform: scaleX(-1) rotate(135deg);
+  -moz-transform: scaleX(-1) rotate(135deg);
+  -ms-transform: scaleX(-1) rotate(135deg);
+  -o-transform: scaleX(-1) rotate(135deg);
+  transform: scaleX(-1) rotate(135deg);
+}
+
+.wdt-loading-phrase.wdt-checked:after {
+  -webkit-animation-delay: 100ms;
+  -moz-animation-delay: 100ms;
+  animation-delay: 100ms;
+  -webkit-animation-duration: 200ms;
+  -moz-animation-duration: 200ms;
+  animation-duration: 200ms;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-name: checkmark;
+  -moz-animation-name: checkmark;
+  animation-name: checkmark;
+  -webkit-transform: scaleX(-1) rotate(135deg);
+  -moz-transform: scaleX(-1) rotate(135deg);
+  -ms-transform: scaleX(-1) rotate(135deg);
+  -o-transform: scaleX(-1) rotate(135deg);
+  transform: scaleX(-1) rotate(135deg);
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes checkmark {
+  0% {
+    height: 0;
+    width: 7px;
+    opacity: 1;
+  }
+  20% {
+    height: 2px;
+    width: 7px;
+    opacity: 1;
+  }
+  40% {
+    height: 5px;
+    width: 7px;
+    opacity: 1;
+  }
+  100% {
+    height: 11px;
+    width: 7px;
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes checkmark {
+  0% {
+    height: 0;
+    width: 7px;
+    opacity: 1;
+  }
+  20% {
+    height: 2px;
+    width: 7px;
+    opacity: 1;
+  }
+  40% {
+    height: 5px;
+    width: 7px;
+    opacity: 1;
+  }
+  100% {
+    height: 11px;
+    width: 7px;
+    opacity: 1;
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 7px;
+    opacity: 1;
+  }
+  20% {
+    height: 2px;
+    width: 7px;
+    opacity: 1;
+  }
+  40% {
+    height: 5px;
+    width: 7px;
+    opacity: 1;
+  }
+  100% {
+    height: 11px;
+    width: 7px;
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* BUTTONS & INPUTS */
@@ -380,6 +568,10 @@ button:focus{
 .logo-dashboard{
   margin-top:25px;
   margin-bottom:25px;
+}
+
+.logoHeading a {
+  width: 125px;
 }
 
 .dashboard-menu li.inactive {
@@ -657,6 +849,16 @@ button:focus{
   font-size: 1.5rem;
 }
 
+.userFilters.searchTicket .search-filtersMobile ul .dropdown a.option {
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.userFilters.searchTicket .search-filtersMobile ul li.open a.dropdown-toggle {
+  border-bottom: 1px solid #D5D4D6;
+}
+
 .userFilters .search-filtersMobile ul .dropdown button,
 .userFilters.searchTicket .search-filtersMobile ul .dropdown button {
   text-align: left;
@@ -673,13 +875,21 @@ button:focus{
   border-bottom: 1px solid #D5D4D6;
 }
 
+.userFilters .search-filtersMobile .dropdown.subcategoriesTickets.open .subcategoryDropdownTicket {
+  border-bottom: 1px solid #D5D4D6;
+}
+
 .userFilters .search-filtersMobile .dropdown:last-child {
   border-bottom: none;
 }
 
 .userFilters .search-filtersMobile .dropdown a span,
-.userFilters .search-filtersMobile .dropdown ai {
+.userFilters .search-filtersMobile .dropdown a i {
   float: right;
+}
+
+.userFilters.searchTicket .search-filtersMobile .dropdown a span.opcion {
+  float: left;
 }
 
 .userFilters .search-filtersMobile .dropdown button span {
@@ -688,10 +898,40 @@ button:focus{
 
 .userFilters.searchTicket .search-filtersMobile {
   margin-top: 25px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .userFilters.searchTicket .search-filtersMobile form {
   border: none;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu {
+  margin-top: 45px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu li.dropdown-header.subtitle {
+  padding-left: 35px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu .dropdown-header.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  border-bottom: 1px solid #D5D4D6;
+  padding-top: 15px;
+  padding-bottom: 11px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu .dropdown-header.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom: 1px solid #D5D4D6;
+  border-top: 1px solid #D5D4D6;
+  padding-top: 15px;
+  padding-bottom: 11px;
+}
+
+.userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu .dropdown-header.subtitle:nth-child(1) {
+  border-top: none;
 }
 
 .userFilters.searchTicket .search-filtersMobile form .search {
@@ -828,7 +1068,7 @@ button:focus{
 @media screen and (min-width: 992px) {
 
   .logoHeading a {
-    width: 120px;
+    width: 125px;
   }
 
   .userTools .titleUserManagement {
@@ -837,10 +1077,6 @@ button:focus{
 
   .userTools .userMaganementDesktop form {
     width: 195px;
-  }
-
-  .dashboard-menu {
-    width: 20%;
   }
 
   .userTools.ticketTools .select {
@@ -2152,7 +2388,8 @@ textarea.parsley-error {
 }
 
 .cleanRoleSearch, .cleanLocationSearch, .cleanLocationTicket,
-.cleanCategorySearch, .cleanStatusSearch, cleanPrioritySearch {
+.cleanCategorySearch, .cleanStatusSearch, .cleanPrioritySearch,
+.cleanSubcategoriesSearch {
     cursor:pointer;
 }
 
@@ -2333,8 +2570,13 @@ textarea.parsley-error {
     padding-top: 0px;
   }
 
-  .dashboard-menu{
+  .dashboard-menu {
     position: fixed;
+    width: 24.5%;
+  }
+
+  .userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu {
+    margin-top: 0px;
   }
 
   .ticket {
@@ -2407,6 +2649,10 @@ textarea.parsley-error {
     margin-top: 75px;
   }
 
+  .dashboard-menu {
+    width: 20%;
+  }
+
   .userTools {
     margin-top: 79px;
     height: 55px;
@@ -2415,6 +2661,31 @@ textarea.parsley-error {
   .userTools form .search input {
     height: 34px;
   }
+
+  .userTools.ticketTools form {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .userTools.ticketTools form .subcatDesktop .dropdown-menu  li {
+
+  }
+
+  .userTools.ticketTools form .subcatDesktop .dropdown-menu .dropdown-header.title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    border-bottom: 1px solid #D5D4D6;
+  }
+
+  .userTools.ticketTools form .subcatDesktop .dropdown-menu .dropdown-header.subtitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-bottom: 1px solid #D5D4D6;
+    padding-left: 30px;
+  }
+
+   .userTools.ticketTools form .subcatDesktop .dropdown-menu li a.option {
+      padding-left: 40px;
+   }
 
   .userTools.ticketTools form .search input {
     height: 34px;

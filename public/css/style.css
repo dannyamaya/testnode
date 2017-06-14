@@ -1101,7 +1101,7 @@ button:focus{
   }
 
   .searchInputTicket {
-    width: 180px;
+    width: 170px;
     display: inline-block;
   }
 
@@ -2675,6 +2675,11 @@ textarea.parsley-error {
 
   }
 
+  .userTools.ticketTools form .subcatDesktop .dropdown-menu {
+    max-height: 350px;
+    overflow: scroll;
+  }
+
   .userTools.ticketTools form .subcatDesktop .dropdown-menu .dropdown-header.title {
     font-size: 1.75rem;
     font-weight: 800;
@@ -2685,6 +2690,7 @@ textarea.parsley-error {
     font-size: 1.5rem;
     font-weight: 700;
     border-bottom: 1px solid #D5D4D6;
+    border-top: 1px solid #D5D4D6;
     padding-left: 30px;
   }
 

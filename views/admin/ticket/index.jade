@@ -292,7 +292,20 @@ block modals
                                             i.fa.fa-question-circle(aria-hidden="true")
                                     input.form-control.tagarea#searchinput(type="search")
                                     input.form-control#searchinputHidden(type="hidden" name="requested_by")
-                            input(type="hidden" name="location" value="#{user.location}")
+                            if user.role == 'admin'
+                              .form-group
+                                label Location
+                                .select
+                                    select(name="location" required)
+                                      option(value="") Choose a location
+                                      option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
+                                      option(value="Calle 18 Bogotá") Bogotá - Calle 18
+                                      option(value="Calle 21 Bogotá")  Bogotá - Calle 21
+                                      option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
+                                      option(value="Viña Del Mar") Viña Del Mar - Alvarez
+
+                            else
+                              input(type="hidden" name="location" value="#{user.location}")
                             .form-group
                                 label Category
                                 .select
@@ -410,6 +423,7 @@ block modals
                                     p.ticketsubject#ticketsubject
                                     p.ticketcategory#ticketcategory
                                     p.ticketdate#ticketdate
+                                    p.ticketdate#closedDate
                                     .buttons-status(style="")
                                         button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus no-padding" data-status="0" data-id="1")
                                             i(class="fa fa-exclamation-circle")
@@ -692,7 +706,7 @@ block scripts
                     value = "<span class='label label-cleaning'>CLEANING SERVICES</span>";
                 } else if (category == 'customer service') {
                     value = "<span class='label label-customer'>CUSTOMER SERVICES</span>";
-                } else if (category == 'support') {
+                } else if (category == 'it support') {
                     value = "<span class='label label-it'>IT SUPPORT</span>";
                 } else if (category == 'maintenance') {
                     value = "<span class='label label-maintenance'>MAINTENANCE</span>";
@@ -717,7 +731,7 @@ block scripts
                     source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
                 case 2:
-                    source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
+                    source = '<ul class="list-inline"><li title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></li><li title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></li><li title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></li></ul>';
                     break;
             }
             ;
@@ -981,12 +995,15 @@ block scripts
                       $(".ticket-right").removeClass("col-sm-9");
                       $(".ticket-right").addClass("col-sm-10");
                       $(".edit-ticket").hide();
+                      $("#closedDate").html('Closed:'+response.ticket.closed);
+                      $("#closedDate").show();
                     }else{
                       $(".ticket-left").show();
                       $(".ticket-right").removeClass("col-sm-offset-1");
                       $(".ticket-right").addClass("col-sm-9");
                       $(".ticket-right").removeClass("col-sm-10");
                       $(".edit-ticket").show();
+                      $("#closedDate").hide();
                     }
 
                     $('#hiddenTicket').val(response.ticket._id);
@@ -1008,16 +1025,19 @@ block scripts
                     $('#dos').attr('data-id', response.ticket._id);
                     $('#tres').attr('data-id', response.ticket._id);
                     if (response.ticket.status == 0) {
+                        $('.classStatus').prop('disabled', false);
                         $('.classStatus').removeClass('active');
                         $('#uno').addClass('active');
                     }
                     if (response.ticket.status == 1) {
+                        $('.classStatus').prop('disabled', false);
                         $('.classStatus').removeClass('active');
                         $('#dos').addClass('active');
                     }
                     if (response.ticket.status == 2) {
                         $('.classStatus').removeClass('active');
                         $('#tres').addClass('active');
+                         $('.classStatus').prop('disabled', true);
                     }
 
                     $.each(response.ticket.assigned_to, function (key, value) {

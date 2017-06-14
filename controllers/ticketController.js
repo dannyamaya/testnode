@@ -263,6 +263,10 @@ module.exports = {
                     ticket.assigned_to.pull({_id:req.body.assignee});
                 }
 
+                if(ticket.status != 2 && req.body.status==2 ){
+                    closed = Date.now;
+                }
+
                 ticket.reply_of = req.body.reply_of || ticket.reply_of;
                 ticket.status = req.body.status || ticket.status;
                 ticket.updated = Date.now();

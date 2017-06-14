@@ -27,7 +27,8 @@ var TicketSchema   = new Schema({
   opened_resident: {type:Boolean, required:true, default:false},
 
   created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now }
+  updated: { type: Date, default: Date.now },
+  closed: { type: Date }
 });
 
 module.exports = mongoose.model('Ticket', TicketSchema);

@@ -39,6 +39,10 @@ module.exports = {
             return res.status(404).json({message: 'message not found'});
         }
 
+        if (!req.body.location || req.body.location === undefined) {
+            return res.status(404).json({message: 'location not found'});
+        }
+
         var file = req.files.attachments;
         let file_name = '';
 
@@ -311,10 +315,10 @@ module.exports = {
 
         if(req.user.role == 'admin'){
             if(req.query.location){
-                options['location'] = req.query.location
+                options['location'] = new RegExp( req.query.location, 'i');
             }
         } else {
-            options['location'] = req.user.location;
+            options['location'] = new RegExp( req.user.location, 'i');
         }
 
 

@@ -641,6 +641,16 @@ block scripts
             console.log("socket: new-ticket received");
             console.log(dataServer);
 
+            Push.create("Livinn", {
+                body: "New Work Order!",
+                icon: '/favicon/ms-icon-144x144.png',
+                timeout: 4000,
+                onClick: function () {
+                    window.focus();
+                    this.close();
+                }
+            });
+
             var today = moment();
             var createddate = '';
             var formatedDate = '';
@@ -995,7 +1005,7 @@ block scripts
                       $(".ticket-right").removeClass("col-sm-9");
                       $(".ticket-right").addClass("col-sm-10");
                       $(".edit-ticket").hide();
-                      $("#closedDate").html('Closed:'+response.ticket.closed);
+                      $("#closedDate").html('Close Date: '+moment(response.ticket.closed).format('MMMM Do YYYY, h:mm:ss a') );
                       $("#closedDate").show();
                     }else{
                       $(".ticket-left").show();
@@ -1044,7 +1054,7 @@ block scripts
                         $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" + value.profile_picture + "'</span><span class='label label-default'>" + value.name.first + " " + value.name.last + "  <a><i data-assignee='" + value._id + "' data-ticket-id='" + response.ticket._id + "' id='assignee" + value._id + "' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
                     });
 
-                    $("#ticketdate").html(moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
+                    $("#ticketdate").html('Open Date: '+moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
                     $("#messageRead").text(response.ticket.message);
 
 

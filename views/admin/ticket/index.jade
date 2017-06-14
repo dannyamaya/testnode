@@ -1028,16 +1028,23 @@ block scripts
                         $('.classStatus').prop('disabled', false);
                         $('.classStatus').removeClass('active');
                         $('#uno').addClass('active');
+                        $('#uno').removeClass('status-disabled');
+                        $('#dos').removeClass('status-disabled');
                     }
                     if (response.ticket.status == 1) {
                         $('.classStatus').prop('disabled', false);
                         $('.classStatus').removeClass('active');
                         $('#dos').addClass('active');
+                        $('#uno').removeClass('status-disabled');
+                        $('#dos').removeClass('status-disabled');
+
                     }
                     if (response.ticket.status == 2) {
                         $('.classStatus').removeClass('active');
                         $('#tres').addClass('active');
                          $('.classStatus').prop('disabled', true);
+                         $('#uno').addClass('status-disabled');
+                         $('#dos').addClass('status-disabled');
                     }
 
                     $.each(response.ticket.assigned_to, function (key, value) {

@@ -3011,6 +3011,10 @@ textarea.parsley-error {
     font-weight: bolder;
 }
 
+.status-disabled{
+    color: #81939E;
+}
+
 
 
 

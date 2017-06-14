@@ -1054,7 +1054,7 @@ block scripts
                         $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" + value.profile_picture + "'</span><span class='label label-default'>" + value.name.first + " " + value.name.last + "  <a><i data-assignee='" + value._id + "' data-ticket-id='" + response.ticket._id + "' id='assignee" + value._id + "' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
                     });
 
-                    $("#ticketdate").html('Open Date: '+moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
+                    $("#ticketdate").html('Attention Date: '+moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
                     $("#messageRead").text(response.ticket.message);
 
 

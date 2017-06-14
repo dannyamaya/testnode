@@ -978,8 +978,9 @@ button:focus{
 
 .userInfo ul.nav {
   float: right;
-  right: 35px;
+  right: 50px;
   position: relative;
+  top: 18px;
 }
 
 .li-user{
@@ -2756,6 +2757,12 @@ textarea.parsley-error {
     margin: 70px auto;
   }
 
+}
+
+@media screen and (min-width: 1600px) {
+  .dashboard-menu {
+    width: 15%;
+  }
 }
 
 .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {

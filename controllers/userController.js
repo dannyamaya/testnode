@@ -202,6 +202,14 @@ module.exports = {
             query['location'] = req.user.location;
         }
 
+        if(req.user.role == 'admin' && req.query.location){
+            query['location'] =req.query.location;
+        }
+
+        if(req.query.role && req.query.role != 'admin'){
+            query['role'] = new RegExp(req.query.role, 'i');
+        }
+
         async.parallel([
 
             function (callback) {
@@ -215,12 +223,6 @@ module.exports = {
                         },
                         {
                             email: new RegExp(search, 'i')
-                        },
-                        {
-                            location: new RegExp(search, 'i')
-                        },
-                        {
-                            role: new RegExp(search, 'i')
                         },
                         {
                             doc: new RegExp(search, 'i')
@@ -624,19 +626,21 @@ module.exports = {
         }
 
         var query = {};
+        query['role'] = {$nin: ["admin"]};
         query['active'] = true;
 
-        //Filter role
-        if( req.query.role ){
-            query['role'] = {$nin: ["admin"]};
-        } else {
-            query['role'] = {$nin: ["admin",req.query.role]};
-        }
-
-        //Filter location
         if(req.user.role != 'admin'){
             query['location'] = req.user.location;
         }
+
+        if(req.user.role == 'admin' && req.query.location){
+            query['location'] =req.query.location;
+        }
+
+        if(req.query.role && req.query.role != 'admin'){
+            query['role'] = new RegExp(req.query.role, 'i');
+        }
+
 
         User.find(query)
             .or([
@@ -769,8 +773,6 @@ module.exports = {
     },
 
     autocompleteUsers: function(req, res, next) {
-
-
 
         User.find({}, function (err, user) {
             return res.status(200).json({ user: user});

@@ -1,12 +1,29 @@
 extend ../layout
+block header
+
+  link(herf="/css/wdtLoading.css" rel="stylesheet")
+
 block content
+    //- LOADER
+    .wdt-loading-screen.gradienteLivinn#loaderPlatform(style=" width: 100%; height: 100%; position: fixed; z-index: 999998; top: 0; left: 0; overflow: hidden;")
+      .wdt-loading-phrases
+        .wdt-loading-phrase-category(data-category='default')
+          .wdt-loading-phrase Getting New Users...
+          .wdt-loading-phrase Updating Users...
+          .wdt-loading-phrase Fetching up Databases...
+          .wdt-loading-phrase Loading DOM...
+          .wdt-loading-phrase Loading Tickets...
+          .wdt-loading-phrase Looking for managers...
+      .col-xs-6.col-xs-offset-3.col-sm-4.col-sm-offset-4.col-md-2.col-md-offset-5.navbar-brand.logoHeading(style="position: absolute; bottom: 20px; height:100px;")
+        img(class="img-responsive" src="../img/logolivinn-blanco.svg")
+
     //- DESKTOP FORM
     .col-xs-12.userTools.has-feedback
       .col-md-12.no-padding.userMaganementDesktop
         .titleUserManagement.no-padding
           h2.no-padding #{title}
         .pull-right
-          form.form.col-xs-12.col-md-5.col-lg-4.no-padding.hidden-xs.hidden-sm#searchform(method="post" action="users")
+          form.form.col-xs-12.col-md-5.col-lg-4.no-padding.hidden-xs.hidden-sm.searchform(method="post" action="/api/users")
               .input-group.search
                   input.form-control#search(type="text" aria-label="Search users" placeholder="Search")
                   span.input-group-addon.no-padding
@@ -14,8 +31,9 @@ block content
                       i.fa.fa-search
           if user.role == 'admin'
               .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownLocation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
-                      i.fa.fa-angle-down
+                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle.dropdownLocation.web(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                    | Location
+                    i.fa.fa-angle-down
                   ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                       li
                           a.locationSearch(href="#") Lord Cochrane Santiago
@@ -31,12 +49,12 @@ block content
 
 
           .dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-              button.btn.btn-adduser.btn-dropdown.dropdown-toggle(type="button" id="dropdownRol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+              button.btn.btn-adduser.btn-dropdown.dropdown-toggle.dropdownRol.web(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
                   span Role
                   i.fa.fa-angle-down
               ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                   li
-                      a.roleSearch(href="#") Client Service
+                      a.roleSearch(href="#") Customer Service
                   li
                       a.roleSearch(href="#") Maintenance
                   li
@@ -61,14 +79,14 @@ block content
                   i.fa.fa-pencil-square-o
                   span Editar
               li
-                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+                a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-lg.btnsManageUsers(href="#" onclick="exportUsers()" data-toggle="tooltip" data-placement="top" title="Download")
                   i.fa.fa-download
                   span Descargar
           button.btn.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers2(data-toggle="tooltip" data-placement="top" title="Delete" onclick='deleteUserModal()')
               i.fa.fa-trash
           button.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(data-toggle="tooltip" data-placement="top" title="Edit" onclick='updateUserModal()')
               i.fa.fa-pencil-square-o
-          a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(href="/api/users/export" target="_blank" data-toggle="tooltip" data-placement="top" title="Download")
+          a.btn.btn-default.btn-adduser.hidden-xs.hidden-sm.hidden-md.btnsManageUsers(href="#" onclick="exportUsers()" data-toggle="tooltip" data-placement="top" title="Download")
               i.fa.fa-download
           button.btn.btn-main.btn-livinn.hidden-xs.hidden-sm.btnsManageUsers(data-toggle="modal", data-target="#registrationModal", href="/#",data-dismiss="modal")
            span.hidden-xs Add User
@@ -76,7 +94,6 @@ block content
       .col-xs-8.no-padding.pull-right.userSearch-Management.hidden-md.hidden-lg
         .col-xs-12.no-padding
           .col-xs-12.no-padding.form-group
-            input.form-control.hidden-xs.hidden-sm(type='text', placeholder='Search')
             button.btn.btn-default#Filters(onclick='deployFilters()')
               span
                 i.icon.ion-ios-search-strong
@@ -91,12 +108,13 @@ block content
         .col-xs-6.btnClearFilters
           button.btn.btn-default.cleanRoleSearch.cleanLocationSearch Clear All
       .col-xs-12.no-padding.search-filtersMobile
-        form.col-xs-12.navbar-left(action='' method='' type='')
+        form.col-xs-12.navbar-left.searchform(method="post" action="/api/users")
           .form-group
             input.form-control#searchMobile(type='text', placeholder='Search')
         ul.col-xs-12.no-padding.nav.navbar-nav
           li.col-xs-12.no-padding.dropdown
-            a.col-xs-12.dropdown-toggle.dropdownLocation(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Location
+            a.col-xs-12.dropdown-toggle.dropdownLocation.mobile(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+              | Location
               span
                 i.icon.ion-ios-arrow-down
             ul.col-xs-12.no-padding.dropdown-menu
@@ -111,7 +129,7 @@ block content
               li
                   a.locationSearch(href="#") Villa campestre Barranquilla
           li.col-xs-12.no-padding.dropdown
-            a.col-xs-12.dropdown-toggle.dropdownRol(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
+            a.col-xs-12.dropdown-toggle.dropdownRol.mobile(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
               span
                 i.icon.ion-ios-arrow-down
             ul.col-xs-12.no-padding.dropdown-menu
@@ -159,19 +177,19 @@ block content
         i.icon.ion-plus
 block modals
 
-
     <!-- User Read Modal -->
-
     .modal.fade#readModal.readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
                 .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                      i.icon.ion-android-close
                     h3.text-center.white#titleRead
                         button.close.hidden(type="button", data-dismiss="modal", aria-hidden="true") &times;
                 .modal-body
                     .row
-                        .col-xs-12.col-sm-10.col-sm-offset-1.no-padding.formContainer
-                          .col-xs-12.col-sm-6
+                        .col-xs-12.col-md-10.col-md-offset-1.no-padding.formContainer
+                          .col-xs-12.col-md-6
                               .form-group
                                   .preview.img-wrapper.img-preloaded#readProfileImage
                               .form-group
@@ -188,19 +206,19 @@ block modals
                               .form-group
                                   label Role
                                   p.text-capitalize#roleRead
-                          .col-xs-12.col-sm-6
+
+                          .col-xs-12.col-md-6.secondInputGroup
                             .form-group
                                 label Document Type
                                 p#doctypeRead
-
                             .form-group
                                 label(for='document') Document
                                 p#documentRead
-                            .form-group.col-sm-6.no-padding
+                            .form-group.no-padding
                                 label Location
                                 p#locationRead
 
-                            .form-group.col-sm-6.no-padding
+                            .form-group.no-padding
                                 label Time Zone
                                 p#timezoneRead
 
@@ -252,9 +270,8 @@ block modals
                                   label(for='bed') Bed
                                   p#bedRead
 
-                          .col-xs-12
-                            button.col-xs-6.col-xs-offset-3.btn-livinn Cerrar
-
+                          .col-xs-12.btnsModal
+                            button.col-xs-6.col-xs-offset-3.col-md-4.col-md-offset-4.btn.btn-livinn(data-dismiss="modal") Close
 
     <!-- User Registration Modal -->
     .modal.fade#registrationModal.registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
@@ -383,29 +400,28 @@ block modals
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
                                     hr.col-xs-12.no-padding
-                                    .col-xs-12.no-padding
-                                      .form-group.col-sm-6
-                                          label(for='apartment') Apartment
-                                          span.requiredLivinn *
-                                          input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
-                                      .form-group.col-sm-6
-                                          label(for='type') Apartment Type
-                                          span.requiredLivinn *
-                                          .select
-                                            select#type.inputResident(name='apartmentType' required)
-                                              option(value="") Apartment type
-                                              option(value="1A") 1A
-                                              option(value="1B") 1B
-                                              option(value="2A") 2A
-                                              option(value="2B") 2B
-                                              option(value="3A") 3A
-                                              option(value="3B") 3B
-                                              option(value="4A") 4A
-                                              option(value="4B") 4B
-                                              option(value="4C") 4C
-                                              option(value="4D") 4D
-                                              option(value="4E") 4E
-                                              option(value="4F") 4F
+                                    .form-group.col-sm-6
+                                        label(for='apartment') Apartment
+                                        span.requiredLivinn *
+                                        input#apartment.form-control.inputResident(type='text' name='apartment' placeholder='Apartment'  autofocus='' required='')
+                                    .form-group.col-sm-6
+                                        label(for='type') Apartment Type
+                                        span.requiredLivinn *
+                                        .select
+                                          select#type.inputResident(name='apartmentType' required)
+                                            option(value="") Apartment type
+                                            option(value="1A") 1A
+                                            option(value="1B") 1B
+                                            option(value="2A") 2A
+                                            option(value="2B") 2B
+                                            option(value="3A") 3A
+                                            option(value="3B") 3B
+                                            option(value="4A") 4A
+                                            option(value="4B") 4B
+                                            option(value="4C") 4C
+                                            option(value="4D") 4D
+                                            option(value="4E") 4E
+                                            option(value="4F") 4F
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -461,7 +477,7 @@ block modals
                                         input#inputUpdateLastname.form-control(type='text' name='last' placeholder='Last Name' required='' autofocus='')
                                     .form-group.emailregistrationerror
                                         label(for='inputUpdateEmail') Email
-                                        input#inputUpdateEmail.form-control(type='text' placeholder='Email' name="email" required='' autofocus='')
+                                        input#inputUpdateEmail.form-control(type='email' placeholder='Email' name="email" required='' autofocus='')
                                     .form-group
                                         label Role
                                         span.requiredLivinn *
@@ -627,691 +643,720 @@ block modals
                     a.btn.btn-danger.deleteBtn.btn-livinn(onclick='deleteUser()')  Delete
                     button.btn.pull-right.deleteBtn(data-dismiss="modal" aria-hidden="true") Cancel
 
-
 block scripts
+    script(src="/js/wdtLoading.js")
+    script.
+      wdtLoading.start({
+          speed: 1000
+      });
+
+
     script(src="/js/jquery.bootpag.min.js")
     script(src="/js/parsley.min.js")
     script.
+      $(document).ready(function () {
 
-        if(!{user.role == 'admin'}){
-            var showLocation = true;
-        } else {
-            var showLocation = false;
-        }
+          $('#page-selection').bootpag({
+              total: 10,
+              maxVisible: 5,
+          }).on("page", function (event, num) {
+              readUsers(num);
+          });
 
-        $(function() {
-            function maskImgs() {
-                //$('.img-wrapper img').imagesLoaded({}, function() {
-                $.each($('.img-wrapper img'), function(index, img) {
-                    var src = $(img).attr('src');
-                    var parent = $(img).parent();
-                    parent
-                        .css('background', 'url(' + src + ') no-repeat center center')
-                        .css('background-size', 'cover');
-                    $(img).remove();
-                });
-                //});
-            }
+          readUsers(1);
 
-            var preview = {
-                init: function() {
-                    preview.setPreviewImg();
-                    preview.listenInput();
-                },
-                setPreviewImg: function(fileInput) {
-                    var path = $(fileInput).val();
-                    var uploadText = $(fileInput).siblings('.file-upload-text');
+          $( "#start" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '2017:2050',
+              onClose: function () {
+                $(this).parsley().validate();
+              }
+          });
 
-                    if (!path) {
-                        $(uploadText).val('');
-                    } else {
-                        path = path.replace(/^C:\\fakepath\\/, "");
-                        $(uploadText).val(path);
+          $( "#inputUpdateStart" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '2017:2050',
+              onClose: function () {
+                $(this).parsley().validate();
+              }
+          });
 
-                        preview.showPreview(fileInput, path, uploadText);
-                    }
-                },
-                showPreview: function(fileInput, path, uploadText) {
-                    var file = $(fileInput)[0].files;
+          $( "#inputUpdateFinish" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '2017:2050',
+              onClose: function () {
+                $(this).parsley().validate();
+              }
+          });
 
-                    if (file && file[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            var previewImg = $(fileInput).parents('.file-upload-wrapper').siblings('.preview');
-                            var img = $(previewImg).find('img');
-
-                            if (img.length == 0) {
-                                $(previewImg).html('<img src="' + e.target.result + '" alt=""/>');
-                            } else {
-                                img.attr('src', e.target.result);
-                            }
-
-                            uploadText.val(path);
-                            maskImgs();
-                        }
-
-                        reader.onloadstart = function() {
-                            $(uploadText).val('uploading..');
-                        }
-
-                        reader.readAsDataURL(file[0]);
-                    }
-                },
-                listenInput: function() {
-                    $('.file-upload-native').on('change', function() {
-                        preview.setPreviewImg(this);
-                    });
-                }
-            };
-            preview.init();
-        });
+          $( "#finish" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '2017:2050',
+              onClose: function () {
+                $(this).parsley().validate();
+              }
+          });
 
 
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+          $( "#birthdate" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '1917:2000'
+          });
 
-        $(document).ready(function () {
+          $( "#inputUpdateBirthdate" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '1917:2000'
+          });
 
-            $('#page-selection').bootpag({
-                total: 10,
-                maxVisible: 5,
-            }).on("page", function (event, num) {
-                filterUsers(num);
+          setTimeout(function(){
+            $('#loaderPlatform').fadeOut("slow", function(){
+                wdtLoading.done();
             });
+           }, 4000);
+
+
+
+
+      });
+
+      /*=== GLOBAL VARIABLES ===*/
+
+      var showLocation = false;
+      if(!{user.role == 'admin'}){
+        showLocation = true;
+      }
+      var usersearch = '';
+      var userlocation = '';
+      var userrole = '';
+
+      /*=== HELPERS ===*/
+
+      $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+      });
+
+      /* Preload img on custom file uploader*/
+      $(function() {
+          function maskImgs() {
+              //$('.img-wrapper img').imagesLoaded({}, function() {
+              $.each($('.img-wrapper img'), function(index, img) {
+                  var src = $(img).attr('src');
+                  var parent = $(img).parent();
+                  parent
+                      .css('background', 'url(' + src + ') no-repeat center center')
+                      .css('background-size', 'cover');
+                  $(img).remove();
+              });
+              //});
+          }
+
+          var preview = {
+              init: function() {
+                  preview.setPreviewImg();
+                  preview.listenInput();
+              },
+              setPreviewImg: function(fileInput) {
+                  var path = $(fileInput).val();
+                  var uploadText = $(fileInput).siblings('.file-upload-text');
+
+                  if (!path) {
+                      $(uploadText).val('');
+                  } else {
+                      path = path.replace(/^C:\\fakepath\\/, "");
+                      $(uploadText).val(path);
+
+                      preview.showPreview(fileInput, path, uploadText);
+                  }
+              },
+              showPreview: function(fileInput, path, uploadText) {
+                  var file = $(fileInput)[0].files;
+
+                  if (file && file[0]) {
+                      var reader = new FileReader();
+
+                      reader.onload = function(e) {
+                          var previewImg = $(fileInput).parents('.file-upload-wrapper').siblings('.preview');
+                          var img = $(previewImg).find('img');
+
+                          if (img.length == 0) {
+                              $(previewImg).html('<img src="' + e.target.result + '" alt=""/>');
+                          } else {
+                              img.attr('src', e.target.result);
+                          }
+
+                          uploadText.val(path);
+                          maskImgs();
+                      }
+
+                      reader.onloadstart = function() {
+                          $(uploadText).val('uploading..');
+                      }
+
+                      reader.readAsDataURL(file[0]);
+                  }
+              },
+              listenInput: function() {
+                  $('.file-upload-native').on('change', function() {
+                      preview.setPreviewImg(this);
+                  });
+              }
+          };
+          preview.init();
+      });
+
+
+      /*=== CREATE USER ===*/
+      $('#registrationForm').submit(function (evt) {
+          evt.preventDefault();
+
+          var url = $(this).attr("action");
+          var formData = new FormData($('#registrationForm')[0]);
+
+          $.ajax({
+              type: "POST",
+              url: url,
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function (response) {
+                  if (response.status == '409') {
+                      $('#inputEmail').focus();
+                      $('.emailregistrationerror').addClass('has-error');
+                      warningAlert('Ya existe una cuenta registrada con este Email o número de Documento');
+                  } else {
+                      $('#registrationModal').modal('hide');
+                      $('.residentFields').show();
+                      document.getElementById("registrationForm").reset();
+                      $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td style='width:33px;'><img class='img-circle table-profile-img' src='"+response.users.profile_picture + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
+                      successAlert("User has been created");
+                      $('#registrationForm').parsley().reset();
+                  }
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  var message = XMLHttpRequest.responseJSON.message;
+                  warningAlert(message);
+              }
+          });
+      });
+
+      /*=== READ USERS ===*/
+      function readUsers(page) {
+
+          var p = page || 1;
+          var s = usersearch || '';
+
+          var query = '';
+          (s != '')? s = "&search="+s : s = '';
+          (showLocation && userlocation != '')? query += '&location=' + userlocation : null;
+          (userrole != '')? query += '&role=' + userrole : null;
+
+          var url = "/api/users?page=" + p + s + query;
+
+          $.ajax({
+              type: "GET",
+              url: url,
+              success: function (response) {
+                  var total = parseInt(response.count / 10);
+                  if (response.count % 10 != 0) {
+                      total += 1;
+                  }
+
+                  var m = ((response.count % 10 != 0 && response.page == total) ? response.count % 10 : 10);
+
+                  var a = 1 + (response.page - 1) * 10;
+                  var b = m + (response.page - 1) * 10;
+                  $('#pages').html(a + '-' + b + ' of ' + response.count + ' Users');
+                  $('#page-selection').bootpag({total: total, maxVisible: 5});
+
+                  var banned;
+                  $("#userstable tbody tr").remove();
+                  var location = '';
+                  var createddate = '';
+                  var today = moment();
+                  var formatedDate = '';
+
+                  for (key = 0; key < response.users.length; key++) {
+
+                      if (response.users[key].banned) {
+                          banned = '<i class="fa fa-ban warning-color" aria-hidden="true"></i>';
+                      } else {
+                          banned = "";
+                      }
+
+                      if(showLocation){
+                          location = "<td>" + response.users[key].location + "</td>";
+                      } else {
+                          location = "";
+                      }
+
+                      createddate = moment(response.users[key].lastlogin);
+                      if (today.isSame(createddate, 'd')) {
+                          formatedDate = createddate.format('LT');
+                      } else {
+                          formatedDate = createddate.format('YYYY-DD-MM');
+                      }
+
+                      $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td class='hidden-xs hidde-sm'><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td class='text-lowercase'>" + response.users[key].email + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td class='text-capitalize'>" + response.users[key].role + "</td>"+location+"<td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + formatedDate + "</td></tr>");
+                  }
+
+                  $('#loader').fadeOut("slow", function () {
+                      $('#userstable').removeClass("hidden").fadeIn("slow");
+                  });
+
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  var message = XMLHttpRequest.responseJSON.message;
+                  warningAlert(message);
+              }
+          });
+      }
+
+      $('table').on('dblclick','tr',function(){
+          var id = $(this).children().children().val();
+          $("#profilePicture").attr('src', '');
+          $.ajax({
+              type: "GET",
+              url: 'api/users/' + id,
+              success: function (response) {
+                  $('#titleRead').html('<span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>');
+                  $('#readProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
+
+                  $("#profilePicture").attr('src',response.user.profile_picture);
+                  $("#emailRead").text(response.user.email);
+                  $("#firstRead").text(response.user.name.first);
+                  $("#lastRead").text(response.user.name.last);
+                  $("#doctypeRead").text(response.user.doc.typedoc);
+                  $("#documentRead").text(response.user.doc.number);
+                  $("#phoneRead").text(response.user.phone.number);
+                  $("#roleRead").text(response.user.role);
+                  $("#locationRead").text(response.user.location);
+                  $("#timezoneRead").text(response.user.time_zone);
+                  $("#occupationRead").text(response.user.occupation);
+                  $("#skypeRead").text(response.user.skype);
+
+                  if ($("#roleRead").text() === 'resident') {
+
+                      $('.residentFields').show();
+                      $('.differentResident').hide();
+
+
+                      $.ajax({
+                          type: "GET",
+                          url: 'api/residents/' + id,
+                          success: function (response) {
+
+                              $("#numcontractRead").text(response.resident.contract_number);
+                              $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
+                              $("#apartmentRead").text(response.resident.apartment);
+                              $("#typeRead").text(response.resident.apartment_type);
+                              $("#bathroomRead").text(response.resident.bathroom);
+                              $("#bedRead").text(response.resident.bed);
+                              $("#agentRead").text(response.resident.agent);
+                              $("#finishRead").text(response.resident.finish.substr(0, 10));
+                              $("#startRead").text(response.resident.start.substr(0, 10));
+                              $("#durationRead").text(response.resident.duration);
+                              $("#statusRead").text(response.resident.status);
+
+                          },
+                          error: function (XMLHttpRequest, textStatus, errorThrown) {
+                              var message = XMLHttpRequest.responseJSON.message;
+                              warningAlert(message);
+                          }
+                      });
+                  } else {
+                      $('.residentFields').hide();
+                      $('.differentResident').show();
+                  }
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  var message = XMLHttpRequest.responseJSON.message;
+                  warningAlert(message);
+              }
+          });
+
+          $('#readModal').modal('show');
+      });
+
+
+      /*=== UPDATE USER ===*/
+      function updateUserModal() {
+          document.getElementById("updateForm").reset();
+
+          len = $('#userstable input:checkbox:checked').length;
+          if (len == 0) {
+              warningAlert('Please select one element for the update.');
+          } else if (len == 1) {
+              var id = $('input:checkbox:checked')[0].value;
+              $.ajax({
+                  type: "GET",
+                  url: 'api/users/' + id,
+                  success: function (response) {
+                      $('#updateModal_h').html( response.user.name.first + ' ' + response.user.name.last );
+                      $('#updateProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
+                      $("#inputUpdateEmail").val(response.user.email);
+                      $("#inputUpdateFirstname").val(response.user.name.first);
+                      $("#inputUpdateLastname").val(response.user.name.last);
+                      $("#inputUpdateDocType").val(response.user.doc.typedoc);
+                      $("#inputUpdateDoc").val(response.user.doc.number);
+                      $("#inputUpdatePhone").val(response.user.phone.number);
+                      $("#inputUpdateRole").val(response.user.role);
+                      $("#inputUpdateLocation").val(response.user.location);
+                      $("#inputUpdateTimeZone").val(response.user.time_zone);
+                      $("#inputUpdateOccupation").val(response.user.occupation);
+                      $("#inputUpdateSkype").val(response.user.skype);
+
+                      if ($("#inputUpdateRole").val() === 'resident') {
+                          $('.residentFields').show();
+                          $('.differentResident').hide();
+
+                          $.ajax({
+                              type: "GET",
+                              url: 'api/residents/' + id,
+                              success: function (response) {
+                                  console.log(response);
+
+                                  $("#inputUpdateContract").val(response.resident.contract_number);
+                                  if(!typeof response.resident.birth_date == null )
+                                      $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
+                                  $("#inputUpdateApartment").val(response.resident.apartment);
+                                  $("#inputUpdateApartmentType").val(response.resident.apartment_type);
+                                  $("#inputUpdateBed").val(response.resident.bed);
+                                  $("#inputUpdateAgent").val(response.resident.agent);
+                                  $("#inputUpdateFinish").val(response.resident.finish.substr(0,10));
+                                  $("#inputUpdateStart").val(response.resident.start.substr(0,10));
+                                  $("#inputUpdateDuration").val(response.resident.duration);
+                                  $("#inputUpdateBathroom").val(response.resident.bathroom);
+                              },
+                              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                  var message = XMLHttpRequest.responseJSON.message;
+                                  if(XMLHttpRequest.status == 404){
+                                      //No existe informacion de residente para este usuario
+                                  }else{
+                                      warningAlert(message);
+                                  }
+                              }
+                          });
+                      }else{
+                          $('.residentFields').hide();
+                          $('.differentResident').show();
+                      }
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      var message = XMLHttpRequest.responseJSON.message;
+                      warningAlert(message);
+                  }
+              });
+
+              $('#updateUserModal').modal('show');
+          }
+          else {
+              warningAlert('Only can update one user at time.');
+          }
+      }
+
+      $('#updateUserButton').click(function(e){
+          e.preventDefault();
+          var users = [];
+
+          if($('#inputUpdateRole').val() != 'resident'){
+              $('.inputResidentUpdate').prop('disabled', true);
+              $('#inputUpdateOccupation').prop('disabled', false);
+
+          }else{
+              $('.inputResidentUpdate').prop('disabled', false);
+              $('#inputUpdateOccupation').prop('disabled', true);
+          }
+
+          $('#updateForm').parsley({
+              excluded: ' :disabled'
+          });
+
+          $('#userstable input:checkbox:checked').each(function () {
+              users.push($(this).val());
+          });
+
+          var formData = new FormData($('#updateForm')[0]);
+
+          $.ajax({
+              type: "PUT",
+              data: formData,
+              url: '/api/users/' + users[0],
+              processData: false,
+              contentType: false,
+              success: function (response) {
+                  console.log(response);
+                  var userr;
+                  $('input:checkbox:checked').each(function () {
+                      userr = $(this).parents("tr");
+                      $(this).attr('checked', false);
+                  });
+
+                  var tdPic = userr.children("td:nth-child(2)");
+                  var tdEmail = userr.children("td:nth-child(5)");
+                  var tdFirst = userr.children("td:nth-child(3)");
+                  var tdLast = userr.children("td:nth-child(4)");
+                  var tdTypeDoc = userr.children("td:nth-child(6)");
+                  var tdDoc = userr.children("td:nth-child(7)");
+                  var tdCellphone = userr.children("td:nth-child(8)");
+                  var tdRol = userr.children("td:nth-child(9)");
+                  var tdCity = userr.children("td:nth-child(10)");
+                  var tdUpdated = userr.children("td:nth-child(11)");
+
+                  tdPic.children().attr('src',response.user.profile_picture);
+                  tdEmail.text(response.user.email);
+                  tdTypeDoc.text(response.user.doc.typedoc);
+                  tdDoc.text(response.user.doc.number);
+                  tdFirst.text(response.user.name.first);
+                  tdLast.text(response.user.name.last);
+                  tdCellphone.text(response.user.phone.number);
+                  tdRol.text(response.user.rol);
+                  tdCity.text(response.user.location);
+                  tdUpdated.text(moment(response.user.updated).format('YYYY-DD-MM'));
+
+                  $('#updateUserModal').modal('hide');
+
+                  successAlert('User has been updated');
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  var message = XMLHttpRequest.responseJSON.message;
+                  warningAlert(message);
+              }
+          });
+
+      });
+
+      /* DELETE USER */
+      function deleteUserModal() {
+          len = $('input:checkbox:checked').length;
+          if (len == 0) {
+              warningAlert('No has seleccionado ningun elemento para eliminar.');
+          } else if (len == 1) {
+              $('#deleteModal_h').html('').html('Are you sure you want to delete this user?')
+              $('#deleteModal_p').html('').html('All information will be lost.');
+              $('#deleteUserModal').modal('show');
+          }
+          else {
+              $('#deleteModal_h').html('').html('Are you sure you want to delete this users?')
+              $('#deleteModal_p').html('').html('All information will be lost.');
+              $('#deleteUserModal').modal('show');
+          }
+      }
+
+      function deleteUser() {
+
+          var users = [];
+          $('input:checkbox:checked').each(function () {
+              users.push($(this).val());
+          });
+
+          $.ajax({
+              type: "DELETE",
+              data: {users: users},
+              url: '/api/users',
+              success: function (response) {
+                  $('input:checkbox:checked').each(function () {
+                      $(this).parents("tr").remove();
+                  });
+                  $('#deleteUserModal').modal('hide');
+                  successAlert(message);
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  var message = XMLHttpRequest.responseJSON.message;
+                  warningAlert(message);
+              }
+          });
+
+      }
+
+      /*=== FILTER USERS ===*/
+      $('.locationSearch').click(function(){
+          var selectedLocation = $(this).html();
+          userlocation = selectedLocation;
+          $(".dropdownLocation.web").html(selectedLocation+'<i class="fa fa-angle-down"></i>');
+          $(".dropdownLocation.mobile").html(selectedLocation+'<span><i class="fa fa-angle-down"></i></span>');
+          $('#loader').fadeOut("slow", function () {
+             $('#userstable').addClass("hidden").fadeIn("slow");
+          });
+          readUsers(1);
+      });
+
+      $('.roleSearch').click(function(){
+          var selectedRole = $(this).html();
+          userrole = selectedRole;
+          $(".dropdownRol.web").html(selectedRole+'<i class="fa fa-angle-down"></i>');
+          $(".dropdownRol.mobile").html(selectedRole+'<span><i class="fa fa-angle-down"></i></span>');
+          $('#loader').fadeOut("slow", function () {
+             $('#userstable').addClass("hidden").fadeIn("slow");
+          });
+          readUsers(1);
+      });
+
+      $('.searchform').submit(function (event) {
+          event.preventDefault();
+          search = $(this).find('input').val();
+          $("#search").val(search);
+          $("#searchMobile").val(search);
+          $('#userstable').fadeOut("fast", function () {
+              $('#loader').fadeIn("fast");
+              readUsers(1);
+          });
+      });
+
+      $('.cleanLocationSearch').click(function(){
+          $("#dropdownLocation").html('Location<i class="fa fa-angle-down"></i>')
+          $(".dropdownLocation").html('Location<i class="fa fa-angle-down"></i>');
+          userlocation = '';
+          $('#loader').fadeOut("slow", function () {
+             $('#userstable').addClass("hidden").fadeIn("slow");
+          });
+          readUsers(1, '');
+      });
+
+      $('.cleanRoleSearch').click(function(){
+          userrole = '';
+          $("#dropdownRol").html('Role<i class="fa fa-angle-down"></i>')
+          $(".dropdownRol").html('Role<span><i class="fa fa-angle-down"></i></span>')
+          $('#loader').fadeOut("slow", function () {
+             $('#userstable').addClass("hidden").fadeIn("slow");
+          });
+          readUsers(1, '');
+      });
+
+      /*=== EXPORT USERS ===*/
+      function exportUsers(){
+          var query = '';
+
+          if(usersearch && userlocation && userrole){
+            query = 'search='+usersearch+'&location='+userlocation+'&role='+userrole;
+          } else if(!usersearch && userlocation && userrole){
+            query = 'location='+userlocation+'&role='+userrole;
+          } else if(usersearch && !userlocation && userrole){
+            query = 'search='+usersearch+'&role='+userrole;
+          } else if(usersearch && userlocation && !userrole){
+            query = 'search='+usersearch+'&location='+userlocation;
+          } else if(usersearch && !userlocation && !userrole){
+            query = 'search='+usersearch;
+          } else if(!usersearch && userlocation && !userrole){
+            query = 'location='+userlocation;
+          } else if(!usersearch && !userlocation && userrole){
+            query = 'role='+userrole;
+          } else {
+
+          }
+          console.log(query);
+
+          window.open('/api/users/export?'+query,'_blank');
+      }
+
+
+      /* MISSING REFACTOR */
+
+      $('#roleCreate').on('change', function (e) {
+         var optionSelected = $("option:selected", this).val();
+         if(optionSelected != 'resident'){
+             $('.inputResident').prop('disabled', true);
+             $('#occupation').prop('disabled', false);
+
+         }else{
+             $('#occupation').prop('disabled',true);
+             $('.inputResident').prop('disabled', false);
+         }
+      });
+
+      $('#inputUpdateRole').on('change', function (e) {
+         var optionSelected = $("option:selected", this).val();
+         if (optionSelected != 'resident') {
+             $('.inputResidentUpdate').prop('disabled', true);
+             $('#inputUpdateOccupation').prop('disabled', false);
+
+         } else {
+             $('#inputUpdateOccupation').prop('disabled', true);
+             $('.inputResidentUpdate').prop('disabled', false);
+         }
+      });
+
+      $('.differentResident').hide();
+      $('#occupation').prop('disabled',true);
+
+      $('#registrationForm').parsley({
+         excluded: ' :disabled'
+      });
+
+
+      function filterUsers(page) {
+         var search = $('#search').val().trim();
+         readUsers(page, search);
+      }
+
+
+
+      $('.differentResident').hide();
+
+      $('.roleSelect').on('change', function () {
+         if (this.value != 'resident') {
+             $('.differentResident').show();
+             $('.residentFields').hide();
+         }
+         else {
+             $('.differentResident').hide();
+             $('.residentFields').show();
+         }
+      });
+
+
+      $('#search').on({
+         focus: function () {
+             $("#searchform .input-group-addon").addClass('focused');
+         },
+
+         blur: function () {
+             $("#searchform .input-group-addon").removeClass('focused');
+         }
+      });
+
+
+
+      //Search Mobi
+      $('#searchMobile').keypress(function(){
+         $('#userstable').fadeOut("fast", function () {
+             $('#loader').fadeIn("fast");
+             readUsers(1, $("#searchMobile").val());
+         });
+      });
+
+      $('#searchMobile').keyup(function (e) {
+         if(e.keyCode == 8){
+             $('#userstable').fadeOut("fast", function () {
+                 $('#loader').fadeIn("fast");
+                 readUsers(1, $("#searchMobile").val());
+             });
+         };
+      });
+
+
+      //Enables datepicker select in modal
+      var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;
+      $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+      $confModal.on('hidden', function() {
+       $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
+      });
+      $confModal.modal({ backdrop : false });
 
-            filterUsers(1);
-
-            $( "#start" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '2017:2050',
-                onClose: function () {
-                  $(this).parsley().validate();
-                }
-            });
-
-            $( "#inputUpdateStart" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '2017:2050',
-                onClose: function () {
-                  $(this).parsley().validate();
-                }
-            });
-
-            $( "#inputUpdateFinish" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '2017:2050',
-                onClose: function () {
-                  $(this).parsley().validate();
-                }
-            });
-
-            $( "#finish" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '2017:2050',
-                onClose: function () {
-                  $(this).parsley().validate();
-                }
-            });
-
-
-            $( "#birthdate" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1917:2000'
-            });
-
-            $( "#inputUpdateBirthdate" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1917:2000'
-            });
-
-        });
-
-
-        $('#roleCreate').on('change', function (e) {
-            var optionSelected = $("option:selected", this).val();
-            if(optionSelected != 'resident'){
-                $('.inputResident').prop('disabled', true);
-                $('#occupation').prop('disabled', false);
-
-            }else{
-                $('#occupation').prop('disabled',true);
-                $('.inputResident').prop('disabled', false);
-            }
-        });
-
-        $('#inputUpdateRole').on('change', function (e) {
-            var optionSelected = $("option:selected", this).val();
-            if (optionSelected != 'resident') {
-                $('.inputResidentUpdate').prop('disabled', true);
-                $('#inputUpdateOccupation').prop('disabled', false);
-
-            } else {
-                $('#inputUpdateOccupation').prop('disabled', true);
-                $('.inputResidentUpdate').prop('disabled', false);
-            }
-        });
-
-        $('.differentResident').hide();
-        $('#occupation').prop('disabled',true);
-
-        $('#registrationForm').parsley({
-            excluded: ' :disabled'
-        });
-
-
-        /*=== Create user ===*/
-        $('#registrationForm').submit(function (evt) {
-            evt.preventDefault();
-
-            var url = $(this).attr("action");
-            var formData = new FormData($('#registrationForm')[0]);
-
-
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if (response.status == '409') {
-                        $('#inputEmail').focus();
-                        $('.emailregistrationerror').addClass('has-error');
-                        warningAlert('Ya existe una cuenta registrada con este Email o número de Documento');
-                    } else {
-                        $('#registrationModal').modal('hide');
-                        $('.residentFields').show();
-                        document.getElementById("registrationForm").reset();
-                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td style='width:33px;'><img class='img-circle table-profile-img' src='"+response.users.profile_picture + "'></td><td>" + response.users.email + "</td><td class='text-capitalize'>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
-
-                        successAlert("User created");
-
-                        $('#registrationForm').parsley().reset();
-
-
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var message = XMLHttpRequest.responseJSON.message;
-                    warningAlert(message);
-                }
-            });
-        });
-
-        /* Read users */
-        function readUsers(page, search) {
-
-            var p = page || 1;
-            var s = search || '';
-
-            var url = "/api/users?page=" + p + "&search=" + s;
-
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (response) {
-                    var total = parseInt(response.count / 10);
-                    if (response.count % 10 != 0) {
-                        total += 1;
-                    }
-
-                    var m = ((response.count % 10 != 0 && response.page == total) ? response.count % 10 : 10);
-
-                    var a = 1 + (response.page - 1) * 10;
-                    var b = m + (response.page - 1) * 10;
-                    $('#pages').html(a + '-' + b + ' of ' + response.count + ' Users');
-                    $('#page-selection').bootpag({total: total, maxVisible: 5});
-
-                    var banned;
-                    $("#userstable tbody tr").remove();
-                    var location = '';
-                    var createddate = '';
-                    var today = moment();
-                    var formatedDate = '';
-
-                    for (key = 0; key < response.users.length; key++) {
-
-                        if (response.users[key].banned) {
-                            banned = '<i class="fa fa-ban warning-color" aria-hidden="true"></i>';
-                        } else {
-                            banned = "";
-                        }
-
-                        if(showLocation){
-                            location = "<td>" + response.users[key].location + "</td>";
-                        } else {
-                            location = "";
-                        }
-
-                        createddate = moment(response.users[key].lastlogin);
-                        if (today.isSame(createddate, 'd')) {
-                            formatedDate = createddate.format('LT');
-                        } else {
-                            formatedDate = createddate.format('YYYY-DD-MM');
-                        }
-
-                        $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td class='hidden-xs hidde-sm'><input type='checkbox' value='" + response.users[key]._id + "'></td><td style='min-width:33px;'><img class='img-circle table-profile-img' src='" + response.users[key].profile_picture + "'></td><td class='text-capitalize'>" + response.users[key].name.first + "</td><td class='text-capitalize'>" + response.users[key].name.last + "</td><td class='text-lowercase'>" + response.users[key].email + "</td><td>" + response.users[key].doc.typedoc + "</td><td>" + response.users[key].doc.number + "</td><td>" + response.users[key].phone.number + "</td><td class='text-capitalize'>" + response.users[key].role + "</td>"+location+"<td>" + moment(response.users[key].created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users[key].updated).format('YYYY-DD-MM') + "</td><td>" + formatedDate + "</td></tr>");
-                    }
-
-                    $('#loader').fadeOut("slow", function () {
-                        $('#userstable').removeClass("hidden").fadeIn("slow");
-                    });
-
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var message = XMLHttpRequest.responseJSON.message;
-                    warningAlert(message);
-                }
-            });
-        }
-
-        /*=== Update user ==m=*/
-        function updateUserModal() {
-            document.getElementById("updateForm").reset();
-
-            len = $('#userstable input:checkbox:checked').length;
-            if (len == 0) {
-                warningAlert('Please select one element for the update.');
-            } else if (len == 1) {
-                var id = $('input:checkbox:checked')[0].value;
-
-
-                $.ajax({
-                    type: "GET",
-                    url: 'api/users/' + id,
-                    success: function (response) {
-                        $('#updateModal_h').html( response.user.name.first + ' ' + response.user.name.last );
-                        $('#updateProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
-                        $("#inputUpdateEmail").val(response.user.email);
-                        $("#inputUpdateFirstname").val(response.user.name.first);
-                        $("#inputUpdateLastname").val(response.user.name.last);
-                        $("#inputUpdateDocType").val(response.user.doc.typedoc);
-                        $("#inputUpdateDoc").val(response.user.doc.number);
-                        $("#inputUpdatePhone").val(response.user.phone.number);
-                        $("#inputUpdateRole").val(response.user.role);
-                        $("#inputUpdateLocation").val(response.user.location);
-                        $("#inputUpdateTimeZone").val(response.user.time_zone);
-                        $("#inputUpdateOccupation").val(response.user.occupation);
-                        $("#inputUpdateSkype").val(response.user.skype);
-
-                        if ($("#inputUpdateRole").val() === 'resident') {
-                            $('.residentFields').show();
-                            $('.differentResident').hide();
-
-
-                            $.ajax({
-                                type: "GET",
-                                url: 'api/residents/' + id,
-                                success: function (response) {
-                                    console.log(response);
-
-                                    $("#inputUpdateContract").val(response.resident.contract_number);
-                                    if(!typeof response.resident.birth_date == null )
-                                        $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
-                                    $("#inputUpdateApartment").val(response.resident.apartment);
-                                    $("#inputUpdateApartmentType").val(response.resident.apartment_type);
-                                    $("#inputUpdateBed").val(response.resident.bed);
-                                    $("#inputUpdateAgent").val(response.resident.agent);
-                                    $("#inputUpdateFinish").val(response.resident.finish.substr(0,10));
-                                    $("#inputUpdateStart").val(response.resident.start.substr(0,10));
-                                    $("#inputUpdateDuration").val(response.resident.duration);
-                                    $("#inputUpdateBathroom").val(response.resident.bathroom);
-
-
-
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    var message = XMLHttpRequest.responseJSON.message;
-                                    if(XMLHttpRequest.status == 404){
-                                        //No existe informacion de residente para este usuario
-                                    }else{
-                                        warningAlert(message);
-
-                                    }
-
-                                }
-                            });
-                        }else{
-                            $('.residentFields').hide();
-                            $('.differentResident').show();
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        var message = XMLHttpRequest.responseJSON.message;
-                        warningAlert(message);
-                    }
-                });
-
-                $('#updateUserModal').modal('show');
-            }
-            else {
-                warningAlert('Only can update one user at time.');
-            }
-        }
-
-        $('#updateUserButton').click(function(e){
-            e.preventDefault();
-            var users = [];
-
-            if($('#inputUpdateRole').val() != 'resident'){
-                $('.inputResidentUpdate').prop('disabled', true);
-                $('#inputUpdateOccupation').prop('disabled', false);
-
-            }else{
-                $('.inputResidentUpdate').prop('disabled', false);
-                $('#inputUpdateOccupation').prop('disabled', true);
-            }
-
-            $('#updateForm').parsley({
-                excluded: ' :disabled'
-            });
-
-            $('#userstable input:checkbox:checked').each(function () {
-                users.push($(this).val());
-            });
-
-            var formData = new FormData($('#updateForm')[0]);
-
-            $.ajax({
-                type: "PUT",
-                data: formData,
-                url: '/api/users/' + users[0],
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    console.log(response);
-                    var userr;
-                    $('input:checkbox:checked').each(function () {
-                        userr = $(this).parents("tr");
-                        $(this).attr('checked', false);
-                    });
-
-                    var tdPic = userr.children("td:nth-child(2)");
-                    var tdEmail = userr.children("td:nth-child(5)");
-                    var tdFirst = userr.children("td:nth-child(3)");
-                    var tdLast = userr.children("td:nth-child(4)");
-                    var tdTypeDoc = userr.children("td:nth-child(6)");
-                    var tdDoc = userr.children("td:nth-child(7)");
-                    var tdCellphone = userr.children("td:nth-child(8)");
-                    var tdRol = userr.children("td:nth-child(9)");
-                    var tdCity = userr.children("td:nth-child(10)");
-                    var tdUpdated = userr.children("td:nth-child(11)");
-
-                    tdPic.children().attr('src',response.user.profile_picture);
-                    tdEmail.text(response.user.email);
-                    tdTypeDoc.text(response.user.doc.typedoc);
-                    tdDoc.text(response.user.doc.number);
-                    tdFirst.text(response.user.name.first);
-                    tdLast.text(response.user.name.last);
-                    tdCellphone.text(response.user.phone.number);
-                    tdRol.text(response.user.rol);
-                    tdCity.text(response.user.location);
-                    tdUpdated.text(moment(response.user.updated).format('YYYY-DD-MM'));
-
-                    $('#updateUserModal').modal('hide');
-
-                    successAlert('User has been updated');
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var message = XMLHttpRequest.responseJSON.message;
-                    warningAlert(message);
-                }
-            });
-
-        });
-
-        /* Delete user */
-
-        function deleteUserModal() {
-            len = $('input:checkbox:checked').length;
-            if (len == 0) {
-                warningAlert('No has seleccionado ningun elemento para eliminar.');
-            } else if (len == 1) {
-                $('#deleteModal_h').html('').html('Are you sure you want to delete this user?')
-                $('#deleteModal_p').html('').html('All information will be lost.');
-                $('#deleteUserModal').modal('show');
-            }
-            else {
-                $('#deleteModal_h').html('').html('Are you sure you want to delete this users?')
-                $('#deleteModal_p').html('').html('All information will be lost.');
-                $('#deleteUserModal').modal('show');
-            }
-        }
-
-        function deleteUser() {
-
-            var users = [];
-            $('input:checkbox:checked').each(function () {
-                users.push($(this).val());
-            });
-
-            $.ajax({
-                type: "DELETE",
-                data: {users: users},
-                url: '/api/users',
-                success: function (response) {
-                    $('input:checkbox:checked').each(function () {
-                        $(this).parents("tr").remove();
-                    });
-                    $('#deleteUserModal').modal('hide');
-                    successAlert(message);
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var message = XMLHttpRequest.responseJSON.message;
-                    warningAlert(message);
-                }
-            });
-
-        }
-
-        function filterUsers(page) {
-            var search = $('#search').val().trim();
-            readUsers(page, search);
-        }
-
-        /*Search user*/
-
-        $('#searchform').submit(function (event) {
-
-            event.preventDefault();
-
-            $('#userstable').fadeOut("fast", function () {
-                $('#loader').fadeIn("fast");
-                readUsers(1, $("#search").val());
-            });
-        });
-
-        $('.differentResident').hide();
-
-        $('.roleSelect').on('change', function () {
-            if (this.value != 'resident') {
-                $('.differentResident').show();
-                $('.residentFields').hide();
-            }
-            else {
-                $('.differentResident').hide();
-                $('.residentFields').show();
-            }
-        });
-
-        $('table').on('dblclick','tr',function(){
-            var id = $(this).children().children().val();
-            $("#profilePicture").attr('src', '');
-            $.ajax({
-                type: "GET",
-                url: 'api/users/' + id,
-                success: function (response) {
-                    $('#titleRead').html('<span class="text-capitalize">' + response.user.name.first + ' ' + response.user.name.last + '</span>');
-                    $('#readProfileImage').css('background-image', 'url(' + response.user.profile_picture + ')');
-
-                    $("#profilePicture").attr('src',response.user.profile_picture);
-                    $("#emailRead").text(response.user.email);
-                    $("#firstRead").text(response.user.name.first);
-                    $("#lastRead").text(response.user.name.last);
-                    $("#doctypeRead").text(response.user.doc.typedoc);
-                    $("#documentRead").text(response.user.doc.number);
-                    $("#phoneRead").text(response.user.phone.number);
-                    $("#roleRead").text(response.user.role);
-                    $("#locationRead").text(response.user.location);
-                    $("#timezoneRead").text(response.user.time_zone);
-                    $("#occupationRead").text(response.user.occupation);
-                    $("#skypeRead").text(response.user.skype);
-
-                    if ($("#roleRead").text() === 'resident') {
-
-                        $('.residentFields').show();
-                        $('.differentResident').hide();
-
-
-                        $.ajax({
-                            type: "GET",
-                            url: 'api/residents/' + id,
-                            success: function (response) {
-
-                                $("#numcontractRead").text(response.resident.contract_number);
-                                $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
-                                $("#apartmentRead").text(response.resident.apartment);
-                                $("#typeRead").text(response.resident.apartment_type);
-                                $("#bathroomRead").text(response.resident.bathroom);
-                                $("#bedRead").text(response.resident.bed);
-                                $("#agentRead").text(response.resident.agent);
-                                $("#finishRead").text(response.resident.finish.substr(0, 10));
-                                $("#startRead").text(response.resident.start.substr(0, 10));
-                                $("#durationRead").text(response.resident.duration);
-                                $("#statusRead").text(response.resident.status);
-
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                var message = XMLHttpRequest.responseJSON.message;
-                                warningAlert(message);
-                            }
-                        });
-                    } else {
-                        $('.residentFields').hide();
-                        $('.differentResident').show();
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var message = XMLHttpRequest.responseJSON.message;
-                    warningAlert(message);
-                }
-            });
-
-            $('#readModal').modal('show');
-
-        });
-
-        $('#search').on({
-            focus: function () {
-                $("#searchform .input-group-addon").addClass('focused');
-            },
-
-            blur: function () {
-                $("#searchform .input-group-addon").removeClass('focused');
-            }
-        });
-
-        $('.locationSearch').click(function(){
-
-            var selectedLocation = $(this).html();
-            $("#dropdownLocation").html(selectedLocation+'<i class="fa fa-angle-down"></i>');
-            $(".dropdownLocation").html(selectedLocation+'<span><i class="fa fa-angle-down"></i><span>');
-
-            $('#loader').fadeOut("slow", function () {
-               $('#userstable').addClass("hidden").fadeIn("slow");
-           });
-            var search = $(this).text().trim();
-            readUsers(1, search);
-
-        });
-
-        $('.roleSearch').click(function(){
-
-            var selectedRole = $(this).html();
-            $("#dropdownRol").html(selectedRole+'<i class="fa fa-angle-down"></i>');
-            $(".dropdownRol").html(selectedRole+'<span><i class="fa fa-angle-down"></i></span>');
-
-            $('#loader').fadeOut("slow", function () {
-               $('#userstable').addClass("hidden").fadeIn("slow");
-           });
-            var search = $(this).text().trim();
-            readUsers(1, search);
-
-        });
-
-        $('.cleanLocationSearch').click(function(){
-
-            $("#dropdownLocation").html('Location<i class="fa fa-angle-down"></i>')
-            $(".dropdownLocation").html('Location<i class="fa fa-angle-down"></i>');
-
-            $('#loader').fadeOut("slow", function () {
-               $('#userstable').addClass("hidden").fadeIn("slow");
-            });
-            readUsers(1, '');
-
-        });
-
-        $('.cleanRoleSearch').click(function(){
-
-            $("#dropdownRol").html('Role<i class="fa fa-angle-down"></i>')
-            $(".dropdownRol").html('Role<span><i class="fa fa-angle-down"></i></span>')
-
-            $('#loader').fadeOut("slow", function () {
-               $('#userstable').addClass("hidden").fadeIn("slow");
-           });
-            readUsers(1, '');
-
-        });
-
-
-        //Search Mobi
-        $('#searchMobile').keypress(function(){
-            $('#userstable').fadeOut("fast", function () {
-                $('#loader').fadeIn("fast");
-                readUsers(1, $("#searchMobile").val());
-            });
-        });
-
-        $('#searchMobile').keyup(function (e) {
-            if(e.keyCode == 8){
-                $('#userstable').fadeOut("fast", function () {
-                    $('#loader').fadeIn("fast");
-                    readUsers(1, $("#searchMobile").val());
-                });
-            };
-        });
-
-
-
-
-
-            //Export users
-        function exportUsers(){
-            var search = $('#search').val().trim();
-            window.open('/api/users/export?search='+search,'_blank');
-        }
-
-        // Enables datepicker select in modal
-        var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;
-        $.fn.modal.Constructor.prototype.enforceFocus = function() {};
-        $confModal.on('hidden', function() {
-          $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
-        });
-        $confModal.modal({ backdrop : false });
+
+
+
 
 
 

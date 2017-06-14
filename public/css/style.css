@@ -437,11 +437,11 @@ button:focus{
 /* MENU & NAVIGATIONS */
 
 .slideContainerLeft {
-  -webkit-transform: translate3d(-190px,0,0);
-  -moz-transform: translate3d(-190px,0,0);
-  -ms-transform: translate3d(-190px,0,0);
-  -o-transform: translate3d(-190px,0,0);
-  transform: translate3d(-190px,0,0);
+  -webkit-transform: translate3d(-205px,0,0);
+  -moz-transform: translate3d(-205px,0,0);
+  -ms-transform: translate3d(-205px,0,0);
+  -o-transform: translate3d(-205px,0,0);
+  transform: translate3d(-205px,0,0);
   transition: transform 0.4s ease-out;
 }
 
@@ -535,7 +535,7 @@ button:focus{
   background:#1E1E1E;
   top:0;
   right: 0;
-  width: 190px;
+  width: 205px;
 
   -webkit-transition: -webkit-transform .4s cubic-bezier(.16, .68, .43, .99);
   -moz-transition: -moz-transform .4s cubic-bezier(.16, .68, .43, .99);
@@ -886,6 +886,10 @@ button:focus{
 .userFilters .search-filtersMobile .dropdown a span,
 .userFilters .search-filtersMobile .dropdown a i {
   float: right;
+}
+
+.userFilters .search-filtersMobile .dropdown.open a i {
+  animation: gearAnim 0.2s linear 0s 1 forwards;
 }
 
 .userFilters.searchTicket .search-filtersMobile .dropdown a span.opcion {
@@ -1949,7 +1953,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   position: relative;
   vertical-align: middle;
   padding: 0;
-  height:32px;
+  height:48px;
   background: #fff;
   color: #555;
   border: 1px solid #aaa;
@@ -1970,7 +1974,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
 }
 .select:before {
   position: absolute;
-  top: 0.5em;
+  top: 1em;
   right: 0.5em;
   pointer-events: none;
 }
@@ -1989,7 +1993,7 @@ li.btn-exclamation-circle, li.btn-clock-o, li.btn-check-circle,
   text-indent: 0.01px;
   text-overflow: '';
   width: 160% \9;
-  height: 32px;
+  height: 48px;
 }
 .select select:focus, .select select:active, .select select:hover,
 .select:focus:before, .select:active:before, .select:hover:before  {

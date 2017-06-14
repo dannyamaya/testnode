@@ -731,7 +731,7 @@ block scripts
                     source = '<button type="button" title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></button><button type="button" title="Open" class="btn-clock-o btn-status active" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></button><button type="button" title="Resolved" class="btn-check-circle btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></button>';
                     break;
                 case 2:
-                    source = '<ul class="list-inline"><li title="Pending" class="btn-exclamation-circle btn-status" data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></li><li title="Open" class="btn-clock-o btn-status" data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></li><li title="Resolved" class="btn-check-circle active btn-status" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></li></ul>';
+                    source = '<ul class="list-inline"><li title="Pending" class="btn-exclamation-circle " data-id="' + id + '" data-status="0"><i class="fa fa-exclamation-circle"></i></li><li title="Open" class="btn-clock-o " data-id="' + id + '" data-status="1"><i class="fa fa-clock-o"></i></li><li title="Resolved" class="btn-check-circle active" data-id="' + id + '" data-status="2"><i class="fa fa-check-circle"></i></li></ul>';
                     break;
             }
             ;
@@ -1411,6 +1411,8 @@ block scripts
             });
         });
 
+
+
         //Updates Status
         $('body').on('click', '.btn-status', function () {
 
@@ -1434,4 +1436,8 @@ block scripts
             });
 
             $(this).addClass('active');
+            if($(this).hasClass('btn-check-circle')){
+                $(this).prev().removeClass('btn-status').css('color','#81939E').css('cursor','default');
+                $(this).prev().prev().removeClass('btn-status').css('color','#81939E').css('cursor','default');
+            }
         });

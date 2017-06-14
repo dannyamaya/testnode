@@ -7,14 +7,14 @@ block content
     //- LOADER
     .wdt-loading-screen.gradienteLivinn#loaderPlatform(style=" width: 100%; height: 100%; position: fixed; z-index: 999998; top: 0; left: 0; overflow: hidden;")
       .wdt-loading-phrases
-        .wdt-loading-phrase-category(data-category='default')          
+        .wdt-loading-phrase-category(data-category='default')
           .wdt-loading-phrase Getting New Users...
           .wdt-loading-phrase Updating Users...
           .wdt-loading-phrase Fetching up Databases...
           .wdt-loading-phrase Loading DOM...
           .wdt-loading-phrase Loading Tickets...
           .wdt-loading-phrase Looking for managers...
-      .col-xs-6.col-xs-offset-3.col-sm-4.col-sm-offset-4.col-md-2.col-md-offset-5.navbar-brand.logoHeading(style="position: absolute; bottom: 0px; height:100px;")
+      .col-xs-6.col-xs-offset-3.col-sm-4.col-sm-offset-4.col-md-2.col-md-offset-5.navbar-brand.logoHeading(style="position: absolute; bottom: 20px; height:100px;")
         img(class="img-responsive" src="../img/logolivinn-blanco.svg")
 
     //- DESKTOP FORM
@@ -54,7 +54,7 @@ block content
                   i.fa.fa-angle-down
               ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                   li
-                      a.roleSearch(href="#") Client Service
+                      a.roleSearch(href="#") Customer Service
                   li
                       a.roleSearch(href="#") Maintenance
                   li
@@ -720,14 +720,14 @@ block scripts
               yearRange: '1917:2000'
           });
 
-          setTimeout(function(){ 
+          setTimeout(function(){
             $('#loaderPlatform').fadeOut("slow", function(){
                 wdtLoading.done();
             });
            }, 4000);
 
-          
-            
+
+
 
       });
 

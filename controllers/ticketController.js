@@ -6,9 +6,14 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var strftime = require('strftime');
 var slug = require('slug');
 var s3deploy = require('../helpers/bucketDeployHelper');
-var fs = require('fs');
+var fs = require('fs'),
+    gm = require('gm');
+
+    // https://github.com/aheckmann/gm - imagemagic
 
 var AWS_PREFIX = 'https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/';
+
+
 
 module.exports = {
 

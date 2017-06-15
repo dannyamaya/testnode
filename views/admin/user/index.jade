@@ -1214,6 +1214,15 @@ block scripts
           });
       });
 
+      $('.cleanInputSearch').click(function(){
+          usersearch = '';
+          $("#searchMobile").val('');
+          $('#loader').fadeOut("slow", function () {
+             $('#userstable').addClass("hidden").fadeIn("slow");
+          });
+          readUsers(1, '');
+      });
+
       $('.cleanLocationSearch').click(function(){
           $("#dropdownLocation").html('Location<i class="fa fa-angle-down"></i>')
           $(".dropdownLocation").html('Location<i class="fa fa-angle-down"></i>');
@@ -1233,6 +1242,25 @@ block scripts
           });
           readUsers(1, '');
       });
+
+      $('#searchMobile').keypress(function(){
+         usersearch = $("#searchMobile").val();
+         $('#userstable').fadeOut("fast", function () {
+             $('#loader').fadeIn("fast");
+             readUsers(1);
+         });
+      });
+
+      $('#searchMobile').keyup(function (e) {
+         if(e.keyCode == 8){
+             usersearch = $("#searchMobile").val();
+             $('#userstable').fadeOut("fast", function () {
+                 $('#loader').fadeIn("fast");
+                 readUsers(1);
+             });
+         };
+      });
+
 
       /*=== EXPORT USERS ===*/
       function exportUsers(){
@@ -1329,21 +1357,6 @@ block scripts
 
 
       //Search Mobi
-      $('#searchMobile').keypress(function(){
-         $('#userstable').fadeOut("fast", function () {
-             $('#loader').fadeIn("fast");
-             readUsers(1, $("#searchMobile").val());
-         });
-      });
-
-      $('#searchMobile').keyup(function (e) {
-         if(e.keyCode == 8){
-             $('#userstable').fadeOut("fast", function () {
-                 $('#loader').fadeIn("fast");
-                 readUsers(1, $("#searchMobile").val());
-             });
-         };
-      });
 
 
       //Enables datepicker select in modal

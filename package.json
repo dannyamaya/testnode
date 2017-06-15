@@ -19,6 +19,7 @@
     "express-csv": "^0.6.0",
     "express-fileupload": "^0.1.2",
     "express-session": "^1.15.2",
+    "gm": "^1.23.0",
     "jade": "~1.11.0",
     "moment": "^2.18.1",
     "mongoose": "^4.9.3",

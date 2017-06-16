@@ -2,7 +2,6 @@ extend ../layout
 block header
     link(href="/plugins/summernote/summernote.css" rel="stylesheet")
 block content
-    //-LOADER
     //- MOBILE FORM
     .col-xs-12.no-padding.hidden-md.hidden-lg#searchTicket.userFilters.userFiltersUp.searchTicket
         .col-xs-12.no-padding.clearFilters
@@ -32,15 +31,16 @@ block content
                     i.icon.ion-ios-arrow-down
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
-                    a.locationSearch(href="#") Lord Cochrane Santiago
+                    a.locationSearch(href="#") Santiago - Lord Cochrane
                   li
-                    a.locationSearch(href="#") Viña del Mar
+                    a.locationSearch(href="#") Viña Del Mar - Alvarez
                   li
-                    a.locationSearch(href="#") Calle 18 Bogotá
+                    a.locationSearch(href="#") Bogotá - Calle 18
                   li
-                    a.locationSearch(href="#") Calle 21 Bogotá
+                    a.locationSearch(href="#") Bogotá - Calle 33
                   li
-                    a.locationSearch(href="#") Villa campestre Barranquilla
+                    a.locationSearch(href="#") Barranquilla - Villa Campestre
+
               li.col-xs-12.no-padding.dropdown
                 a.col-xs-12.dropdown-toggle.categoryDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Category
                   span
@@ -234,17 +234,16 @@ block content
                       i.fa.fa-angle-down
                   ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                       li
-                        a.locationSearch(href="#") Lord Cochrane Santiago
+                        a.locationSearch(href="#") Santiago - Lord Cochrane
                       li
-                        a.locationSearch(href="#") Viña del Mar
+                        a.locationSearch(href="#") Viña Del Mar - Alvarez
                       li
-                        a.locationSearch(href="#") Calle 18 Bogotá
+                        a.locationSearch(href="#") Bogotá - Calle 18
                       li
-                        a.locationSearch(href="#") Calle 21 Bogotá
+                        a.locationSearch(href="#") Bogotá - Calle 33
                       li
-                        a.locationSearch(href="#") Villa campestre Barranquilla
+                        a.locationSearch(href="#") Barranquilla - Villa Campestre
                       li.dropdown-header.cleanLocationTicket.pull-right(style="color:#D51C5C;") Clear
-
                 .pull-right.no-padding.searchInputTicket(style="display: inline-block;")
                     .input-group.search
                         .col-md-6.no-padding
@@ -298,11 +297,11 @@ block modals
                                 .select
                                     select(name="location" required)
                                       option(value="") Choose a location
-                                      option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
-                                      option(value="Calle 18 Bogotá") Bogotá - Calle 18
-                                      option(value="Calle 21 Bogotá")  Bogotá - Calle 21
-                                      option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
-                                      option(value="Viña Del Mar") Viña Del Mar - Alvarez
+                                      option(value="Barranquilla - Villa Campestre") Barranquilla - Villa Campestre
+                                      option(value="Bogotá - Calle 18") Bogotá - Calle 18
+                                      option(value="Bogotá - Calle 33")  Bogotá - Calle 33
+                                      option(value="Santiago - Lord Cochrane") Santiago - Lord Cochrane
+                                      option(value="Viña Del Mar - Alvarez") Viña Del Mar - Alvarez
 
                             else
                               input(type="hidden" name="location" value="#{user.location}")
@@ -699,14 +698,13 @@ block scripts
                 opened = '';
             }
 
-            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + dataServer.ticket._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + dataServer.ticket.requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + dataServer.ticket.subject + '</button><p class="col-xs-12 no-padding reference">#' + dataServer.ticket._id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(dataServer.ticket.category) + '<br class="visible-xs">' + getCategory(dataServer.ticket.subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(dataServer.ticket.status, dataServer.ticket._id) + '</div></div>');
+            $('.tickets').prepend('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + dataServer.ticket._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + dataServer.ticket.requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + dataServer.ticket._id + "\',\'" + dataServer.ticket.requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + dataServer.ticket.subject + '</button><p class="col-xs-12 no-padding reference">#'  + createddate.format('YYYY.MM.DD')+"-"+getLocationCode(dataServer.ticket.location)+"-"+dataServer.ticket.id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to:<span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + dataServer.ticket.created_by.name.first + " " + dataServer.ticket.created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(dataServer.ticket.category) + '<br class="visible-xs">' + getCategory(dataServer.ticket.subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(dataServer.ticket.status, dataServer.ticket._id) + '</div></div>');
 
         });
 
         //----------------- HELPERS ---------------------------
         $("#btn-mobileMenu").click(function () {
-
-            $("#workordertitle").toggleClass("hidden-lg");
+          $("#workordertitle").toggleClass("hidden-lg");
         });
 
         function getCategory(category) {
@@ -792,6 +790,24 @@ block scripts
             console.log(item);
             return $("<li class='li-autocomplete asigneeli' data-id='" + item._id + "' data-pic='" + item.profile_picture + "' data-name='" + item.name.first + " " + item.name.last + "' style='margin-bottom:5px;'></li>").append('<span><img class="img-circle user-disp-img" src="' + item.profile_picture + '"></span>' + item.name.first + ' ' + item.name.last).appendTo(ul);
         };
+
+        function getLocationCode(location){
+            var loc = 'NOTFOUND';
+            if(location == "Barranquilla - Villa Campestre"){
+              loc = "VC";
+            } else if(location == "Bogotá - Calle 18"){
+              loc = "C18";
+            } else if(location == "Bogotá - Calle 33"){
+              loc = "C33";
+            } else if(location == "Santiago - Lord Cochrane"){
+              loc = "LC";
+            } else if(location == "Viña Del Mar - Alvarez"){
+              loc = "AL";
+            } else {
+
+            }
+            return loc;
+        }
 
         //----------------- CREATE ---------------------------
 
@@ -910,8 +926,6 @@ block scripts
                         }
 
                         //Assigned to
-
-
                         if (!data.tickets[key].assigned_to || data.tickets[key].assigned_to.length == 0) {
                             assignedto = 'Not assigned';
                         } else {
@@ -940,7 +954,7 @@ block scripts
                         }
 
                         //console.log(assignedto);
-                        $('.tickets').append('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + data.tickets[key]._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + data.tickets[key].requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + data.tickets[key].subject + '</button><p class="col-xs-12 no-padding reference">#' + data.tickets[key]._id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to: <span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(data.tickets[key].category) + '<br class="visible-xs">' + getCategory(data.tickets[key].subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(data.tickets[key].status, data.tickets[key]._id) + '</div></div>');
+                        $('.tickets').append('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + data.tickets[key]._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + data.tickets[key].requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + data.tickets[key].subject + '</button><p class="col-xs-12 no-padding reference">#' + createddate.format('YYYY.MM.DD')+"-"+getLocationCode(data.tickets[key].location)+"-"+data.tickets[key].id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to: <span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(data.tickets[key].category) + '<br class="visible-xs">' + getCategory(data.tickets[key].subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(data.tickets[key].status, data.tickets[key]._id) + '</div></div>');
 
                     }
                     ;
@@ -1017,7 +1031,7 @@ block scripts
                     }
 
                     $('#hiddenTicket').val(response.ticket._id);
-                    $('.readModalTitle').html('Work Order #' + response.ticket._id);
+                    $('.readModalTitle').html('Work Order #' + moment(response.ticket.created).format('YYYY.MM.DD')+"-"+getLocationCode(response.ticket.location)+"-"+response.ticket.id );
                     $("#ticketrequestor").html("<span><img class='img-circle user-disp-img' src='" + response.ticket.requested_by.profile_picture + "'</span>" + response.ticket.requested_by.name.first + " " + response.ticket.requested_by.name.last);
                     $("#ticketemail").text(response.ticket.requested_by.email);
                     if (response.ticket.requested_by.phone.number) {

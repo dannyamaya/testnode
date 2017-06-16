@@ -36,15 +36,15 @@ block content
                     i.fa.fa-angle-down
                   ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                       li
-                          a.locationSearch(href="#") Lord Cochrane Santiago
+                        a.locationSearch(href="#") Santiago - Lord Cochrane
                       li
-                          a.locationSearch(href="#") Viña del Mar
+                        a.locationSearch(href="#") Viña Del Mar - Alvarez
                       li
-                          a.locationSearch(href="#") Calle 18 Bogotá
+                        a.locationSearch(href="#") Bogotá - Calle 18
                       li
-                          a.locationSearch(href="#") Calle 21 Bogotá
+                        a.locationSearch(href="#") Bogotá - Calle 33
                       li
-                          a.locationSearch(href="#") Villa campestre Barranquilla
+                        a.locationSearch(href="#") Barranquilla - Villa Campestre
                       li.dropdown-header.cleanLocationSearch.pull-right(style="color:#D51C5C;") Clear
 
 
@@ -119,15 +119,15 @@ block content
                 i.icon.ion-ios-arrow-down
             ul.col-xs-12.no-padding.dropdown-menu
               li
-                  a.locationSearch(href="#") Lord Cochrane Santiago
+                a.locationSearch(href="#") Santiago - Lord Cochrane
               li
-                  a.locationSearch(href="#") Viña del Mar
+                a.locationSearch(href="#") Viña Del Mar - Alvarez
               li
-                  a.locationSearch(href="#") Calle 18 Bogotá
+                a.locationSearch(href="#") Bogotá - Calle 18
               li
-                  a.locationSearch(href="#") Calle 21 Bogotá
+                a.locationSearch(href="#") Bogotá - Calle 33
               li
-                  a.locationSearch(href="#") Villa campestre Barranquilla
+                a.locationSearch(href="#") Barranquilla - Villa Campestre
           li.col-xs-12.no-padding.dropdown
             a.col-xs-12.dropdown-toggle.dropdownRol.mobile(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Role
               span
@@ -344,11 +344,11 @@ block modals
                                                     option(value="#{user.location}") #{user.location}
                                                 else
                                                     option(value="") Choose a location
-                                                    option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
-                                                    option(value="Calle 18 Bogotá") Bogotá - Calle 18
-                                                    option(value="Calle 21 Bogotá")  Bogotá - Calle 21
-                                                    option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
-                                                    option(value="Viña Del Mar") Viña Del Mar - Alvarez
+                                                    option(value="Barranquilla - Villa Campestre") Barranquilla - Villa Campestre
+                                                    option(value="Bogotá - Calle 18") Bogotá - Calle 18
+                                                    option(value="Bogotá - Calle 33")  Bogotá - Calle 33
+                                                    option(value="Santiago - Lord Cochrane") Santiago - Lord Cochrane
+                                                    option(value="Viña Del Mar - Alvarez") Viña Del Mar - Alvarez
                                     .form-group.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
@@ -517,11 +517,11 @@ block modals
                                                     option(value="#{user.location}") #{user.location}
                                                 else
                                                     option(value="") Choose a location
-                                                    option(value="Villa Campestre Barranquilla") Barranquilla - Villa Campestre
-                                                    option(value="Calle 18 Bogotá") Bogotá - Calle 18
-                                                    option(value="Calle 21 Bogotá")  Bogotá - Calle 21
-                                                    option(value="Lord Cochrane Santiago") Santiago - Lord Cochrane
-                                                    option(value="Viña Del Mar") Viña Del Mar - Alvarez
+                                                    option(value="Barranquilla - Villa Campestre") Barranquilla - Villa Campestre
+                                                    option(value="Bogotá - Calle 18") Bogotá - Calle 18
+                                                    option(value="Bogotá - Calle 33")  Bogotá - Calle 33
+                                                    option(value="Santiago - Lord Cochrane") Santiago - Lord Cochrane
+                                                    option(value="Viña Del Mar - Alvarez") Viña Del Mar - Alvarez
                                     .form-group.no-padding
                                         label Time Zone
                                         span.requiredLivinn *
@@ -815,7 +815,6 @@ block scripts
           };
           preview.init();
       });
-
 
       /*=== CREATE USER ===*/
       $('#registrationForm').submit(function (evt) {
@@ -1245,22 +1244,12 @@ block scripts
 
       $('#searchMobile').keypress(function(){
          usersearch = $("#searchMobile").val();
+         $("#search").val(usersearch);
          $('#userstable').fadeOut("fast", function () {
              $('#loader').fadeIn("fast");
              readUsers(1);
          });
       });
-
-      $('#searchMobile').keyup(function (e) {
-         if(e.keyCode == 8){
-             usersearch = $("#searchMobile").val();
-             $('#userstable').fadeOut("fast", function () {
-                 $('#loader').fadeIn("fast");
-                 readUsers(1);
-             });
-         };
-      });
-
 
       /*=== EXPORT USERS ===*/
       function exportUsers(){

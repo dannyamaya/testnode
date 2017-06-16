@@ -31,17 +31,19 @@ var TicketSchema   = new Schema({
 });
 
 TicketSchema.pre('save', function(next) {
-    var doc = this;
-    this.constructor.find({location: this.location}).sort({id:-1}).exec(function(error, found)   {
-        if(error)
-            return next(error);
-        if(found[0]){
-            doc.id  = found[0].id+1;
-        } else {
-            doc.id = 1;
-        }
-        next();
-    });
+    if(this.isNew){
+        var doc = this;
+        this.constructor.find({location: this.location}).sort({id:-1}).exec(function(error, found)   {
+            if(error)
+                return next(error);
+            if(found[0]){
+                doc.id  = found[0].id+1;
+            } else {
+                doc.id = 1;
+            }
+            next();
+        });
+    }
 });
 
 module.exports = mongoose.model('Ticket', TicketSchema);

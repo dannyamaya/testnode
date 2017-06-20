@@ -329,6 +329,7 @@ module.exports = {
 
         if(id){
             var workid = id.split("-");
+            console.log(workid);
             var o_id = new ObjectId(id);
             options['_id'] = o_id;
         }

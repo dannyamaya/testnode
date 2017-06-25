@@ -283,7 +283,7 @@ block modals
                     .row
                         form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
                             if user.role != 'resident'
-                                .form-group
+                                .form-group.hidden
                                     label
                                         |   Requested by
                                         span  (optional)
@@ -422,6 +422,7 @@ block modals
                                     p.ticketsubject#ticketsubject
                                     p.ticketcategory#ticketcategory
                                     p.ticketdate#ticketdate
+                                    p.ticketdate#ticketattentiondate
                                     p.ticketdate#closedDate
                                     .buttons-status(style="")
                                         button#uno(type="button" title="Pending" class="btn-exclamation-circle btn-status classStatus no-padding" data-status="0" data-id="1")
@@ -1077,7 +1078,7 @@ block scripts
                         $("#ticketasigneeGroup").append("<span><img class='img-circle user-disp-img' src='" + value.profile_picture + "'</span><span class='label label-default'>" + value.name.first + " " + value.name.last + "  <a><i data-assignee='" + value._id + "' data-ticket-id='" + response.ticket._id + "' id='assignee" + value._id + "' class='remove glyphicon glyphicon-remove-sign glyphicon-white tag-assigned removeAssignee'></i></a> </span>");
                     });
 
-                    $("#ticketdate").html('Attention Date: '+moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
+                    $("#ticketdate").html('Request Date: '+moment(response.ticket.created).format('MMMM Do YYYY, h:mm:ss a'));
                     $("#messageRead").text(response.ticket.message);
 
 

@@ -1319,7 +1319,19 @@ block scripts
                     var cat = getCategory(response.ticket.category) + '<br class="visible-xs">' + getCategory(response.ticket.subcategory);
                     $("#ticketcategory").html(cat);
                     $('.ticket[data-ticketid="' + ticketid + '"] .catsubcat').html(cat);
-                    console.log(response);
+
+                    $('.ticket[data-ticketid="' + ticketid + '"]').removeClass('one two three four');
+                    if(response.ticket.priority == 1){
+                      $('.ticket[data-ticketid="' + ticketid + '"]').addClass('one');
+                    } else if(response.ticket.priority == 2){
+                      $('.ticket[data-ticketid="' + ticketid + '"]').addClass('two');
+                    } else if(response.ticket.priority == 3){
+                      $('.ticket[data-ticketid="' + ticketid + '"]').addClass('three');
+                    } else if(response.ticket.priority == 4){
+                      $('.ticket[data-ticketid="' + ticketid + '"]').addClass('four');
+                    } else {
+                      //Do nothing
+                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var message = XMLHttpRequest.responseJSON.message;

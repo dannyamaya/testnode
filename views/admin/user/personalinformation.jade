@@ -1,40 +1,88 @@
 extend ../layout
 block content
-    include settings-menu.jade
-    .col-xs-12.col-sm-7
-        .page-header
-            h2
-                |   Personal information
-                br
-                small This information is private.
-        .col-xs-12.col-sm-4.col-sm-offset-1.form-group
-            img.img-responsive.img-circle.img-personal-information(src="#{user.profile_picture}")
-        form.col-xs-12.col-sm-10.col-sm-offset-1#updateinfoform(method="put" action="/api/users/#{user._id}")
-            .form-group
-                label Document
-                p.form-control-static
-                    span.text-capitalize #{user.doc.typedoc}
-                    |  #{user.doc.number}
-            .form-group
-                label Firstname
-                input.form-control(type="text" value="#{user.name.first}" placeholder="Nombre" name="first")
-            .form-group
-                label Lastname
-                input.form-control(type="text" value="#{user.name.last}" placeholder="Nombre" name="last")
-            .form-group
-                label
-                    |   Email
-                    if !user.verified_email
-                        i.fa.fa-check-circle.email-verified(aria-hidden="true")
-                        a.verified-link.hidden(href="#" onclick="verifyEmail") Verify
-                    else
-                        i.fa.fa-check-circle.email-verified.active(aria-hidden="true" title="Verified")
-                p.form-control-static #{user.email}
-            .form-group
-                label Cellphone
-                input.form-control(type="text" value="#{user.phone.number || '' }" placeholder="Teléfono" name="phone")
-            .form-group-end
-                input.btn.btn-livinn(type="submit" value="Update information" style="margin-bottom:30px;")
+    .col-xs-12.userTools.has-feedback
+        .col-md-12.no-padding.userMaganementDesktop
+            .titleUserManagement.no-padding
+                h2.no-padding SETTINGS
+    .col-xs-12.col-sm-12.content
+        .col-xs-12.col-sm-3
+            h5.link-livinn.active.personal-click Personal Information
+            hr
+            h5.link-livinn.personal-update Update Password
+
+
+        .col-xs-12.col-sm-9.personal-information
+            h2.livinn-h2 PERSONAL INFORMATION
+            .col-xs-12.col-sm-4.form-group
+                .col-xs-12.col-sm-4
+
+                .form-group
+                    form.col-xs-12.col-sm-12#updateinfoform(method="put" action="/api/users/#{user._id}" role="form" enctype="multipart/form-data")
+                        .preview.img-wrapper.has-feedback.img-preloaded(style="background-image: url(\"#{user.profile_picture}\")")
+                            i.icon.ion-plus
+                        .file-upload-wrapper
+                            input.file-upload-native(type="file" name="image" accept="image/*" )
+                            input.file-upload-text(type="text" disabled placeholder="Upload profile photo")
+
+
+                        .form-group
+                            label Document
+                            p.form-control-static
+                                span.text-capitalize #{user.doc.typedoc}
+                                |  #{user.doc.number}
+                        .form-group
+                            label First name
+                            input.form-control(type="text" value="#{user.name.first}" placeholder="Nombre" name="first")
+                        .form-group
+                            label Last name
+                            input.form-control(type="text" value="#{user.name.last}" placeholder="Nombre" name="last")
+                        .form-group
+                            label
+                                |   Email
+                                if !user.verified_email
+                                    i.fa.fa-check-circle.email-verified(aria-hidden="true")
+                                    a.verified-link.hidden(href="#" onclick="verifyEmail") Verify
+                                else
+                                    i.fa.fa-check-circle.email-verified.active(aria-hidden="true" title="Verified")
+                            p.form-control-static #{user.email}
+                        .form-group
+                            label Cellphone
+                            input.form-control(type="text" value="#{user.phone.number || '' }" placeholder="Teléfono" name="phone")
+                        .form-group-end
+                            input.btn.btn-livinn.form-control.btn-personal-information(type="submit" value="UPDATE INFORMATION" style="margin-bottom:30px;")
+
+
+        .col-xs-12.col-sm-9.update-password
+            h2.livinn-h2 UPDATE PASSWORD
+            .col-xs-12.col-sm-4.form-group
+                .col-xs-12.col-sm-4
+
+                .form-group
+                    form.col-xs-12.col-sm-12(id="updatepasswordform" method="post" action="/update-password" role="form")
+                        input(type="hidden" name="id" value="#{user._id}")
+                        .page-header
+                            h2
+                                |   Update password
+                                br
+                                small New password should have at least 5 characters.
+                        .form-group.col-xs-12.no-padding.old-password-error
+                            label.col-sm-12.no-padding(for="oldpassword") Old password
+                            .col-sm-12.no-padding
+                                input.form-control#oldpassword(type="password" , name="oldpassword")
+                        .form-group.col-xs-12.no-padding.new-password-error.mismatch-error
+                            label.col-sm-12.no-padding(for="password") New password
+                            .col-sm-12.no-padding
+                                input.form-control#newpassword(type="password", name="password")
+                        .form-group.col-xs-12.no-padding.new-password-confirmation-error.mismatch-error
+                            label.col-sm-12.no-padding(for="passwordconfirmation") Confirm new password
+                            .col-sm-12.no-padding
+                                input.form-control#newpasswordconfirmation(type="password" data-equals="newpassword" name="passwordconfirmation")
+                        .form-group.col-xs-12.no-padding
+                            .col-sm-12.no-padding
+                                input.btn.btn-livinn.form-control.btn-personal-information#guardarContrasena(type="submit" value="UPDATE PASSWORD")
+
+
+
 
 block scripts
     script.
@@ -45,8 +93,8 @@ block scripts
         $('#updateinfoform').submit(function(evt){
             evt.preventDefault();
 
+            var formData = new FormData($('#updateinfoform')[0]);
             var url = $(this).attr("action");
-            var formData = $(this).serialize();
 
             console.log(formData);
 
@@ -54,6 +102,8 @@ block scripts
                 type: "PUT",
                 url: url,
                 data: formData,
+                processData: false,
+                contentType: false,
                 success : function(response){
                     successAlert('Your personal information has been updated');
                 },
@@ -63,10 +113,149 @@ block scripts
                         $('#inputConfPasswordr').focus();
                         $('.emailregistrationerror').removeClass('has-error');
                         $('.passwordregistrationerror').addClass('has-error');
-                        warningAlert('Las contraseñas no coinciden');
+                        warningAlert('Password missmatch');
                     } else {
                         warningAlert(message);
                     }
                 }
             });
+        });
+
+        $(function () {
+            function maskImgs() {
+                //$('.img-wrapper img').imagesLoaded({}, function() {
+                $.each($('.img-wrapper img'), function (index, img) {
+                    var src = $(img).attr('src');
+                    var parent = $(img).parent();
+                    parent
+                        .css('background', 'url(' + src + ') no-repeat center center')
+                        .css('background-size', 'cover');
+                    $(img).remove();
+                });
+                //});
+            }
+
+            var preview = {
+                init: function () {
+                    preview.setPreviewImg();
+                    preview.listenInput();
+                },
+                setPreviewImg: function (fileInput) {
+                    var path = $(fileInput).val();
+                    var uploadText = $(fileInput).siblings('.file-upload-text');
+
+                    if (!path) {
+                        $(uploadText).val('');
+                    } else {
+                        path = path.replace(/^C:\\fakepath\\/, "");
+                        $(uploadText).val(path);
+
+                        preview.showPreview(fileInput, path, uploadText);
+                    }
+                },
+                showPreview: function (fileInput, path, uploadText) {
+                    var file = $(fileInput)[0].files;
+
+                    if (file && file[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            var previewImg = $(fileInput).parents('.file-upload-wrapper').siblings('.preview');
+                            var img = $(previewImg).find('img');
+
+                            if (img.length == 0) {
+                                $(previewImg).html('<img src="' + e.target.result + '" alt=""/>');
+                            } else {
+                                img.attr('src', e.target.result);
+                            }
+
+                            uploadText.val(path);
+                            maskImgs();
+                        }
+
+                        reader.onloadstart = function () {
+                            $(uploadText).val('uploading..');
+                        }
+
+                        reader.readAsDataURL(file[0]);
+                    }
+                },
+                listenInput: function () {
+                    $('.file-upload-native').on('change', function () {
+                        preview.setPreviewImg(this);
+                    });
+                }
+            };
+            preview.init();
+        });
+
+        $('.img-preloaded').click(function(){
+            $('.file-upload-native').trigger('click');
+        });
+
+        $('.update-password').hide();
+
+        $('#updatepasswordform').submit(function (evt) {
+            evt.preventDefault();
+
+            var url = $(this).attr("action");
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                success: function (response) {
+                    console.log(response);
+                    successAlert("La contraseña ha sido actualizada satisfactoriamente.");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var message = XMLHttpRequest.responseJSON.message;
+                    if (message == 'oldpassword parameter not found') {
+                        $('#oldpassword').focus();
+                        $('.new-password-error').removeClass('has-error');
+                        $('.new-password-confirmation-error').removeClass('has-error');
+                        $('.mismatch-error').removeClass('has-error');
+                        $('.old-password-error').addClass('has-error');
+                        warningAlert('Contraseña antigua incompleta/inválida.');
+                    } else if (message == 'newpassword parameter not found') {
+                        $('#newpassword').focus();
+                        $('.old-password-error').removeClass('has-error');
+                        $('.new-password-confirmation-error').removeClass('has-error');
+                        $('.mismatch-error').removeClass('has-error');
+                        $('.new-password-error').addClass('has-error');
+                        warningAlert('Nueva Contraseña incompleta/inválida.');
+                    } else if (message == 'newpasswordconfirmation parameter not found') {
+                        $('#newpasswordconfirmation').focus();
+                        $('.old-password-error').removeClass('has-error');
+                        $('.new-password-error').removeClass('has-error');
+                        $('.mismatch-error').removeClass('has-error');
+                        $('.new-password-confirmation-error').addClass('has-error');
+                        warningAlert('Confirmar Nueva Contraseña incompleta/inválida.');
+                    } else if (message == 'password and password confirmation mismatch') {
+                        $('#newpasswordconfirmation').focus();
+                        $('.old-password-error').removeClass('has-error');
+                        $('.new-password-error').removeClass('has-error');
+                        $('.new-password-confirmation-error').removeClass('has-error');
+                        $('.mismatch-error').addClass('has-error');
+                        warningAlert('Password Mismatch');
+                    } else {
+                        warningAlert(message);
+                    }
+                }
+            });
+        });
+
+        $('.personal-update').click(function(){
+            $('.update-password').show();
+            $('.personal-information').hide();
+            $(this).addClass('active');
+            $('.personal-click').removeClass('active');
+        });
+
+        $('.personal-click').click(function () {
+            $('.update-password').hide();
+            $('.personal-information').show();
+            $(this).addClass('active');
+            $('.personal-update').removeClass('active');
         });

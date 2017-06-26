@@ -202,6 +202,14 @@ module.exports = {
             query['location'] = req.user.location;
         }
 
+        if(req.user.role == 'admin' && req.query.location){
+            query['location'] =req.query.location;
+        }
+
+        if(req.query.role && req.query.role != 'admin'){
+            query['role'] = new RegExp(req.query.role, 'i');
+        }
+
         async.parallel([
 
             function (callback) {
@@ -215,12 +223,6 @@ module.exports = {
                         },
                         {
                             email: new RegExp(search, 'i')
-                        },
-                        {
-                            location: new RegExp(search, 'i')
-                        },
-                        {
-                            role: new RegExp(search, 'i')
                         },
                         {
                             doc: new RegExp(search, 'i')
@@ -299,7 +301,7 @@ module.exports = {
      * @param {string} id - The user's id.
      */
     updateUser: function (req, res, next) {
-        //console.log(req.body);
+        console.log(req.body);
         var errorResident = false;
         User.findById(req.params.id, function (err, user) {
             if (err) {
@@ -505,7 +507,7 @@ module.exports = {
             if (!user) {
                 res.status(404).json({message: 'User not found'});
             } else {
-                user.reset_password_token = crypto.randomBytes(48).toString('base64').replace(/\//g, '_').replace(/\+/g, '-')
+                user.reset_password_token = crypto.randomBytes(48).toString('base64').replace(/\//g, '_').replace(/\+/g, '-');
                 user.reset_password_sent_at = Date.now();
                 user.save(function (err) {
                     if (!err) {
@@ -557,12 +559,14 @@ module.exports = {
      */
     updatePassword: function (req, res, next) {
 
+        console.log(req.body);
+
         if (req.body.password === undefined) {
-            res.status(404).json({message: 'password not found'});
+            return res.status(404).json({message: 'password not found'});
         }
 
         if (req.body.passwordconfirmation === undefined) {
-            res.status(404).json({message: 'password confirmation not found'});
+            return res.status(404).json({message: 'password confirmation not found'});
         }
 
         if (req.body.password == req.body.passwordconfirmation) {
@@ -604,7 +608,7 @@ module.exports = {
             });
 
         } else {
-            res.status(400).json({message: 'password and password confirmation mismatch'});
+            return res.status(400).json({message: 'password and password confirmation mismatch'});
         }
     },
 
@@ -622,19 +626,21 @@ module.exports = {
         }
 
         var query = {};
+        query['role'] = {$nin: ["admin"]};
         query['active'] = true;
 
-        //Filter role
-        if( req.query.role ){
-            query['role'] = {$nin: ["admin"]};
-        } else {
-            query['role'] = {$nin: ["admin",req.query.role]};
-        }
-
-        //Filter location
         if(req.user.role != 'admin'){
             query['location'] = req.user.location;
         }
+
+        if(req.user.role == 'admin' && req.query.location){
+            query['location'] =req.query.location;
+        }
+
+        if(req.query.role && req.query.role != 'admin'){
+            query['role'] = new RegExp(req.query.role, 'i');
+        }
+
 
         User.find(query)
             .or([
@@ -767,8 +773,6 @@ module.exports = {
     },
 
     autocompleteUsers: function(req, res, next) {
-
-
 
         User.find({}, function (err, user) {
             return res.status(200).json({ user: user});

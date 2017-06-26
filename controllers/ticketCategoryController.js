@@ -1,13 +1,6 @@
-var Ticket = require('../models/ticket.js'),
-    User = require('../models/user.js');
-var mailer = require('../mailer/mailer'),
-    async = require("async");
+var TicketCategory = require('../models/ticketCategory.js');
 var ObjectId = require('mongoose').Types.ObjectId;
-var strftime = require('strftime');
-var slug = require('slug');
-var s3deploy = require('../helpers/bucketDeployHelper');
-var fs = require('fs'),
-    gm = require('gm');
+
 
     // https://github.com/aheckmann/gm - imagemagic
 
@@ -18,92 +11,21 @@ var AWS_PREFIX = 'https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/';
 module.exports = {
 
     /**
-     * Creates a new ticket.
-     * @param {Object} user - User in session.
-     * @param {string} category - Work order category.
-     * @param {string} subject - Work order subject.
-     * @param {string} message - Ticket message.
-     * @param {string} attachments - Work order attachments.
+     * Creates a new ticket category.
      */
-    createTicket: function (req, res, next) {
+    createTicketCategory: function (req, res, next) {
 
-
-        if (!req.user || req.user === undefined) {
-            return res.status(404).json({message: 'User not found'});
+        if (!req.body.name || req.body.name === undefined) {
+            return res.status(404).json({message: 'category name not found'});
         }
 
-        if (!req.body.category || req.body.category === undefined) {
-            return res.status(404).json({message: 'category not found'});
-        }
-
-        if (!req.body.subject || req.body.subject === undefined) {
-            return res.status(404).json({message: 'subject not found'});
-        }
-
-        if (!req.body.message || req.body.message === undefined) {
-            return res.status(404).json({message: 'message not found'});
-        }
-
-        if (!req.body.location || req.body.location === undefined) {
-            return res.status(404).json({message: 'location not found'});
-        }
-
-        var file = req.files.attachments;
-        let file_name = '';
-
-
-        if (file) {
-
-            file_name = req.files.attachments.name;
-            var filePath = './uploads/' + file_name;
-
-            file.mv(filePath, function (err) {
-                if (err)
-                    return res.status(500).json({message: 'Error uploading file!'});
-
-            });
-            var folder = 'attachments/';
-            var upload = true;
-
-            fileName = file_name.replace(/[^a-zA-Z0-9.]/g, "");
-            upload = s3deploy.uploadFiles(filePath, fileName, req.user._id, file.data, folder);
-
-            if (!upload)
-                return res.status(404).json({message: 'Error uploading file!'});
-
-            // url stored in db
-            var imagenUrl = AWS_PREFIX + folder + req.user._id + '/' + fileName;
-
-            //local file deleted
-            fs.unlinkSync(filePath);
-        }
-
-        var ticket = new Ticket({
-            requested_by: req.body.requested_by || req.user._id ,
-            created_by: req.user._id,
-            subject: req.body.subject,
-            message: req.body.message,
-            attachments: imagenUrl || '',
-            category: req.body.category,
-            file_name: file_name,
-            location: req.body.location
+        var newticketcat = new TicketCategory({
+            name: req.body.name,
         });
 
-        ticket.save(function (err, t) {
+        newticketcat.save(function (err, t) {
             if (!err) {
-                Ticket.populate(t,"requested_by created_by" , function(err, tpopulated) {
-                    if (err){
-                        console.log('ERROR: ' + err);
-                        res.status(500).json({ err: err, message: "Internal Server Error"});
-                    }
-                    if(!tpopulated){
-                        res.status(404).json({ message: "User not found" });
-                    }else {
-                        mailer.newTicket(tpopulated);
-                        return res.status(200).json({ticket: tpopulated, message: "Work Order has been created"});
-                    }
-                });
-
+                return res.status(200).json({ticket: tpopulated, message: "New ticket category has been created"});
             } else {
                 console.log('ERROR: ' + err);
                 return res.status(500).json({err: err});
@@ -111,6 +33,9 @@ module.exports = {
         });
     },
 
+    /**
+     * Returns ticket nested categories
+     */
     readTickets: function (req, res, next) {
 
         var search = req.query.search || '',

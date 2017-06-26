@@ -31,7 +31,7 @@ html.no-js(lang="es")
     link(href="/css/font-awesome.min.css" rel="stylesheet" type="text/css")
     link(href="/css/animate.min.css", rel="stylesheet")
     link(href="/css/ionicons.min.css" rel="stylesheet")
-    link(href="/css/style.css", rel="stylesheet")
+    link(href="/css/style.min.css", rel="stylesheet")
     block header
   body
 
@@ -73,9 +73,8 @@ html.no-js(lang="es")
             .col-xs-6.no-padding.pull-right.userInfo
                 ul.nav.navbar-nav
                     li.dropdown
-                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false' style="text-transform:capitalize;")
-                            img.img-circle.user-disp-img(src="#{user.profile_picture}")
-                            span.hidden.user-disp-name #{user.name.first} #{user.name.last}
+                      img.img-circle.user-disp-img(src="#{user.profile_picture}")
+                      span.hidden.user-disp-name #{user.name.first} #{user.name.last}
                     button.toggle-btn.toggle-menu#btn-mobileMenu.btn-mobileMenu
                       span
                       span
@@ -94,6 +93,7 @@ html.no-js(lang="es")
     script(src="/js/jquery-ui.min.js")
     script(src="/js/bootstrap.min.js")
     script(src="/js/moment.min.js")
+    script(src="/js/push.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js")
     script.
 

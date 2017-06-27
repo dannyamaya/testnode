@@ -920,6 +920,8 @@ block scripts
                     if (data.tickets.length == 0) {
                         $('#loading').remove();
                         $('.containerNoTickets').removeClass('hidden');
+                    }else {
+                        $('.containerNoTickets').remove();
                     }
 
                     for (key = 0; key < data.tickets.length; key++) {

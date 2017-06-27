@@ -265,15 +265,16 @@ block content
               .loading#loading(style="display:none; margin: -50px auto 0 auto;")
         button.btn.btn-livinn.hidden-md.hidden-lg.btn-addTicketMobile(data-toggle='modal', data-target="#newticketModal", href="/#", data-dismiss="modal")
          i.icon.ion-plus
-    
-    //- Welcome - No Tickets Admins
+
+
+    //- Welcome - No Tickets
     .col-xs-12.no-padding.containerNoTickets.hidden
       img.img-responsive.fondoNoTickets(src="../img/fondoNoTickets1.jpg")
       .col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2.contentNoTickets
         .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-8.col-lg-offset-4.no-padding
-          h2 Welcome! 
-          p 
-            span Your Work orders view is empty. 
+          h2 Welcome!
+          p
+            span Your Work orders view is empty.
             br
             | If you want to create a Work Order, click on the NEW button.
         .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
@@ -923,7 +924,7 @@ block scripts
                     }else {
                         $('.containerNoTickets').remove();
                     }
-                    
+
                     for (key = 0; key < data.tickets.length; key++) {
 
                         //Date

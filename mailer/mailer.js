@@ -194,55 +194,52 @@ exports.newTicket= function(ticket){
       });
 },
 
-    exports.newComment = function(comment){
+exports.newComment = function(comment){
 
-        var locals = {
-            url: config.production.url,
-            comment: comment
-        };
+    var locals = {
+        url: config.production.url,
+        comment: comment
+    };
 
-        emailTemplates(templatesDir,locals, function(err, template) {
+    emailTemplates(templatesDir,locals, function(err, template) {
 
-            if (err) {
-                console.log('Error1: '+err);
-            } else {
+        if (err) {
+            console.log('Error1: '+err);
+        } else {
 
-                template('new-comment', locals, function(err, html, text) {
-                    if (err) {
-                        console.log('Error2: '+err);
-                    } else {
-                        var mailOptions = {
+            template('new-comment', locals, function(err, html, text) {
+                if (err) {
+                    console.log('Error2: '+err);
+                } else {
+                    var mailOptions = {
 
-                            from: 'Livinn'+' <contact@cannedhead.com>',
-                            to: locals.comment.discussion_id.requested_by.email,
-                            subject: 'New Comment '+ locals.comment.discussion_id._id,
-                            headers: {
-                                'X-Laziness-level': 1000
-                            },
-                            html: html
+                        from: 'Livinn'+' <contact@cannedhead.com>',
+                        to: locals.comment.discussion_id.requested_by.email,
+                        subject: 'New Comment '+ locals.comment.discussion_id._id,
+                        headers: {
+                            'X-Laziness-level': 1000
+                        },
+                        html: html
 
-                        };
+                    };
 
-                        transport.sendMail(mailOptions, function(error, response){
-                            if(error){
-                                console.log(error);
-                            }else{
-                                console.log("Message sent!");
-                            }
-                            transport.close();
-                        });
-                    }
+                    transport.sendMail(mailOptions, function(error, response){
+                        if(error){
+                            console.log(error);
+                        }else{
+                            console.log("Message sent!");
+                        }
+                        transport.close();
+                    });
+                }
 
-                });
-            }
+            });
+        }
 
-        });
+    });
+},
 
-
-
-    },
-
-    exports.newAssignedTo = function(user,ticket){
+exports.newAssignedTo = function(user,ticket){
 
 
         var locals = {
@@ -288,8 +285,5 @@ exports.newTicket= function(ticket){
             }
 
         });
-
-
-
-    }
+}
 

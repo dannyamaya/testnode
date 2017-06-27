@@ -7,12 +7,45 @@ var strftime = require('strftime');
 var slug = require('slug');
 var s3deploy = require('../helpers/bucketDeployHelper');
 var fs = require('fs'),
-    gm = require('gm');
+    gm = require('gm'),
+    moment = require('moment');
 
     // https://github.com/aheckmann/gm - imagemagic
 
 var AWS_PREFIX = 'https://s3-sa-east-1.amazonaws.com/cannedhead.livinn/';
 
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function isLocation(location){
+    var islocation = false;
+    if(location == 'VC' || location == 'C18' || location == 'C21' || location == 'C33' || location == 'LC' || location == 'AL' ){
+        islocation = true;
+    }
+    return islocation;
+}
+
+
+function getLocation(location){
+    var loc = 'NOTFOUND';
+    if(location == "VC"){
+      loc = "Barranquilla - Villa Campestre";
+    } else if(location == "C18"){
+      loc = "Bogotá - Calle 18";
+    } else if(location == "C21"){
+      loc = "Bogotá - Calle 21";
+    } else if(location == "C33"){
+      loc = "Bogotá - Calle 33";
+    } else if(location == "LC"){
+      loc = "Santiago - Lord Cochrane";
+    } else if(location == "AL"){
+      loc = "Viña Del Mar - Alvarez";
+    } else {
+
+    }
+    return loc;
+}
 
 
 module.exports = {
@@ -220,7 +253,7 @@ module.exports = {
                 return res.status(404).json({message: 'message not found'});
             } else {
 
-                if( ticket.status!=2 && (ticket.priority != req.body.priority || ticket.category != req.body.category  || ticket.subcategory != req.body.subcategory) ){
+                if( ticket.status!=2 && (ticket.priority != req.body.priority || ticket.category != req.body.category  || ticket.subcategory != req.body.subcategory ) ){
                     ticket.status = 1;
                 }
 
@@ -329,9 +362,25 @@ module.exports = {
 
         if(id){
             var workid = id.split("-");
-            console.log(workid);
-            var o_id = new ObjectId(id);
-            options['_id'] = o_id;
+
+            if(workid.length != 3){
+                return res.status(400).json({message:'Not a valid Work Order ID'});
+            }  else {
+
+                //validate date
+                var datetofilter = workid[0].split('.');
+                var locationid = workid[1];
+                var idid = workid[2];
+
+                console.log(datetofilter);
+                if(datetofilter.length != 3 || parseInt(datetofilter[0]) < 2017 || parseInt(datetofilter[1]) < 1 || parseInt(datetofilter[1]) > 12 || parseInt(datetofilter[2]) < 1 || parseInt(datetofilter[2]) > 31 || isLocation(datetofilter[1]) || !isNumeric(idid) ){
+                    return res.status(400).json({message:'Not a valid Work Order ID'});
+                }
+
+                options['created'] = { "$gte": new Date(datetofilter[0],parseInt(datetofilter[1]),datetofilter[2],0,0,0,0) , "$lt": new Date(datetofilter[0],datetofilter[1],datetofilter[2],0 ,0, 0, 0) } ;
+                options['location'] = new RegExp(getLocation(locationid), 'i');
+                options['id'] = idid;
+            }
         }
 
         if(category){

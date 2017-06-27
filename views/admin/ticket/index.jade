@@ -1227,8 +1227,14 @@ block scripts
                                 success: function (response) {
 
                                     $("#commentslength").text(response.comment.length + 1);
+                                    var attention = false;
+
                                     $.each(response.comment, function (index, value) {
                                         var parent = $('.messages').children().last().attr('data-user');
+                                        if(!attention){
+                                            attention = true;
+                                            $("#ticketattentiondate").html('Attention Date: '+moment().format('MMMM Do YYYY, h:mm:ss a') );
+                                        }
                                         sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first + ' ' + value.posted_by.name.last, 'messages', moment(value.created).format('YYYY-MM-DD h:mm:ss a'), value.attachments, value.file_name);
                                     });
 

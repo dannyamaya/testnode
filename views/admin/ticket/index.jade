@@ -266,6 +266,20 @@ block content
             .col-xs-12
                 .loading#loading(style="display:none; margin: -50px auto 0 auto;")
 
+    //- Welcome - No Tickets
+    .col-xs-12.no-padding.containerNoTickets.hidden
+      img.img-responsive.fondoNoTickets(src="../img/fondoNoTickets1.jpg")
+      .col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2.contentNoTickets
+        .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-8.col-lg-offset-4.no-padding
+          h2 Welcome!
+          p
+            span Your Work orders view is empty.
+            br
+            | If you want to create a Work Order, click on the NEW button.
+        .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
+          .col-xs-6.col-xs-offset-3.col-sm-4.col-sm-offset-4.no-padding.imgManoBoton
+            img.img-responsive(src="../img/manoboton.svg")
+
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed.hide
         .panel.panel-default.col-xs-12.no-padding
             h2 activity feed
@@ -905,8 +919,11 @@ block scripts
 
                     if (data.tickets.length == 0) {
                         $('#loading').remove();
+                        $('.containerNoTickets').removeClass('hidden');
+                    }else {
+                        $('.containerNoTickets').remove();
                     }
-                    ;
+
                     for (key = 0; key < data.tickets.length; key++) {
 
                         //Date
@@ -956,8 +973,14 @@ block scripts
                             opened = '';
                         }
 
+                        //Check if ticket has new comments for the current user
+                        var newMessages = '';
+                        if(jQuery.inArray("#{user._id}",data.tickets[key].readed_by) === -1){
+                            newMessages = '<i class="label label-livinn label-new-messages">New Messages</i>';
+                        }
+
                         //console.log(assignedto);
-                        $('.tickets').append('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + data.tickets[key]._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + data.tickets[key].requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + data.tickets[key].subject + '</button><p class="col-xs-12 no-padding reference">#' + createddate.format('YYYY.MM.DD')+"-"+getLocationCode(data.tickets[key].location)+"-"+data.tickets[key].id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to: <span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(data.tickets[key].category) + '<br class="visible-xs">' + getCategory(data.tickets[key].subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(data.tickets[key].status, data.tickets[key]._id) + '</div></div>');
+                        $('.tickets').append('<div class="col-xs-12 no-padding ticket ' + priority + ' ' + opened + '" data-ticketid="' + data.tickets[key]._id + '"><div class="col-xs-2 col-sm-1 no-padding ticket-profile-img"><img src="' + data.tickets[key].requested_by.profile_picture + '" class="img-circle img-responsive"></div><div class="col-xs-10 col-sm-11 no-padding ticket-up-info"><button onclick="openTicket(\'' + data.tickets[key]._id + "\',\'" + data.tickets[key].requested_by.profile_picture + '\')" class="col-xs-12 col-md-10 no-padding ticket-title">' + data.tickets[key].subject + '</button><p class="col-xs-12 no-padding reference">#' + createddate.format('YYYY.MM.DD')+"-"+getLocationCode(data.tickets[key].location)+"-"+data.tickets[key].id + '</p><p class="col-xs-12 no-padding assigned-to">  Assigned to: <span class="text-capitalize">' + assignedto + '</span></p><p class="col-xs-12 no-padding created-by">  Created by: <span class="text-capitalize"> ' + data.tickets[key].created_by.name.first + " " + data.tickets[key].created_by.name.last + '</span></p><div class="col-xs-12 no-padding ticket-subtitle"><div class="col-xs-6 no-padding catsubcat">' + getCategory(data.tickets[key].category) + '<br class="visible-xs">' + getCategory(data.tickets[key].subcategory) + '</div><div class="col-xs-6 no-padding"><p class="ticket-date">' + formatedDate + '</p><p class="ticket-date ticket-newm">'+ newMessages +'</p></div></div></div><div class="ticket-btn-group hidden-xs hidden-sm">' + getStatus(data.tickets[key].status, data.tickets[key]._id) + '</div></div>');
 
                     }                    ;
                 },
@@ -998,8 +1021,14 @@ block scripts
             filterTickets(1);
         });
 
+        /*Hide new comments label*/
+        $('body').on('click', '.ticket-title', function (e) {
+            console.log($(this).nextAll().eq(3).children().eq(1).children().eq(1).hide());
+        })
+
 
         /*=== READ: Open ticket ===*/
+
 
         function openTicket(ticketid, img) {
 
@@ -1276,7 +1305,8 @@ block scripts
 
             $.ajax({
                 type: "PUT",
-                data: {"opened": true},
+                data: {"opened": true,
+                "readed_by": "#{user._id}"},
                 url: '/api/tickets/' + ticketid,
                 success: function (response) {
                     $('.ticket[data-ticketid="' + ticketid + '"]').addClass('opened');

@@ -242,11 +242,11 @@ block modals
                                   p#numcontractRead
                               .form-group.col-sm-4
                                   label(for='start')
-                                      |   Start
+                                      |   Check-in
                                   p#startRead
                               .form-group.col-sm-4
                                   label(for='finish')
-                                      |   Finish
+                                      |   Check-out
                                   p#finishRead
                               .form-group.col-sm-8
                                   label Agent
@@ -380,12 +380,12 @@ block modals
                                         input#numcontract.form-control.inputResident(type='text' placeholder='Contract Number' required='' name="numcontract" autofocus='')
                                     .form-group.col-sm-3
                                         label(for='start')
-                                            |   Start
+                                            |   Check-in
                                             span.requiredLivinn *
                                         input#start.form-control.inputResident(type='text' name='start' placeholder='YYYY-MM-DD' autofocus='' required='')
                                     .form-group.col-sm-3
                                         label(for='finish')
-                                            |   Finish
+                                            |   Check-out
                                             span.requiredLivinn *
                                         input#finish.form-control.inputResident(type='text' name='finish' placeholder='YYYY-MM-DD'  autofocus='' required='')
                                     .form-group.col-sm-6
@@ -399,6 +399,7 @@ block modals
                                                 option(value="") Choose a status
                                                 option(value="Reserved") Reserved
                                                 option(value="In-house") In-house
+                                                option(value="Check-out") Check-out
                                     hr.col-xs-12.no-padding
                                     .form-group.col-sm-6
                                         label(for='apartment') Apartment
@@ -410,18 +411,16 @@ block modals
                                         .select
                                           select#type.inputResident(name='apartmentType' required)
                                             option(value="") Apartment type
-                                            option(value="1A") 1A
-                                            option(value="1B") 1B
-                                            option(value="2A") 2A
-                                            option(value="2B") 2B
-                                            option(value="3A") 3A
-                                            option(value="3B") 3B
-                                            option(value="4A") 4A
-                                            option(value="4B") 4B
-                                            option(value="4C") 4C
-                                            option(value="4D") 4D
-                                            option(value="4E") 4E
-                                            option(value="4F") 4F
+                                            option(value="Studio") Studio
+                                            option(value="2 Pax") 2 Pax
+                                            option(value="3 Pax") 3 Pax
+                                            option(value="3 Shared") 3 Shared
+                                            option(value="3 Master suite") 3 Master suite
+                                            option(value="4 Pax") 4 Pax
+                                            option(value="4 Shared") 4 Shared
+                                            option(value="Duplex 2 pax") Duplex 2 pax
+                                            option(value="Duplex 3 pax") Duplex 3 pax
+
                                     .form-group.col-sm-6
                                         label Bathroom
                                         .select
@@ -554,11 +553,11 @@ block modals
                                         span.requiredLivinn *
                                         input#inputUpdateContract.form-control.inputResidentUpdate(type='text' placeholder='Contract Number' name="numcontract" autofocus='' required='')
                                     .form-group.col-sm-4
-                                        label(for='inputUpdateStart') Start
+                                        label(for='inputUpdateStart') Check-in
                                         span.requiredLivinn *
                                         input#inputUpdateStart.form-control.inputResidentUpdate(type='text' placeholder="YYYY-MM-DD" name='start' autofocus='' required='')
                                     .form-group.col-sm-4
-                                        label(for='inputUpdateFinish') Finish
+                                        label(for='inputUpdateFinish') Check-out
                                         span.requiredLivinn *
                                         input#inputUpdateFinish.form-control.inputResidentUpdate(type='text' placeholder="YYYY-MM-DD" name='finish' autofocus='' required='')
                                     .form-group.col-sm-8
@@ -572,6 +571,7 @@ block modals
                                                 option(value="") Choose a status
                                                 option(value="Booked") Booked
                                                 option(value="In-house") In-house
+                                                option(value="Check-out") Check-out
                                 .col-xs-12.no-padding.residentFields
                                     hr
                                     .form-group.col-sm-6
@@ -584,18 +584,15 @@ block modals
                                         .select
                                             select#inputUpdateApartmentType.inputResidentUpdate(name='apartmentType' required)
                                                 option(value="") Apartment type
-                                                option(value="1A") 1A
-                                                option(value="1B") 1B
-                                                option(value="2A") 2A
-                                                option(value="2B") 2B
-                                                option(value="3A") 3A
-                                                option(value="3B") 3B
-                                                option(value="4A") 4A
-                                                option(value="4B") 4B
-                                                option(value="4C") 4C
-                                                option(value="4D") 4D
-                                                option(value="4E") 4E
-                                                option(value="4F") 4F
+                                                option(value="Studio") Studio
+                                                option(value="2 Pax") 2 Pax
+                                                option(value="3 Pax") 3 Pax
+                                                option(value="3 Shared") 3 Shared
+                                                option(value="3 Master suite") 3 Master suite
+                                                option(value="4 Pax") 4 Pax
+                                                option(value="4 Shared") 4 Shared
+                                                option(value="Duplex 2 pax") Duplex 2 pax
+                                                option(value="Duplex 3 pax") Duplex 3 pax
 
                                 .col-xs-12.no-padding.residentFields
 

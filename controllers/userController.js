@@ -705,7 +705,8 @@ module.exports = {
                       });
                     });
 
-                    res.setHeader('Content-disposition', 'attachment; filename=usuarios.csv')
+                    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+                    res.setHeader('Content-disposition', 'attachment; filename=Usuarios.csv');
                     res.csv(usuarios);
 
                 }

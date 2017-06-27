@@ -45,7 +45,7 @@ module.exports = {
 
     ensureLivinn: function(req,res,next){
         if (req.isAuthenticated()) {
-            if (req.user.hasRole('admin') || req.user.hasRole('marketing') || req.user.hasRole('operation manager') || req.user.hasRole('maintenance') || req.user.hasRole('client service') || req.user.hasRole('resident assitant') ) {
+            if (req.user.hasRole('admin') || req.user.hasRole('marketing') || req.user.hasRole('operation manager') || req.user.hasRole('maintenance') || req.user.hasRole('client service') || req.user.hasRole('resident assistant') ) {
                 return next();
             } else {
                 return res.redirect('/');

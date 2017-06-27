@@ -266,10 +266,15 @@ block content
             .col-xs-12
                 .loading#loading(style="display:none; margin: -50px auto 0 auto;")
     .col-xs-12.no-padding.containerNoTickets
-      img(src="img/fondo_no_tickets.jpg")
-
-              
-
+      img.img-responsive.fondoNoTickets(src="img/fondoNoTickets.jpg")
+      .col-xs-10.col-xs-offset-1.contentNoTickets
+        .col-xs-12.no-padding
+          h2 Welcome! 
+          p 
+            span Your Work orders view is empty.
+            | If you want to create a Work Order, click on the NEW button.
+        .col-xs-6.col-xs-offset-3.no-padding
+          img.img-responsive(src="img/manoboton.svg")
 
     .col-xs-2.col-xs-offset-10.no-padding.activity-feed.hide
         .panel.panel-default.col-xs-12.no-padding

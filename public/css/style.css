@@ -1603,9 +1603,14 @@ button:focus{
 /*  Welcome - No Tickets */
 
 .containerNoTickets {
-  min-height: 100%;
+  height: calc(100% - 116px);
   position: absolute;
   margin-top: 116px;
+}
+
+.containerNoTickets .fondoNoTickets {
+  position: absolute;
+  bottom: 0px;
 }
 
 

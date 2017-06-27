@@ -377,7 +377,7 @@ module.exports = {
                     return res.status(400).json({message:'Not a valid Work Order ID'});
                 }
 
-                options['created'] = { "$gte": new Date(datetofilter[0],parseInt(datetofilter[1]),datetofilter[2],0,0,0,0) , "$lt": new Date(datetofilter[0],datetofilter[1],datetofilter[2],0 ,0, 0, 0) } ;
+                //options['created'] = { "$gte": new Date(datetofilter[0],parseInt(datetofilter[1]),datetofilter[2],0,0,0,0) , "$lt": new Date(datetofilter[0],datetofilter[1],datetofilter[2],0 ,0, 0, 0) } ;
                 options['location'] = new RegExp(getLocation(locationid), 'i');
                 options['id'] = idid;
             }

@@ -119,7 +119,8 @@ module.exports = {
             attachments: imagenUrl || '',
             category: req.body.category,
             file_name: file_name,
-            location: req.body.location
+            location: req.body.location,
+            readed_by: req.user._id
         });
 
         ticket.save(function (err, t) {
@@ -277,6 +278,11 @@ module.exports = {
                     ticket.opened_resident = false;
                 } else {
 
+                }
+
+                //Agrega usuario al arreglo de leido por
+                if(req.body.readed_by && !(ticket.readed_by.indexOf(req.body.readed_by) > -1)){
+                    ticket.readed_by.push(req.body.readed_by);
                 }
 
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;

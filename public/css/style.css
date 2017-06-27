@@ -1824,6 +1824,12 @@ button:focus{
   border-radius: 25px;
 }
 
+.label-livinn.label-new-messages{
+    text-transform: none;
+    margin-right: -4px;
+
+}
+
 .readModal {
   padding-left: 0px !important;
 }

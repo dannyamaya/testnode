@@ -95,9 +95,9 @@ block content
       img.img-responsive.fondoNoTickets(src="../img/fondoNoTickets1.jpg")
       .col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2.contentNoTickets
         .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-8.col-lg-offset-4.no-padding
-          h2 Welcome! 
-          p 
-            span Your Work orders view is empty. 
+          h2 Welcome!
+          p
+            span Your Work orders view is empty.
             br
             | If you want to create a Work Order, click on the NEW button.
         .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
@@ -508,8 +508,8 @@ block scripts
 
         /* Get params from all filters */
         function filterTickets(page) {
-            var search = $('#search').val().trim();
-            getTickets(page, search);
+                var search = $('#search').val().trim();
+                var search = '';
         }
 
         $('#searchForm').submit(function (evt) {

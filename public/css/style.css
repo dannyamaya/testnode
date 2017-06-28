@@ -293,6 +293,7 @@ button:focus{
 
 .loaderPlatform .logoHeading {
   height: 84px;
+  bottom: 10px;
 }
 
 
@@ -1158,7 +1159,8 @@ button:focus{
   @media screen and (min-width: 1600px) {
 
     .loaderPlatform .logoHeading {
-      height: 110px;
+      height: 125px;
+      bottom: 5px;
     }
 
     .userTools .userMaganementDesktop form {

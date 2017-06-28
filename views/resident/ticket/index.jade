@@ -131,14 +131,9 @@ block modals
                             .form-group
                                 label Category
                                 .select
-                                    select.form-control(name="category" required)
+                                    select.form-control#newTicketCategory(name="category" required)
                                         option(value="") Please choose a category
-                                        option(value="cleaning services") Cleaning Services
-                                        option(value="customer service") Customer Service
-                                        option(value="support") IT Support
-                                        option(value="maintenance") Maintenance
-                                        option(value="visits") Visits
-                                        option(value="others") Others
+
                             .form-group
                                 label Subject
                                 input.form-control#subject(type="text" placeholder="Subject" name="subject" required)
@@ -246,7 +241,7 @@ block scripts
             });
 
             filterTickets(1);
-
+            loadCategories();
         });
 
         //----------------- SOCKET.IO ---------------------------
@@ -856,6 +851,39 @@ block scripts
             });
         });
 
+        // GET TICKET CATEGORIES AND SUBCATEGORIES
+        function loadCategories(){
+          var queryopt = '';
+          var categories = new Array();
+          //- if(category && category != ''){
+          //-   queryopt = '?category='+category;
+          //- }
+          $.ajax({
+                type: "GET",
+                url: '/api/ticket/categories',
+                success: function (data) {
+                    categories = data.categories;
+                    $('#newTicketCategory').html('');
+
+                    for(var i=0; i < categories.length ; i++){
+                      $('#newTicketCategory').prepend($('<option>', {
+                        value: categories[i].name,
+                        text: categories[i].name
+                      }));
+                    }
+
+                    $('#newTicketCategory').prepend($('<option>', {
+                      value: '',
+                      text: 'Choose a Category',
+                      selected: true
+                    }));
+                },
+                error: function(xhr){
+                  console.log(xhr);
+                }
+
+          });
+        };
 
 
 

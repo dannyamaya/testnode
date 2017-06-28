@@ -72,113 +72,138 @@ module.exports = {
             }
         }
 
-        var file = req.files.image;
-
-        if (file) {
-
-            var fileName =  req.files.image.name;
-            var filePath = './uploads/' + fileName;
-            file.mv(filePath, function (err) {
-                if(err){
-                    console.log(err);
-                    return res.status(500).send(err);
-                }
-            });
-
-            var upload = true;
-            var folder = 'profile_pictures/';
-            fileName = fileName.replace(/[^a-zA-Z0-9.]/g, "");
-            upload = s3deploy.uploadFiles(filePath, fileName, req.body.document, file.data, folder);
-
-            if(!upload)
-                return res.status(404).json({message: 'Error uploading file!'});
-
-            // url stored in db
-            var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
-            //local file deleted
-            fs.unlinkSync(filePath);
-        }
-        else{
-            var imagenUrl = AWS_PREFIX + 'foto.png';
-        }
-
-
-        if (req.body.role !== 'resident') {
-            if (req.body.occupation === '') {
-                return res.status(404).json({message: 'Ocuppation not found'});
+        /*Verify if user already exist but was deleted*/
+        User.findOne({email: req.body.email, active: false}, function (err, user) {
+            if (err) {
+                console.log('Error checking if user exist with active false');
             }
-        }
-
-        var pswd = req.body.document;
-        var pswd_conf = req.body.document;
-
-        if (pswd == pswd_conf) {
-
-            var user = new User({
-                name: {
-                    first: req.body.first,
-                    last: req.body.last
-                },
-                phone: {
-                    number: req.body.phone
-                },
-                profile_picture: imagenUrl,
-                email: req.body.email,
-                password: req.body.document,
-                location: req.body.location,
-                doc: {
-                    typedoc: req.body.doctype,
-                    number: req.body.document
-                },
-                role: req.body.role,
-                occupation: req.body.occupation,
-                time_zone: req.body.timezone,
-                skype: req.body.skype
-
-            });
-
-            user.save(function (err, u) {
-                if (!err) {
-                    if (u.role === 'resident') {
-                        var resident = new Resident({
-                            user_id: u._id,
-                            contract_number: req.body.numcontract,
-                            birth_date: req.body.birth_date,
-                            apartment: req.body.apartment,
-                            apartment_type: req.body.apartmentType,
-                            bathroom: req.body.bathroom,
-                            status: req.body.status,
-                            bed: req.body.bed,
-                            rate: req.body.rate,
-                            currency: req.body.currency,
-                            rateusd: req.body.rateusd,
-                            agent: req.body.agent,
-                            finish: req.body.finish,
-                            start: req.body.start
-                         });
-
-                        resident.save(function (err) {
-                            if (!err) {
-                                console.log('New resident has been created')
-                            }
-                            else {
-                                console.log(err);
-                                return res.status(409).json({message: "Error, check your details."});
-
-                            }
-                        });
+            if (user) {
+                user.active = true;
+                user.save(function (err) {
+                    if (err) {
+                        console.log(err);
                     }
-                    req.user = user;
-                    mailer.welcome(user);
-                    return res.status(200).json({error: false, users: user, message: "User has been created"});
-                } else {
-                    console.log('ERROR: ' + err);
-                    return res.status(409).json({message: 'Error, check your details'});
+                });
+                mailer.welcome(user);
+                return res.status(200).json({
+                    error: false,
+                    users: user,
+                    message: "The account of this user has been re-established"
+                });
+            }
+            else {
+                var file = req.files.image;
+
+                if (file) {
+
+                    var fileName = req.files.image.name;
+                    var filePath = './uploads/' + fileName;
+                    file.mv(filePath, function (err) {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).send(err);
+                        }
+                    });
+
+                    var upload = true;
+                    var folder = 'profile_pictures/';
+                    fileName = fileName.replace(/[^a-zA-Z0-9.]/g, "");
+                    upload = s3deploy.uploadFiles(filePath, fileName, req.body.document, file.data, folder);
+
+                    if (!upload)
+                        return res.status(404).json({message: 'Error uploading file!'});
+
+                    // url stored in db
+                    var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
+                    //local file deleted
+                    fs.unlinkSync(filePath);
                 }
-            });
-        } else {
-            return res.status(400).json({message: 'password and password confirmation mismatch'});
-        }
+                else {
+                    var imagenUrl = AWS_PREFIX + 'foto.png';
+                }
+
+
+                if (req.body.role !== 'resident') {
+                    if (req.body.occupation === '') {
+                        return res.status(404).json({message: 'Ocuppation not found'});
+                    }
+                }
+
+                var pswd = req.body.document;
+                var pswd_conf = req.body.document;
+
+                if (pswd == pswd_conf) {
+
+                    var user = new User({
+                        name: {
+                            first: req.body.first,
+                            last: req.body.last
+                        },
+                        phone: {
+                            number: req.body.phone
+                        },
+                        profile_picture: imagenUrl,
+                        email: req.body.email,
+                        password: req.body.document,
+                        location: req.body.location,
+                        doc: {
+                            typedoc: req.body.doctype,
+                            number: req.body.document
+                        },
+                        role: req.body.role,
+                        occupation: req.body.occupation,
+                        time_zone: req.body.timezone,
+                        skype: req.body.skype
+
+                    });
+
+                    user.save(function (err, u) {
+                        if (!err) {
+                            if (u.role === 'resident') {
+                                var resident = new Resident({
+                                    user_id: u._id,
+                                    contract_number: req.body.numcontract,
+                                    birth_date: req.body.birth_date,
+                                    apartment: req.body.apartment,
+                                    apartment_type: req.body.apartmentType,
+                                    bathroom: req.body.bathroom,
+                                    status: req.body.status,
+                                    bed: req.body.bed,
+                                    rate: req.body.rate,
+                                    currency: req.body.currency,
+                                    rateusd: req.body.rateusd,
+                                    agent: req.body.agent,
+                                    finish: req.body.finish,
+                                    start: req.body.start
+                                });
+
+                                resident.save(function (err) {
+                                    if (!err) {
+                                        console.log('New resident has been created')
+                                    }
+                                    else {
+                                        console.log(err);
+                                        return res.status(409).json({message: "Error, check your details."});
+
+                                    }
+                                });
+                            }
+                            req.user = user;
+                            mailer.welcome(user);
+                            return res.status(200).json({error: false, users: user, message: "User has been created"});
+                        } else {
+                            console.log('ERROR: ' + err);
+                            return res.status(409).json({message: 'Error, check your details'});
+                        }
+                    });
+                } else {
+                    return res.status(400).json({message: 'password and password confirmation mismatch'});
+                }
+
+            }
+        });
+
+
     },
 
     /**
@@ -198,15 +223,15 @@ module.exports = {
         query['role'] = {$nin: ["admin"]};
         query['active'] = true;
 
-        if(req.user.role != 'admin'){
+        if (req.user.role != 'admin') {
             query['location'] = req.user.location;
         }
 
-        if(req.user.role == 'admin' && req.query.location){
-            query['location'] =req.query.location;
+        if (req.user.role == 'admin' && req.query.location) {
+            query['location'] = req.query.location;
         }
 
-        if(req.query.role && req.query.role != 'admin'){
+        if (req.query.role && req.query.role != 'admin') {
             query['role'] = new RegExp(req.query.role, 'i');
         }
 
@@ -215,19 +240,19 @@ module.exports = {
             function (callback) {
 
                 User.find(query).or([
-                        {
-                            'name.first': new RegExp(search, 'i')
-                        },
-                        {
-                            'name.last': new RegExp(search, 'i')
-                        },
-                        {
-                            email: new RegExp(search, 'i')
-                        },
-                        {
-                            doc: new RegExp(search, 'i')
-                        }
-                    ])
+                    {
+                        'name.first': new RegExp(search, 'i')
+                    },
+                    {
+                        'name.last': new RegExp(search, 'i')
+                    },
+                    {
+                        email: new RegExp(search, 'i')
+                    },
+                    {
+                        doc: new RegExp(search, 'i')
+                    }
+                ])
                     .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, users) {
                     if (err) {
                         console.log('ERROR: ' + err);
@@ -240,25 +265,25 @@ module.exports = {
             }, function (callback) {
 
                 User.count(query).or([
-                        {
-                            'name.first': new RegExp(search, 'i')
-                        },
-                        {
-                            'name.last': new RegExp(search, 'i')
-                        },
-                        {
-                            email: new RegExp(search, 'i')
-                        },
-                        {
-                            location: new RegExp(search, 'i')
-                        },
-                        {
-                            role: new RegExp(search, 'i')
-                        },
-                        {
-                            doc: new RegExp(search, 'i')
-                        }
-                    ])
+                    {
+                        'name.first': new RegExp(search, 'i')
+                    },
+                    {
+                        'name.last': new RegExp(search, 'i')
+                    },
+                    {
+                        email: new RegExp(search, 'i')
+                    },
+                    {
+                        location: new RegExp(search, 'i')
+                    },
+                    {
+                        role: new RegExp(search, 'i')
+                    },
+                    {
+                        doc: new RegExp(search, 'i')
+                    }
+                ])
                     .exec(function (err, count) {
                         if (err) {
                             callback(err, null);
@@ -314,7 +339,7 @@ module.exports = {
                 var file = req.files.image;
 
                 if (file) {
-                    var fileName =  req.files.image.name;
+                    var fileName = req.files.image.name;
                     var filePath = './uploads/' + fileName;
                     file.mv(filePath, function (err) {
                         if (err)
@@ -326,7 +351,7 @@ module.exports = {
                     fileName = fileName.replace(/[^a-zA-Z0-9.]/g, "");
                     upload = s3deploy.uploadFiles(filePath, fileName, req.body.document, file.data, folder);
 
-                    if(!upload)
+                    if (!upload)
                         return res.status(404).json({message: 'Error uploading file!'});
 
                     // url stored in db
@@ -334,7 +359,6 @@ module.exports = {
                     var imagenUrl = AWS_PREFIX + folder + req.body.document + '/' + fileName;
                     //local file deleted
                     console.log(imagenUrl);
-
 
 
                     fs.unlinkSync(filePath);
@@ -402,7 +426,7 @@ module.exports = {
                             var residentnew = new Resident({
                                 user_id: req.params.id,
                                 contract_number: req.body.numcontract,
-                                birth_date:  req.body.birthdate,
+                                birth_date: req.body.birthdate,
                                 apartment: req.body.apartment,
                                 apartment_type: req.body.apartmentType,
                                 bathroom: req.body.bathroom,
@@ -427,12 +451,12 @@ module.exports = {
                             });
 
                         }
-                        else{
+                        else {
                             resident.contract_number = req.body.numcontract || resident.contract_number;
 
-                            if(req.body.birthdate == ''){
+                            if (req.body.birthdate == '') {
                                 resident.birth_date = resident.birth_date;
-                            }else{
+                            } else {
                                 console.log('allaaaa')
 
                                 resident.birth_date = moment(req.body.birthdate).format();
@@ -472,7 +496,7 @@ module.exports = {
 
                         return res.status(500).json({message: 'Internal Server Error'});
                     } else {
-                       return res.status(200).json({
+                        return res.status(200).json({
                             user: user
                         });
                     }
@@ -487,20 +511,40 @@ module.exports = {
      * @param {string} id - The user's id.
      */
     deleteUsers: function (req, res, next) {
-        User.remove({_id: {$in: req.body['users[]']}}, function (err) {
+
+        User.find({_id: {$in: req.body['users[]']}}, function (err, users) {
             if (err) {
                 console.log('ERROR: ' + err);
                 return res.status(500).json({error: true, message: 'Server connection error. Please try later'});
             } else {
+                users.forEach(function (user) {
+                    user.active = false;
+                    user.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                });
                 return res.status(200).json({error: false, message: 'User has been removed'});
             }
         });
     },
+    /*
+    User.remove({_id: {$in: req.body['users[]']}}, function (err) {
+        if (err) {
+            console.log('ERROR: ' + err);
+            return res.status(500).json({error: true, message: 'Server connection error. Please try later'});
+        } else {
+            return res.status(200).json({error: false, message: 'User has been removed'});
+        }
+    });
 
-    /**
-     * Send password reset message.
-     * @param {string} email - users email.
-     */
+},
+
+/**
+ * Send password reset message.
+ * @param {string} email - users email.
+ */
     resetPassword: function (req, res, next) {
         User.findOne({email: req.body.email}, function (err, user) {
             if (err) return next(err);
@@ -514,43 +558,45 @@ module.exports = {
                         mailer.resetPassword(user);
                         res.status(200).json({message: 'Instructions has been sent to your email'});
                     } else {
-                      console.log(err);
+                        console.log(err);
                         res.status(500).json({message: 'Internal Server Error'});
                     }
                 });
             }
         });
-    },
+    }
+    ,
 
     /**
      * Render password recovery view.
      * @param {string} i - user's id.
      * @param {string} t - user's reset password token.
      */
-    showResetPassword: function(req,res,next){
-        User.findById(req.query.i, function(err, user){
+    showResetPassword: function (req, res, next) {
+        User.findById(req.query.i, function (err, user) {
             if (err) return next(err);
-            if(!user){
+            if (!user) {
                 res.render('404');
             } else {
-                if (user.reset_password_token==req.query.t){
+                if (user.reset_password_token == req.query.t) {
                     user.reset_password_token = crypto.randomBytes(127).toString('hex').toString();
                     user.reset_password_sent_at = Date.now();
                     user.save();
                     res.render('reset-password', {
                         title: 'Reset your password',
                         logged: req.isAuthenticated(),
-                        user : user
+                        user: user
                     });
                 }
-                else{
+                else {
                     res.render('token-expired', {
                         title: 'token expired'
                     });
                 }
             }
         });
-    },
+    }
+    ,
 
     /**
      * Update password.
@@ -580,19 +626,19 @@ module.exports = {
                 } else {
                     if (user.hash && user.salt) {
                         if (!req.body.oldpassword && user.reset_password_token == req.body.reset_password_token) {
-                          console.log("old reset password link");
-                          return res.status(422).json({message: "Lo sentimos este link ya caduco. Intenta hacer una solicitud de nuevo"});
-                        } else if( req.body.oldpassword && !req.body.reset_password_token ){
-                          user.verifyPassword(req.body.oldpassword, function (err, passwordCorrect) {
-                            if(err){
-                              console.log("check old password case");
-                              return res.status(422).json({message:"Check your old password"});
-                            } else {
-                              user.password = req.body.password;
-                              user.save();
-                              return res.status(200).json({message: "Tu contraseña ha sido modificada exitosamente"});
-                            }
-                          });
+                            console.log("old reset password link");
+                            return res.status(422).json({message: "Lo sentimos este link ya caduco. Intenta hacer una solicitud de nuevo"});
+                        } else if (req.body.oldpassword && !req.body.reset_password_token) {
+                            user.verifyPassword(req.body.oldpassword, function (err, passwordCorrect) {
+                                if (err) {
+                                    console.log("check old password case");
+                                    return res.status(422).json({message: "Check your old password"});
+                                } else {
+                                    user.password = req.body.password;
+                                    user.save();
+                                    return res.status(200).json({message: "Tu contraseña ha sido modificada exitosamente"});
+                                }
+                            });
                         } else {
                             user.password = req.body.password;
                             user.save();
@@ -610,14 +656,15 @@ module.exports = {
         } else {
             return res.status(400).json({message: 'password and password confirmation mismatch'});
         }
-    },
+    }
+    ,
 
     /**
      * Export users to csv file.
      * @param {string} page - The user's name.
      * @param {string} search - The user's email.
      */
-    exportUsers: function(req, res, next) {
+    exportUsers: function (req, res, next) {
 
         var search = '';
         var page = req.query.page || 1;
@@ -629,159 +676,163 @@ module.exports = {
         query['role'] = {$nin: ["admin"]};
         query['active'] = true;
 
-        if(req.user.role != 'admin'){
+        if (req.user.role != 'admin') {
             query['location'] = req.user.location;
         }
 
-        if(req.user.role == 'admin' && req.query.location){
-            query['location'] =req.query.location;
+        if (req.user.role == 'admin' && req.query.location) {
+            query['location'] = req.query.location;
         }
 
-        if(req.query.role && req.query.role != 'admin'){
+        if (req.query.role && req.query.role != 'admin') {
             query['role'] = new RegExp(req.query.role, 'i');
         }
 
 
         User.find(query)
             .or([
-                    {
-                        'name.first': new RegExp(search, 'i')
-                    },
-                    {
-                        'name.last': new RegExp(search, 'i')
-                    },
-                    {
-                        email: new RegExp(search, 'i')
-                    },
-                    {
-                        location: new RegExp(search, 'i')
-                    },
-                    {
-                        role: new RegExp(search, 'i')
-                    },
-                    {
-                        doc: new RegExp(search, 'i')
-                    }
-                ])
-            .sort({created: -1}).exec(function(err,users) {
-                if (err){
-                    console.log('ERROR: ' + err);
-                    res.status(500).json({ err: err, message: "Internal Server Error"});
-                } else {
-
-                    var usuarios = [];
-
-                    usuarios.push({
-                        email: "Email",
-                        firstname: "First name",
-                        lastname: "Last name",
-                        doctype: "Document type",
-                        doc: "Document",
-                        cellphone: "Cellphone",
-                        occupation: "Occupation",
-                        skype: "Skype",
-                        location: "Location",
-                        role: "Role",
-                        created: "Created",
-                        updated: "Updated",
-                        lastlogin: "Last login"
-                    });
-
-                    users.forEach(function(user) {
-                      usuarios.push({
-                          email:user.email,
-                          firstname: user.name.first,
-                          lastname: user.name.last,
-                          doctype: user.doc.typedoc,
-                          doc: user.doc.number,
-                          cellphone: user.phone.number,
-                          occupation: user.occupation,
-                          skype: user.skype,
-                          location: user.location,
-                          role: user.role,
-                          created:moment(user.created).format('YYYY-DD-MM'),
-                          updated:moment(user.updated).format('YYYY-DD-MM'),
-                          lastlogin: moment(user.lastlogin).format('YYYY-DD-MM')
-                      });
-                    });
-
-                    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-                    res.setHeader('Content-disposition', 'attachment; filename=Usuarios.csv');
-                    res.csv(usuarios);
-
+                {
+                    'name.first': new RegExp(search, 'i')
+                },
+                {
+                    'name.last': new RegExp(search, 'i')
+                },
+                {
+                    email: new RegExp(search, 'i')
+                },
+                {
+                    location: new RegExp(search, 'i')
+                },
+                {
+                    role: new RegExp(search, 'i')
+                },
+                {
+                    doc: new RegExp(search, 'i')
                 }
-            });
-    },
+            ])
+            .sort({created: -1}).exec(function (err, users) {
+            if (err) {
+                console.log('ERROR: ' + err);
+                res.status(500).json({err: err, message: "Internal Server Error"});
+            } else {
+
+                var usuarios = [];
+
+                usuarios.push({
+                    email: "Email",
+                    firstname: "First name",
+                    lastname: "Last name",
+                    doctype: "Document type",
+                    doc: "Document",
+                    cellphone: "Cellphone",
+                    occupation: "Occupation",
+                    skype: "Skype",
+                    location: "Location",
+                    role: "Role",
+                    created: "Created",
+                    updated: "Updated",
+                    lastlogin: "Last login"
+                });
+
+                users.forEach(function (user) {
+                    usuarios.push({
+                        email: user.email,
+                        firstname: user.name.first,
+                        lastname: user.name.last,
+                        doctype: user.doc.typedoc,
+                        doc: user.doc.number,
+                        cellphone: user.phone.number,
+                        occupation: user.occupation,
+                        skype: user.skype,
+                        location: user.location,
+                        role: user.role,
+                        created: moment(user.created).format('YYYY-DD-MM'),
+                        updated: moment(user.updated).format('YYYY-DD-MM'),
+                        lastlogin: moment(user.lastlogin).format('YYYY-DD-MM')
+                    });
+                });
+
+                res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+                res.setHeader('Content-disposition', 'attachment; filename=Usuarios.csv');
+                res.csv(usuarios);
+
+            }
+        });
+    }
+    ,
 
     /**
      * Welcome user.
      * @param {string} i - The user's id.
      * @param {string} t - The user's email token.
      */
-    welcome: function(req, res, next){
+    welcome: function (req, res, next) {
 
         if (req.query.i === undefined && req.query.t === undefined && req.query.i != '' && req.query.t != '') {
             res.render('404');
         } else {
 
-            User.findById(req.query.i, function(err, user){
-                if(err){
+            User.findById(req.query.i, function (err, user) {
+                if (err) {
                     res.render('500');
                 }
-                if(!user){
+                if (!user) {
                     res.render('404');
                 } else {
-                    if (user.email_token==req.query.t){
+                    if (user.email_token == req.query.t) {
                         user.verified_email = true;
                         user.email_token = crypto.randomBytes(127).toString('hex').toString(); //resets token
                         user.save();
-                        res.render('welcome',{
-                            title:'Welcome',
+                        res.render('welcome', {
+                            title: 'Welcome',
                             user: user
                         });
                     }
-                    else{
+                    else {
                         res.render('token-expired-new-user');
                     }
                 }
             });
 
         }
-    },
+    }
+    ,
 
     /**
      * Updates user last login.
      * @param {string} id - The user's id.
      */
-    updateLastLogin: function(id) {
-        User.findById(id, function(err, user) {
-            if(err){
+    updateLastLogin: function (id) {
+        User.findById(id, function (err, user) {
+            if (err) {
                 console.log('ERROR: ' + err);
             }
             if (!user) {
                 console.log('User not found!');
             } else {
                 user.lastlogin = moment() || user.lastlogin;
-                user.save(function(err){
-                    if(!err) {
+                user.save(function (err) {
+                    if (!err) {
 
                     } else {
                         console.log('ERROR: ' + err);
                     }
                 });
-          }
+            }
         });
-    },
+    }
+    ,
 
-    autocompleteUsers: function(req, res, next) {
+    autocompleteUsers: function (req, res, next) {
 
         User.find({}, function (err, user) {
-            return res.status(200).json({ user: user});
+            return res.status(200).json({user: user});
 
-            return res.status(200).json({ user: user});
+            return res.status(200).json({user: user});
         });
 
-    },
+    }
+    ,
 };
 
 

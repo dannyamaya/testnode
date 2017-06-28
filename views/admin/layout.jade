@@ -50,7 +50,7 @@ html.no-js(lang="es")
                   a(href="/tickets")
                     i.menu-tickets-icon
                     span Work Orders
-                    i.label.label-livinn#ticketcount 0
+                    i.label.label-livinn.hidden#ticketcount 0
 
         ul.list-unstyled.col-xs-12.no-padding.userSettings(style="z-index: 2000;")
           li.dropdown.col-xs-12.no-padding
@@ -106,6 +106,7 @@ html.no-js(lang="es")
         socket.on('new-ticket', function (dataServer) {
           var ticketcount = parseInt($('#ticketcount').html());
           ticketcount++;
+          $('#ticketcount').removeClass('hidden');
           $('#ticketcount').html(ticketcount);
         });
 

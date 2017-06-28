@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TicketCategorySchema   = new Schema({
-  name: {type:String , required:true},
+  responsable: {type:String , required:true ,trim: true, lowercase:true },
+  name: {type:String , required:true ,trim: true, lowercase:true },
   parent: {type: Schema.ObjectId, ref: 'TicketCategory'},
   children:[{type: Schema.ObjectId, ref: 'TicketCategory'}],
   active: {type:Boolean, default:true},

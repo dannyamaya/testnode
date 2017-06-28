@@ -1047,7 +1047,8 @@ block scripts
                         $("#ticketphone").text("N/A");
                     }
                     $("#openticketcategory").val(response.ticket.category);
-                    $("#openticketsubcategory").val(response.ticket.subcategory);
+                    loadOpenSubcategories(response.ticket.category,response.ticket.subcategory);
+                    //$("#openticketsubcategory").val(response.ticket.subcategory);
                     $("#openticketpriority").val(response.ticket.priority);
                     $("#ticketrequestby").html("<span class='text'><img class='img-circle user-disp-img' src='" + response.ticket.requested_by.profile_picture + "'</span>" + response.ticket.requested_by.name.first + " " + response.ticket.requested_by.name.last);
                     $("#ticketsubject").text(response.ticket.subject);
@@ -1566,6 +1567,44 @@ block scripts
                     }
 
                     $("#dropdownsubcategoriesdesktop").append('<li class="dropdown-header cleanSubcategoriesSearch pull-right" style="color:#D51C5C;"> Clear <li>');
+                },
+                error: function(xhr){
+                  console.log(xhr);
+                }
+
+          });
+        };
+
+        function loadOpenSubcategories(category,subcategory){
+          var queryopt = '';
+          var categories = new Array();
+          if(category && category != ''){
+            queryopt = '?category='+category;
+          }
+          $.ajax({
+                type: "GET",
+                url: '/api/ticket/categories' + queryopt,
+                success: function (data) {
+                    $("#openticketsubcategory").html('');
+                    categories = data.categories;
+
+                    for(var i=0; i < categories.length ; i++){
+                      $('#openticketsubcategory').prepend($('<option>', {
+                        value: categories[i].name,
+                        text: categories[i].name
+                      }));
+                    }
+
+                    if(subcategory && subcategory != ''){
+                      $('#openticketsubcategory').val(subcategory);
+                    }
+                    else{
+                      $('#openticketsubcategory').prepend($('<option>', {
+                        value: '',
+                        text: 'Choose a Subcategory',
+                        selected: true
+                      }));                  
+                    }
                 },
                 error: function(xhr){
                   console.log(xhr);

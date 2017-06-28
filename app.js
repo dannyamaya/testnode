@@ -83,9 +83,12 @@ require(__dirname + '/config/passport.js')(passport, config);
 var index = require('./routes/index');
 var users = require('./routes/users');
 var tickets = require('./routes/tickets');
+var ticketcategories = require('./routes/ticketcategories');
+
 app.use('/', index);
 app.use('/api/users', users);
 app.use('/api/tickets', tickets);
+app.use('/api/ticket/categories', ticketcategories);
 app.use('/api/residents', residents);
 app.use('/api/comments', comments);
 app.use('/api/notes', notes);

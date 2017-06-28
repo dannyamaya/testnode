@@ -47,17 +47,33 @@ block content
                       i.icon.ion-ios-arrow-down
                 ul.col-xs-12.no-padding.dropdown-menu
                   li
-                    a.categorySearch(href="#") Cleaning Services
+                    a.categorySearch(href="#") Air Conditioning
                   li
-                    a.categorySearch(href="#") Customer Service
+                    a.categorySearch(href="#") Elevators
                   li
-                    a.categorySearch(href="#") Maintenance
+                    a.categorySearch(href="#") Locksmiths
                   li
-                    a.categorySearch(href="#") Visits
+                    a.categorySearch(href="#") Electricity
                   li
-                    a.categorySearch(href="#") IT Support
+                    a.categorySearch(href="#") Plumbing and Sanitary
+                  li
+                    a.categorySearch(href="#") Doors and windows
+                  li
+                    a.categorySearch(href="#") Cleaning and house keeping
+                  li
+                    a.categorySearch(href="#") Plants and gardens
+                  li
+                    a.categorySearch(href="#") Furniture
+                  li
+                    a.categorySearch(href="#") Minor works
+                  li
+                    a.categorySearch(href="#") Equipment
+                  li
+                    a.categorySearch(href="#") Residents
                   li
                     a.categorySearch(href="#") Others
+                  li
+                    a.categorySearch(href="#") Intranet and App
 
               li.col-xs-12.no-padding.dropdown.subcategoriesTickets
                 a.col-xs-12.dropdown-toggle.subcategoriesDropdownTicket(href='#' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Subcategories
@@ -123,7 +139,6 @@ block content
                     a.prioritySearch(href="#") 4 / To plan / To schedule
 
 
-
     //-DESKTOP!
     .col-xs-12.userTools.has-feedbackc.ticketTools
         .col-xs-12.col-md-2.heading-title.hidden-md.hidden-lg
@@ -175,7 +190,7 @@ block content
                 .pull-right.dropdown.hidden-xs.hidden-sm.subcatDesktop(style="display:inline-block;")
                   button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#subcategoriesDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Subcategories
                       i.fa.fa-angle-down
-                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                  ul.dropdown-menu#dropdownsubcategoriesdesktop(aria-labelledby="dropdownMenu1")
                     li.dropdown-header.title Zona BBQ
                     li.dropdown-header.subtitle Reservación
                     li
@@ -214,20 +229,8 @@ block content
                 .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                   button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#categoryDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Category
                       i.fa.fa-angle-down
-                  ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                      li
-                          a.categorySearch(href="#") Cleaning Services
-                      li
-                          a.categorySearch(href="#") Customer Service
-                      li
-                          a.categorySearch(href="#") Maintenance
-                      li
-                          a.categorySearch(href="#") Visits
-                      li
-                          a.categorySearch(href="#") IT Support
-                      li
-                          a.categorySearch(href="#") Others
-                      li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
+                  ul.dropdown-menu#dropdowncategoriesdesktop(aria-labelledby="dropdownMenu1")
+                    li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
                 if user.role == 'admin'
                 .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                   button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
@@ -260,11 +263,13 @@ block content
 
     .col-xs-12.content
         .col-xs-12.col-sm-10.col-sm-offset-1.no-padding
+          #loader
+          .col-xs-12.no-padding.tickets
+          .col-xs-12
+              .loading#loading(style="display:none; margin: -50px auto 0 auto;")
+        button.btn.btn-livinn.hidden-md.hidden-lg.btn-addTicketMobile(data-toggle='modal', data-target="#newticketModal", href="/#", data-dismiss="modal")
+         i.icon.ion-plus
 
-            #loader
-            .col-xs-12.no-padding.tickets
-            .col-xs-12
-                .loading#loading(style="display:none; margin: -50px auto 0 auto;")
 
     //- Welcome - No Tickets
     .col-xs-12.no-padding.containerNoTickets.hidden
@@ -558,8 +563,10 @@ block scripts
 
         //- Filter Category Tickets
         $('.categorySearch').click(function() {
+          console.log("category selected");
           var selectedCategory = $(this).html();
           tcategory = selectedCategory;
+          loadSubcategories(tcategory);
           $('#categoryDropdownTicket').html(selectedCategory+'<i class="fa fa-angle-down">');
           $('.categoryDropdownTicket').html(selectedCategory+'<span><i class="fa fa-angle-down"></span>');
           filterTickets(1);
@@ -642,6 +649,9 @@ block scripts
             });
 
             filterTickets(1);
+
+          loadCategories() ;
+
 
         });
 
@@ -1530,3 +1540,60 @@ block scripts
                 $(this).prev().prev().removeClass('btn-status').css('color','#81939E').css('cursor','default');
             }
         });
+
+        // GET TICKET CATEGORIES AND SUBCATEGORIES
+        function loadCategories(){
+          var queryopt = '';
+          var categories = new Array();
+          //- if(category && category != ''){
+          //-   queryopt = '?category='+category;
+          //- }
+          $.ajax({
+                type: "GET",
+                url: '/api/ticket/categories',
+                success: function (data) {
+                    categories = data.categories;
+                    $("#dropdowncategoriesdesktop").html('');
+                    for(var i=0; i < categories.length ; i++){
+                      $("#dropdowncategoriesdesktop").prepend('<li><a class="categorySearch text-capitalize" href="#" onclick="'+loadSubcategories(categories[i].name)+'" >'+categories[i].name+'</a></li>');
+                    }
+
+                    //- var categorySearchElements = document.getElementsByClassName("categorySearch");
+                    //- Array.from(categorySearchElements).forEach(function(element) {
+                    //-   element.addEventListener('click', );
+                    //- });
+
+                },
+                error: function(xhr){
+                  console.log(xhr);
+                }
+
+          });
+        }
+
+        function loadSubcategories(category){
+          var queryopt = '';
+          var categories = new Array();
+          if(category && category != ''){
+            queryopt = '?category='+category;
+          }
+          $.ajax({
+                type: "GET",
+                url: '/api/ticket/categories',
+                success: function (data) {
+                    categories = data.categories;
+                    for(var i=0; i < categories.length ; i++){
+                      //- li.dropdown-header.title Zona BBQ
+                      //- li.dropdown-header.subtitle Reservación
+                      //- li
+                      //-   a.subcategorySearch.option(href="#") Parrilla
+                      $("#dropdownsubcategoriesdesktop").prepend('<li><a class="subcategorySearch text-capitalize" href="#" >'+categories[i].name+'</a></li>');
+                    }
+                },
+                error: function(xhr){
+                  console.log(xhr);
+                }
+
+          });
+        }
+

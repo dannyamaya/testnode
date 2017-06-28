@@ -32,7 +32,7 @@ var mongoStore = require('connect-mongo')(session);
 // -----------------------------------------------------------------
 mongoose.Promise = global.Promise;
 
-mongoose.connect(config.production.db, function(err, res) {
+mongoose.connect(config.development.db, function(err, res) {
   if(err) {
     console.log('ERROR: connecting to Database. ' + err);
   } else {
@@ -57,7 +57,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     store: new mongoStore({
-        url: config.production.db,
+        url: config.development.db,
         collection : 'sessions'
     })
 }));
@@ -83,9 +83,12 @@ require(__dirname + '/config/passport.js')(passport, config);
 var index = require('./routes/index');
 var users = require('./routes/users');
 var tickets = require('./routes/tickets');
+var ticketcategories = require('./routes/ticketcategories');
+
 app.use('/', index);
 app.use('/api/users', users);
 app.use('/api/tickets', tickets);
+app.use('/api/ticket/categories', ticketcategories);
 app.use('/api/residents', residents);
 app.use('/api/comments', comments);
 app.use('/api/notes', notes);

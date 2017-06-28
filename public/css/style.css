@@ -291,6 +291,10 @@ button:focus{
   }
 }
 
+.loaderPlatform .logoHeading {
+  height: 84px;
+}
+
 
 
 
@@ -1029,6 +1033,9 @@ button:focus{
   /*.toggle-btn.active{
     left: 14.7%;
     }*/
+    .loaderPlatform .logoHeading {
+      height: 107px;
+    }
 
     .form-control {
       height: 48px;
@@ -1073,6 +1080,10 @@ button:focus{
 
   @media screen and (min-width: 992px) {
 
+    .loaderPlatform .logoHeading {
+      height: 80px;
+    }
+      
     .logoHeading a {
       width: 125px;
     }
@@ -1130,6 +1141,10 @@ button:focus{
 
   @media screen and (min-width: 1200px) {
 
+    .loaderPlatform .logoHeading {
+      height: 90px;
+    }
+
     .userTools .userMaganementDesktop form {
       width: 250px;
     }
@@ -1138,10 +1153,13 @@ button:focus{
       width: 350px;
     }
 
-
   }
 
   @media screen and (min-width: 1600px) {
+
+    .loaderPlatform .logoHeading {
+      height: 110px;
+    }
 
     .userTools .userMaganementDesktop form {
       width: 358px;
@@ -1158,9 +1176,17 @@ button:focus{
 
   @media screen and (min-width: 1900px) {
 
+    .loaderPlatform .logoHeading {
+      height: 127px;
+    }
+
   }
 
   @media screen and (min-width: 2300px) {
+
+    .loaderPlatform .logoHeading {
+      height: 155px;
+    }
 
   }
 

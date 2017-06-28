@@ -741,7 +741,7 @@ module.exports = {
                         });
                     }
                     else{
-                        res.render('token-expired');
+                        res.render('token-expired-new-user');
                     }
                 }
             });

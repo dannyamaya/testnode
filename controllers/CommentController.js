@@ -1,4 +1,5 @@
 var Comment = require('../models/comment.js'),
+    Ticket = require('../models/ticket.js'),
     User = require('../models/user.js');
 var mailer = require('../mailer/mailer'),
     async = require("async");
@@ -75,17 +76,47 @@ module.exports = {
 
         comment.save(function (err, t) {
             if (!err) {
-                Comment.populate(t,{ path:'discussion_id',populate:{path:'requested_by'} },function(error,tpopulated){
+                Comment.populate(t, {
+                    path: 'discussion_id',
+                    populate: {path: 'requested_by'}
+                }, function (error, tpopulated) {
                     mailer.newComment(tpopulated);
                     console.log('New comment has been created');
                 });
-                return res.status(200).json({comment:t, message: "Comment has been created"});
+
+                //Como es un nuevo comentario vacia el arreglo de leido por del ticket y agrega el usuario actual
+                Ticket.findById(req.body.discussion_id, function (err, ticket) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        return res.status(500).json({err: err});
+                    }
+                    if (!ticket) {
+                        return res.status(404).json({message: 'Ticket not found'});
+                    } else {
+
+
+                        //Agrega usuario al arreglo de leido por
+
+                        ticket.readed_by = [];
+                        ticket.readed_by.push(req.body.posted_by);
+                        ticket.updated = Date.now();
+
+                        ticket.save(function (err) {
+                            if (!err) {
+
+                            } else {
+                                console.log('ERROR: ' + err);
+                                return res.status(500).json({err: err});
+                            }
+                        });
+                    }
+                });
+                return res.status(200).json({comment: t, message: "Comment has been created"});
             }
             else {
                 console.log(err);
             }
         });
-
 
     },
 

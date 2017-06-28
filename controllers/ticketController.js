@@ -119,7 +119,8 @@ module.exports = {
             attachments: imagenUrl || '',
             category: req.body.category,
             file_name: file_name,
-            location: req.body.location
+            location: req.body.location,
+            readed_by: req.user._id
         });
 
         ticket.save(function (err, t) {
@@ -277,6 +278,11 @@ module.exports = {
                     ticket.opened_resident = false;
                 } else {
 
+                }
+
+                //Agrega usuario al arreglo de leido por
+                if(req.body.readed_by && !(ticket.readed_by.indexOf(req.body.readed_by) > -1)){
+                    ticket.readed_by.push(req.body.readed_by);
                 }
 
                 ticket.assigned_to = req.body.assigned_to || ticket.assigned_to;
@@ -438,6 +444,7 @@ module.exports = {
                                 callback(err, null);
                             } else {
                                 if(req.query.created_by){
+                                    console.log('if crteated by');
                                     var regexp = new RegExp(req.query.created_by, 'i');
                                     var tickets = t.filter( function(val){
                                         return regexp.test(val.created_by.name.first);
@@ -445,6 +452,8 @@ module.exports = {
                                     callback(null, tickets);
                                 }
                                 else if(req.query.assigned_to){
+                                    console.log('if assigned to');
+
                                     var regexp = new RegExp(req.query.assigned_to, 'i');
 
                                     function checkRegexp(u){
@@ -453,6 +462,7 @@ module.exports = {
                                     var tickets = t.filter( function(val){
                                         return val.assigned_to.some(checkRegexp);
                                     });
+
                                     callback(null, tickets);
                                 }else{
                                     tickets = t;
@@ -482,7 +492,7 @@ module.exports = {
                     } else {
 
                         // filter: requested_by
-                        if(req.user.role == 'admin'){
+                        if(req.user.role == 'admin' || req.user.role == 'operation manager'){
                             if(req.query.requested_by){
                                 var regexp = new RegExp(req.query.requested_by, 'i');
                                 var tickets = results[0].filter( function(val){
@@ -493,6 +503,7 @@ module.exports = {
                             }
                         }
                         else{
+
                             var tickets = results[0].filter( function(val){
                                 return (val.requested_by.id == req.user.id);
                             });

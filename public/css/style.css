@@ -396,8 +396,8 @@ button:focus{
   font-size: 22px;
 }
 
-
-.btn-addUserMobile {
+.btn-addUserMobile,
+.btn-addTicketMobile {
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -406,6 +406,7 @@ button:focus{
   border-radius: 100%;
   font-size: 2.3rem;
   width: 46px;
+  z-index: 901;
 }
 
 /*TABS*/
@@ -1603,11 +1604,35 @@ button:focus{
 /*  Welcome - No Tickets */
 
 .containerNoTickets {
-  min-height: 100%;
+  min-height: calc(100% - 116px);
   position: absolute;
   margin-top: 116px;
+  z-index: 900;
 }
 
+.containerNoTickets .fondoNoTickets {
+  position: absolute;
+  bottom: 0px;
+}
+
+.contentNoTickets {
+  color: #818181;
+  position: absolute;
+  top: 50%;
+  margin-top: -56%;
+}
+
+.contentNoTickets  h2 {
+  font-weight: bold;
+}
+
+.contentNoTickets p span {
+  font-weight: bold;
+}
+
+.contentNoTickets .imgManoBoton {
+  margin-top: 30px;
+}
 
 
 
@@ -1798,6 +1823,12 @@ button:focus{
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
+}
+
+.label-livinn.label-new-messages{
+    text-transform: none;
+    margin-right: -4px;
+
 }
 
 .readModal {
@@ -2601,6 +2632,10 @@ textarea.parsley-error {
     margin-left: 0px;
     margin-right: 0px;
   }
+
+  .contentNoTickets {
+    margin-top: -30%;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -2685,7 +2720,7 @@ textarea.parsley-error {
 
   .userTools.ticketTools form .subcatDesktop .dropdown-menu {
     max-height: 350px;
-    overflow: scroll;
+    overflow-y: scroll;
   }
 
   .userTools.ticketTools form .subcatDesktop .dropdown-menu .dropdown-header.title {
@@ -2729,58 +2764,86 @@ textarea.parsley-error {
   }
 
   .tickets{
-   margin-top:20px;
- }
+    margin-top:20px;
+   }
 
- .ticket-date {
-  text-align: right;
-  margin-right: 15px;
+  .ticket-date {
+    text-align: right;
+    margin-right: 15px;
+  }
+
+  .ticket-profile-img img {
+    width: 60px;
+    height: 60px;
+    margin-left: -30px;
+    margin-top: 9px;
+  }
+
+  .ticket-profile-img-3 img{
+    width: 60px;
+    height: 60px;
+    margin-left: -30px;
+    margin-top: 9px;
+  }
+
+  .readModal .modal-body .secondInputGroup {
+    margin-top: -11px;
+  }
+
+  .registrationModal .modal-dialog,
+  .readModal .modal-dialog {
+    margin: 70px auto;
+  }
+
+  .registrationModal .modal-body form .form-group,
+  .readModal .modal-body .form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .registrationModal .modal-body form .secondInputGroup,
+  .updateUserModal .modal-body form .secondInputGroup {
+    margin-top: 80px;
+  }
+
+  .updateUserModal .modal-dialog {
+    margin: 70px auto;
+  }
+
+  .containerNoTickets {
+    min-height: calc(100% - 134px);
+    position: absolute;
+    margin-top: 134px;
+  }
+
+  .contentNoTickets {
+      margin-top: -25%;
+  }
+
 }
 
-.ticket-profile-img img {
-  width: 60px;
-  height: 60px;
-  margin-left: -30px;
-  margin-top: 9px;
-}
-
-.ticket-profile-img-3 img{
-  width: 60px;
-  height: 60px;
-  margin-left: -30px;
-  margin-top: 9px;
-}
-
-.readModal .modal-body .secondInputGroup {
-  margin-top: -11px;
-}
-
-.registrationModal .modal-dialog,
-.readModal .modal-dialog {
-  margin: 70px auto;
-}
-
-.registrationModal .modal-body form .form-group,
-.readModal .modal-body .form-group {
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
-.registrationModal .modal-body form .secondInputGroup,
-.updateUserModal .modal-body form .secondInputGroup {
-  margin-top: 80px;
-}
-
-.updateUserModal .modal-dialog {
-  margin: 70px auto;
-}
-
+@media screen and (min-width: 1200px) {
+  .contentNoTickets {
+    margin-top: -21%;
+  }
 }
 
 @media screen and (min-width: 1600px) {
   .dashboard-menu {
     width: 15%;
   }
+
+  .contentNoTickets {
+    margin-top: -17%;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+
+  .contentNoTickets {
+    margin-top: -14%;
+  }
+
 }
 
 .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {

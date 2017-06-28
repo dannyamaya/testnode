@@ -24,6 +24,7 @@ var TicketSchema   = new Schema({
 
   opened: {type:Boolean, required:true, default:false},
   opened_resident: {type:Boolean, required:true, default:false},
+  readed_by: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now },

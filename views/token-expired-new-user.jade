@@ -1,0 +1,22 @@
+extend layout
+block content
+    .login.col-xs-12.no-padding
+        .layer.col-xs-12.no-padding
+            .container.containerForm-Login
+                .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.no-padding.form-login.has-feedback
+                    .col-xs-12.form-container
+                        .col-xs-12
+                            h1.col-xs-12.col-xs-offset-1.col-sm-12.col-sm-offset-1.title.text-center
+
+                                img.medium-size(src="/img/logolivinn-blanco.svg", alt="Livinn")
+                                p.white.textTemplate  This links has expired but your user already has been created, please recover your password.
+
+                                button.btn.btn-lg.btn-livinn2.btn-block.font.btn-livinn3#home RETURN
+
+
+block scripts
+    script.
+        $('#home').click(function(e){
+            window.location.replace('/');
+        });
+

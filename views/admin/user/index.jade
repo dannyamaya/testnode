@@ -836,7 +836,7 @@ block scripts
                       $('.residentFields').show();
                       document.getElementById("registrationForm").reset();
                       $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td style='width:33px;'><img class='img-circle table-profile-img' src='"+response.users.profile_picture + "'></td><td>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td class='text-capitalize'>" + response.users.email + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
-                      successAlert("User has been created");
+                      successAlert(response.message);
                       $('#registrationForm').parsley().reset();
                   }
               },
@@ -1162,11 +1162,12 @@ block scripts
               data: {users: users},
               url: '/api/users',
               success: function (response) {
+                  console.log(response);
                   $('input:checkbox:checked').each(function () {
                       $(this).parents("tr").remove();
                   });
                   $('#deleteUserModal').modal('hide');
-                  successAlert(message);
+                  successAlert(response.message);
               },
               error: function (XMLHttpRequest, textStatus, errorThrown) {
                   var message = XMLHttpRequest.responseJSON.message;

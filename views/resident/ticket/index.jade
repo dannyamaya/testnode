@@ -394,6 +394,7 @@ block scripts
         //----------------- READ ---------------------------
         function getTickets(page, search) {
 
+
             if(page =='1') {
                 $('.tickets').hide().html("");
                 $('#loader').fadeIn("slow");
@@ -504,7 +505,8 @@ block scripts
         /* Get params from all filters */
         function filterTickets(page) {
                 var search = $('#search').val().trim();
-                var search = '';
+                getTickets(page, search);
+
         }
 
         $('#searchForm').submit(function (evt) {

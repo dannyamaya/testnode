@@ -504,8 +504,14 @@ module.exports = {
                         }
                         else{
 
+                            console.log('Entra Metodo');
+
                             var tickets = results[0].filter( function(val){
-                                return (val.requested_by.id == req.user.id);
+                                var r= '';
+                                if (val.requested_by !== null) {
+                                    r = val.requested_by._id;
+                                }
+                                return (r == req.user.id);
                             });
                         }
 

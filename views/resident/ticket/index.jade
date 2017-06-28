@@ -63,13 +63,7 @@ block content
                                     input.form-control#search(type="text" name="name" placeholder="Search")
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#categoryselect
-                                option(value="" selected) Category
-                                option(value="cleaning services") Cleaning Services
-                                option(value="customer service") Customer Service
-                                option(value="support") IT Support
-                                option(value="maintenance") Maintenance
-                                option(value="visits") Visits
-                                option(value="others") Others
+
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#statusselect
                                 option(value="" selected) Status
@@ -866,15 +860,27 @@ block scripts
                 success: function (data) {
                     categories = data.categories;
                     $('#newTicketCategory').html('');
+                    $('#categoryselect').html('');
 
                     for(var i=0; i < categories.length ; i++){
                       $('#newTicketCategory').prepend($('<option>', {
                         value: categories[i].name,
                         text: categories[i].name
                       }));
+
+                        $('#categoryselect').prepend($('<option>', {
+                            value: categories[i].name,
+                            text: categories[i].name
+                        }));
                     }
 
                     $('#newTicketCategory').prepend($('<option>', {
+                      value: '',
+                      text: 'Choose a Category',
+                      selected: true
+                    }));
+
+                    $('#categoryselect').prepend($('<option>', {
                       value: '',
                       text: 'Choose a Category',
                       selected: true

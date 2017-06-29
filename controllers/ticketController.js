@@ -9,6 +9,7 @@ var s3deploy = require('../helpers/bucketDeployHelper');
 var fs = require('fs'),
     gm = require('gm'),
     moment = require('moment');
+var nodeExcel = require('excel-export');
 
     // https://github.com/aheckmann/gm - imagemagic
 
@@ -519,6 +520,322 @@ module.exports = {
                 });
             }
         });
+    },
+
+    exportTickets: function (req, res, next){
+
+        var conf ={};
+        //conf.stylesXmlFile = "styles.xml";
+        conf.cols = [];
+        conf.cols.push(
+            {
+              caption:'Number',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row._id));
+              }
+            }
+          /*  ,{
+              caption:'Subject',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Created by',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Apartment',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Apartment Type',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Bed',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Comment',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Note',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Category',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Subcategory',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Priority',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Request Date',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Open Date',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Close Date',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Assigned to',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            },
+            {
+              caption:'Others',
+              type:'string',
+              width:200.7109375,
+              beforeCellWrite:function(row, cellData){
+                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+              }
+            }*/
+        );
+
+        var id = req.query.id,
+            created_by = req.query.created_by,
+            filed_by = req.query.filed_by,
+            page = req.query.page || 1,
+            category = req.query.category,
+            subcategory = req.query.subcategory,
+            status = req.query.status,
+            priority = req.query.priority,
+            location = req.user.location;
+
+        var options  = {};
+
+        if(req.user.role == 'admin'){
+            if(req.query.location){
+                options['location'] = new RegExp( req.query.location, 'i');
+            }
+        } else {
+            options['location'] = new RegExp( req.user.location, 'i');
+        }
+
+
+        if(id){
+            var workid = id.split("-");
+
+            if(workid.length != 3){
+                return res.status(400).json({message:'Not a valid Work Order ID'});
+            }  else {
+
+                //validate date
+                var datetofilter = workid[0].split('.');
+                var locationid = workid[1];
+                var idid = workid[2];
+
+                console.log(datetofilter);
+                if(datetofilter.length != 3 || parseInt(datetofilter[0]) < 2017 || parseInt(datetofilter[1]) < 1 || parseInt(datetofilter[1]) > 12 || parseInt(datetofilter[2]) < 1 || parseInt(datetofilter[2]) > 31 || isLocation(datetofilter[1]) || !isNumeric(idid) ){
+                    return res.status(400).json({message:'Not a valid Work Order ID'});
+                }
+
+                //options['created'] = { "$gte": new Date(datetofilter[0],parseInt(datetofilter[1]),datetofilter[2],0,0,0,0) , "$lt": new Date(datetofilter[0],datetofilter[1],datetofilter[2],0 ,0, 0, 0) } ;
+                options['location'] = new RegExp(getLocation(locationid), 'i');
+                options['id'] = idid;
+            }
+        }
+
+        if(category){
+            options['category'] = new RegExp(category, 'i');
+        }
+
+        if(subcategory){
+            options['subcategory'] = new RegExp(subcategory, 'i');
+        }
+
+        if(status){
+            if(status == 'Open'){
+                options['status'] = '0';
+            } else if(status == 'Pending' ){
+                options['status'] = '1';
+            } else if (status == 'Resolved'){
+                options['status'] = '2';
+            } else {
+                //options['status'] = '0';
+            }
+        }
+
+        if(priority){
+            if(priority == '<span class="visible-lg">1 / High Priority / 24H</span><span class="hidden-lg">High</span>' || priority =='1'){
+                options['priority'] = '1';
+            } else if( priority == '<span class="visible-lg">2 / Medium Priority / 48H</span><span class="hidden-lg">Medium</span>' || priority =='2'){
+                options['priority'] = '2';
+            } else if( priority == '<span class="visible-lg">3 / Low Priority / 72H</span><span class="hidden-lg">Low</span>' || priority =='3') {
+                options['priority'] = '3';
+            } else if( priority == '<span class="visible-lg">4 / To plan / To schedule</span><span class="hidden-lg">To Plan</span>' || priority =='4'){
+                options['priority'] = '4';
+            } else {
+
+            }
+        }
+
+        console.log(options);
+
+        User.findById(req.params.id, function (err, user) {
+            if (err) {
+                console.log('ERROR: ' + err);
+                return res.status(500).json({error: true, message: 'Server connection error. Please try later'});
+            }
+            if (!user) {
+                return res.status(404).json({error: true, message: 'User not found'});
+            } else {
+                async.parallel([
+                    function (callback) {
+                        Ticket.find(options)
+                        .populate('created_by', 'name company email phone profile_picture')
+                        .populate('requested_by', 'name company email phone profile_picture')
+                        .populate('assigned_to', 'name company email phone profile_picture')
+                        .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
+                            if (err) {
+                                callback(err, null);
+                            } else {
+                                if(req.query.created_by){
+                                    console.log('if crteated by');
+                                    var regexp = new RegExp(req.query.created_by, 'i');
+                                    var tickets = t.filter( function(val){
+                                        return regexp.test(val.created_by.name.first);
+                                    });
+                                    callback(null, tickets);
+                                }
+                                else if(req.query.assigned_to){
+                                    console.log('if assigned to');
+
+                                    var regexp = new RegExp(req.query.assigned_to, 'i');
+
+                                    function checkRegexp(u){
+                                        return regexp.test(u.name.first,'i');
+                                    };
+                                    var tickets = t.filter( function(val){
+                                        return val.assigned_to.some(checkRegexp);
+                                    });
+
+                                    callback(null, tickets);
+                                }else{
+                                    tickets = t;
+                                    callback(null, tickets);
+                                }
+                            }
+                        });
+
+                    },
+                    function (callback) {
+
+                        Ticket.count(options).exec(function (err, count) {
+                            if (err) {
+                                callback(err, null);
+                            } else {
+                                callback(null, count);
+                            }
+                        });
+                    }
+                ], function (err, results) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        return res.status(500).json({
+                            error: true,
+                            message: 'Server connection error. Please try later'
+                        });
+                    } else {
+
+                        // filter: requested_by
+                        if(req.user.role == 'admin' || req.user.role == 'operation manager'){
+                            if(req.query.requested_by){
+                                var regexp = new RegExp(req.query.requested_by, 'i');
+                                var tickets = results[0].filter( function(val){
+                                    return regexp.test(val.requested_by.name.first);
+                                });
+                            }else{
+                                var tickets = results[0];
+                            }
+                        }
+                        else{
+
+                            var tickets = results[0].filter( function(val){
+                                return (val.requested_by.id == req.user.id);
+                            });
+                        }
+
+                        conf.rows = tickets;
+                        var result = nodeExcel.execute(conf);
+                        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+                        res.setHeader("Content-Disposition", "attachment; filename=" + "work-orders-downloads.xlsx");
+                        res.end(result, 'binary');
+
+
+                    }
+                });
+            }
+        });
+
+
+
     }
 
 }

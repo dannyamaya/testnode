@@ -541,13 +541,13 @@ module.exports = {
               beforeCellWrite:function(row, cellData){
                 return JSON.parse(JSON.stringify(row._id));
               }
-            }
-          /*  ,{
+            },
+            {
               caption:'Subject',
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row.subject));
               }
             },
             {
@@ -555,7 +555,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row.created_by.name.first+' '+row.created_by.name.last));
               }
             },
             {
@@ -563,7 +563,8 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return '';
               }
             },
             {
@@ -571,7 +572,8 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return '';
               }
             },
             {
@@ -579,7 +581,8 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return '';
               }
             },
             {
@@ -587,7 +590,8 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return '';
               }
             },
             {
@@ -595,7 +599,8 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return '';
               }
             },
             {
@@ -603,7 +608,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row.category));
               }
             },
             {
@@ -611,7 +616,11 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                if(row.subcategory != null){
+                    return JSON.parse(JSON.stringify(row.subcategory));
+                } else {
+                    return '-';
+                }
               }
             },
             {
@@ -619,7 +628,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row.priority));
               }
             },
             {
@@ -627,7 +636,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row.created));
               }
             },
             {
@@ -635,7 +644,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row.created));
               }
             },
             {
@@ -643,7 +652,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row.closed));
               }
             },
             {
@@ -651,7 +660,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return '';
               }
             },
             {
@@ -659,9 +668,9 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return '';
               }
-            }*/
+            }
         );
 
         var id = req.query.id,

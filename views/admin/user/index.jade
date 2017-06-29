@@ -1276,6 +1276,15 @@ block scripts
          });
       });
 
+      $('#search').keypress(function () {
+          usersearch = $("#search").val();
+          $("#search").val(usersearch);
+          $('#userstable').fadeOut("fast", function () {
+              $('#loader').fadeIn("fast");
+              readUsers(1);
+          });
+      });
+
       /*=== EXPORT USERS ===*/
       function exportUsers(){
           var query = '';

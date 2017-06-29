@@ -250,7 +250,7 @@ module.exports = {
                         email: new RegExp(search, 'i')
                     },
                     {
-                        doc: new RegExp(search, 'i')
+                        'doc.number': new RegExp(search, 'i')
                     }
                 ])
                     .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, users) {
@@ -281,7 +281,7 @@ module.exports = {
                         role: new RegExp(search, 'i')
                     },
                     {
-                        doc: new RegExp(search, 'i')
+                        'doc.number': new RegExp(search, 'i')
                     }
                 ])
                     .exec(function (err, count) {

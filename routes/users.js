@@ -10,6 +10,9 @@ router.route('/')
     .put(userController.updateUser)
     .delete(userController.deleteUsers);
 
+router.route('/noresidents')
+    .get(userController.readUsersExceptResidents);
+
 router.route('/export')
     .get(userController.exportUsers);
 
@@ -22,6 +25,8 @@ router.route('/:id/tickets')
 
 router.route('/autocomplete')
     .post(userController.autocompleteUsers);
+
+
 
 module.exports = router;
 

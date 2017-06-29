@@ -5,6 +5,7 @@ var adminController = require('../controllers/adminController');
 var ensureHelper = require('../helpers/ensureHelper');
 var userController = require('../controllers/userController');
 var residentController = require('../controllers/residentController');
+var ticketController = require('../controllers/ticketController');
 
 /* GET home page. */
 router.get('/', ensureHelper.ensureRedirect, authenticationController.login);
@@ -13,6 +14,7 @@ router.post('/login', authenticationController.loginUser);
 // Admin Routes
 router.get('/users',ensureHelper.ensureLivinn, adminController.users);
 router.get('/tickets',ensureHelper.ensureLivinn, adminController.tickets);
+router.get('/tickets/export/:id',ensureHelper.ensureLivinn, ticketController.exportTickets);
 
 // Resident Routes
 router.get('/resident/tickets',ensureHelper.ensureResident, residentController.tickets);

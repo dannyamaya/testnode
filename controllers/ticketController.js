@@ -525,7 +525,7 @@ module.exports = {
     exportTickets: function (req, res, next){
 
         var conf ={};
-        conf.stylesXmlFile = "styles.xml";
+        //conf.stylesXmlFile = "styles.xml";
         conf.cols = [];
         conf.cols.push(
             {
@@ -533,10 +533,10 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.nombre_cuenta));
+                return JSON.parse(JSON.stringify(row._id));
               }
-            },
-            {
+            }
+          /*  ,{
               caption:'Subject',
               type:'string',
               width:200.7109375,
@@ -655,7 +655,7 @@ module.exports = {
               beforeCellWrite:function(row, cellData){
                 return JSON.parse(JSON.stringify(row.nombre_cuenta));
               }
-            }
+            }*/
         );
 
         var id = req.query.id,

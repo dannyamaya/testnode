@@ -34,7 +34,8 @@
     "serve-favicon": "~2.3.0",
     "slug": "^0.9.1",
     "socket.io": "^1.7.3",
-    "strftime": "^0.10.0"
+    "strftime": "^0.10.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "nodemon": "latest",

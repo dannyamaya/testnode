@@ -1913,7 +1913,7 @@ button:focus{
   border-bottom: none;
   border-right: 2px solid #FFF;
   border-left: 2px solid #FFF;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   color: #555;
 }
 
@@ -3121,7 +3121,10 @@ textarea.parsley-error {
 .btn-submit-ticket{
     margin-right: -2% !important;
 }
-
+.ticket-mobile-create{
+    padding-top: 10%;
+    padding-bottom: 11%;
+}
 
 
 

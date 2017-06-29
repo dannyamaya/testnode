@@ -269,7 +269,7 @@ block modals
                     h3.text-center Create Work Order
                 .modal-body
                     .row
-                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
+                        form.col-xs-12.col-sm-10.col-sm-offset-1.ticket-mobile-create#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
                             if user.role != 'resident'
                                 .form-group.hidden
                                     label
@@ -761,7 +761,7 @@ block scripts
         $("#ticketasignee").autocomplete({
             source: function (request, response) {
                 $('#ticketasignee').css("cursor", "wait");
-                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val() + '&role=resident';
+                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val() + '&role=admin';
                 $.ajax({
                     type: "GET",
                     url: url,

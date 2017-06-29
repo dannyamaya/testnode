@@ -260,15 +260,14 @@ block content
             h2 activity feed
 block modals
     <!-- New Work Order Modal -->
-    .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    .modal.fade#newticketModal.ticketModal.registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
-                .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-                .modal-header
-                    h2.modal-title.text-center Create Work Order
+                .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                        i.icon.ion-android-close
+                    h3.text-center Create Work Order
                 .modal-body
-
                     .row
                         form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
                             if user.role != 'resident'
@@ -303,17 +302,17 @@ block modals
                                 input.form-control#subject(type="text" placeholder="Subject" name="subject" required)
                             .form-group
                                 label Message
-                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5" required)
+                                textarea.form-control.bgray-input#message(type="text" placeholder="Message" name="message" rows="5" required)
 
-                            .form-group
-                                label
-                                    |   Attachment
-                                    span (optional)
-                                input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
-                            .modal-footer
-                                .pull-right.form-group-end
-                                    button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
-                                    input.btn.btn-livinn(type="submit" value="Submit" onclick="removeNoTickets()")
+                            .col-xs-12.btnsModal
+
+                                input.hidden#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
+                                a#attachFileCreateTicket.comment-attachment(style="margin-left:-2%;")
+                                    i.icon.ion-paperclip(aria-hidden='true')
+                                    |   Attach a file
+                                button.col-xs-4.col-xs-offset-2.btn.btn-livinn.pull-right.btn-submit-ticket#createTicket(type='submit') SUBMIT
+
+
 
     <!-- Ticket Read Modal -->
     .modal.fade.ticket-modal.readModal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
@@ -1012,6 +1011,7 @@ block scripts
             $('#ticketasignee').val('');
             $('#attachFileNote').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
             $('#attachFile').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
+            $('#attachFileCreateTicket').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
             $('.send_message').attr('data-current-user', '#{user._id}');
             $('.send_message').attr('data-current-user-image', '#{user.profile_picture}');
             $('.send_message').attr('data-name', '#{user.name.first}  #{user.name.last}');
@@ -1398,6 +1398,12 @@ block scripts
             $('#attachmentFileNote').trigger('click');
         });
 
+        $('#attachFileCreateTicket').click(function () {
+            $('#file-select').trigger('click');
+        });
+
+
+
         $("#attachmentFileNote").change(function () {
             var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
             $("#attachFileNote").text(fileName);
@@ -1410,6 +1416,11 @@ block scripts
         $("#attachmentFile").change(function () {
             var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
             $("#attachFile").text(fileName);
+        });
+
+        $("#file-select").change(function () {
+            var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+            $("#attachFileCreateTicket").text(fileName);
         });
 
         $('body').on('click', '.li-autocomplete', function () {

@@ -1084,7 +1084,7 @@ button:focus{
     .loaderPlatform .logoHeading {
       height: 80px;
     }
-      
+
     .logoHeading a {
       width: 125px;
     }
@@ -3114,6 +3114,13 @@ textarea.parsley-error {
   color: #81939E;
 }
 
+.bgray-input{
+    background-color: #DCDCDC;
+    width: 100% !important;
+}
+.btn-submit-ticket{
+    margin-right: -2% !important;
+}
 
 
 

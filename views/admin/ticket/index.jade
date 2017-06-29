@@ -877,7 +877,7 @@ block scripts
                 url: '/api/users/#{user._id}/tickets?page=' + page + options,
                 success: function (data) {
 
-                    //console.log(data);
+                    console.log(data);
 
                     var count = data.count;
                     var category = "";
@@ -1296,7 +1296,7 @@ block scripts
         $("#ticketasignee").autocomplete({
             source: function (request, response) {
                 $('#ticketasignee').css("cursor", "wait");
-                var url = "/api/users?page=" + 1 + "&search=" + $("#ticketasignee").val() + '&role=resident';
+                var url = "/api/users/noresidents/?page=" + 1 + "&search=" + $("#ticketasignee").val();
                 $.ajax({
                     type: "GET",
                     url: url,

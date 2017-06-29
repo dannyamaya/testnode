@@ -653,6 +653,10 @@ block scripts
     script.
       $(document).ready(function () {
 
+          if( getCookie("loading") == "ok" ){
+            wdtLoading.done();
+          }
+
           $('#page-selection').bootpag({
               total: 10,
               maxVisible: 5,
@@ -720,6 +724,7 @@ block scripts
           setTimeout(function(){
             $('#loaderPlatform').fadeOut("slow", function(){
                 wdtLoading.done();
+                setCookie();
             });
            }, 4000);
 
@@ -739,6 +744,30 @@ block scripts
       var userrole = '';
 
       /*=== HELPERS ===*/
+
+      function setCookie() {
+        var now = new Date();
+        var time = now.getTime();
+        var expireTime = time + 1000*36000;
+        now.setTime(expireTime);
+        document.cookie = 'loading=ok;expires='+now.toGMTString()+';path=/users';
+      }
+
+      function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+              }
+          }
+          return "";
+      }
 
       $(function () {
           $('[data-toggle="tooltip"]').tooltip()

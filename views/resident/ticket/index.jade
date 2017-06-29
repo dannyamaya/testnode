@@ -103,17 +103,16 @@ block content
             h2 activity feed
 block modals
     <!-- New Work Order Modal -->
-    .modal.fade#newticketModal.ticketModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    .modal.fade#newticketModal.ticketModal.registrationModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
-                .pull-right(style="position:absolute; right:15px; top:11px; z-index:2;")
-                    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-                .modal-header
-                    h2.modal-title.text-center Create Work Order
+                .modal-header.gradienteLivinn
+                    button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                        i.icon.ion-android-close
+                    h3.text-center Create Work Order
                 .modal-body
-
                     .row
-                        form.col-xs-12.col-sm-10.col-sm-offset-1#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
+                        form.col-xs-12.col-sm-10.col-sm-offset-1.ticket-mobile-create#ticketForm(action="/api/tickets" method="post" enctype="multipart/form-data" role="form" data-parsley-validate="")
                             if user.role != 'resident'
                                 .form-group
                                     label
@@ -133,17 +132,15 @@ block modals
                                 input.form-control#subject(type="text" placeholder="Subject" name="subject" required)
                             .form-group
                                 label Message
-                                textarea.form-control#message(type="text" placeholder="Message" name="message" rows="5" required)
+                                textarea.form-control.bgray-input#message(type="text" placeholder="Message" name="message" rows="5" required)
 
-                            .form-group
-                                label
-                                    |   Attachment
-                                    span (optional)
-                                input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
-                            .modal-footer
-                                .pull-right.form-group-end
-                                    button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
-                                    input.btn.btn-livinn(type="submit" value="Submit" onclick="removeNoTickets()")
+                            .col-xs-12.btnsModal
+
+                                input.hidden#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
+                                a#attachFileCreateTicket.comment-attachment(style="margin-left:-2%;")
+                                    i.icon.ion-paperclip(aria-hidden='true')
+                                    |   Attach a file
+                                button.col-xs-4.col-xs-offset-2.btn.btn-livinn.pull-right.btn-submit-ticket#createTicket(type='submit') SUBMIT
 
     <!-- Ticket Read Modal -->
     .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
@@ -171,12 +168,16 @@ block modals
 
                                     // Tab panes
                                     .col-xs-12.no-padding.tab-content
-                                        #comment.tab-pane.active(role='tabpanel')
+                                        form.tab-pane.active#comment(method="post" enctype="multipart/form-data" role='tabpanel')
                                             textarea.form-control.message_input(rows="5" placeholder="Type your comment here...")
                                             .bottom_wrapper.clearfix
                                                 .send_message.sendMessage(data-current-user="" data-current-user-image="")
                                                     .icon
                                                     .text Send
+                                                input#attachmentFile(type="file" style="display:none" name='attachments')
+                                                a#attachFile.comment-attachment.pull-right
+                                                    i.icon.ion-paperclip(aria-hidden='true')
+                                                    |   Attach a file
 
                                 .col-xs-12.nav-tabs-comments-wrapper
                                     // Nav tabs
@@ -222,6 +223,19 @@ block scripts
           }
         }
 
+        $('#attachFileCreateTicket').click(function () {
+            $('#file-select').trigger('click');
+        });
+
+        $('#attachFile').click(function () {
+            $('#attachmentFile').trigger('click');
+        });
+
+        $("#file-select").change(function () {
+            var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+            $("#attachFileCreateTicket").text(fileName);
+        });
+
         var openticketid = '';
 
         $(document).ready(function () {
@@ -236,6 +250,8 @@ block scripts
 
             filterTickets(1);
             loadCategories();
+
+            $('#categoryselect option[value="air conditioning"]').attr("selected", "selected");
         });
 
         //----------------- SOCKET.IO ---------------------------
@@ -363,6 +379,7 @@ block scripts
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    $('.containerNoTickets').remove();
                     console.log(response);
                     if (response.message == 'Work Order has been created') {
                         socket.emit('new-ticket', {ticket: response.ticket});
@@ -415,7 +432,8 @@ block scripts
                     options+= '&id='+search;
                 }
             }
-
+            if(options == '&category=null')
+                options = '';
             $.ajax({
                 type: "GET",
                 url: '/api/users/#{user._id}/tickets?page=' + page + options,
@@ -523,6 +541,8 @@ block scripts
             $('.messages').empty();
             $('.notes').empty();
             $("#ticketasigneeGroup").empty();
+            $('#attachFile').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
+            $('#attachFileCreateTicket').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file')
             $('.send_message').attr('data-current-user','#{user._id}');
             $('.send_message').attr('data-current-user-image','#{user.profile_picture}');
             $('.send_message').attr('data-name','#{user.name.first}  #{user.name.last}');
@@ -584,19 +604,26 @@ block scripts
                             this.name = arg.name;
                             this.section = arg.section;
                             this.created = arg.created;
+                            this.file = arg.file;
+                            this.filename = arg.filename;
 
                             this.draw = function (_this) {
                                 return function () {
                                     var $message;
                                     $message = $($('.message_template').clone().html());
-                                    $message.attr('data-user',_this.user);
-                                    $message.attr('data-side',_this.message_side);
-                                    $message.attr('data-name',_this.name);
-                                    $message.addClass(_this.message_side).find('.text').append('<label class="label-message">'+_this.name +'</label><br>');
-                                    $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">'+_this.created+'</p><p class="comment-chat">' + _this.text + '</p>');
-                                    $message.find('.img-user-conversation').attr('src',_this.profile_pic);
-                                    $('.'+_this.section).append($message);
-                                        return $message.addClass('appeared');
+                                    $message.attr('data-user', _this.user);
+                                    $message.attr('data-side', _this.message_side);
+                                    $message.attr('data-name', _this.name);
+                                    $message.addClass(_this.message_side).find('.text').append('<label class="label-message">' + _this.name + '</label><br>');
+                                    if (_this.file !== '')
+                                        $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">' + _this.created + '</p><p class="comment-chat">' + _this.text + '</p>' + '<p class="comment-attachment"><a href="' + _this.file + '" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i> ' + _this.filename + '</a></p>');
+                                    else
+                                        $message.addClass(_this.message_side).find('.text').append('<p class="comment-chat-date">' + _this.created + '</p><p class="comment-chat">' + _this.text + '</p>');
+
+
+                                    $message.find('.img-user-conversation').attr('src', _this.profile_pic);
+                                    $('.' + _this.section).append($message);
+                                    return $message.addClass('appeared');
                                 };
                             }(this);
                             return this;
@@ -608,21 +635,24 @@ block scripts
                                 $message_input = $('.message_input');
                                 return $message_input.val();
                             };
-                            sendMessage = function (text, user, side, profile_pic, name, section, created) {
+                            sendMessage = function (text, user, side, profile_pic, name, section, created, file, filename) {
                                 var $messages, message;
                                 if (text.trim() === '') {
                                     return;
                                 }
                                 $('.message_input').val('');
+                                $('#textareaNotes').val('');
                                 $messages = $('.messages');
                                 message = new Message({
                                     text: text,
                                     message_side: 'left',
                                     profile_pic: profile_pic,
-                                    user:user,
+                                    user: user,
                                     name: name,
-                                    section:section,
-                                    created:created
+                                    section: section,
+                                    created: created,
+                                    file: file,
+                                    filename: filename
                                 });
                                 message.draw();
                                 return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 0);
@@ -655,31 +685,35 @@ block scripts
 
                                 $('.sendMessage').click(function (e) {
                                     var ticket = response.ticket._id;
+                                    var formData = new FormData($('#comment')[0]);
+                                    formData.append('discussion_id', ticket);
+                                    formData.append('posted_by', $(this).attr('data-current-user'));
+                                    formData.append('comment', getMessageText());
 
                                     $.ajax({
                                         type: "POST",
                                         url: '/api/comments',
-                                        data: {
-                                            discussion_id: ticket,
-                                            posted_by: $(this).attr('data-current-user'),
-                                            comment: getMessageText()
-                                        },
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
                                         success: function (response) {
+                                            $('#attachFile').html('<i class="icon ion-paperclip" aria-hidden="true"></i> Attach a file');
+                                            $('#attachmentFile').val('');
+                                            var count = $('#commentslength').text();
+                                            $('#commentslength').text(parseFloat(count) + 1);
+                                            return sendMessage(getMessageText(), $('.sendMessage').attr('data-current-user'), 'left', $('.sendMessage').attr('data-current-user-image'), $('.sendMessage').attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'), response.comment.attachments, response.comment.file_name);
 
                                         },
                                         error: function (XMLHttpRequest, textStatus, errorThrown) {
 
                                         }
                                     });
-
-                                    return sendMessage(getMessageText(), $(this).attr('data-current-user'), 'left', $(this).attr('data-current-user-image'), $(this).attr('data-name'), 'messages', moment(Date.now()).format('YYYY-MM-DD h:mm:ss a'));
                                 });
 
                             }
 
                             //First Messages
-                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left',img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last,'messages',moment(response.ticket.created ).format('YYYY-MM-DD h:mm:ss a'));
-
+                            sendMessage(response.ticket.message, response.ticket.requested_by, 'left', img, response.ticket.requested_by.name.first + ' ' + response.ticket.requested_by.name.last, 'messages', moment(response.ticket.created).format('YYYY-MM-DD h:mm:ss a'), response.ticket.attachments, response.ticket.file_name);
                             //Another Messages
                             $.ajax({
                                 type: "GET",
@@ -691,7 +725,7 @@ block scripts
                                     $("#commentslength").text(response.comment.length+1);
                                     $.each(response.comment, function (index, value) {
                                         var parent = $('.messages').children().last().attr('data-user');
-                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages',moment(value.created).format('YYYY-MM-DD h:mm:ss a'));
+                                        sendMessage(value.comment, value.posted_by._id, 'left', value.posted_by.profile_picture, value.posted_by.name.first +' '+value.posted_by.name.last,'messages',moment(value.created).format('YYYY-MM-DD h:mm:ss a'),value.attachments, value.file_name);
                                     });
 
                                 },
@@ -787,6 +821,12 @@ block scripts
                 $('.tickets').html('');
                 getTickets(1, $("#search").val());
             });
+        });
+
+
+        $("#attachmentFile").change(function () {
+            var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+            $("#attachFile").text(fileName);
         });
 
         $('body').on('click', '.li-autocomplete', function () {
@@ -892,6 +932,9 @@ block scripts
 
           });
         };
+
+
+
 
 
 

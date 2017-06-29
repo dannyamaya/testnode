@@ -1,186 +1,187 @@
 doctype
 html.no-js(lang="es")
-  head
-    meta(charset="utf-8")
-    meta(content="width=device-width, initial-scale=1" name="viewport")
-    meta(name ="description" content="Livinn")
-    title Livinn | #{title}
+    head
+        meta(charset="utf-8")
+        meta(content="width=device-width, initial-scale=1" name="viewport")
+        meta(name ="description" content="Livinn")
+        title Livinn | #{title}
 
-    <!-- FAVICON -->
-    link(rel='apple-touch-icon', sizes='57x57', href='/favicon/apple-icon-57x57.png')
-    link(rel='apple-touch-icon', sizes='60x60', href='/favicon/apple-icon-60x60.png')
-    link(rel='apple-touch-icon', sizes='72x72', href='/favicon/apple-icon-72x72.png')
-    link(rel='apple-touch-icon', sizes='76x76', href='/favicon/apple-icon-76x76.png')
-    link(rel='apple-touch-icon', sizes='114x114', href='/favicon/apple-icon-114x114.png')
-    link(rel='apple-touch-icon', sizes='120x120', href='/favicon/apple-icon-120x120.png')
-    link(rel='apple-touch-icon', sizes='144x144', href='/favicon/apple-icon-144x144.png')
-    link(rel='apple-touch-icon', sizes='152x152', href='/favicon/apple-icon-152x152.png')
-    link(rel='apple-touch-icon', sizes='180x180', href='/favicon/apple-icon-180x180.png')
-    link(rel='icon', type='image/png', sizes='192x192', href='/favicon/android-icon-192x192.png')
-    link(rel='icon', type='image/png', sizes='32x32', href='/favicon/favicon-32x32.png')
-    link(rel='icon', type='image/png', sizes='96x96', href='/favicon/favicon-96x96.png')
-    link(rel='icon', type='image/png', sizes='16x16', href='/favicon/favicon-16x16.png')
-    link(rel='manifest', href='/favicon/manifest.json')
-    meta(name='msapplication-TileColor', content='#ffffff')
-    meta(name='msapplication-TileImage', content='/ms-icon-144x144.png')
-    meta(name='theme-color', content='#000000')
+        <!-- FAVICON -->
+        link(rel='apple-touch-icon', sizes='57x57', href='/favicon/apple-icon-57x57.png')
+        link(rel='apple-touch-icon', sizes='60x60', href='/favicon/apple-icon-60x60.png')
+        link(rel='apple-touch-icon', sizes='72x72', href='/favicon/apple-icon-72x72.png')
+        link(rel='apple-touch-icon', sizes='76x76', href='/favicon/apple-icon-76x76.png')
+        link(rel='apple-touch-icon', sizes='114x114', href='/favicon/apple-icon-114x114.png')
+        link(rel='apple-touch-icon', sizes='120x120', href='/favicon/apple-icon-120x120.png')
+        link(rel='apple-touch-icon', sizes='144x144', href='/favicon/apple-icon-144x144.png')
+        link(rel='apple-touch-icon', sizes='152x152', href='/favicon/apple-icon-152x152.png')
+        link(rel='apple-touch-icon', sizes='180x180', href='/favicon/apple-icon-180x180.png')
+        link(rel='icon', type='image/png', sizes='192x192', href='/favicon/android-icon-192x192.png')
+        link(rel='icon', type='image/png', sizes='32x32', href='/favicon/favicon-32x32.png')
+        link(rel='icon', type='image/png', sizes='96x96', href='/favicon/favicon-96x96.png')
+        link(rel='icon', type='image/png', sizes='16x16', href='/favicon/favicon-16x16.png')
+        link(rel='manifest', href='/favicon/manifest.json')
+        meta(name='msapplication-TileColor', content='#ffffff')
+        meta(name='msapplication-TileImage', content='/ms-icon-144x144.png')
+        meta(name='theme-color', content='#000000')
 
-    <!-- CSS -->
-    link(href="/css/bootstrap.min.css", rel="stylesheet")
-    link(href="/css/jquery-ui.css" rel="stylesheet")
-    link(href="/css/font-awesome.min.css" rel="stylesheet" type="text/css")
-    link(href="/css/animate.min.css", rel="stylesheet")
-    link(href="/css/ionicons.min.css" rel="stylesheet")
-    link(href="/css/style.css", rel="stylesheet")
-    block header
-  body
+        <!-- CSS -->
+        link(href="/css/bootstrap.min.css", rel="stylesheet")
+        link(href="/css/jquery-ui.css" rel="stylesheet")
+        link(href="/css/font-awesome.min.css" rel="stylesheet" type="text/css")
+        link(href="/css/animate.min.css", rel="stylesheet")
+        link(href="/css/ionicons.min.css" rel="stylesheet")
+        link(href="/css/style.css", rel="stylesheet")
+        block header
+    body
 
-    .col-xs-6.col-sm-2.no-padding.dashboard-menu.off-canvas-menu-closed#off-canvas-menu
-        .col-xs-12
-          .col-xs-8.col-xs-offset-2.col-md-8.col-md-offset-2.logo-dashboard
-              img.img-responsive(src="/img/logolivinn-blanco.svg", alt="Livinn")
-          ul.list-unstyled.col-xs-12.no-padding
-              //- li.inactive DASHBOARD
-              if user.role == 'admin' || user.role == 'operation manager'
-                  li
-                      a(href="/users")
-                        i.menu-users-icon
-                        span Users
-              li
-                  a(href="/tickets")
-                    i.menu-tickets-icon
-                    span Work Orders
-                    i.label.label-livinn#ticketcount 0
+        .col-xs-6.col-sm-2.no-padding.dashboard-menu.off-canvas-menu-closed#off-canvas-menu
+            .col-xs-12
+                .col-xs-8.col-xs-offset-2.col-md-8.col-md-offset-2.logo-dashboard
+                    img.img-responsive(src="/img/logolivinn-blanco.svg", alt="Livinn")
+                ul.list-unstyled.col-xs-12.no-padding
+                    //- li.inactive DASHBOARD
+                    if user.role == 'admin' || user.role == 'operation manager'
+                        li
+                            a(href="/users")
+                                i.menu-users-icon
+                                span Users
+                    li
+                        a(href="/tickets")
+                            i.menu-tickets-icon
+                            span Work Orders
+                            i.label.label-livinn.hidden#ticketcount 0
 
-        ul.list-unstyled.col-xs-12.no-padding.userSettings(style="z-index: 2000;")
-          li.dropdown.col-xs-12.no-pading
-            a.dropdown-toggle.col-xs-12(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-              | Settings
-              i.ion-ios-arrow-down.pull-right
-            ul.dropdown-menu.col-xs-12.no-padding
-              li.userSettingOption
-                a(href='/settings/personal-information') Personal Information
-              li.userSettingOption
-                a(href='/settings/update-password') Update Password
-          li.col-xs-12
-              a(href='/logout') Log Out
+            ul.list-unstyled.col-xs-12.no-padding.userSettings(style="z-index: 2000;")
+                li.dropdown.col-xs-12.no-pading
+                    a.dropdown-toggle.col-xs-12(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                        | Settings
+                        i.ion-ios-arrow-down.pull-right
+                    ul.dropdown-menu.col-xs-12.no-padding
+                        li.userSettingOption
+                            a(href='/settings/personal-information') Personal Information
+                        li.userSettingOption
+                            a(href='/settings/update-password') Update Password
+                li.col-xs-12
+                    a(href='/logout') Log Out
 
-    .col-xs-12.no-padding.dashcontainer#dashcontainer
-        .col-xs-12.no-padding.heading.affix
-            .col-xs-5.navbar-brand.logoHeading
-              a.col-xs-12.col-sm-5.col-md-4.col-lg-3(href="#")
-                img(class="img-responsive" src="../img/logolivinn-blanco.svg")
-            .col-xs-6.no-padding.pull-right.userInfo
-                ul.nav.navbar-nav
-                  li.dropdown
-                    img.img-circle.user-disp-img(src="#{user.profile_picture}")
-                    span.hidden.user-disp-name #{user.name.first} #{user.name.last}
-                  button.toggle-btn.toggle-menu#btn-mobileMenu.btn-mobileMenu
-                    span
-                    span
-                    span
-        .col-xs-12.bordeGradiente
+        .col-xs-12.no-padding.dashcontainer#dashcontainer
+            .col-xs-12.no-padding.heading.affix
+                .col-xs-5.navbar-brand.logoHeading
+                    a.col-xs-12.col-sm-5.col-md-4.col-lg-3(href="#")
+                        img(class="img-responsive" src="../img/logolivinn-blanco.svg")
+                .col-xs-6.no-padding.pull-right.userInfo
+                    ul.nav.navbar-nav
+                        li.dropdown
+                            img.img-circle.user-disp-img(src="#{user.profile_picture}")
+                            span.hidden.user-disp-name #{user.name.first} #{user.name.last}
+                        button.toggle-btn.toggle-menu#btn-mobileMenu.btn-mobileMenu
+                            span
+                            span
+                            span
+            .col-xs-12.bordeGradiente
 
 
-        block content
+            block content
 
-    block modals
-    .alert.alert-warning.animated.col-xs-12.col-sm-6.col-sm-offset-3#warning
-        p.text-center
-    .alert.alert-success.animated.col-xs-12.col-sm-6.col-sm-offset-3#success
-        p.text-center
-    script(src="/js/jquery-1.12.1.min.js")
-    script(src="/js/jquery-ui.min.js")
-    script(src="/js/bootstrap.min.js")
-    script(src="/js/moment.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js")
-    script.
+        block modals
+        .alert.alert-warning.animated.col-xs-12.col-sm-6.col-sm-offset-3#warning
+            p.text-center
+        .alert.alert-success.animated.col-xs-12.col-sm-6.col-sm-offset-3#success
+            p.text-center
+        script(src="/js/jquery-1.12.1.min.js")
+        script(src="/js/jquery-ui.min.js")
+        script(src="/js/bootstrap.min.js")
+        script(src="/js/moment.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js")
+        script.
 
-        //-------------------------------------------------------------------------
-        //            SOCKET.IO
-        //-------------------------------------------------------------------------
+            //-------------------------------------------------------------------------
+            //            SOCKET.IO
+            //-------------------------------------------------------------------------
 
-        var socket = io('/superadmin');
+            var socket = io('/superadmin');
 
-        socket.on('new-ticket', function (dataServer) {
-          var ticketcount = parseInt($('#ticketcount').html());
-          ticketcount++;
-          $('#ticketcount').html(ticketcount);
-        });
+            socket.on('new-ticket', function (dataServer) {
+                var ticketcount = parseInt($('#ticketcount').html());
+                ticketcount++;
+                $('#ticketcount').removeClass('hidden');
+                $('#ticketcount').html(ticketcount);
+            });
 
-        //-------------------------------------------------------------------------
-        //            MENU & NAVIGATION
-        //-------------------------------------------------------------------------
+            //-------------------------------------------------------------------------
+            //            MENU & NAVIGATION
+            //-------------------------------------------------------------------------
 
-        $('.toggle-menu').click(function() {
-            toggleMenu();
-        });
+            $('.toggle-menu').click(function () {
+                toggleMenu();
+            });
 
-        function toggleMenu() {
-          $('.toggle-btn').toggleClass( "active" );
+            function toggleMenu() {
+                $('.toggle-btn').toggleClass("active");
 
-          if ($('#off-canvas-menu').hasClass('off-canvas-menu-open')) {
-              $('#off-canvas-menu').removeClass('off-canvas-menu-open');
-              $('#off-canvas-menu').addClass('off-canvas-menu-closed');
-              $('#dashcontainer').addClass('slideContainerRight');
-              $('#dashcontainer').removeClass('slideContainerLeft');
-              $('.logoHeading').children().addClass('col-sm-5 col-lg-3');
-              $('.logoHeading').children().removeClass('col-sm-7 col-lg-4');
+                if ($('#off-canvas-menu').hasClass('off-canvas-menu-open')) {
+                    $('#off-canvas-menu').removeClass('off-canvas-menu-open');
+                    $('#off-canvas-menu').addClass('off-canvas-menu-closed');
+                    $('#dashcontainer').addClass('slideContainerRight');
+                    $('#dashcontainer').removeClass('slideContainerLeft');
+                    $('.logoHeading').children().addClass('col-sm-5 col-lg-3');
+                    $('.logoHeading').children().removeClass('col-sm-7 col-lg-4');
 
-          } else {
-              $('#off-canvas-menu').removeClass('off-canvas-menu-closed');
-              $('#off-canvas-menu').addClass('off-canvas-menu-open');
-              $('#dashcontainer').addClass('slideContainerLeft');
-              $('#dashcontainer').removeClass('slideContainerRight');
-              $('.logoHeading').children().removeClass('col-sm-5 col-lg-3');
-              $('.logoHeading').children().addClass('col-sm-7 col-lg-4');
-          }
-        }
+                } else {
+                    $('#off-canvas-menu').removeClass('off-canvas-menu-closed');
+                    $('#off-canvas-menu').addClass('off-canvas-menu-open');
+                    $('#dashcontainer').addClass('slideContainerLeft');
+                    $('#dashcontainer').removeClass('slideContainerRight');
+                    $('.logoHeading').children().removeClass('col-sm-5 col-lg-3');
+                    $('.logoHeading').children().addClass('col-sm-7 col-lg-4');
+                }
+            }
 
-        function deployFilters() {
-          if ($("#userFilters").hasClass("userFiltersUp")) {
-            $("#userFilters").removeClass("userFiltersUp");
-            $("#userFilters").addClass("userFiltersDown");
-          }
-        }
+            function deployFilters() {
+                if ($("#userFilters").hasClass("userFiltersUp")) {
+                    $("#userFilters").removeClass("userFiltersUp");
+                    $("#userFilters").addClass("userFiltersDown");
+                }
+            }
 
-        function collapseFilters() {
-          if ($("#userFilters").hasClass("userFiltersDown")) {
-            $("#userFilters").removeClass("userFiltersDown");
-            $("#userFilters").addClass("userFiltersUp");
-          }
-        }
+            function collapseFilters() {
+                if ($("#userFilters").hasClass("userFiltersDown")) {
+                    $("#userFilters").removeClass("userFiltersDown");
+                    $("#userFilters").addClass("userFiltersUp");
+                }
+            }
 
-        //-------------------------------------------------------------------------
-        //            ALERTS
-        //-------------------------------------------------------------------------
+            //-------------------------------------------------------------------------
+            //            ALERTS
+            //-------------------------------------------------------------------------
 
-        function warningAlert(message){
-            $('#warning p').html(message);
-            $('#warning').addClass("slideInDown");
-            $('#warning').fadeIn('slow');
-            setTimeout(function(){
-                $('#warning').fadeOut('slow');
-                $('#warning').removeClass("slideInDown");
-            }, 2600);
-        }
+            function warningAlert(message) {
+                $('#warning p').html(message);
+                $('#warning').addClass("slideInDown");
+                $('#warning').fadeIn('slow');
+                setTimeout(function () {
+                    $('#warning').fadeOut('slow');
+                    $('#warning').removeClass("slideInDown");
+                }, 2600);
+            }
 
-        function successAlert(message){
-            $('#success p').html(message);
-            $('#success').addClass("slideInDown");
-            $('#success').fadeIn('slow');
-            setTimeout(function(){
-                $('#success').fadeOut('slow');
-                $('#success').removeClass("slideInDown");
-            }, 2600);
-        }
+            function successAlert(message) {
+                $('#success p').html(message);
+                $('#success').addClass("slideInDown");
+                $('#success').fadeIn('slow');
+                setTimeout(function () {
+                    $('#success').fadeOut('slow');
+                    $('#success').removeClass("slideInDown");
+                }, 2600);
+            }
 
-        //-----------------------------------------------------------------------
-        //            OTHER FUCNTIONS
-        //-------------------------------------------------------------------------
+            //-----------------------------------------------------------------------
+            //            OTHER FUCNTIONS
+            //-------------------------------------------------------------------------
 
-        function removeNoTickets() {
-          $('.containerNoTickets').remove();
-        }
+            function removeNoTickets() {
+                $('.containerNoTickets').remove();
+            }
 
-    block scripts
+        block scripts

@@ -755,7 +755,6 @@ module.exports = {
             }
         }
 
-        console.log(options);
 
         User.findById(req.params.id, function (err, user) {
             if (err) {
@@ -776,7 +775,6 @@ module.exports = {
                                 callback(err, null);
                             } else {
                                 if(req.query.created_by){
-                                    console.log('if crteated by');
                                     var regexp = new RegExp(req.query.created_by, 'i');
                                     var tickets = t.filter( function(val){
                                         return regexp.test(val.created_by.name.first);
@@ -784,7 +782,6 @@ module.exports = {
                                     callback(null, tickets);
                                 }
                                 else if(req.query.assigned_to){
-                                    console.log('if assigned to');
 
                                     var regexp = new RegExp(req.query.assigned_to, 'i');
 
@@ -842,6 +839,7 @@ module.exports = {
                         }
 
                         conf.rows = tickets;
+                        console.log(tickets);
                         var result = nodeExcel.execute(conf);
                         res.setHeader('Content-Type', 'application/vnd.openxmlformats');
                         res.setHeader("Content-Disposition", "attachment; filename=" + "work-orders-downloads.xlsx");

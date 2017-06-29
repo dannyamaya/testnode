@@ -304,7 +304,7 @@ module.exports = {
                             } else {
                                 //Envia correo al asignado
                                 ticket.status = 1;
-                                //mailer.newAssignedTo(user,ticket);
+                                mailer.newAssignedTo(user,ticket);
                             }
                         });
                 }
@@ -449,15 +449,14 @@ module.exports = {
                                 callback(err, null);
                             } else {
                                 if(req.query.created_by){
-                                    console.log('if crteated by');
                                     var regexp = new RegExp(req.query.created_by, 'i');
                                     var tickets = t.filter( function(val){
                                         return regexp.test(val.created_by.name.first);
                                     });
                                     callback(null, tickets);
+
                                 }
                                 else if(req.query.assigned_to){
-                                    console.log('if assigned to');
 
                                     var regexp = new RegExp(req.query.assigned_to, 'i');
 
@@ -470,6 +469,7 @@ module.exports = {
 
                                     callback(null, tickets);
                                 }else{
+
                                     tickets = t;
                                     callback(null, tickets);
                                 }
@@ -488,6 +488,7 @@ module.exports = {
                         });
                     }
                 ], function (err, results) {
+
                     if (err) {
                         console.log('ERROR: ' + err);
                         return res.status(500).json({
@@ -508,15 +509,8 @@ module.exports = {
                             }
                         }
                         else{
-
-                            console.log('Entra Metodo');
-
                             var tickets = results[0].filter( function(val){
-                                var r= '';
-                                if (val.requested_by !== null) {
-                                    r = val.requested_by._id;
-                                }
-                                return (r == req.user.id);
+                                return (val.requested_by._id == req.user.id);
                             });
                         }
 

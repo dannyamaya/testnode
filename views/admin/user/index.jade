@@ -980,7 +980,8 @@ block scripts
                           success: function (response) {
 
                               $("#numcontractRead").text(response.resident.contract_number);
-                              $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
+                              if(response.resident.birth_date)
+                                $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
                               $("#apartmentRead").text(response.resident.apartment);
                               $("#typeRead").text(response.resident.apartment_type);
                               $("#bathroomRead").text(response.resident.bathroom);
@@ -1050,7 +1051,7 @@ block scripts
                                   console.log(response);
 
                                   $("#inputUpdateContract").val(response.resident.contract_number);
-                                  if(!typeof response.resident.birth_date == null )
+                                  if(response.resident.birth_date)
                                       $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
                                   $("#inputUpdateApartment").val(response.resident.apartment);
                                   $("#inputUpdateApartmentType").val(response.resident.apartment_type);

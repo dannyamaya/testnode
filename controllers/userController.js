@@ -831,8 +831,71 @@ module.exports = {
             return res.status(200).json({user: user});
         });
 
-    }
-    ,
+    },
+
+    readUsersExceptResidents: function (req, res, next) {
+
+        var search = '';
+        var page = req.query.page || 1;
+        if (req.query.search) {
+            search = req.query.search;
+        }
+
+        var query = {};
+        query['role'] = {$nin: ["resident"]};
+        query['active'] = true;
+
+        if (req.user.role != 'admin') {
+            query['location'] = req.user.location;
+        }
+
+        if (req.user.role == 'admin' && req.query.location) {
+            query['location'] = req.query.location;
+        }
+
+        if (req.query.role && req.query.role != 'admin') {
+            query['role'] = new RegExp(req.query.role, 'i');
+        }
+
+        async.parallel([
+
+            function (callback) {
+
+                User.find(query).or([
+                    {
+                        'name.first': new RegExp(search, 'i')
+                    },
+                    {
+                        'name.last': new RegExp(search, 'i')
+                    },
+                    {
+                        email: new RegExp(search, 'i')
+                    },
+                    {
+                        doc: new RegExp(search, 'i')
+                    }
+                ])
+                    .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, users) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        callback(err, null);
+                    } else {
+                        callback(null, users);
+                    }
+                });
+            }
+
+        ], function (err, results) {
+            if (err) {
+                return res.status(500).json({error: true, message: 'Server connection error. Please try later'});
+            } else {
+                return res.status(200).json({error: false, users: results[0], page: parseInt(page)});
+            }
+        });
+
+    },
+
+
 };
 
 

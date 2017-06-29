@@ -63,13 +63,7 @@ block content
                                     input.form-control#search(type="text" name="name" placeholder="Search")
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#categoryselect
-                                option(value="" selected) Category
-                                option(value="cleaning services") Cleaning Services
-                                option(value="customer service") Customer Service
-                                option(value="support") IT Support
-                                option(value="maintenance") Maintenance
-                                option(value="visits") Visits
-                                option(value="others") Others
+
                         .select.select-livinn.col-xs-2
                             select.form-control.filter#statusselect
                                 option(value="" selected) Status
@@ -95,9 +89,9 @@ block content
       img.img-responsive.fondoNoTickets(src="../img/fondoNoTickets1.jpg")
       .col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2.contentNoTickets
         .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-8.col-lg-offset-4.no-padding
-          h2 Welcome! 
-          p 
-            span Your Work orders view is empty. 
+          h2 Welcome!
+          p
+            span Your Work orders view is empty.
             br
             | If you want to create a Work Order, click on the NEW button.
         .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
@@ -131,14 +125,9 @@ block modals
                             .form-group
                                 label Category
                                 .select
-                                    select.form-control(name="category" required)
+                                    select.form-control#newTicketCategory(name="category" required)
                                         option(value="") Please choose a category
-                                        option(value="cleaning services") Cleaning Services
-                                        option(value="customer service") Customer Service
-                                        option(value="support") IT Support
-                                        option(value="maintenance") Maintenance
-                                        option(value="visits") Visits
-                                        option(value="others") Others
+
                             .form-group
                                 label Subject
                                 input.form-control#subject(type="text" placeholder="Subject" name="subject" required)
@@ -154,7 +143,7 @@ block modals
                             .modal-footer
                                 .pull-right.form-group-end
                                     button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
-                                    input.btn.btn-livinn(type="submit" value="Submit")
+                                    input.btn.btn-livinn(type="submit" value="Submit" onclick="removeNoTickets()")
 
     <!-- Ticket Read Modal -->
     .modal.fade.ticket-modal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
@@ -246,7 +235,7 @@ block scripts
             });
 
             filterTickets(1);
-
+            loadCategories();
         });
 
         //----------------- SOCKET.IO ---------------------------
@@ -399,6 +388,7 @@ block scripts
         //----------------- READ ---------------------------
         function getTickets(page, search) {
 
+
             if(page =='1') {
                 $('.tickets').hide().html("");
                 $('#loader').fadeIn("slow");
@@ -508,8 +498,9 @@ block scripts
 
         /* Get params from all filters */
         function filterTickets(page) {
-            var search = $('#search').val().trim();
-            getTickets(page, search);
+                var search = $('#search').val().trim();
+                getTickets(page, search);
+
         }
 
         $('#searchForm').submit(function (evt) {
@@ -856,6 +847,51 @@ block scripts
             });
         });
 
+        // GET TICKET CATEGORIES AND SUBCATEGORIES
+        function loadCategories(){
+          var queryopt = '';
+          var categories = new Array();
+          //- if(category && category != ''){
+          //-   queryopt = '?category='+category;
+          //- }
+          $.ajax({
+                type: "GET",
+                url: '/api/ticket/categories',
+                success: function (data) {
+                    categories = data.categories;
+                    $('#newTicketCategory').html('');
+                    $('#categoryselect').html('');
+
+                    for(var i=0; i < categories.length ; i++){
+                      $('#newTicketCategory').prepend($('<option>', {
+                        value: categories[i].name,
+                        text: categories[i].name
+                      }));
+
+                        $('#categoryselect').prepend($('<option>', {
+                            value: categories[i].name,
+                            text: categories[i].name
+                        }));
+                    }
+
+                    $('#newTicketCategory').prepend($('<option>', {
+                      value: '',
+                      text: 'Choose a Category',
+                      selected: true
+                    }));
+
+                    $('#categoryselect').prepend($('<option>', {
+                      value: '',
+                      text: 'Choose a Category',
+                      selected: true
+                    }));
+                },
+                error: function(xhr){
+                  console.log(xhr);
+                }
+
+          });
+        };
 
 
 

@@ -5,7 +5,7 @@ block header
 
 block content
     //- LOADER
-    .wdt-loading-screen.gradienteLivinn#loaderPlatform(style=" width: 100%; height: 100%; position: fixed; z-index: 999998; top: 0; left: 0; overflow: hidden;")
+    .wdt-loading-screen.gradienteLivinn#loaderPlatform.loaderPlatform(style=" width: 100%; height: 100%; position: fixed; z-index: 999998; top: 0; left: 0; overflow: hidden;")
       .wdt-loading-phrases
         .wdt-loading-phrase-category(data-category='default')
           .wdt-loading-phrase Getting New Users...
@@ -14,7 +14,7 @@ block content
           .wdt-loading-phrase Loading DOM...
           .wdt-loading-phrase Loading Tickets...
           .wdt-loading-phrase Looking for managers...
-      .col-xs-6.col-xs-offset-3.col-sm-4.col-sm-offset-4.col-md-2.col-md-offset-5.navbar-brand.logoHeading(style="position: absolute; bottom: 20px; height:100px;")
+      .col-xs-6.col-xs-offset-3.col-sm-4.col-sm-offset-4.col-md-2.col-md-offset-5.navbar-brand.logoHeading(style="position: absolute;")
         img(class="img-responsive" src="../img/logolivinn-blanco.svg")
 
     //- DESKTOP FORM
@@ -728,9 +728,6 @@ block scripts
             });
            }, 4000);
 
-
-
-
       });
 
       /*=== GLOBAL VARIABLES ===*/
@@ -864,8 +861,8 @@ block scripts
                       $('#registrationModal').modal('hide');
                       $('.residentFields').show();
                       document.getElementById("registrationForm").reset();
-                      $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td style='width:33px;'><img class='img-circle table-profile-img' src='"+response.users.profile_picture + "'></td><td>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td class='text-capitalize'>" + response.users.email + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
-                      successAlert("User has been created");
+                      $("#userstable tbody").prepend("<tr class='hvr-grow-shadow'><td><input type='checkbox' value='" + response.users._id + "'></td><td style='width:33px;'><img class='img-circle table-profile-img' src='"+response.users.profile_picture + "'></td><td>" + response.users.name.first + "</td><td class='text-capitalize'>" + response.users.name.last + "</td><td class=''>" + response.users.email + "</td><td>"+ response.users.doc.typedoc +"</td><td>" + response.users.doc.number + "</td><td>" + response.users.phone.number + "</td><td>" + response.users.role + "</td><td>" + response.users.location + "</td><td>" + moment(response.users.created).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.updated).format('YYYY-DD-MM') + "</td><td>" + moment(response.users.lastlogin).format('YYYY-DD-MM') + "</td></tr>");
+                      successAlert(response.message);
                       $('#registrationForm').parsley().reset();
                   }
               },
@@ -1191,11 +1188,12 @@ block scripts
               data: {users: users},
               url: '/api/users',
               success: function (response) {
+                  console.log(response);
                   $('input:checkbox:checked').each(function () {
                       $(this).parents("tr").remove();
                   });
                   $('#deleteUserModal').modal('hide');
-                  successAlert(message);
+                  successAlert(response.message);
               },
               error: function (XMLHttpRequest, textStatus, errorThrown) {
                   var message = XMLHttpRequest.responseJSON.message;

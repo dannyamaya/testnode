@@ -299,7 +299,7 @@ module.exports = {
                             } else {
                                 //Envia correo al asignado
                                 ticket.status = 1;
-                                //mailer.newAssignedTo(user,ticket);
+                                mailer.newAssignedTo(user,ticket);
                             }
                         });
                 }

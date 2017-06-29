@@ -764,11 +764,12 @@ module.exports = {
                         .populate('created_by', 'name company email phone profile_picture')
                         .populate('requested_by', 'name company email phone profile_picture')
                         .populate('assigned_to', 'name company email phone profile_picture')
-                        .sort({created: -1}).limit(10).skip((page - 1) * 10).exec(function (err, t) {
+                        .sort({created: -1}).exec(function (err, t) {
                             if (err) {
                                 callback(err, null);
                             } else {
                                 if(req.query.created_by){
+
                                     var regexp = new RegExp(req.query.created_by, 'i');
                                     var tickets = t.filter( function(val){
                                         return regexp.test(val.created_by.name.first);

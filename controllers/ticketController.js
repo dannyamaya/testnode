@@ -48,6 +48,10 @@ function getLocation(location){
     return loc;
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
 module.exports = {
 
@@ -555,7 +559,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.created_by.name.first+' '+row.created_by.name.last));
+                return JSON.parse( JSON.stringify( capitalizeFirstLetter(row.created_by.name.first)+' '+capitalizeFirstLetter(row.created_by.name.last) ));
               }
             },
             {

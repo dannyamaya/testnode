@@ -1,5 +1,8 @@
 var Ticket = require('../models/ticket.js'),
-    User = require('../models/user.js');
+    User = require('../models/user.js'),
+    Resident = require('../models/resident.js'),
+    Comment = require('../models/comment.js'),
+    Note = require('../models/note.js');
 var mailer = require('../mailer/mailer'),
     async = require("async");
 var ObjectId = require('mongoose').Types.ObjectId;
@@ -47,6 +50,26 @@ function getLocation(location){
     }
     return loc;
 }
+
+function getLocationCode(location) {
+    var loc = 'NOTFOUND';
+    if (location == "Barranquilla - Villa Campestre") {
+        loc = "VC";
+    } else if (location == "Bogotá - Calle 18") {
+        loc = "C18";
+    } else if (location == "Bogotá - Calle 21") {
+        loc = "C21";
+    } else if (location == "Bogotá - Calle 33") {
+        loc = "C33";
+    } else if (location == "Santiago - Lord Cochrane") {
+        loc = "LC";
+    } else if (location == "Viña Del Mar - Alvarez") {
+        loc = "AL";
+    } else {
+
+    }
+    return loc;
+};
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -535,9 +558,10 @@ module.exports = {
             {
               caption:'Number',
               type:'string',
-              width:200.7109375,
+              width:400,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row._id));
+                var theid = moment(row.ticket.created).format('YYYY.MM.DD') + "-" + getLocationCode(row.ticket.location) + "-" + row.ticket.id;
+                return JSON.parse(JSON.stringify(theid));
               }
             },
             {
@@ -545,7 +569,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.subject));
+                return JSON.parse(JSON.stringify(row.ticket.subject));
               }
             },
             {
@@ -553,7 +577,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse( JSON.stringify( capitalizeFirstLetter(row.created_by.name.first)+' '+capitalizeFirstLetter(row.created_by.name.last) ));
+                return JSON.parse( JSON.stringify( capitalizeFirstLetter(row.ticket.created_by.name.first)+' '+capitalizeFirstLetter(row.ticket.created_by.name.last) ));
               }
             },
             {
@@ -561,8 +585,11 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
-                return '';
+                if(row.resident.apartment){
+                    return JSON.parse(JSON.stringify(row.resident.apartment));
+                } else {
+                    return '-';
+                }
               }
             },
             {
@@ -570,8 +597,11 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
-                return '';
+                if(row.resident.apartment_type){
+                    return JSON.parse(JSON.stringify(row.resident.apartment_type));
+                } else {
+                    return '-';
+                }
               }
             },
             {
@@ -579,8 +609,11 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
-                return '';
+                if(row.resident.bed){
+                    return JSON.parse(JSON.stringify(row.resident.bed));
+                } else {
+                    return '-';
+                }
               }
             },
             {
@@ -588,8 +621,14 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
-                return '';
+                var response= '';
+                if(row.comments && row.comments.length > 0 ){
+                    for (var i = 0; i < row.comments.length; i++) {
+                        response += row.comments[i].posted_by.name.first+' '+row.comments[i].posted_by.name.last+':'+row.comments[i].comment+',';
+                    };
+                }
+
+                return response;
               }
             },
             {
@@ -597,8 +636,14 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                //return JSON.parse(JSON.stringify(row.nombre_cuenta));
-                return '';
+                var responsen= '';
+                if(row.notes && row.notes.length > 0 ){
+                    for (var i = 0; i < row.notes.length; i++) {
+                        responsen += row.notes[i].posted_by.name.first+' '+row.notes[i].posted_by.name.last+':'+row.notes[i].note+',';
+                    };
+                }
+
+                return responsen;
               }
             },
             {
@@ -606,7 +651,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.category));
+                return JSON.parse(JSON.stringify( capitalizeFirstLetter(row.ticket.category) ));
               }
             },
             {
@@ -615,7 +660,7 @@ module.exports = {
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
                 if(row.subcategory != null){
-                    return JSON.parse(JSON.stringify(row.subcategory));
+                    return JSON.parse(JSON.stringify( capitalizeFirstLetter(row.ticket.subcategory) ));
                 } else {
                     return '-';
                 }
@@ -623,10 +668,10 @@ module.exports = {
             },
             {
               caption:'Priority',
-              type:'string',
+              type:'number',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.priority));
+                return JSON.parse(JSON.stringify(row.ticket.priority));
               }
             },
             {
@@ -634,7 +679,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.created));
+                return JSON.parse(JSON.stringify(row.ticket.created));
               }
             },
             {
@@ -642,7 +687,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.created));
+                return JSON.parse(JSON.stringify(''));
               }
             },
             {
@@ -650,7 +695,7 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return JSON.parse(JSON.stringify(row.closed));
+                return JSON.parse(JSON.stringify(row.ticket.closed));
               }
             },
             {
@@ -658,7 +703,15 @@ module.exports = {
               type:'string',
               width:200.7109375,
               beforeCellWrite:function(row, cellData){
-                return '';
+                var response = '';
+                for (var i = 0; i < row.ticket.assigned_to.length ; i++) {
+                    if(i==row.ticket.assigned_to.length - 1){
+                        response+=row.ticket.assigned_to[i].name.first+' '+row.ticket.assigned_to[i].name.last+'. ';
+                    } else {
+                        response+=row.ticket.assigned_to[i].name.first+' '+row.ticket.assigned_to[i].name.last+', ';
+                    }
+                };
+                return response;
               }
             },
             {
@@ -758,11 +811,13 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({error: true, message: 'User not found'});
             } else {
-                async.parallel([
-                    function (callback) {
+
+                async.waterfall([
+                    function(callback) {
+
                         Ticket.find(options)
                         .populate('created_by', 'name company email phone profile_picture')
-                        .populate('requested_by', 'name company email phone profile_picture')
+                        .populate('requested_by', 'name company email phone profile_picture role')
                         .populate('assigned_to', 'name company email phone profile_picture')
                         .sort({created: -1}).exec(function (err, t) {
                             if (err) {
@@ -794,55 +849,124 @@ module.exports = {
                                 }
                             }
                         });
+                    },
+                    function(tickets, callback) {
+
+                        async.map(tickets, function(ticket, done) {
+
+                            if(ticket.requested_by.role != 'resident'){
+                                done(null, {
+                                  ticket: ticket,
+                                  resident: {}
+                                });
+                            } else {
+                                Resident.findOne({user_id: ticket.requested_by._id}, function(err, requestedby) {
+                                  if (err){
+                                    done(err);
+                                  }
+                                  if(!requestedby){
+                                   done(null, {
+                                      ticket: ticket,
+                                      resident: {}
+                                    });
+                                  } else {
+                                    done(null, {
+                                      ticket: ticket,
+                                      resident:requestedby
+                                    });
+                                  }
+                                });
+                            }
+                        }, function(err, tickets_array) {
+                            if (err) {
+                              console.log('ERR:'+err);
+                              callback(err, null);
+                            } else {
+                              callback(null, tickets_array);
+                            }
+                        });
 
                     },
-                    function (callback) {
+                    function(arg1, callback) {
 
-                        Ticket.count(options).exec(function (err, count) {
-                            if (err) {
-                                callback(err, null);
-                            } else {
-                                callback(null, count);
-                            }
-                        });
-                    }
-                ], function (err, results) {
-                    if (err) {
-                        console.log('ERROR: ' + err);
-                        return res.status(500).json({
-                            error: true,
-                            message: 'Server connection error. Please try later'
-                        });
-                    } else {
+                        async.map(arg1, function(ticket, done) {
 
-                        // filter: requested_by
-                        if(req.user.role == 'admin' || req.user.role == 'operation manager'){
-                            if(req.query.requested_by){
-                                var regexp = new RegExp(req.query.requested_by, 'i');
-                                var tickets = results[0].filter( function(val){
-                                    return regexp.test(val.requested_by.name.first);
+                            Comment.find({'discussion_id': ticket.ticket._id})
+                                .populate('posted_by', 'email profile_picture name')
+                                .exec(function (err, comment) {
+                                    if (err) {
+                                        console.log('ERROR: ' + err);
+                                        done(err);
+                                    }
+                                    if (!comment) {
+                                        done(null, {
+                                          ticket: ticket.ticket,
+                                          resident: ticket.resident,
+                                          comments: {}
+                                        });
+                                    } else {
+                                        done(null, {
+                                          ticket: ticket.ticket,
+                                          resident: ticket.resident,
+                                          comments: comment
+                                        });
+                                    }
                                 });
-                            }else{
-                                var tickets = results[0];
+
+                        }, function(err, tickets_array) {
+                            if (err) {
+                              console.log('ERR:'+err);
+                              callback(err, null);
+                            } else {
+                              callback(null, tickets_array);
                             }
-                        }
-                        else{
+                        });
+                    },
+                    function(arg2, callback){
+                        async.map(arg2, function(ticket, done) {
 
-                            var tickets = results[0].filter( function(val){
-                                return (val.requested_by.id == req.user.id);
-                            });
-                        }
+                            Note.find({'discussion_id': ticket.ticket._id})
+                                .populate('posted_by', 'email profile_picture name')
+                                .exec(function (err, note) {
+                                    if (err) {
+                                        console.log('ERROR: ' + err);
+                                        done(err);
+                                    }
+                                    if (!note) {
+                                        done(null, {
+                                          ticket: ticket.ticket,
+                                          resident: ticket.resident,
+                                          comments: ticket.comments,
+                                          notes: {}
+                                        });
+                                    } else {
+                                        done(null, {
+                                          ticket: ticket.ticket,
+                                          resident: ticket.resident,
+                                          comments: ticket.comments,
+                                          notes: note
+                                        });
+                                    }
+                                });
 
-                        conf.rows = tickets;
-                        console.log(tickets);
-                        var result = nodeExcel.execute(conf);
-                        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-                        res.setHeader("Content-Disposition", "attachment; filename=" + "work-orders-downloads.xlsx");
-                        res.end(result, 'binary');
-
-
+                        }, function(err, tickets_array) {
+                            if (err) {
+                              console.log('ERR:'+err);
+                              callback(err, null);
+                            } else {
+                              callback(null, tickets_array);
+                            }
+                        });
                     }
+                ], function (err, result) {
+                    conf.rows = result;
+                    //console.log(result[0].notes);
+                    var result = nodeExcel.execute(conf);
+                    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+                    res.setHeader("Content-Disposition", "attachment; filename=" + "work-orders-downloads.xlsx");
+                    res.end(result, 'binary');
                 });
+
             }
         });
 

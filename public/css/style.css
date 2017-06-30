@@ -2459,6 +2459,12 @@ textarea.parsley-error {
   border: none;
 }
 
+.btnsManageTickets {
+  margin-left: 5px;
+  margin-top: 11px;
+  border: none;
+}
+
 .cleanRoleSearch, .cleanLocationSearch, .cleanLocationTicket,
 .cleanCategorySearch, .cleanStatusSearch, .cleanPrioritySearch,
 .cleanSubcategoriesSearch {

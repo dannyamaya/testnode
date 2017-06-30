@@ -1634,7 +1634,32 @@ block scripts
         };
 
         function exportTickets(){
-            var query = '';
-             window.open('/tickets/export/#{user._id}'+query,'_blank');
+
+            var search = $('#search').val().trim();
+            var options = '';
+            var valor = $('#categoryDropdownTicket').val();
+
+            (tlocation != '') ? options += '&location=' + tlocation : null;
+            (tcategory != '') ? options += '&category=' + tcategory : null;
+            (tsubcategory != '') ? options += '&subcategory=' + tsubcategory : null;
+            (tstatus != '') ? options += '&status=' + tstatus : null;
+            (tpriority != '') ? options += '&priority=' + tpriority : null;
+
+
+            var searchby = $("#searchby").val();
+            var searchtext = $('#search').val().trim();
+
+            if (searchtext != '') {
+                if (searchby == 'created_by') {
+                    options += '&created_by=' + search;
+                } else if (searchby == 'assigned_to') {
+                    options += '&assigned_to=' + search;
+                } else if (searchby == 'requested_by') {
+                    options += '&requested_by=' + search;
+                } else {
+                    options += '&id=' + search;
+                }
+            }
+            window.open('/tickets/export/#{user._id}?'+options,'_blank');
         }
 

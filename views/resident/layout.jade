@@ -43,14 +43,25 @@ html.no-js(lang="es")
                     //- li.inactive DASHBOARD
                     if user.role == 'admin' || user.role == 'operation manager'
                         li
-                            a(href="/users")
-                                i.menu-users-icon
-                                span Users
+                          a(href="/users")
+                              i.menu-users-icon
+                              span Users
                     li
-                        a(href="/tickets")
-                            i.menu-tickets-icon
-                            span Work Orders
-                            i.label.label-livinn.hidden#ticketcount 0
+                      a(href="/tickets")
+                          i.menu-tickets-icon
+                          span Work Orders
+                          i.label.label-livinn.hidden#ticketcount 0
+                    li
+                      a.container-menu-tickets-icon2(href="#")
+                          i.menu-roomate-icon
+                          span Roommate Matching
+                          i.label.label-livinn#ticketcount soon
+                    li.has-feedback
+                      a.container-menu-tickets-icon2(href="#")
+                          i.menu-friendly-icon
+                          span Livinn Friendly
+                          i.label.label-livinn#ticketcount soon
+                          i.fa.fa-download.pull-right(style="display: inline-block; color: #707070;")
 
             ul.list-unstyled.col-xs-12.no-padding.userSettings(style="z-index: 2000;")
                 li.dropdown.col-xs-12.no-pading

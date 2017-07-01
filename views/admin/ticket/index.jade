@@ -156,18 +156,7 @@ block content
                  i.fa.fa-download
 
                 .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-<<<<<<< HEAD
-                  button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#categoryDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Category
-                      i.fa.fa-angle-down
-                  ul.dropdown-menu#dropdowncategoriesdesktop(aria-labelledby="dropdownMenu1")
-                    li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
-                
-                if user.role == 'admin'
-                  .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
-                    button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
-=======
                     button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#priorityDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Priority
->>>>>>> 5e86ee6619d58a6e3fd7f702638eed83831b380b
                         i.fa.fa-angle-down
                     ul.dropdown-menu(aria-labelledby="dropdownMenu1")
                         li
@@ -197,22 +186,6 @@ block content
                         li
                             a.statusSearch(href="#") Pending
                         li
-<<<<<<< HEAD
-                          a.locationSearch(href="#") Barranquilla - Villa Campestre
-                        li.dropdown-header.cleanLocationTicket.pull-right(style="color:#D51C5C;") Clear
-                  
-                  .pull-right.no-padding.searchInputTicket(style="display: inline-block;")
-                      .input-group.search
-                          .col-md-6.no-padding
-                              .select
-                                  select#searchby
-                                      option(value="requested_by") Requested by
-                                      option(value="created_by" selected="true") Created by
-                                      option(value="assigned_to") Assigned to
-                                      option(value="id") Work Order ID
-                          .col-xs-6.no-padding
-                              input.form-control#search(type="text" name="name" placeholder="Search")
-=======
                             a.statusSearch(href="#") Resolved
                         li.dropdown-header.cleanStatusSearch.pull-right(style="color:#D51C5C;") Clear
 
@@ -259,8 +232,6 @@ block content
 
                 if user.role == 'operation manager'
                     input.form-control.hidden#search(type="text" name="name" placeholder="Search")
->>>>>>> 5e86ee6619d58a6e3fd7f702638eed83831b380b
-
     input#hiddenHelper.hidden(value=0)
 
     .col-xs-12.content
@@ -342,20 +313,6 @@ block modals
                                     i.icon.ion-paperclip(aria-hidden='true')
                                     |   Attach a file
                                 button.col-xs-4.col-xs-offset-2.btn.btn-livinn.pull-right.btn-submit-ticket#createTicket(type='submit') SUBMIT
-
-
-<<<<<<< HEAD
-                            .form-group
-                                label
-                                    |   Attachment
-                                    span (optional)
-                                input#file-select(type='file' name='attachments' data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Escoger Archivo")
-                            .modal-footer
-                                .pull-right.form-group-end
-                                    button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
-                                    input.btn.btn-livinn(type="submit" value="Submit")
-=======
->>>>>>> 5e86ee6619d58a6e3fd7f702638eed83831b380b
 
     <!-- Ticket Read Modal -->
     .modal.fade.ticket-modal.readModal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
@@ -856,6 +813,7 @@ block scripts
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    $('.containerNoTickets').remove();
                     console.log(response);
                     if (response.message == 'Work Order has been created') {
                         socket.emit('new-ticket', {ticket: response.ticket});

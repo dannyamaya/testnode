@@ -653,6 +653,10 @@ block scripts
     script.
       $(document).ready(function () {
 
+          if( getCookie("loading") == "ok" ){
+            wdtLoading.done();
+          }
+
           $('#page-selection').bootpag({
               total: 10,
               maxVisible: 5,
@@ -720,6 +724,7 @@ block scripts
           setTimeout(function(){
             $('#loaderPlatform').fadeOut("slow", function(){
                 wdtLoading.done();
+                setCookie();
             });
            }, 4000);
 
@@ -736,6 +741,30 @@ block scripts
       var userrole = '';
 
       /*=== HELPERS ===*/
+
+      function setCookie() {
+        var now = new Date();
+        var time = now.getTime();
+        var expireTime = time + 1000*36000;
+        now.setTime(expireTime);
+        document.cookie = 'loading=ok;expires='+now.toGMTString()+';path=/users';
+      }
+
+      function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+              }
+          }
+          return "";
+      }
 
       $(function () {
           $('[data-toggle="tooltip"]').tooltip()
@@ -951,7 +980,8 @@ block scripts
                           success: function (response) {
 
                               $("#numcontractRead").text(response.resident.contract_number);
-                              $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
+                              if(response.resident.birth_date)
+                                $("#birthdateRead").text(response.resident.birth_date.substr(0, 10));
                               $("#apartmentRead").text(response.resident.apartment);
                               $("#typeRead").text(response.resident.apartment_type);
                               $("#bathroomRead").text(response.resident.bathroom);
@@ -1021,7 +1051,7 @@ block scripts
                                   console.log(response);
 
                                   $("#inputUpdateContract").val(response.resident.contract_number);
-                                  if(!typeof response.resident.birth_date == null )
+                                  if(response.resident.birth_date)
                                       $("#inputUpdateBirthdate").val(response.resident.birth_date.substr(0,10));
                                   $("#inputUpdateApartment").val(response.resident.apartment);
                                   $("#inputUpdateApartmentType").val(response.resident.apartment_type);
@@ -1244,6 +1274,15 @@ block scripts
              $('#loader').fadeIn("fast");
              readUsers(1);
          });
+      });
+
+      $('#search').keypress(function () {
+          usersearch = $("#search").val();
+          $("#search").val(usersearch);
+          $('#userstable').fadeOut("fast", function () {
+              $('#loader').fadeIn("fast");
+              readUsers(1);
+          });
       });
 
       /*=== EXPORT USERS ===*/

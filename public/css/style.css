@@ -1084,7 +1084,7 @@ button:focus{
     .loaderPlatform .logoHeading {
       height: 80px;
     }
-      
+
     .logoHeading a {
       width: 125px;
     }
@@ -1913,7 +1913,7 @@ button:focus{
   border-bottom: none;
   border-right: 2px solid #FFF;
   border-left: 2px solid #FFF;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   color: #555;
 }
 
@@ -2455,6 +2455,12 @@ textarea.parsley-error {
 
 .btnsManageUsers {
   margin-left: 3px;
+  margin-top: 11px;
+  border: none;
+}
+
+.btnsManageTickets {
+  margin-left: 5px;
   margin-top: 11px;
   border: none;
 }
@@ -3114,7 +3120,17 @@ textarea.parsley-error {
   color: #81939E;
 }
 
-
+.bgray-input{
+    background-color: #DCDCDC;
+    width: 100% !important;
+}
+.btn-submit-ticket{
+    margin-right: -2% !important;
+}
+.ticket-mobile-create{
+    padding-top: 10%;
+    padding-bottom: 11%;
+}
 
 
 

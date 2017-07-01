@@ -196,9 +196,13 @@ exports.newTicket= function(ticket){
 
 exports.newComment = function(comment){
 
+    // console.log('comment' + comment);
+    var ticketid = exports.getTicketID(comment.created, comment.discussion_id.requested_by.location, comment.discussion_id.id);
+    console.log(comment.discussion_id.requested_by.location);
     var locals = {
         url: config.production.url,
-        comment: comment
+        comment: comment,
+        ticketid: ticketid
     };
 
     emailTemplates(templatesDir,locals, function(err, template) {

@@ -443,11 +443,11 @@ button:focus{
 /* MENU & NAVIGATIONS */
 
 .slideContainerLeft {
-  -webkit-transform: translate3d(-205px,0,0);
-  -moz-transform: translate3d(-205px,0,0);
-  -ms-transform: translate3d(-205px,0,0);
-  -o-transform: translate3d(-205px,0,0);
-  transform: translate3d(-205px,0,0);
+  -webkit-transform: translate3d(-268px,0,0);
+  -moz-transform: translate3d(-268px,0,0);
+  -ms-transform: translate3d(-268px,0,0);
+  -o-transform: translate3d(-268px,0,0);
+  transform: translate3d(-268px,0,0);
   transition: transform 0.4s ease-out;
 }
 
@@ -541,7 +541,7 @@ button:focus{
   background:#1E1E1E;
   top:0;
   right: 0;
-  width: 205px;
+  width: 268px;
 
   -webkit-transition: -webkit-transform .4s cubic-bezier(.16, .68, .43, .99);
   -moz-transition: -moz-transform .4s cubic-bezier(.16, .68, .43, .99);
@@ -617,6 +617,38 @@ button:focus{
 
 .menu-tickets-icon {
   background-position: 0px -40px;
+}
+
+.container-menu-tickets-icon2 span {
+  top: -8px !important;
+  color: #707070;
+  font-weight: normal;
+}
+
+.container-menu-tickets-icon2 .label-livinn {
+  top: -8px !important;
+}
+
+.menu-roomate-icon {
+  background-image: url('../img/icon-roommate.png');
+  width: 23px;
+  height: 22px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-size: contain;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.menu-friendly-icon {
+  background-image: url('../img/icon-livinnfriendly.png');
+  width: 23px;
+  height: 22px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-size: contain;
+  margin-left: 7px;
+  margin-right: 7px;
 }
 
 .navbar {
@@ -1070,7 +1102,7 @@ button:focus{
       -o-transform: translate3d(0px,0,0);
       transform: translate3d(0px,0,0);
       transition: transform 0.4s ease-out;
-      width: 75.5%;
+      width: 64.5%;
     }
 
     .slideContainerRight {
@@ -1110,7 +1142,7 @@ button:focus{
     }
 
     .slideContainerLeft {
-      width: 80%;
+      width: 73%;
     }
 
     .searchInputTicket {
@@ -2650,7 +2682,7 @@ textarea.parsley-error {
 
   .dashboard-menu {
     position: fixed;
-    width: 24.5%;
+    width: 35.5%;
   }
 
   .userFilters.searchTicket .search-filtersMobile .subcategoriesTickets .dropdown-menu {
@@ -2732,7 +2764,7 @@ textarea.parsley-error {
   }
 
   .dashboard-menu {
-    width: 20%;
+    width: 27%;
   }
 
   .userTools {
@@ -2860,11 +2892,23 @@ textarea.parsley-error {
   .contentNoTickets {
     margin-top: -21%;
   }
+
+  .dashboard-menu {
+    width: 22%;
+  }
+
+  .slideContainerLeft {
+    width: 78%;
+  }
 }
 
 @media screen and (min-width: 1600px) {
   .dashboard-menu {
-    width: 15%;
+    width: 19%;
+  }
+
+  .slideContainerLeft {
+    width: 81%;
   }
 
   .contentNoTickets {
@@ -2878,6 +2922,26 @@ textarea.parsley-error {
     margin-top: -14%;
   }
 
+}
+
+@media screen and (min-width: 2250px) {
+  .dashboard-menu {
+    width: 17%;
+  }
+
+  .slideContainerLeft {
+    width: 83%;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .dashboard-menu {
+    width: 15%;
+  }
+
+  .slideContainerLeft {
+    width: 85%;
+  }
 }
 
 .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {

@@ -197,7 +197,7 @@ block content
                       i.fa.fa-angle-down
                   ul.dropdown-menu#dropdowncategoriesdesktop(aria-labelledby="dropdownMenu1")
                     li.dropdown-header.cleanCategorySearch.pull-right(style="color:#D51C5C;") Clear
-
+                
                 if user.role == 'admin'
                   .pull-right.dropdown.hidden-xs.hidden-sm(style="display:inline-block;")
                     button.btn.btn-adduser.btn-dropdown.dropdown-toggle.filter#locationDropdownTicket(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Location
@@ -214,7 +214,7 @@ block content
                         li
                           a.locationSearch(href="#") Barranquilla - Villa Campestre
                         li.dropdown-header.cleanLocationTicket.pull-right(style="color:#D51C5C;") Clear
-
+                  
                   .pull-right.no-padding.searchInputTicket(style="display: inline-block;")
                       .input-group.search
                           .col-md-6.no-padding
@@ -225,10 +225,7 @@ block content
                                       option(value="assigned_to") Assigned to
                                       option(value="id") Work Order ID
                           .col-xs-6.no-padding
-                              input.form-control#search(type="text" name="name" placeholder="Search").
-
-                if user.role == 'operation manager'
-                    input.form-control.hidden#search(type="text" name="name" placeholder="Search")
+                              input.form-control#search(type="text" name="name" placeholder="Search")
 
     input#hiddenHelper.hidden(value=0)
 
@@ -313,7 +310,7 @@ block modals
                             .modal-footer
                                 .pull-right.form-group-end
                                     button.btn(type="button" data-dismiss="modal" style="margin-right:7px;") Cancel
-                                    input.btn.btn-livinn(type="submit" value="Submit" onclick="removeNoTickets()")
+                                    input.btn.btn-livinn(type="submit" value="Submit")
 
     <!-- Ticket Read Modal -->
     .modal.fade.ticket-modal.readModal#readModal(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
@@ -338,7 +335,7 @@ block modals
                                 .form-group
                                     label Category
                                     .select
-                                        select.editopenticket#openticketcategory(name="category")
+                                        select.editopenticket#openticketcategory(name="category" onchange="loadOpenSubcategories()")
                                 .form-group
                                     label Subcategory
                                     .select
@@ -985,8 +982,8 @@ block scripts
 
         /* Get params from all filters */
         function filterTickets(page) {
-                var search = $('#search').val().trim();
-                getTickets(page, search);
+            var search = $('#search').val().trim();
+            getTickets(page, search);
         };
 
         $('#searchForm').submit(function (evt) {
@@ -1517,7 +1514,7 @@ block scripts
 
                     for(var i=0; i < categories.length ; i++){
                       $("#dropdowncategoriesdesktop").prepend('<li><a class="categorySearch text-capitalize" href="#">'+categories[i].name+'</a></li>');
-
+                      
                       $('#newTicketCategory').prepend($('<option>', {
                         value: categories[i].name,
                         text: categories[i].name
@@ -1529,7 +1526,7 @@ block scripts
                     }
 
                     $("#dropdowncategoriesdesktop").append('<li class="dropdown-header cleanCategorySearch pull-right" style="color:#D51C5C;"> Clear <li>');
-
+                    
                     $('#newTicketCategory').prepend($('<option>', {
                       value: '',
                       text: 'Choose a Category',
@@ -1579,10 +1576,11 @@ block scripts
         };
 
         function loadOpenSubcategories(category,subcategory){
+          var c = category || $('#openticketcategory').val();
           var queryopt = '';
           var categories = new Array();
-          if(category && category != ''){
-            queryopt = '?category='+category;
+          if(c && c != ''){
+            queryopt = '?category='+c;
           }
           $.ajax({
                 type: "GET",
@@ -1606,7 +1604,7 @@ block scripts
                         value: '',
                         text: 'Choose a Subcategory',
                         selected: true
-                      }));
+                      }));                  
                     }
                 },
                 error: function(xhr){
